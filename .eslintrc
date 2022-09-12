@@ -1,0 +1,24 @@
+{
+  "extends": [
+    "next",
+    "plugin:prettier/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:jsx-a11y/recommended",
+    "eslint:recommended",
+    "next/core-web-vitals",
+    "prettier" ,
+    "plugin:valtio/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "plugins": ["react", "unused-imports", "jsx-a11y","@typescript-eslint"],
+  "rules": {
+    "valtio/state-snapshot-rule": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
+  }
+}
