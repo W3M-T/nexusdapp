@@ -10,12 +10,12 @@ const breakpoints = {
 };
 
 export const customColors = {
-  color1: {
+  color2: {
     lighter: "#59a1ea",
     base: "#3C91E6",
     darker: "#1c7bda",
   },
-  color2: {
+  color1: {
     lighter: "#b0dd49",
     base: "#A2D729",
     darker: "#8ab722",
@@ -34,7 +34,7 @@ export const theme = extendTheme({
         minHeight: "100vh",
         overflowX: "hidden",
         bgGradient:
-          "linear-gradient(90deg, dappTemplate.bgStripes 0.1%, dappTemplate.dark.base 0.1%, dappTemplate.dark.base 50%, dappTemplate.bgStripes 50%, dappTemplate.bgStripes 50.1%, dappTemplate.dark.base 50.1%, dappTemplate.dark.base 100%);",
+          "linear-gradient(180deg, rgba(9,2,38,1) 0%, rgba(5,0,14,1) 100%);",
         bgSize: "700px",
         backgroundPositionX: "150px",
         color: "dappTemplate.white",
@@ -67,7 +67,7 @@ export const theme = extendTheme({
       dark: {
         lighter: "#3c4757",
         base: "#222831",
-        darker: "#1d222a",
+        darker: "#010711",
       },
       light: "#FAFFFD",
       white: "#ffffff",
