@@ -9,6 +9,7 @@ interface AccountState extends Record<string, unknown> {
   address: string;
   nonce: number;
   balance: string;
+  username: string;
 }
 
 const accountInitialState: AccountState = {
@@ -16,6 +17,7 @@ const accountInitialState: AccountState = {
   address: "",
   nonce: 0,
   balance: "",
+  username: "",
 };
 
 export const accountState = proxy(accountInitialState);

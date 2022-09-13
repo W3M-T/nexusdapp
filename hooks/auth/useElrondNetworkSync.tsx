@@ -55,6 +55,7 @@ export const useElrondNetworkSync = () => {
     setAccountState("nonce", parsedStorage.nonce);
     setAccountState("balance", parsedStorage.balance);
     setAccountState("addressIndex", parsedStorage.addressIndex);
+    setAccountState("username", parsedStorage.username);
     setAccountDone(true);
   }, []);
 
@@ -77,6 +78,7 @@ export const useElrondNetworkSync = () => {
     accountSnap.nonce,
     accountSnap.balance,
     accountSnap.addressIndex,
+    accountSnap.username,
   ]);
 
   useEffectOnlyOnUpdate(() => {
@@ -241,15 +243,22 @@ export const useElrondNetworkSync = () => {
       const loginExpired = loginExpires && isLoginExpired(loginExpires);
       if (!loginExpired && address && apiNetworkProvider) {
         const userAddressInstance = new Address(address);
-        const userAccountInstance = new Account(userAddressInstance);
+        interface ICustomAccount extends Account {
+          username?: string;
+        }
+        const userAccountInstance: ICustomAccount = new Account(
+          userAddressInstance
+        );
         try {
           const userAccountOnNetwork = await apiNetworkProvider.getAccount(
             userAddressInstance
           );
           userAccountInstance.update(userAccountOnNetwork);
+
           setAccountState("address", address);
           setAccountState("nonce", userAccountInstance.nonce.valueOf());
           setAccountState("balance", userAccountInstance.balance.toString());
+          setAccountState("username", userAccountOnNetwork.userName.toString());
           setLoggingInState("loggedIn", Boolean(address));
         } catch (e) {
           const err = errorParse(e);
