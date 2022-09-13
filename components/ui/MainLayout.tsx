@@ -1,6 +1,5 @@
 import { Box, Container } from "@chakra-ui/react";
 import { PropsWithChildren } from "react";
-import { Footer } from "./Footer";
 import { HeaderMenu } from "./HeaderMenu";
 import { HeaderMenuButtons } from "./HeaderMenuButtons";
 import { MetaHead, MetaHeadProps } from "./MetaHead";
@@ -20,7 +19,7 @@ export const MainLayout = ({
         metaImage={metaImage}
         metaUrl={metaUrl}
       />
-      <Box minHeight="calc(100vh - 80px)" pb="10">
+      <Box minHeight="100vh" pb="24">
         <Container maxW="container.xl">
           <HeaderMenu>
             <HeaderMenuButtons enabled={["auth"]} />
@@ -28,7 +27,7 @@ export const MainLayout = ({
           <Box>{children}</Box>
         </Container>
       </Box>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };
