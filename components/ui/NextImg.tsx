@@ -1,10 +1,11 @@
 import { Box, BoxProps } from "@chakra-ui/react";
-import Image, { ImageProps } from "next/image";
+import Image from "next/image";
 
 interface IProps extends BoxProps {
   src: string;
   alt?: string;
-  nextProps?: ImageProps;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  nextProps?: any;
 }
 
 const NextImg = ({ src, alt = "", nextProps, ...props }: IProps) => {
