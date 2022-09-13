@@ -1,9 +1,9 @@
 import { useDisclosure } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 import { useLogin } from "../../hooks/auth/useLogin";
-import { useLogout } from "../../hooks/auth/useLogout";
 import { useEffectOnlyOnUpdate } from "../../hooks/tools/useEffectOnlyOnUpdate";
 import { ActionButton } from "../tools/ActionButton";
+import LogedInButton from "../ui/LogedInButton";
 
 const LoginModal = dynamic(() => import("../ui/LoginModal"));
 interface LoginModalButtonProps {
@@ -16,7 +16,6 @@ export const LoginModalButton = ({
   onOpen,
 }: LoginModalButtonProps) => {
   const { isLoggedIn, isLoggingIn } = useLogin();
-  const { logout } = useLogout();
   const {
     isOpen: opened,
     onOpen: open,
@@ -32,9 +31,7 @@ export const LoginModalButton = ({
   return (
     <>
       {isLoggedIn ? (
-        <ActionButton onClick={logout} bgColor="dappTemplate.color2.dark">
-          Disconnect
-        </ActionButton>
+        <LogedInButton />
       ) : (
         <ActionButton
           onClick={open}

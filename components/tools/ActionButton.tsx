@@ -2,7 +2,7 @@ import { Box, BoxProps } from "@chakra-ui/react";
 import { PropsWithChildren, useCallback } from "react";
 
 interface ActionButtonProps extends BoxProps {
-  onClick: () => void;
+  onClick?: () => void;
   isFullWidth?: boolean;
   disabled?: boolean;
 }
@@ -28,7 +28,7 @@ export const ActionButton = ({
       bgColor="transparent"
       py={1.5}
       px={5}
-      rounded="xl"
+      rounded="lg"
       fontWeight="normal"
       cursor={disabled ? "not-allowed" : "pointer"}
       color="dappTemplate.white"

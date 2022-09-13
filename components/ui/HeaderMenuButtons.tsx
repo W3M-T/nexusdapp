@@ -12,7 +12,8 @@ export const HeaderMenuButtons = ({ enabled }: HeaderMenuButtonsProps) => {
       display="flex"
       gap={5}
       alignItems="center"
-      flexDirection={["column", "column", "column", "row"]}
+      flexDirection={{ sm: "column", lg: "row" }}
+      width={{ sm: "100%", lg: "auto" }}
     >
       {/* <SocialMediaIcons /> */}
       <NavMenu />

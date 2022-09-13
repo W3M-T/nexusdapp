@@ -28,6 +28,7 @@ export const customColors = {
 };
 
 export const theme = extendTheme({
+  breakpoints,
   styles: {
     global: {
       body: {
@@ -87,5 +88,4 @@ export const theme = extendTheme({
       },
     },
   },
-  ...breakpoints,
 });
