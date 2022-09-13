@@ -1,9 +1,7 @@
 import { Center, Flex, FlexProps, Icon, Input } from "@chakra-ui/react";
 import { BsSearch } from "react-icons/bs";
 
-interface IProps extends FlexProps {}
-
-const SearchBar = ({ ...props }: IProps) => {
+const SearchBar = ({ ...props }: FlexProps) => {
   return (
     <Flex
       justifyContent={"space-between"}

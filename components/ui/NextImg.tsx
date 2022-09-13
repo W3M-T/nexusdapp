@@ -1,10 +1,10 @@
 import { Box, BoxProps } from "@chakra-ui/react";
-import Image from "next/image";
+import Image, { ImageProps } from "next/image";
 
 interface IProps extends BoxProps {
   src: string;
   alt?: string;
-  nextProps?: any;
+  nextProps?: ImageProps;
 }
 
 const NextImg = ({ src, alt = "", nextProps, ...props }: IProps) => {
