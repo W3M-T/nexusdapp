@@ -1,13 +1,9 @@
 import type { NextPage } from "next";
-import { MainLayout } from "../components/ui/MainLayout";
 import ProtectPage from "../hoc/ProtectPage";
+import ViewPools from "../views/ViewPools/ViewPools";
 
 const ViewPool: NextPage = () => {
-  return (
-    <MainLayout metaTitle="Veiw Pool">
-      <h1>View pool</h1>
-    </MainLayout>
-  );
+  return <ViewPools />;
 };
 
 export default ProtectPage(ViewPool);
