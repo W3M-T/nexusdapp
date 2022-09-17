@@ -1,5 +1,8 @@
 import { Box, Container } from "@chakra-ui/react";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useAccount } from "../../hooks/auth/useAccount";
+import { setAddress } from "../../redux/slices/settings";
 import { HeaderMenu } from "./HeaderMenu";
 import { HeaderMenuButtons } from "./HeaderMenuButtons";
 import { MetaHead, MetaHeadProps } from "./MetaHead";
@@ -11,6 +14,12 @@ export const MainLayout = ({
   metaImage,
   metaUrl,
 }: PropsWithChildren<MetaHeadProps>) => {
+  const account = useAccount();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setAddress(account.address));
+  }, [account.address, dispatch]);
+
   return (
     <>
       <MetaHead

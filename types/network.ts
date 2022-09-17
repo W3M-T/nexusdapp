@@ -7,8 +7,13 @@ import {
 import { WalletConnectProvider } from "@elrondnetwork/erdjs-wallet-connect-provider";
 import { WalletProvider } from "@elrondnetwork/erdjs-web-wallet-provider";
 
+interface ITokens {
+  EGLD: string;
+  WATER?: string;
+  MERMAID?: string;
+}
 interface ISmartContracts {
-  mundialBet?: string;
+  nftsStaking?: string;
 }
 
 export interface BaseNetworkType {
@@ -25,11 +30,12 @@ export interface BaseNetworkType {
   explorerAddress: string;
   apiTimeout: string;
   gatewayAddress: string;
-  contractAddr: ISmartContracts;
 }
 
 export interface NetworkType extends BaseNetworkType {
   walletConnectBridgeAddresses: string[];
+  contractAddr: ISmartContracts;
+  tokens: ITokens;
 }
 
 export type DappProvider =

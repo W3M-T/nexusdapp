@@ -27,7 +27,8 @@ export const CardWrapper: FC<PropsWithChildren<BoxProps>> = ({
 }) => {
   const Wrapper = chakra(Box, {
     baseStyle: {
-      backgroundColor: "dappTemplate.dark.darker",
+      backgroundImage:
+        "linear-gradient(127.09deg, rgba(6, 11, 40, 0.94) 19.41%, rgba(10, 14, 35, 0.49) 76.65%)",
       padding: 8,
       borderRadius: "2xl",
       ...props,

@@ -17,6 +17,7 @@ import { store } from "../redux/store";
 
 const NextJSDappTemplate = ({ Component, pageProps }: AppProps) => {
   useElrondNetworkSync();
+
   return (
     <Provider store={store}>
       <ChakraProvider theme={theme}>

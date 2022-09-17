@@ -20,7 +20,7 @@ export const Logo = () => {
           color="dappTemplate.white"
           textAlign={{ sm: "center", md: "left" }}
         >
-          Elrond Nfts Staking
+          The NFT Nexus
         </Text>
       </Box>
     </NextLink>

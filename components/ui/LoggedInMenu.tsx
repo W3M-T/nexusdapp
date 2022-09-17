@@ -1,6 +1,8 @@
 import { Box, Flex, VStack } from "@chakra-ui/react";
+import Link from "next/link";
 import { customColors } from "../../config/chakraTheme";
 import { useLogout } from "../../hooks/auth/useLogout";
+import { route } from "../../utils/routes";
 import { CardWrapper } from "./CardWrapper";
 
 const LoggedInMenu = () => {
@@ -38,7 +40,9 @@ const LoggedInMenu = () => {
               textShadow: "0 0 10px " + customColors.color2.base,
             }}
           >
-            Owner Dashboar
+            <Link href={route.scOwner.route}>
+              <a>Owner Dashboar</a>
+            </Link>
           </Flex>
           <Flex
             py={1}
@@ -49,7 +53,9 @@ const LoggedInMenu = () => {
               textShadow: "0 0 10px " + customColors.color2.base,
             }}
           >
-            Nft Collection Owner
+            <Link href={route.nftCollectionOwner.route}>
+              <a> Nft Collection Owner</a>
+            </Link>
           </Flex>
         </VStack>
       </CardWrapper>

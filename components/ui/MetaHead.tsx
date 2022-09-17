@@ -13,7 +13,9 @@ export const MetaHead = memo(
   ({ metaTitle, metaDescription, metaImage, metaUrl }: MetaHeadProps) => {
     return (
       <Head>
-        <title key="titleTag">{metaTitle || defaultMetaTags.title}</title>
+        <title key="titleTag">
+          {"The NFT Nexus | " + metaTitle || defaultMetaTags.title}
+        </title>
         <meta
           key="description"
           name="description"

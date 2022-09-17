@@ -29,8 +29,12 @@ export const networkConfig: Record<string, NetworkType> = {
     apiTimeout: "4000",
     gatewayAddress: "https://devnet-gateway.elrond.com",
     contractAddr: {
-      mundialBet:
-        "erd1qqqqqqqqqqqqqpgq3k2wt4wy37ewtxzas5ttrzmnl72j7myj64qsk3zrls",
+      nftsStaking:
+        "erd1qqqqqqqqqqqqqpgqupsnyns7ck54q6ue23d9d2nzz5r9wz9q8pgqa7a57l",
+    },
+    tokens: {
+      EGLD: "EGLD",
+      WATER: "WATER-f4db53",
     },
   },
 
@@ -52,6 +56,9 @@ export const networkConfig: Record<string, NetworkType> = {
     apiTimeout: "4000",
     gatewayAddress: "https://testnet-gateway.elrond.com",
     contractAddr: {},
+    tokens: {
+      EGLD: "EGLD",
+    },
   },
 
   mainnet: {
@@ -71,8 +78,12 @@ export const networkConfig: Record<string, NetworkType> = {
     apiTimeout: "4000",
     gatewayAddress: "https://gateway.elrond.com",
     contractAddr: {
-      mundialBet:
-        "erd1qqqqqqqqqqqqqpgqk37hdv00knvvl9q62ejx9h5ah8kl53rz64qs6jw4u3",
+      nftsStaking: "",
+    },
+    tokens: {
+      EGLD: "EGLD",
+      WATER: "WATER-9ed400",
+      MERMAID: "MERMAID-9c388a",
     },
   },
 };
