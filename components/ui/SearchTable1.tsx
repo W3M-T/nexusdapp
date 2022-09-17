@@ -18,7 +18,7 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import {
   TiArrowSortedDown,
@@ -140,36 +140,42 @@ function SearchTable1(props) {
           <Thead>
             {headerGroups.map((headerGroup, index) => (
               <Tr {...headerGroup.getHeaderGroupProps()} key={index}>
-                {headerGroup.headers.map((column, index) => (
-                  <Th
-                    borderColor="#56577A"
-                    {...column.getHeaderProps(column.getSortByToggleProps())}
-                    pe="0px"
-                    key={index}
-                  >
-                    <Flex
-                      justify="space-between"
-                      align="center"
-                      fontSize={{ sm: "10px", lg: "12px" }}
-                      color="gray.400"
+                {headerGroup.headers.map((column, index) => {
+                  console.log("column", column);
+
+                  return (
+                    <Th
+                      borderColor="#56577A"
+                      {...column.getHeaderProps(column.getSortByToggleProps())}
+                      pe="0px"
+                      key={index}
                     >
-                      {column.render("Header")}
-                      <Icon
-                        w={{ sm: "10px", md: "14px" }}
-                        h={{ sm: "10px", md: "14px" }}
-                        color={columns.isSorted ? "gray.500" : "gray.400"}
-                        float="right"
-                        as={
-                          column.isSorted
-                            ? column.isSortedDesc
-                              ? TiArrowSortedDown
-                              : TiArrowSortedUp
-                            : TiArrowUnsorted
-                        }
-                      />
-                    </Flex>
-                  </Th>
-                ))}
+                      <Flex
+                        justify="space-between"
+                        align="center"
+                        fontSize={{ sm: "10px", lg: "12px" }}
+                        color="gray.400"
+                      >
+                        {column.render("Header")}
+                        {!column.disableSort && (
+                          <Icon
+                            w={{ sm: "10px", md: "14px" }}
+                            h={{ sm: "10px", md: "14px" }}
+                            color={columns.isSorted ? "gray.500" : "gray.400"}
+                            float="right"
+                            as={
+                              column.isSorted
+                                ? column.isSortedDesc
+                                  ? TiArrowSortedDown
+                                  : TiArrowSortedUp
+                                : TiArrowUnsorted
+                            }
+                          />
+                        )}
+                      </Flex>
+                    </Th>
+                  );
+                })}
               </Tr>
             ))}
           </Thead>
