@@ -9,7 +9,7 @@ const ExistingPools = () => {
   return (
     <CardWrapper>
       <Heading fontSize={"2xl"}>Existing Pools</Heading>
-      {data.length > 0 ? (
+      {data.length === 0 ? (
         <SearchTable1 tableData={[]} columnsData={columns} />
       ) : (
         <Center w="100%" mt="34px" mb="34px">
