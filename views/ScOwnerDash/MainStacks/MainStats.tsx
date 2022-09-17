@@ -8,15 +8,19 @@ const MainStats = () => {
         Dashboad
       </Heading>
       <Flex w="full" maxW="450px" justifyContent={"space-between"} mb={4}>
-        <Text fontWeight={"semibold"}>Total Number of pools created</Text>
+        <Text fontSize="lg" fontWeight={"semibold"}>
+          Total Number of pools created
+        </Text>
         <Text>32</Text>
       </Flex>
       <Flex w="full" maxW="450px" justifyContent={"space-between"} mb={4}>
-        <Text fontWeight={"semibold"}>Total Number of nfts staked</Text>
+        <Text fontSize="lg" fontWeight={"semibold"}>
+          Total Number of nfts staked
+        </Text>
         <Text>185</Text>
       </Flex>
       <Box w="full">
-        <Text mb={2} fontWeight={"semibold"}>
+        <Text fontSize="lg" mb={2} fontWeight={"semibold"}>
           Total fees collected
         </Text>
         <Flex flexWrap={"wrap"} w="full" gap={3}>
