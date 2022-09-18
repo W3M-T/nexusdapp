@@ -26,7 +26,7 @@ export const networkConfig: Record<string, NetworkType> = {
     apiAddress:
       process.env.NEXT_PUBLIC_ELROND_API || "https://devnet-api.elrond.com",
     explorerAddress: "https://devnet-explorer.elrond.com",
-    apiTimeout: "4000",
+    apiTimeout: "40000",
     gatewayAddress: "https://devnet-gateway.elrond.com",
     contractAddr: {
       nftsStaking:
@@ -53,7 +53,7 @@ export const networkConfig: Record<string, NetworkType> = {
     apiAddress:
       process.env.NEXT_PUBLIC_ELROND_API || "https://testnet-api.elrond.com",
     explorerAddress: "https://testnet-explorer.elrond.com",
-    apiTimeout: "4000",
+    apiTimeout: "40000",
     gatewayAddress: "https://testnet-gateway.elrond.com",
     contractAddr: {},
     tokens: {
@@ -75,7 +75,7 @@ export const networkConfig: Record<string, NetworkType> = {
     walletAddress: "https://wallet.elrond.com",
     apiAddress: process.env.NEXT_PUBLIC_ELROND_API || "https://api.elrond.com",
     explorerAddress: "https://explorer.elrond.com",
-    apiTimeout: "4000",
+    apiTimeout: "40000",
     gatewayAddress: "https://gateway.elrond.com",
     contractAddr: {
       nftsStaking: "",
@@ -87,3 +87,5 @@ export const networkConfig: Record<string, NetworkType> = {
     },
   },
 };
+
+export const selectedNetwork = networkConfig[chainType];

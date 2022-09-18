@@ -7,8 +7,9 @@ import SelectDark, {
 interface IProps {
   onSubmit: (amount: string, token: string) => void;
   actionText: string;
+  disabled?: boolean;
 }
-const GeneralAction = ({ onSubmit, actionText }: IProps) => {
+const GeneralAction = ({ onSubmit, disabled, actionText }: IProps) => {
   return (
     <Center flexDir={"column"}>
       <Flex gap={4} mb={2}>
@@ -19,7 +20,10 @@ const GeneralAction = ({ onSubmit, actionText }: IProps) => {
           <OptionSelectDark>Mermaid</OptionSelectDark>
         </SelectDark>
       </Flex>
-      <ActionButton onClick={() => onSubmit("451", "EGLD")}>
+      <ActionButton
+        onClick={() => onSubmit("10000000000000000", "EGLD")}
+        disabled={disabled}
+      >
         {actionText}
       </ActionButton>
     </Center>

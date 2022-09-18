@@ -141,8 +141,6 @@ function SearchTable1(props) {
             {headerGroups.map((headerGroup, index) => (
               <Tr {...headerGroup.getHeaderGroupProps()} key={index}>
                 {headerGroup.headers.map((column, index) => {
-                  console.log("column", column);
-
                   return (
                     <Th
                       borderColor="#56577A"
