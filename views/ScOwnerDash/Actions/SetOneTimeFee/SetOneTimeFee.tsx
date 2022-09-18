@@ -8,7 +8,7 @@ import { TxCb } from "../../../../utils/txCallback";
 import GeneralAction from "../GeneralAction/GeneralAction";
 
 const SetOneTimeFee = () => {
-  const { pending, triggerTx, transaction, error } = useScTransaction({
+  const { pending, triggerTx } = useScTransaction({
     cb: TxCb,
   });
 
