@@ -17,11 +17,11 @@ export const getInterface = (workspace) => {
   let simpleAddress = "";
 
   switch (workspace) {
-    case mundialBetWsp: {
-      simpleAddress = contractAddr.mundialBet;
+    case NftStakingPoolsWsp: {
+      simpleAddress = contractAddr.nftsStaking;
       address = new Address(simpleAddress);
-      abiUrl = abiPath + "/mundial_bet.abi.json";
-      implementsInterfaces = "MundialBet";
+      abiUrl = abiPath + "/nftstakingpools.abi.json";
+      implementsInterfaces = "NftStakingPools";
 
       break;
     }
@@ -32,4 +32,4 @@ export const getInterface = (workspace) => {
   return { address, abiUrl, implementsInterfaces, simpleAddress };
 };
 
-export const mundialBetWsp = "mundialBet";
+export const NftStakingPoolsWsp = "NftStakingPoolsWsp";

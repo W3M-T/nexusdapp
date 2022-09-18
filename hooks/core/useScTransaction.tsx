@@ -20,7 +20,7 @@ import {
 } from "./common-helpers/sendTxOperations";
 import { useWebWalletTxSend } from "./common-helpers/useWebWalletTxSend";
 
-interface ScTransactionParams {
+export interface ScTransactionParams {
   smartContractAddress: string;
   func: ContractFunction;
   gasLimit: number;
