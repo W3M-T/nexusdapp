@@ -5,6 +5,7 @@ interface ActionButtonProps extends BoxProps {
   onClick?: () => void;
   isFullWidth?: boolean;
   disabled?: boolean;
+  type?: string;
 }
 
 export const ActionButton = ({
@@ -12,6 +13,7 @@ export const ActionButton = ({
   onClick,
   isFullWidth = false,
   disabled = false,
+  type,
   ...props
 }: PropsWithChildren<ActionButtonProps>) => {
   const handleClick = useCallback(() => {
@@ -38,6 +40,7 @@ export const ActionButton = ({
       width={isFullWidth ? "100%" : "auto"}
       onClick={handleClick}
       opacity={!disabled ? 1 : 0.5}
+      type={type}
       {...props}
     >
       {children}

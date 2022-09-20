@@ -1,32 +1,64 @@
 import { Center, Flex, Input } from "@chakra-ui/react";
+import { useFormik } from "formik";
+import * as yup from "yup";
 import { ActionButton } from "../../../../components/tools/ActionButton";
 import SelectDark, {
   OptionSelectDark,
 } from "../../../../components/ui/SelectDark";
-
+import { tokensPools } from "../../../../constants/tokens";
+import { formatTokenI } from "../../../../utils/formatTokenIdentifier";
 interface IProps {
-  onSubmit: (amount: string, token: string) => void;
+  onSubmit: (values) => void;
   actionText: string;
   disabled?: boolean;
 }
+
+const validationSchema = yup.object({
+  amount: yup.number().required(),
+  token: yup.string().required(),
+});
+
 const GeneralAction = ({ onSubmit, disabled, actionText }: IProps) => {
+  const formik = useFormik({
+    initialValues: {
+      amount: "",
+      token: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: onSubmit,
+  });
+
   return (
-    <Center flexDir={"column"}>
-      <Flex gap={4} mb={2}>
-        <Input placeholder="Amount" />
-        <SelectDark>
-          <OptionSelectDark>Token</OptionSelectDark>
-          <OptionSelectDark>EGLD</OptionSelectDark>
-          <OptionSelectDark>Mermaid</OptionSelectDark>
-        </SelectDark>
-      </Flex>
-      <ActionButton
-        onClick={() => onSubmit("10000000000000000", "EGLD")}
-        disabled={disabled}
-      >
-        {actionText}
-      </ActionButton>
-    </Center>
+    <form onSubmit={formik.handleSubmit}>
+      <Center flexDir={"column"}>
+        <Flex gap={4} mb={2}>
+          <Input
+            name="amount"
+            placeholder="Amount"
+            onChange={formik.handleChange}
+            isInvalid={formik.touched.amount && Boolean(formik.errors.amount)}
+          />
+          <SelectDark onChange={formik.handleChange} name="token">
+            <>
+              <OptionSelectDark>Token</OptionSelectDark>
+              {tokensPools.map((t) => {
+                if (!t) {
+                  return null;
+                }
+                return (
+                  <OptionSelectDark key={t.identifier} value={t.identifier}>
+                    {formatTokenI(t.identifier)}
+                  </OptionSelectDark>
+                );
+              })}
+            </>
+          </SelectDark>
+        </Flex>
+        <ActionButton type="submit" disabled={disabled}>
+          {actionText}
+        </ActionButton>
+      </Center>
+    </form>
   );
 };
 

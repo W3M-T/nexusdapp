@@ -7,10 +7,15 @@ import {
 import { WalletConnectProvider } from "@elrondnetwork/erdjs-wallet-connect-provider";
 import { WalletProvider } from "@elrondnetwork/erdjs-web-wallet-provider";
 
+export interface IToken {
+  identifier: string;
+  decimals?: number;
+}
+
 interface ITokens {
-  EGLD: string;
-  WATER?: string;
-  MERMAID?: string;
+  EGLD: IToken;
+  WATER?: IToken;
+  MERMAID?: IToken;
 }
 interface ISmartContracts {
   nftsStaking?: string;

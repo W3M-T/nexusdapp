@@ -1,4 +1,4 @@
-import { Box, BoxProps, Select, SelectProps } from "@chakra-ui/react";
+import { Box, Select, SelectProps } from "@chakra-ui/react";
 import { PropsWithChildren } from "react";
 
 const SelectDark = ({ children, ...props }: PropsWithChildren<SelectProps>) => {
@@ -25,10 +25,12 @@ export default SelectDark;
 
 export const OptionSelectDark = ({
   children,
+  value,
   ...props
-}: PropsWithChildren<BoxProps>) => {
+}: // eslint-disable-next-line @typescript-eslint/no-explicit-any
+PropsWithChildren<any>) => {
   return (
-    <Box as="option" bg="#252943 !important" {...props}>
+    <Box as="option" bg="#252943 !important" value={value} {...props}>
       {children}
     </Box>
   );

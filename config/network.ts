@@ -33,8 +33,8 @@ export const networkConfig: Record<string, NetworkType> = {
         "erd1qqqqqqqqqqqqqpgqupsnyns7ck54q6ue23d9d2nzz5r9wz9q8pgqa7a57l",
     },
     tokens: {
-      EGLD: "EGLD",
-      WATER: "WATER-f4db53",
+      EGLD: { identifier: "EGLD" },
+      WATER: { identifier: "WATER-f4db53" },
     },
   },
 
@@ -57,7 +57,7 @@ export const networkConfig: Record<string, NetworkType> = {
     gatewayAddress: "https://testnet-gateway.elrond.com",
     contractAddr: {},
     tokens: {
-      EGLD: "EGLD",
+      EGLD: { identifier: "EGLD" },
     },
   },
 
@@ -81,9 +81,9 @@ export const networkConfig: Record<string, NetworkType> = {
       nftsStaking: "",
     },
     tokens: {
-      EGLD: "EGLD",
-      WATER: "WATER-9ed400",
-      MERMAID: "MERMAID-9c388a",
+      EGLD: { identifier: "EGLD" },
+      WATER: { identifier: "WATER-9ed400" },
+      MERMAID: { identifier: "MERMAID-9c388a" },
     },
   },
 };
