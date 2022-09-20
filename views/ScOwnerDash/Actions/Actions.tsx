@@ -1,4 +1,4 @@
-import { Center, Flex, Heading, Text } from "@chakra-ui/react";
+import { Center, Divider, Flex, Heading, Text } from "@chakra-ui/react";
 import { Authenticated } from "../../../components/tools/Authenticated";
 import { LoginModalButton } from "../../../components/tools/LoginModalButton";
 import { CardWrapper } from "../../../components/ui/CardWrapper";
@@ -27,7 +27,9 @@ const Actions = () => {
       >
         <Center flexDir={"column"} px={4} w="full" rowGap={12}>
           <SetOneTimeFee />
+          <Divider />
           <WithdrawFee />
+          <Divider />
           <SendAirdrop />
         </Center>
       </Authenticated>
