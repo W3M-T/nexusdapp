@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { fetchStats } from "../asyncFuncs/poolsFuncs";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { fetchExistringPools, fetchStats } from "../asyncFuncs/poolsFuncs";
 import { RootState } from "../store";
 import { Status } from "../types";
 import { IExistingPool, IPoolStats } from "../types/pools.interface";
@@ -50,11 +50,28 @@ export const poolsSlice = createSlice({
       .addCase(fetchStats.rejected, (state, action) => {
         state.stats.status = "failed";
         state.stats.error = action.error.message;
+      })
+      //fetchExistringPools
+      .addCase(fetchExistringPools.pending, (state) => {
+        state.existingPools.status = "loading";
+      })
+      .addCase(
+        fetchExistringPools.fulfilled,
+        (state, action: PayloadAction<IExistingPool[]>) => {
+          state.existingPools.status = "success";
+          state.existingPools.data = action.payload;
+        }
+      )
+      .addCase(fetchExistringPools.rejected, (state, action) => {
+        state.existingPools.status = "failed";
+        state.existingPools.error = action.error.message;
       });
   },
 });
 
 export const selectPoolStats = (state: RootState) => state.pools.stats;
+export const selectExistingPools = (state: RootState) =>
+  state.pools.existingPools;
 
 // Action creators are generated for each case reducer function
 // export const { setAddress } = poolsSlice.actions;
