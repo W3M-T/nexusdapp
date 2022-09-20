@@ -2,12 +2,17 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchStats } from "../asyncFuncs/poolsFuncs";
 import { RootState } from "../store";
 import { Status } from "../types";
-import { IPoolStats } from "../types/pools.interface";
+import { IExistingPool, IPoolStats } from "../types/pools.interface";
 
 export interface poolsState {
   stats: {
     status: Status;
     data: IPoolStats;
+    error: string;
+  };
+  existingPools: {
+    status: Status;
+    data: IExistingPool[];
     error: string;
   };
 }
@@ -20,6 +25,11 @@ const initialState: poolsState = {
       nftStaked: 0,
       feesCollected: [],
     },
+    error: "",
+  },
+  existingPools: {
+    status: "idle",
+    data: [],
     error: "",
   },
 };

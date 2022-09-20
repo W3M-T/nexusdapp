@@ -12,6 +12,7 @@ const ScOwnerDashboardView = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchStats());
+    // dispatch(fetchExistringPools());
   }, [dispatch]);
   return (
     <MainLayout metaTitle={route.scOwner.name}>
