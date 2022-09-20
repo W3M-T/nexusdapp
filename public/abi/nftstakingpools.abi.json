@@ -10,7 +10,7 @@
         "contractCrate": {
             "name": "nftstakingpools",
             "version": "0.0.0",
-            "git_version": "695cff0-modified"
+            "git_version": "16964fb-modified"
         },
         "framework": {
             "name": "elrond-wasm",
@@ -126,27 +126,10 @@
             "payableInTokens": [
                 "*"
             ],
-            "inputs": [],
-            "outputs": []
-        },
-        {
-            "name": "allowTokenAsReward",
-            "mutability": "mutable",
             "inputs": [
                 {
-                    "name": "token",
-                    "type": "EgldOrEsdtTokenIdentifier"
-                }
-            ],
-            "outputs": []
-        },
-        {
-            "name": "disallowTokenAsReward",
-            "mutability": "mutable",
-            "inputs": [
-                {
-                    "name": "token",
-                    "type": "EgldOrEsdtTokenIdentifier"
+                    "name": "nft_pool",
+                    "type": "NftPool"
                 }
             ],
             "outputs": []
@@ -168,6 +151,36 @@
             "outputs": [
                 {
                     "type": "List<NftPool>"
+                }
+            ]
+        },
+        {
+            "name": "getUserStaked",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "address",
+                    "type": "Address"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "List<tuple<TokenIdentifier,u64>>"
+                }
+            ]
+        },
+        {
+            "name": "getIsNftCreator",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "address",
+                    "type": "Address"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "bool"
                 }
             ]
         },
