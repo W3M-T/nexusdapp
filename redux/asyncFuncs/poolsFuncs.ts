@@ -1,7 +1,8 @@
+import { Address, AddressValue } from "@elrondnetwork/erdjs/out";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { NftStakingPoolsWsp } from "../../services/sc";
 import { scQuery } from "../../services/sc/queries";
-import { IExistingPool, IPoolStats } from "../types/pools.interface";
+import { IExistingPool, IPoolStats, IStaked } from "../types/pools.interface";
 
 export const fetchStats = createAsyncThunk("pools/fetchStats", async () => {
   const res = await scQuery(NftStakingPoolsWsp, "getStats");
@@ -27,6 +28,35 @@ export const fetchExistringPools = createAsyncThunk(
 
     const data: IExistingPool[] = [];
     console.log("data", data);
+
+    return data;
+  }
+);
+export const fetchUserStaked = createAsyncThunk(
+  "pools/fetchUserStaked",
+  async (address: string) => {
+    const res = await scQuery(NftStakingPoolsWsp, "getUserStaked", [
+      new AddressValue(new Address(address)),
+    ]);
+    const { firstValue } = res;
+    console.log("fetchUserStaked firstValue", firstValue);
+
+    const data: IStaked[] = [];
+    console.log("fetchUserStaked data", data);
+
+    return data;
+  }
+);
+export const fetchIsNftCreator = createAsyncThunk(
+  "pools/fetchIsNftCreator",
+  async (address: string) => {
+    const res = await scQuery(NftStakingPoolsWsp, "getIsNftCreator", [
+      new AddressValue(new Address(address)),
+    ]);
+    const { firstValue } = res;
+
+    // const data = firstValue.valueOf();
+    const data = true;
 
     return data;
   }

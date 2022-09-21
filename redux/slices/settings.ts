@@ -5,11 +5,13 @@ import { RootState } from "../store";
 
 export interface SettingsState {
   isAdmin: boolean;
+  isLogedIn: boolean;
   userAddress: string;
 }
 
 const initialState: SettingsState = {
-  isAdmin: false,
+  isAdmin: true,
+  isLogedIn: true,
   userAddress: "",
 };
 
@@ -25,14 +27,18 @@ export const settingsSlice = createSlice({
         state.isAdmin = false;
       }
     },
+    setIsLogedIn: (state, action: PayloadAction<boolean>) => {
+      state.isLogedIn = action.payload;
+    },
   },
 });
 
 export const selectUserAddress = (state: RootState) =>
   state.settings.userAddress;
 export const selectIsAdmin = (state: RootState) => state.settings.isAdmin;
+export const selectIsLogedIn = (state: RootState) => state.settings.isLogedIn;
 
 // Action creators are generated for each case reducer function
-export const { setAddress } = settingsSlice.actions;
+export const { setAddress, setIsLogedIn } = settingsSlice.actions;
 
 export default settingsSlice.reducer;

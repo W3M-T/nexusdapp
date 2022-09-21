@@ -2,12 +2,15 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useLogin } from "../hooks/auth/useLogin";
+import { useAppSelector } from "../hooks/core/useRedux";
+import { selectIsLogedIn } from "../redux/slices/settings";
 
 const ProtectPage = (Component) => (props) => {
   const router = useRouter();
-  const { isLoggedIn } = useLogin();
+  const isLoggedIn = useAppSelector(selectIsLogedIn);
   useEffect(() => {
+    console.log("isLoggedIn", isLoggedIn);
+
     if (!isLoggedIn) {
       router.replace("/");
     }

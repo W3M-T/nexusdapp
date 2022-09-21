@@ -36,7 +36,7 @@ const LinkSection = () => {
             cursor={isLoggedIn ? "pointer" : "default"}
           >
             <Box as="span" fontSize={"2xl"} fontWeight="bold">
-              View Pool
+              View Pools
             </Box>
           </Box>
         </Link>

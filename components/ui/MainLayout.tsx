@@ -1,8 +1,14 @@
 import { Box, Container } from "@chakra-ui/react";
 import { PropsWithChildren, useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { useAccount } from "../../hooks/auth/useAccount";
-import { setAddress } from "../../redux/slices/settings";
+import { useLogin } from "../../hooks/auth/useLogin";
+import { useAppDispatch, useAppSelector } from "../../hooks/core/useRedux";
+import { fetchIsNftCreator } from "../../redux/asyncFuncs/poolsFuncs";
+import {
+  selectUserAddress,
+  setAddress,
+  setIsLogedIn,
+} from "../../redux/slices/settings";
 import { HeaderMenu } from "./HeaderMenu";
 import { HeaderMenuButtons } from "./HeaderMenuButtons";
 import { MetaHead, MetaHeadProps } from "./MetaHead";
@@ -15,10 +21,23 @@ export const MainLayout = ({
   metaUrl,
 }: PropsWithChildren<MetaHeadProps>) => {
   const account = useAccount();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const { isLoggedIn, isLoggingIn } = useLogin();
   useEffect(() => {
     dispatch(setAddress(account.address));
   }, [account.address, dispatch]);
+
+  useEffect(() => {
+    if (!isLoggingIn) {
+      dispatch(setIsLogedIn(isLoggedIn));
+    }
+  }, [isLoggedIn, isLoggingIn, dispatch]);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const address: any = useAppSelector(selectUserAddress);
+  useEffect(() => {
+    dispatch(fetchIsNftCreator(address));
+  }, [dispatch, address]);
 
   return (
     <>

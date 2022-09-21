@@ -12,10 +12,12 @@ export const route = {
   create: {
     route: "/create-pool",
     name: "Create",
+    outNav: true,
   },
   view: {
     route: "/view-pool",
     name: "View",
+    outNav: true,
   },
   scOwner: {
     route: "/sc-owner-dashboard",

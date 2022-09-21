@@ -1,8 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { fetchExistringPools, fetchStats } from "../asyncFuncs/poolsFuncs";
+import {
+  fetchExistringPools,
+  fetchIsNftCreator,
+  fetchStats,
+  fetchUserStaked,
+} from "../asyncFuncs/poolsFuncs";
 import { RootState } from "../store";
 import { Status } from "../types";
-import { IExistingPool, IPoolStats } from "../types/pools.interface";
+import { IExistingPool, IPoolStats, IStaked } from "../types/pools.interface";
 
 export interface poolsState {
   stats: {
@@ -13,6 +18,16 @@ export interface poolsState {
   existingPools: {
     status: Status;
     data: IExistingPool[];
+    error: string;
+  };
+  userStaked: {
+    status: Status;
+    data: IStaked[];
+    error: string;
+  };
+  isNftCreator: {
+    status: Status;
+    data: boolean;
     error: string;
   };
 }
@@ -30,6 +45,17 @@ const initialState: poolsState = {
   existingPools: {
     status: "idle",
     data: [],
+    error: "",
+  },
+
+  userStaked: {
+    status: "idle",
+    data: [],
+    error: "",
+  },
+  isNftCreator: {
+    status: "idle",
+    data: true,
     error: "",
   },
 };
@@ -65,6 +91,30 @@ export const poolsSlice = createSlice({
       .addCase(fetchExistringPools.rejected, (state, action) => {
         state.existingPools.status = "failed";
         state.existingPools.error = action.error.message;
+      })
+      //fetchUserStaked
+      .addCase(fetchUserStaked.pending, (state) => {
+        state.userStaked.status = "loading";
+      })
+      .addCase(fetchUserStaked.fulfilled, (state, action) => {
+        state.userStaked.status = "success";
+        state.userStaked.data = action.payload;
+      })
+      .addCase(fetchUserStaked.rejected, (state, action) => {
+        state.userStaked.status = "failed";
+        state.userStaked.error = action.error.message;
+      })
+      //fetchIsNftCreator
+      .addCase(fetchIsNftCreator.pending, (state) => {
+        state.isNftCreator.status = "loading";
+      })
+      .addCase(fetchIsNftCreator.fulfilled, (state, action) => {
+        state.isNftCreator.status = "success";
+        state.isNftCreator.data = action.payload;
+      })
+      .addCase(fetchIsNftCreator.rejected, (state, action) => {
+        state.isNftCreator.status = "failed";
+        state.isNftCreator.error = action.error.message;
       });
   },
 });

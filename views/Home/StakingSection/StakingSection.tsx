@@ -4,7 +4,7 @@ import NFTCard from "./NFTCard/NFTCard";
 const StakingSection = () => {
   return (
     <Box>
-      <Heading fontSize={"3xl"}>Staked NFT</Heading>
+      <Heading fontSize={"3xl"}>Staked NFTs</Heading>
       <Flex
         justifyContent={"center"}
         columnGap={5}

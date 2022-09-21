@@ -15,3 +15,7 @@ export interface IExistingPool {
   token: string;
   rewards: string;
 }
+export interface IStaked {
+  tokenIdentifier: string;
+  value: number;
+}
