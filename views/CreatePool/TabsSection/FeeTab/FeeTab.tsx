@@ -1,12 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
 
 // Chakra imports
-import { Box, Center, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Center, Flex, Text } from "@chakra-ui/react";
+import { ActionButton } from "../../../../components/tools/ActionButton";
 
 // Custom components
 
 // Icons
-import { ActionButton } from "../../../../components/tools/ActionButton";
 import { CardWrapper } from "../../../../components/ui/CardWrapper";
 
 const FeeTab = ({
@@ -42,9 +42,38 @@ const FeeTab = ({
         </Flex>
       </Box>
       <Box>
-        <Center>
-          <ActionButton>Pay now</ActionButton>
-        </Center>
+        <Flex direction="column" w="100%">
+          <Box>
+            <Center>
+              <ActionButton>Pay now</ActionButton>
+            </Center>
+          </Box>
+          <Flex justify="space-between">
+            <Button
+              variant="no-hover"
+              bg={bgPrevButton}
+              alignSelf="flex-end"
+              mt="24px"
+              w={{ sm: "75px", lg: "100px" }}
+              h="35px"
+              onClick={() => verifyTab.current.click()}
+            >
+              <Text fontSize="xs" color="#313860" fontWeight="bold">
+                PREV
+              </Text>
+            </Button>
+            <ActionButton
+              bg="dappTemplate.color2.base"
+              alignSelf="flex-end"
+              mt="24px"
+              h="35px"
+            >
+              <Text fontSize="xs" color="#fff" fontWeight="bold">
+                NEXT
+              </Text>
+            </ActionButton>
+          </Flex>
+        </Flex>
       </Box>
     </CardWrapper>
   );

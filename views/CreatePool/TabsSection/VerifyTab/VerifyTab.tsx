@@ -3,7 +3,6 @@
 // Chakra imports
 import {
   Box,
-  Button,
   Flex,
   FormControl,
   FormLabel,
@@ -56,19 +55,16 @@ const UserTab = ({ feeTab }) => {
               <ActionButton>Verify</ActionButton>
             </Stack>
           </Flex>
-          <Button
-            variant="brand"
+          <ActionButton
+            bg="dappTemplate.color2.base"
             alignSelf="flex-end"
             mt="24px"
-            w={{ sm: "75px", lg: "100px" }}
             h="35px"
-            onClick={() => feeTab?.current?.click()}
-            disabled
           >
             <Text fontSize="xs" color="#fff" fontWeight="bold">
               NEXT
             </Text>
-          </Button>
+          </ActionButton>
         </Flex>
       </Box>
     </CardWrapper>

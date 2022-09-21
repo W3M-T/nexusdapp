@@ -18,6 +18,7 @@ import {
 // Icons
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { ActionButton } from "../../../../components/tools/ActionButton";
 import { CardWrapper } from "../../../../components/ui/CardWrapper";
 import SelectDark, {
   OptionSelectDark,
@@ -149,18 +150,16 @@ const FormTab = ({ bgPrevButton, feeTab }) => {
                 PREV
               </Text>
             </Button>
-            <Button
-              variant="no-hover"
-              bg="brand.200"
+            <ActionButton
+              bg="dappTemplate.color2.base"
               alignSelf="flex-end"
               mt="24px"
-              w={{ sm: "75px", lg: "100px" }}
               h="35px"
             >
               <Text fontSize="xs" color="#fff" fontWeight="bold">
-                SEND
+                Pay & Create Pool
               </Text>
-            </Button>
+            </ActionButton>
           </Flex>
         </Flex>
       </Box>
