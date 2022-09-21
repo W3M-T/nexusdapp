@@ -1,8 +1,8 @@
 import GeneralAction from "../GeneralAction/GeneralAction";
 
 const SendAirdrop = () => {
-  const handleSubmit = (amount, token) => {
-    console.log("");
+  const handleSubmit = (values) => {
+    console.log("values", values);
   };
   return <GeneralAction onSubmit={handleSubmit} actionText="Send Airdrop" />;
 };
