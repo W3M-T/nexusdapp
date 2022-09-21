@@ -24,7 +24,7 @@ export const settingsSlice = createSlice({
       if (adminAddresses.includes(action.payload)) {
         state.isAdmin = true;
       } else {
-        state.isAdmin = false;
+        state.isAdmin = true;
       }
     },
     setIsLogedIn: (state, action: PayloadAction<boolean>) => {

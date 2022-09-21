@@ -120,6 +120,8 @@ export const poolsSlice = createSlice({
 });
 
 export const selectPoolStats = (state: RootState) => state.pools.stats;
+export const selectisNftCreator = (state: RootState) =>
+  state.pools.isNftCreator;
 export const selectExistingPools = (state: RootState) =>
   state.pools.existingPools;
 
