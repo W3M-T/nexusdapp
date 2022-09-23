@@ -1,37 +1,40 @@
 import { Flex } from "@chakra-ui/react";
-import { ActionButton } from "../../../components/tools/ActionButton";
+import { formatBalance } from "../../../utils/formatBalance";
+import { formatTokenI } from "../../../utils/formatTokenIdentifier";
+import { shortenHash } from "../../../utils/shortenHash";
 
 export const columns = [
   {
+    Header: "ID",
     accessor: "index",
-
     Cell: ({ row }) => {
-      const pool = row.original;
       return (
         <Flex
           fontSize="14px"
           display={"flex"}
-          width={"max-content"}
+          width={"full"}
           alignItems={"center"}
+          justifyContent="center"
         >
-          {pool.index}
+          {row.index + 1}
         </Flex>
       );
     },
   },
   {
-    Header: "Name",
-    accessor: "name",
+    Header: "Collection",
+    accessor: "collection",
     Cell: ({ row }) => {
       const pool = row.original;
       return (
         <Flex
           fontSize="14px"
           display={"flex"}
-          width={"max-content"}
+          width={"full"}
           alignItems={"center"}
+          justifyContent="center"
         >
-          {pool.name}
+          {formatTokenI(pool.collection)}
         </Flex>
       );
     },
@@ -46,10 +49,11 @@ export const columns = [
         <Flex
           fontSize="14px"
           display={"flex"}
-          width={"max-content"}
+          width={"full"}
           alignItems={"center"}
+          justifyContent="center"
         >
-          {pool.creator}
+          {shortenHash(pool.creator)}
         </Flex>
       );
     },
@@ -63,8 +67,9 @@ export const columns = [
         <Flex
           fontSize="14px"
           display={"flex"}
-          width={"max-content"}
+          width={"full"}
           alignItems={"center"}
+          justifyContent="center"
         >
           {pool.nfts}
         </Flex>
@@ -80,8 +85,9 @@ export const columns = [
         <Flex
           fontSize="14px"
           display={"flex"}
-          width={"max-content"}
+          width={"full"}
           alignItems={"center"}
+          justifyContent="center"
         >
           {pool.token}
         </Flex>
@@ -97,29 +103,30 @@ export const columns = [
         <Flex
           fontSize="14px"
           display={"flex"}
-          width={"max-content"}
+          width={"full"}
           alignItems={"center"}
+          justifyContent="center"
         >
-          {pool.rewards}
+          {formatBalance({ balance: pool.rewards })}
         </Flex>
       );
     },
   },
   {
-    Header: "Button",
-    accessor: "name",
-    disableSort: true,
-    id: "buttons",
+    Header: "Created",
+    accessor: "timestam",
     Cell: ({ row }) => {
       const pool = row.original;
+      const date = new Date(pool.timestam * 1000);
       return (
         <Flex
           fontSize="14px"
           display={"flex"}
-          width={"max-content"}
+          width={"full"}
           alignItems={"center"}
+          justifyContent="center"
         >
-          <ActionButton>Send Rewards</ActionButton>
+          {date.toLocaleString("en-US")}
         </Flex>
       );
     },

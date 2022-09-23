@@ -1,7 +1,13 @@
 import { Box, Center, Flex, Text } from "@chakra-ui/react";
 import NextImg from "../../../components/ui/NextImg";
-
-const PoolItem = () => {
+import { IExistingPool } from "../../../redux/types/pools.interface";
+import { formatBalance } from "../../../utils/formatBalance";
+import { formatTokenI } from "../../../utils/formatTokenIdentifier";
+interface IProps {
+  pool: IExistingPool;
+}
+const PoolItem = ({ pool }: IProps) => {
+  const date = new Date(pool.timestam * 1000);
   return (
     <Flex
       border="1px solid white"
@@ -11,10 +17,10 @@ const PoolItem = () => {
       minW="300px"
       justifyContent={"space-between"}
     >
-      <Box>
+      <Center h="full">
         <NextImg
           alt={"nft"}
-          width={"80px"}
+          width={"100px"}
           sx={{
             span: {
               borderRadius: "full",
@@ -28,12 +34,35 @@ const PoolItem = () => {
             width: 490,
           }}
         />
-      </Box>
-      <Center flexDir={"column"}>
-        <Text mb={3} fontWeight="bold">
-          Pool name 1
+      </Center>
+      <Center flexDir={"column"} alignItems="flex-start">
+        <Text mb={2} fontWeight="bold" fontSize={"2xl"}>
+          {formatTokenI(pool.collection)}
         </Text>
-        <Text>10 per day</Text>
+        <Flex flexDir={"column"} gap={1}>
+          <Text>
+            <Box as="span" fontWeight={"bold"}>
+              {" "}
+              Daily Rewards :
+            </Box>{" "}
+            {formatBalance({ balance: pool.rewards })}{" "}
+            {formatTokenI(pool.token)}{" "}
+          </Text>
+          <Text>
+            {" "}
+            <Box as="span" fontWeight={"bold"}>
+              Created :{" "}
+            </Box>{" "}
+            {date.toLocaleDateString("en-US")}{" "}
+          </Text>
+        </Flex>
+        <Text>
+          {" "}
+          <Box as="span" fontWeight={"bold"}>
+            Total Nfts :{" "}
+          </Box>{" "}
+          {pool.nfts}{" "}
+        </Text>
       </Center>
     </Flex>
   );

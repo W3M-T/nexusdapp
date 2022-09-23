@@ -16,7 +16,7 @@ export const columns = [
           alignItems={"center"}
           justifyContent="center"
         >
-          {row.index}
+          {row.index + 1}
         </Flex>
       );
     },
