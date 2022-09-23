@@ -19,7 +19,7 @@ const NFTCard = () => {
           },
         }}
         src={
-          "https://media.xoxno.com/nftmedia/MAFIA-bd0abc/MAFIA-bd0abc-0517.avif"
+          "https://ipfs.io/ipfs/QmYfRXS4jqijwnvMiZELa53fgw5CnSwrkkkvwQ8oumofdy"
         } // use normal <img> attributes as props
         nextProps={{
           height: 490,

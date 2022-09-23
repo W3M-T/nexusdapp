@@ -24,6 +24,7 @@ export const MainLayout = ({
   const dispatch = useAppDispatch();
   const { isLoggedIn, isLoggingIn } = useLogin();
   useEffect(() => {
+    // dispatch(setAddress(account.address));
     dispatch(setAddress(account.address));
   }, [account.address, dispatch]);
 

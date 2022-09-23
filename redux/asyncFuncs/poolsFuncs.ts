@@ -35,7 +35,6 @@ export const fetchExistringPools = createAsyncThunk(
         rewards: pool.reward_amount.toNumber(),
       };
     });
-    console.log("data", data);
 
     return data;
   }
@@ -47,7 +46,7 @@ export const fetchUserStaked = createAsyncThunk(
       new AddressValue(new Address(address)),
     ]);
     const { firstValue } = res;
-    // console.log("fetchUserStaked firstValue", firstValue);
+    console.log("fetchUserStaked firstValue", firstValue.valueOf());
 
     const data: IStaked[] = [];
     // console.log("fetchUserStaked data", data);
@@ -63,7 +62,6 @@ export const fetchIsNftCreator = createAsyncThunk(
     ]);
     const { firstValue } = res;
 
-    // const data = firstValue.valueOf();
     const data = true;
 
     return data;

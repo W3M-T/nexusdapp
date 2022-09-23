@@ -20,7 +20,7 @@ const MainStats = () => {
       </Flex>
       <Flex w="full" maxW="450px" justifyContent={"space-between"} mb={4}>
         <Text fontSize="lg" fontWeight={"semibold"}>
-          Total Number of nfts staked
+          Total Number of NFTs staked
         </Text>
         <Text>{stats.data.nftStaked}</Text>
       </Flex>

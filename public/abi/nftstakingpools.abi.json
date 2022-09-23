@@ -166,6 +166,29 @@
             "outputs": []
         },
         {
+            "name": "getExistingPools2",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "address",
+                    "type": "Address"
+                },
+                {
+                    "name": "nr",
+                    "type": "u32"
+                },
+                {
+                    "name": "nonce",
+                    "type": "u64"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "List<bytes>"
+                }
+            ]
+        },
+        {
             "name": "getInfo",
             "mutability": "readonly",
             "inputs": [],
@@ -206,7 +229,7 @@
             ],
             "outputs": [
                 {
-                    "type": "List<NftStaking>"
+                    "type": "List<tuple<NftStaking,List<bytes>>>"
                 }
             ]
         },
