@@ -36,7 +36,9 @@ export const MainLayout = ({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const address: any = useAppSelector(selectUserAddress);
   useEffect(() => {
-    dispatch(fetchIsNftCreator(address));
+    if (address) {
+      dispatch(fetchIsNftCreator(address));
+    }
   }, [dispatch, address]);
 
   return (

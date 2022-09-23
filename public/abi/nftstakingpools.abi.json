@@ -10,7 +10,7 @@
         "contractCrate": {
             "name": "nftstakingpools",
             "version": "0.0.0",
-            "git_version": "16964fb-modified"
+            "git_version": "4bf4291-modified"
         },
         "framework": {
             "name": "elrond-wasm",
@@ -42,8 +42,12 @@
             "mutability": "mutable",
             "inputs": [
                 {
-                    "name": "nft_pool",
-                    "type": "NftPool"
+                    "name": "nft_token",
+                    "type": "TokenIdentifier"
+                },
+                {
+                    "name": "nonce",
+                    "type": "u64"
                 }
             ],
             "outputs": []
@@ -75,7 +79,7 @@
                 },
                 {
                     "name": "nr_of_nfts",
-                    "type": "u64"
+                    "type": "u32"
                 },
                 {
                     "name": "reward_token",
@@ -91,7 +95,12 @@
         {
             "name": "sendRewards",
             "mutability": "mutable",
-            "inputs": [],
+            "inputs": [
+                {
+                    "name": "nft_pool",
+                    "type": "NftPool"
+                }
+            ],
             "outputs": []
         },
         {
@@ -135,12 +144,44 @@
             "outputs": []
         },
         {
-            "name": "getStats",
+            "name": "allowTokenAsReward",
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "token",
+                    "type": "EgldOrEsdtTokenIdentifier"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "disallowTokenAsReward",
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "token",
+                    "type": "EgldOrEsdtTokenIdentifier"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "getInfo",
             "mutability": "readonly",
             "inputs": [],
             "outputs": [
                 {
                     "type": "tuple<u32,u32,List<tuple<EgldOrEsdtTokenIdentifier,BigUint>>>"
+                }
+            ]
+        },
+        {
+            "name": "getNonWithdrawnCollections",
+            "mutability": "readonly",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "List<TokenIdentifier>"
                 }
             ]
         },
@@ -165,7 +206,7 @@
             ],
             "outputs": [
                 {
-                    "type": "List<tuple<TokenIdentifier,u64>>"
+                    "type": "List<NftStaking>"
                 }
             ]
         },
@@ -181,6 +222,25 @@
             "outputs": [
                 {
                     "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "getRegistrationInfo",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "address",
+                    "type": "Address"
+                },
+                {
+                    "name": "collection",
+                    "type": "TokenIdentifier"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "tuple<EgldOrEsdtTokenIdentifier,BigUint,bool>"
                 }
             ]
         },
@@ -212,8 +272,8 @@
             "mutability": "readonly",
             "inputs": [
                 {
-                    "name": "staker",
-                    "type": "NftStaker"
+                    "name": "staking",
+                    "type": "NftStaking"
                 }
             ],
             "outputs": [
@@ -223,7 +283,7 @@
             ]
         },
         {
-            "name": "allStakings",
+            "name": "allUserStakings",
             "mutability": "readonly",
             "inputs": [
                 {
@@ -233,7 +293,7 @@
             ],
             "outputs": [
                 {
-                    "type": "variadic<NftStaker>",
+                    "type": "variadic<NftStaking>",
                     "multi_result": true
                 }
             ]
@@ -301,7 +361,7 @@
             ]
         },
         {
-            "name": "allPoolStakers",
+            "name": "allPoolStakings",
             "mutability": "readonly",
             "inputs": [
                 {
@@ -311,8 +371,38 @@
             ],
             "outputs": [
                 {
-                    "type": "variadic<NftStaker>",
+                    "type": "variadic<NftStaking>",
                     "multi_result": true
+                }
+            ]
+        },
+        {
+            "name": "poolRewardsLeft",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "pool",
+                    "type": "NftPool"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "BigUint"
+                }
+            ]
+        },
+        {
+            "name": "poolDaysDistributed",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "pool",
+                    "type": "NftPool"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "u64"
                 }
             ]
         },
@@ -358,12 +448,23 @@
             ]
         },
         {
+            "name": "totalCollections",
+            "mutability": "readonly",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "variadic<TokenIdentifier>",
+                    "multi_result": true
+                }
+            ]
+        },
+        {
             "name": "totalNfts",
             "mutability": "readonly",
             "inputs": [],
             "outputs": [
                 {
-                    "type": "variadic<NftStaker>",
+                    "type": "variadic<tuple<TokenIdentifier,u64>>",
                     "multi_result": true
                 }
             ]
@@ -386,6 +487,26 @@
                 {
                     "type": "variadic<EgldOrEsdtTokenIdentifier>",
                     "multi_result": true
+                }
+            ]
+        },
+        {
+            "name": "minimumStakingDays",
+            "mutability": "readonly",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "u64"
+                }
+            ]
+        },
+        {
+            "name": "poolStakingDays",
+            "mutability": "readonly",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "u64"
                 }
             ]
         },
@@ -557,7 +678,7 @@
                 },
                 {
                     "name": "nr_of_nfts",
-                    "type": "u64"
+                    "type": "u32"
                 },
                 {
                     "name": "reward_token",
@@ -569,7 +690,7 @@
                 }
             ]
         },
-        "NftStaker": {
+        "NftStaking": {
             "type": "struct",
             "fields": [
                 {

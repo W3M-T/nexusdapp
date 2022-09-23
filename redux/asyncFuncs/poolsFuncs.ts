@@ -5,7 +5,7 @@ import { scQuery } from "../../services/sc/queries";
 import { IExistingPool, IPoolStats, IStaked } from "../types/pools.interface";
 
 export const fetchStats = createAsyncThunk("pools/fetchStats", async () => {
-  const res = await scQuery(NftStakingPoolsWsp, "getStats");
+  const res = await scQuery(NftStakingPoolsWsp, "getInfo");
   const { firstValue } = res;
 
   const data: IPoolStats = {
@@ -24,9 +24,18 @@ export const fetchExistringPools = createAsyncThunk(
   async () => {
     const res = await scQuery(NftStakingPoolsWsp, "getExistingPools");
     const { firstValue } = res;
-    console.log("firstValue", firstValue);
+    console.log("firstValue", firstValue.valueOf());
 
-    const data: IExistingPool[] = [];
+    const data: IExistingPool[] = firstValue.valueOf().map((pool) => {
+      return {
+        timestam: pool.creation_timestamp.toNumber(),
+        creator: pool.creator.bech32(),
+        collection: pool.collection,
+        nfts: pool.nr_of_nfts.toNumber(),
+        token: pool.reward_token,
+        rewards: pool.reward_amount.toNumber(),
+      };
+    });
     console.log("data", data);
 
     return data;

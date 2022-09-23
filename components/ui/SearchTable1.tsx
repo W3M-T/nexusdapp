@@ -188,8 +188,7 @@ function SearchTable1(props) {
                         borderColor="#56577A"
                         color="white"
                         {...cell.getCellProps()}
-                        padding={{ xs: "20px 0px 12px 0px ", md: "12px" }}
-                        paddingLeft={"8px"}
+                        padding={{ xs: "12px 0px 12px 0px ", md: "12px" }}
                         key={index}
                       >
                         {cell.render("Cell")}

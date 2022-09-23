@@ -2,7 +2,10 @@ import { Flex, Grid } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { MainLayout } from "../../components/ui/MainLayout";
 import { useAppDispatch } from "../../hooks/core/useRedux";
-import { fetchStats } from "../../redux/asyncFuncs/poolsFuncs";
+import {
+  fetchExistringPools,
+  fetchStats,
+} from "../../redux/asyncFuncs/poolsFuncs";
 import { route } from "../../utils/routes";
 import Actions from "./Actions/Actions";
 import ExistingPools from "./ExistingPools/ExistingPools";
@@ -12,7 +15,7 @@ const ScOwnerDashboardView = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchStats());
-    // dispatch(fetchExistringPools());
+    dispatch(fetchExistringPools());
   }, [dispatch]);
   return (
     <MainLayout metaTitle={route.scOwner.name}>
