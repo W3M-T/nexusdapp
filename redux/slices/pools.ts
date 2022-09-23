@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   fetchExistringPools,
   fetchIsNftCreator,
+  fetchNonWithdrawnCollections,
   fetchStats,
   fetchUserStaked,
 } from "../asyncFuncs/poolsFuncs";
@@ -30,6 +31,11 @@ export interface poolsState {
     data: boolean;
     error: string;
   };
+  nonWithdrawnCollections: {
+    status: Status;
+    data: string[];
+    error: string;
+  };
 }
 
 const initialState: poolsState = {
@@ -56,6 +62,11 @@ const initialState: poolsState = {
   isNftCreator: {
     status: "idle",
     data: true,
+    error: "",
+  },
+  nonWithdrawnCollections: {
+    status: "idle",
+    data: [],
     error: "",
   },
 };
@@ -115,6 +126,18 @@ export const poolsSlice = createSlice({
       .addCase(fetchIsNftCreator.rejected, (state, action) => {
         state.isNftCreator.status = "failed";
         state.isNftCreator.error = action.error.message;
+      })
+      //fetchNonWithdrawnCollections
+      .addCase(fetchNonWithdrawnCollections.pending, (state) => {
+        state.nonWithdrawnCollections.status = "loading";
+      })
+      .addCase(fetchNonWithdrawnCollections.fulfilled, (state, action) => {
+        state.nonWithdrawnCollections.status = "success";
+        state.nonWithdrawnCollections.data = action.payload;
+      })
+      .addCase(fetchNonWithdrawnCollections.rejected, (state, action) => {
+        state.nonWithdrawnCollections.status = "failed";
+        state.nonWithdrawnCollections.error = action.error.message;
       });
   },
 });
@@ -124,6 +147,8 @@ export const selectisNftCreator = (state: RootState) =>
   state.pools.isNftCreator;
 export const selectExistingPools = (state: RootState) =>
   state.pools.existingPools;
+export const selectNonWithdrawnCollections = (state: RootState) =>
+  state.pools.nonWithdrawnCollections;
 
 // Action creators are generated for each case reducer function
 // export const { setAddress } = poolsSlice.actions;

@@ -6,8 +6,9 @@ import { ActionButton } from "../../../../components/tools/ActionButton";
 import SelectDark, {
   OptionSelectDark,
 } from "../../../../components/ui/SelectDark";
-import { tokensPools } from "../../../../constants/tokens";
+import { useAppSelector } from "../../../../hooks/core/useRedux";
 import { useScTransaction } from "../../../../hooks/core/useScTransaction";
+import { selectNonWithdrawnCollections } from "../../../../redux/slices/pools";
 import { NftStakingPoolsWsp } from "../../../../services/sc";
 import { scCall } from "../../../../services/sc/calls";
 import { formatTokenI } from "../../../../utils/formatTokenIdentifier";
@@ -18,6 +19,7 @@ const validationSchema = yup.object({
 });
 
 const WithdrawFee = () => {
+  const collections = useAppSelector(selectNonWithdrawnCollections);
   const { triggerTx } = useScTransaction({
     cb: TxCb,
   });
@@ -42,14 +44,14 @@ const WithdrawFee = () => {
         <Flex gap={4} mb={2}>
           <SelectDark onChange={formik.handleChange} name="token" minW="250px">
             <>
-              <OptionSelectDark>Collection</OptionSelectDark>
-              {tokensPools.map((t) => {
+              <OptionSelectDark value={""}>Collection</OptionSelectDark>
+              {collections.data.map((t) => {
                 if (!t) {
                   return null;
                 }
                 return (
-                  <OptionSelectDark key={t.identifier} value={t.identifier}>
-                    {formatTokenI(t.identifier)}
+                  <OptionSelectDark key={t} value={t}>
+                    {formatTokenI(t)}
                   </OptionSelectDark>
                 );
               })}

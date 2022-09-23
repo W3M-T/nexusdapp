@@ -24,7 +24,6 @@ export const fetchExistringPools = createAsyncThunk(
   async () => {
     const res = await scQuery(NftStakingPoolsWsp, "getExistingPools");
     const { firstValue } = res;
-    console.log("firstValue", firstValue.valueOf());
 
     const data: IExistingPool[] = firstValue.valueOf().map((pool) => {
       return {
@@ -48,10 +47,10 @@ export const fetchUserStaked = createAsyncThunk(
       new AddressValue(new Address(address)),
     ]);
     const { firstValue } = res;
-    console.log("fetchUserStaked firstValue", firstValue);
+    // console.log("fetchUserStaked firstValue", firstValue);
 
     const data: IStaked[] = [];
-    console.log("fetchUserStaked data", data);
+    // console.log("fetchUserStaked data", data);
 
     return data;
   }
@@ -66,6 +65,17 @@ export const fetchIsNftCreator = createAsyncThunk(
 
     // const data = firstValue.valueOf();
     const data = true;
+
+    return data;
+  }
+);
+export const fetchNonWithdrawnCollections = createAsyncThunk(
+  "pools/fetchNonWithdrawnCollections",
+  async () => {
+    const res = await scQuery(NftStakingPoolsWsp, "getNonWithdrawnCollections");
+    const { firstValue } = res;
+
+    const data = firstValue.valueOf();
 
     return data;
   }

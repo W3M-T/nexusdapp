@@ -2,7 +2,7 @@ import { Center, Divider, Flex, Heading, Text } from "@chakra-ui/react";
 import { Authenticated } from "../../../components/tools/Authenticated";
 import { LoginModalButton } from "../../../components/tools/LoginModalButton";
 import { CardWrapper } from "../../../components/ui/CardWrapper";
-import SendAirdrop from "./SendAirdrop/WithdrawFee";
+import SendAirdrop from "./SendAirdrop/SendAirdrop";
 import SetOneTimeFee from "./SetOneTimeFee/SetOneTimeFee";
 import WithdrawFee from "./WithdrawFee/WithdrawFee";
 

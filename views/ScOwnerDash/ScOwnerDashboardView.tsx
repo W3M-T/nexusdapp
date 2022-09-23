@@ -4,6 +4,7 @@ import { MainLayout } from "../../components/ui/MainLayout";
 import { useAppDispatch } from "../../hooks/core/useRedux";
 import {
   fetchExistringPools,
+  fetchNonWithdrawnCollections,
   fetchStats,
 } from "../../redux/asyncFuncs/poolsFuncs";
 import { route } from "../../utils/routes";
@@ -16,10 +17,11 @@ const ScOwnerDashboardView = () => {
   useEffect(() => {
     dispatch(fetchStats());
     dispatch(fetchExistringPools());
+    dispatch(fetchNonWithdrawnCollections());
   }, [dispatch]);
   return (
     <MainLayout metaTitle={route.scOwner.name}>
-      <Grid templateColumns={"1fr 1fr"} gap={10}>
+      <Grid templateColumns={{ sm: "1fr", xl: "1fr 1fr" }} gap={10}>
         <Flex flexDir={"column"} gap={10}>
           <MainStats />
           <ExistingPools />
