@@ -34,7 +34,13 @@ const TabsSection = () => {
   const formTab = useRef();
 
   return (
-    <Tabs variant="unstyled" mt="24px" display="flex" flexDirection="column">
+    <Tabs
+      variant="unstyled"
+      mt="24px"
+      display="flex"
+      flexDirection="column"
+      isLazy
+    >
       {" "}
       <TabsList
         verifyTab={verifyTab}

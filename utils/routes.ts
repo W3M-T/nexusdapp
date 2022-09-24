@@ -7,17 +7,16 @@ export const route = {
   home: {
     route: "/",
     name: "Home",
+    outNav: true,
   },
 
   create: {
     route: "/create-pool",
-    name: "Create",
-    outNav: true,
+    name: "Create Pools",
   },
   view: {
     route: "/view-pool",
-    name: "View",
-    outNav: true,
+    name: "View Pool",
   },
   scOwner: {
     route: "/sc-owner-dashboard",

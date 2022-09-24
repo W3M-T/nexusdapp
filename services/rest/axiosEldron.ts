@@ -7,3 +7,7 @@ const axiosEldron = axios.create({
 });
 
 export default axiosEldron;
+
+export const getCollectionDetails = async (collection: string) => {
+  return axiosEldron.get(`/collections/${collection}`);
+};
