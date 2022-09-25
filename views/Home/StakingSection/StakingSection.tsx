@@ -1,10 +1,17 @@
-import { Box, Flex, Heading } from "@chakra-ui/react";
+import { Box, Center, Flex, Heading } from "@chakra-ui/react";
+import { useAppSelector } from "../../../hooks/core/useRedux";
+import { selectUserStaked } from "../../../redux/slices/pools";
 import NFTCard from "./NFTCard/NFTCard";
 
 const StakingSection = () => {
+  const stakedNfts = useAppSelector(selectUserStaked);
   return (
     <Box>
-      <Heading fontSize={"3xl"}>Staked NFTs</Heading>
+      <Center w="full">
+        <Heading fontSize={"3xl"} borderBottom="3px solid white">
+          Staked NFTs
+        </Heading>
+      </Center>
       <Flex
         justifyContent={"center"}
         columnGap={5}
@@ -12,11 +19,9 @@ const StakingSection = () => {
         flexWrap="wrap"
         mt={10}
       >
-        <NFTCard />
-        <NFTCard />
-        <NFTCard />
-        <NFTCard />
-        <NFTCard />
+        {stakedNfts.data.map((nft) => {
+          return <NFTCard nft={nft} key={nft.nonce} />;
+        })}
       </Flex>
     </Box>
   );

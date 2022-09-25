@@ -16,6 +16,9 @@ export interface IExistingPool {
   rewards: string;
 }
 export interface IStaked {
-  tokenIdentifier: string;
-  value: number;
+  address: string;
+  nonce: number;
+  nftPool: IExistingPool;
+  token: string;
+  urls: string[];
 }

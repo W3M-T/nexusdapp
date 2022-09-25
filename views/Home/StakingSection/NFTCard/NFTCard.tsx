@@ -1,6 +1,10 @@
 import { Center, Text } from "@chakra-ui/react";
 import NextImg from "../../../../components/ui/NextImg";
-const NFTCard = () => {
+import { IStaked } from "../../../../redux/types/pools.interface";
+interface IProps {
+  nft: IStaked;
+}
+const NFTCard = ({ nft }: IProps) => {
   return (
     <Center
       height="full"
@@ -18,9 +22,7 @@ const NFTCard = () => {
             borderRadius: "0.7rem",
           },
         }}
-        src={
-          "https://ipfs.io/ipfs/QmYfRXS4jqijwnvMiZELa53fgw5CnSwrkkkvwQ8oumofdy"
-        } // use normal <img> attributes as props
+        src={nft.urls[0]} // use normal <img> attributes as props
         nextProps={{
           height: 490,
           width: 490,

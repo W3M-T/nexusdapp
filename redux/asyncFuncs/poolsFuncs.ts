@@ -48,8 +48,26 @@ export const fetchUserStaked = createAsyncThunk(
     const { firstValue } = res;
     console.log("fetchUserStaked firstValue", firstValue.valueOf());
 
-    const data: IStaked[] = [];
-    // console.log("fetchUserStaked data", data);
+    const data: IStaked[] = firstValue.valueOf().map((nft) => {
+      return {
+        address: nft.field0.address.bech32(),
+        nonce: nft.field0.nft_nonce.toNumber(),
+        nftPool: {
+          timestam: nft.field0.nft_pool.creation_timestamp.toNumber(),
+          creator: nft.field0.nft_pool.creator.bech32(),
+          collection: nft.field0.nft_pool.collection,
+          nfts: nft.field0.nft_pool.nr_of_nfts.toNumber(),
+          token: nft.field0.nft_pool.reward_token,
+          rewards: nft.field0.nft_pool.reward_amount.toNumber(),
+        },
+        token: nft.field0.nft_token,
+        urls: nft.field1.map((url) => {
+          const b = new Buffer(url);
+          return b.toString();
+        }),
+      };
+    });
+    console.log("fetchUserStaked data", data);
 
     return data;
   }

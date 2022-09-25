@@ -14,8 +14,6 @@ import TabsList from "./TabsList/TabsList";
 import UserTab from "./VerifyTab/VerifyTab";
 
 const TabsSection = () => {
-  const bgPrevButton = "white";
-
   // Set active bullets based on current state
   const [activeBullets, setActiveBullets] = useState({
     about: true,

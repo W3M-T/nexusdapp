@@ -198,6 +198,7 @@ export const selectExistingPools = (state: RootState) =>
 export const selectNonWithdrawnCollections = (state: RootState) =>
   state.pools.nonWithdrawnCollections;
 export const selectCreatePool = (state: RootState) => state.pools.createPool;
+export const selectUserStaked = (state: RootState) => state.pools.userStaked;
 
 // Action creators are generated for each case reducer function
 // export const { setAddress } = poolsSlice.actions;

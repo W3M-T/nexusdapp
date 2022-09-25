@@ -15,7 +15,7 @@ const Home = () => {
   }, [address, dispatch]);
   return (
     <MainLayout metaTitle="Home">
-      <Box>
+      <Box mt={8}>
         <StakingSection />
       </Box>
     </MainLayout>
