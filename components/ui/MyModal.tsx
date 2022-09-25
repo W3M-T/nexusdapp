@@ -1,4 +1,4 @@
-const { Modal, ModalOverlay, ModalContent } = require("@chakra-ui/react");
+import { Modal, ModalContent, ModalOverlay } from "@chakra-ui/react";
 
 const MyModal = ({
   isOpen,
