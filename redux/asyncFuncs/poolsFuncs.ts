@@ -1,4 +1,4 @@
-import { Address, AddressValue } from "@elrondnetwork/erdjs/out";
+import { Address, AddressValue, BytesValue } from "@elrondnetwork/erdjs/out";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { NftStakingPoolsWsp } from "../../services/sc";
 import { scQuery } from "../../services/sc/queries";
@@ -76,5 +76,24 @@ export const fetchNonWithdrawnCollections = createAsyncThunk(
     const data = firstValue.valueOf();
 
     return data;
+  }
+);
+export const fetchRegistrationInfo = createAsyncThunk(
+  "pools/fetchRegistrationInfo",
+  async ({ address, collection }: { address: string; collection: string }) => {
+    const res = await scQuery(NftStakingPoolsWsp, "getRegistrationInfo", [
+      new AddressValue(new Address(address)),
+      BytesValue.fromUTF8(collection),
+    ]);
+    const { firstValue } = res;
+
+    const data = firstValue.valueOf();
+    console.log("fetchRegistrationInfo", data);
+
+    return {
+      tokenI: data.field0,
+      tokenAmount: data.field1.toNumber(),
+      payed: data.field2,
+    };
   }
 );

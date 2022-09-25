@@ -7,6 +7,8 @@ import { Flex, Icon, Tab, TabList, Text } from "@chakra-ui/react";
 
 // Icons
 import { BsCircleFill } from "react-icons/bs";
+import { useAppSelector } from "../../../../hooks/core/useRedux";
+import { selectCreatePool } from "../../../../redux/slices/pools";
 
 const TabsList = ({
   setActiveBullets,
@@ -15,6 +17,8 @@ const TabsList = ({
   feeTab,
   formTab,
 }) => {
+  const createPool = useAppSelector(selectCreatePool);
+
   return (
     <TabList display="flex" justifyContent="center">
       <Tab
@@ -66,6 +70,7 @@ const TabsList = ({
         </Flex>
       </Tab>
       <Tab
+        isDisabled={!createPool.phase1 || createPool.phase1.status === "error"}
         ref={feeTab}
         w={{ sm: "120px", md: "250px", lg: "300px" }}
         onClick={() =>
@@ -116,6 +121,7 @@ const TabsList = ({
         </Flex>
       </Tab>
       <Tab
+        isDisabled={!createPool.phase2?.data?.payed}
         ref={formTab}
         w={{ sm: "120px", md: "250px", lg: "300px" }}
         onClick={() =>

@@ -67,9 +67,7 @@ export const scCall = (
     args: argum,
     smartContractAddress,
     gasLimit: gasLimit,
-    value: value
-      ? value * Math.pow(10, Number(selectedNetwork.egldDenomination))
-      : undefined,
+    value: value,
   };
 };
 export const ESDTTransfer = (

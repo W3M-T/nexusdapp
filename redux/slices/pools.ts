@@ -3,6 +3,7 @@ import {
   fetchExistringPools,
   fetchIsNftCreator,
   fetchNonWithdrawnCollections,
+  fetchRegistrationInfo,
   fetchStats,
   fetchUserStaked,
 } from "../asyncFuncs/poolsFuncs";
@@ -35,6 +36,22 @@ export interface poolsState {
     status: Status;
     data: string[];
     error: string;
+  };
+  createPool: {
+    collection: string;
+    phase1?: {
+      status: "success" | "error";
+      message: string;
+    };
+    phase2?: {
+      status: "success" | "error" | "idle";
+      message: string;
+      data?: {
+        tokenI: string;
+        tokenAmount: string | number;
+        payed: boolean;
+      };
+    };
   };
 }
 
@@ -69,12 +86,30 @@ const initialState: poolsState = {
     data: [],
     error: "",
   },
+
+  //creando el form para crear pools pases
+  createPool: {
+    collection: "",
+    phase1: null,
+    phase2: {
+      message: "",
+      status: "success",
+      data: null,
+    },
+  },
 };
 
 export const poolsSlice = createSlice({
   name: "pools",
   initialState,
-  reducers: {},
+  reducers: {
+    setCreatePoolCollection: (state, action) => {
+      state.createPool.collection = action.payload;
+    },
+    setCreatePoolPahe1: (state, action) => {
+      state.createPool.phase1 = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchStats.pending, (state) => {
@@ -138,6 +173,19 @@ export const poolsSlice = createSlice({
       .addCase(fetchNonWithdrawnCollections.rejected, (state, action) => {
         state.nonWithdrawnCollections.status = "failed";
         state.nonWithdrawnCollections.error = action.error.message;
+      })
+      //fetchRegistrationInfo
+      .addCase(fetchRegistrationInfo.pending, (state) => {
+        state.createPool.phase2.status = "success";
+      })
+      .addCase(fetchRegistrationInfo.fulfilled, (state, action) => {
+        state.createPool.phase2.status = "success";
+        state.createPool.phase2.message = "Registration completed !";
+        state.createPool.phase2.data = action.payload;
+      })
+      .addCase(fetchRegistrationInfo.rejected, (state, action) => {
+        state.createPool.phase2.status = "error";
+        state.createPool.phase2.message = action.error.message;
       });
   },
 });
@@ -149,8 +197,11 @@ export const selectExistingPools = (state: RootState) =>
   state.pools.existingPools;
 export const selectNonWithdrawnCollections = (state: RootState) =>
   state.pools.nonWithdrawnCollections;
+export const selectCreatePool = (state: RootState) => state.pools.createPool;
 
 // Action creators are generated for each case reducer function
 // export const { setAddress } = poolsSlice.actions;
+export const { setCreatePoolCollection, setCreatePoolPahe1 } =
+  poolsSlice.actions;
 
 export default poolsSlice.reducer;

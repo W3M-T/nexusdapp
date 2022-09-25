@@ -1,21 +1,76 @@
 /* eslint-disable react/no-unescaped-entities */
 
 // Chakra imports
-import { Box, Button, Center, Flex, Text } from "@chakra-ui/react";
+import {
+  Alert,
+  AlertIcon,
+  Box,
+  Button,
+  Center,
+  Flex,
+  Text,
+} from "@chakra-ui/react";
+import { BytesValue } from "@elrondnetwork/erdjs/out";
 import { ActionButton } from "../../../../components/tools/ActionButton";
 
 // Custom components
 
 // Icons
+import { useEffect } from "react";
 import { CardWrapper } from "../../../../components/ui/CardWrapper";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../hooks/core/useRedux";
+import { useScTransaction } from "../../../../hooks/core/useScTransaction";
+import { fetchRegistrationInfo } from "../../../../redux/asyncFuncs/poolsFuncs";
+import { selectCreatePool } from "../../../../redux/slices/pools";
+import { selectUserAddress } from "../../../../redux/slices/settings";
+import { NftStakingPoolsWsp } from "../../../../services/sc";
+import { scCall } from "../../../../services/sc/calls";
+import { formatBalance } from "../../../../utils/formatBalance";
+import { formatTokenI } from "../../../../utils/formatTokenIdentifier";
+import { TxCb } from "../../../../utils/txCallback";
 
-const FeeTab = ({
-  setCheckboxes,
-  checkboxes,
-  bgPrevButton,
-  formTab,
-  verifyTab,
-}) => {
+interface IProps {
+  activeFeeTab: () => void;
+  activeVerifyTab: () => void;
+  activeFormTab: () => void;
+}
+
+const FeeTab = ({ activeFeeTab, activeVerifyTab, activeFormTab }: IProps) => {
+  const { phase2 } = useAppSelector(selectCreatePool);
+  const { collection } = useAppSelector(selectCreatePool);
+  const dispatch = useAppDispatch();
+  const address = useAppSelector(selectUserAddress);
+
+  const { triggerTx, transaction } = useScTransaction({
+    cb: TxCb,
+  });
+  useEffect(() => {
+    if (address) {
+      dispatch(fetchRegistrationInfo({ address, collection }));
+    }
+  }, [address, collection, dispatch, transaction]);
+
+  const handlePayNow = () => {
+    if (phase2.data.tokenAmount && collection) {
+      console.log(
+        "amount",
+        formatBalance({ balance: phase2.data.tokenAmount }, true)
+      );
+
+      triggerTx(
+        scCall(
+          NftStakingPoolsWsp,
+          "payFee",
+          [BytesValue.fromUTF8(collection)],
+          80000000,
+          formatBalance({ balance: phase2.data.tokenAmount }, true)
+        )
+      );
+    }
+  };
   return (
     <CardWrapper bg="linear-gradient(127.09deg, rgba(6, 11, 40, 0.94) 19.41%, rgba(10, 14, 35, 0.49) 76.65%)">
       <Box mb="40px">
@@ -28,14 +83,15 @@ const FeeTab = ({
           mx="auto"
         >
           <Text fontSize="lg" fontWeight="bold" mb="4px">
-            Elrond Apes - 120G07 collection verified!
+            {collection} collection verified!
           </Text>
           <Text color="gray.400" fontWeight="500" fontSize="sm">
             By registering you can create as many pools as you wish for this
             collection. Registration fee is{" "}
             <Box as="span" fontWeight={"bold"} textDecoration="underline">
               {" "}
-              15 EGLD
+              {formatBalance({ balance: phase2?.data?.tokenAmount })}{" "}
+              {formatTokenI(phase2?.data?.tokenI)}
             </Box>
             .
           </Text>
@@ -45,18 +101,29 @@ const FeeTab = ({
         <Flex direction="column" w="100%">
           <Box>
             <Center>
-              <ActionButton>Pay now</ActionButton>
+              {phase2?.data?.payed ? (
+                <Box mt={8}>
+                  {phase2.status !== "idle" && (
+                    <Alert status={phase2.status} borderRadius="15px">
+                      <AlertIcon />
+                      {phase2.message}
+                    </Alert>
+                  )}
+                </Box>
+              ) : (
+                <ActionButton onClick={handlePayNow}>Pay now</ActionButton>
+              )}
             </Center>
           </Box>
           <Flex justify="space-between">
             <Button
               variant="no-hover"
-              bg={bgPrevButton}
+              bg={"white"}
               alignSelf="flex-end"
               mt="24px"
               w={{ sm: "75px", lg: "100px" }}
               h="35px"
-              onClick={() => verifyTab.current.click()}
+              onClick={activeVerifyTab}
             >
               <Text fontSize="xs" color="#313860" fontWeight="bold">
                 PREV
@@ -67,6 +134,8 @@ const FeeTab = ({
               alignSelf="flex-end"
               mt="24px"
               h="35px"
+              disabled={!phase2?.data?.payed}
+              onClick={activeFormTab}
             >
               <Text fontSize="xs" color="#fff" fontWeight="bold">
                 NEXT

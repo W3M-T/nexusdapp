@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/no-unescaped-entities */
 
 // Chakra imports
@@ -18,20 +19,30 @@ const TabsSection = () => {
   // Set active bullets based on current state
   const [activeBullets, setActiveBullets] = useState({
     about: true,
-    feet: false,
-    form: false,
-  });
-
-  const [checkboxes, setCheckboxes] = useState({
-    design: false,
-    code: false,
-    develop: false,
+    account: true,
+    address: false,
   });
 
   // Tabs references
-  const verifyTab = useRef();
-  const feeTab = useRef();
-  const formTab = useRef();
+  const verifyTab = useRef<any>();
+  const feeTab = useRef<any>();
+  const formTab = useRef<any>();
+
+  const activeVerifyTab = () => {
+    if (verifyTab.current) {
+      verifyTab.current.click();
+    }
+  };
+  const activeFeeTab = () => {
+    if (verifyTab.current) {
+      feeTab.current.click();
+    }
+  };
+  const activeFormTab = () => {
+    if (verifyTab.current) {
+      formTab.current.click();
+    }
+  };
 
   return (
     <Tabs
@@ -51,19 +62,17 @@ const TabsSection = () => {
       />
       <TabPanels mt="24px" maxW={{ md: "90%", lg: "100%" }} mx="auto">
         <TabPanel w={{ sm: "330px", md: "700px", lg: "850px" }} mx="auto">
-          <UserTab feeTab={feeTab} />
+          <UserTab activeFeeTab={activeFeeTab} />
         </TabPanel>
         <TabPanel w={{ sm: "330px", md: "700px", lg: "850px" }} mx="auto">
           <FeeTab
-            verifyTab={verifyTab}
-            formTab={formTab}
-            bgPrevButton={bgPrevButton}
-            checkboxes={checkboxes}
-            setCheckboxes={setCheckboxes}
+            activeVerifyTab={activeVerifyTab}
+            activeFormTab={activeFormTab}
+            activeFeeTab={activeFeeTab}
           />
         </TabPanel>
         <TabPanel w={{ sm: "330px", md: "700px", lg: "850px" }} mx="auto">
-          <FormTab feeTab={feeTab} bgPrevButton={bgPrevButton} />
+          <FormTab activeFeeTab={activeFeeTab} />
         </TabPanel>
       </TabPanels>
     </Tabs>
