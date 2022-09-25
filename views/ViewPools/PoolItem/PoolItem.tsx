@@ -1,4 +1,5 @@
 import { Box, Center, Flex, Text } from "@chakra-ui/react";
+import { ActionButton } from "../../../components/tools/ActionButton";
 import NextImg from "../../../components/ui/NextImg";
 import { IExistingPool } from "../../../redux/types/pools.interface";
 import { formatBalance } from "../../../utils/formatBalance";
@@ -39,7 +40,7 @@ const PoolItem = ({ pool }: IProps) => {
         <Text mb={2} fontWeight="bold" fontSize={"2xl"}>
           {formatTokenI(pool.collection)}
         </Text>
-        <Flex flexDir={"column"} gap={1}>
+        <Flex flexDir={"column"} gap={1} m>
           <Text>
             <Box as="span" fontWeight={"bold"}>
               {" "}
@@ -56,13 +57,16 @@ const PoolItem = ({ pool }: IProps) => {
             {date.toLocaleDateString("en-US")}{" "}
           </Text>
         </Flex>
-        <Text>
+        <Text mb={2}>
           {" "}
           <Box as="span" fontWeight={"bold"}>
             Total Nfts :{" "}
           </Box>{" "}
           {pool.nfts}{" "}
         </Text>
+        <ActionButton borderRadius={"full"} fontSize="xs" py={1}>
+          Stake
+        </ActionButton>
       </Center>
     </Flex>
   );
