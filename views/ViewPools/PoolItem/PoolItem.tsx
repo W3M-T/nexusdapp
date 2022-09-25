@@ -40,7 +40,7 @@ const PoolItem = ({ pool }: IProps) => {
         <Text mb={2} fontWeight="bold" fontSize={"2xl"}>
           {formatTokenI(pool.collection)}
         </Text>
-        <Flex flexDir={"column"} gap={1} m>
+        <Flex flexDir={"column"} gap={1}>
           <Text>
             <Box as="span" fontWeight={"bold"}>
               {" "}

@@ -3,8 +3,9 @@ import NextImg from "../../../../components/ui/NextImg";
 import { IStaked } from "../../../../redux/types/pools.interface";
 interface IProps {
   nft: IStaked;
+  onClick: () => void;
 }
-const NFTCard = ({ nft }: IProps) => {
+const NFTCard = ({ nft, onClick }: IProps) => {
   return (
     <Center
       height="full"
@@ -12,6 +13,7 @@ const NFTCard = ({ nft }: IProps) => {
       cursor="pointer"
       position={"relative"}
       flexDir="column"
+      onClick={onClick}
     >
       {" "}
       <NextImg
