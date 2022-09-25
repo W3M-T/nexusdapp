@@ -70,7 +70,7 @@ const FormTab = ({ activeFeeTab }: IProps) => {
               new BigUIntValue(new BigNumber(values.dayliRewards)),
             ],
             80000000,
-            Number(values.nftsNumber) * Number(values.dayliRewards)
+            Number(values.nftsNumber) * Number(values.dayliRewards) * 30
           )
         );
       }
@@ -193,7 +193,8 @@ const FormTab = ({ activeFeeTab }: IProps) => {
                 {Number(formik.values.nftsNumber) &&
                 Number(formik.values.dayliRewards)
                   ? Number(formik.values.nftsNumber) *
-                    Number(formik.values.dayliRewards)
+                    Number(formik.values.dayliRewards) *
+                    30
                   : 0}
               </Heading>
             </Box>
