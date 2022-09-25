@@ -12,11 +12,11 @@ export const route = {
 
   create: {
     route: "/create-pool",
-    name: "Create Pools",
+    name: "Create Pool",
   },
   view: {
     route: "/view-pool",
-    name: "View Pool",
+    name: "View Pools",
   },
   scOwner: {
     route: "/sc-owner-dashboard",

@@ -132,6 +132,8 @@ const UserTab = ({ feeTab }) => {
             alignSelf="flex-end"
             mt="24px"
             h="35px"
+            disabled={!status || status.status === "error"}
+            onClick={() => feeTab.current.click()}
           >
             <Text fontSize="xs" color="#fff" fontWeight="bold">
               NEXT

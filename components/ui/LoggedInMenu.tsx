@@ -29,7 +29,7 @@ const LoggedInMenu = () => {
             }}
             onClick={() => logout()}
           >
-            Disconnet
+            Disconnect
           </Flex>
           <Flex
             py={1}
@@ -41,7 +41,7 @@ const LoggedInMenu = () => {
             }}
           >
             <Link href={route.scOwner.route}>
-              <a>Owner Dashboar</a>
+              <a>Owner Dashboard</a>
             </Link>
           </Flex>
           <Flex
@@ -54,7 +54,7 @@ const LoggedInMenu = () => {
             }}
           >
             <Link href={route.nftCollectionOwner.route}>
-              <a> Nft Collection Owner</a>
+              <a> NFT Creator Dashboard</a>
             </Link>
           </Flex>
         </VStack>
