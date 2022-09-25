@@ -19,7 +19,7 @@ const TabsSection = () => {
   // Set active bullets based on current state
   const [activeBullets, setActiveBullets] = useState({
     about: true,
-    account: true,
+    account: false,
     address: false,
   });
 
