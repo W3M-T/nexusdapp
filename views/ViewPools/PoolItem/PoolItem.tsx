@@ -62,7 +62,7 @@ const PoolItem = ({ pool }: IProps) => {
           <Box as="span" fontWeight={"bold"}>
             Total Nfts :{" "}
           </Box>{" "}
-          {pool.nfts}{" "}
+          {pool.nftsNow} / {pool.nfts}{" "}
         </Text>
         <ActionButton borderRadius={"full"} fontSize="xs" py={1}>
           Stake

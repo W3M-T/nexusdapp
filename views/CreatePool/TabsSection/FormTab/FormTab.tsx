@@ -45,7 +45,7 @@ interface IProps {
 }
 
 const FormTab = ({ activeFeeTab }: IProps) => {
-  const { collection } = useAppSelector(selectCreatePool);
+  const { collection: collection } = useAppSelector(selectCreatePool);
   const { triggerTx } = useScTransaction({
     cb: TxCb,
   });
@@ -64,10 +64,11 @@ const FormTab = ({ activeFeeTab }: IProps) => {
             NftStakingPoolsWsp,
             "createPool",
             [
-              BytesValue.fromUTF8(values.collection),
+              BytesValue.fromUTF8(values.collection.collection),
               new U32Value(new BigNumber(values.nftsNumber)),
               BytesValue.fromUTF8(values.token),
               new BigUIntValue(new BigNumber(values.dayliRewards)),
+              BytesValue.fromUTF8(values.collection.name),
             ],
             80000000,
             Number(values.nftsNumber) * Number(values.dayliRewards) * 30
@@ -109,7 +110,7 @@ const FormTab = ({ activeFeeTab }: IProps) => {
                   borderRadius="15px"
                   placeholder="eg. "
                   fontSize="xs"
-                  value={collection}
+                  value={collection.collection}
                   readOnly
                 />
               </FormControl>

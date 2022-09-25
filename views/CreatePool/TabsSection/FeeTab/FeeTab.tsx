@@ -47,9 +47,12 @@ const FeeTab = ({ activeFeeTab, activeVerifyTab, activeFormTab }: IProps) => {
   const { triggerTx, transaction } = useScTransaction({
     cb: TxCb,
   });
+
   useEffect(() => {
     if (address) {
-      dispatch(fetchRegistrationInfo({ address, collection }));
+      dispatch(
+        fetchRegistrationInfo({ address, collection: collection.collection })
+      );
     }
   }, [address, collection, dispatch, transaction]);
 
@@ -64,7 +67,7 @@ const FeeTab = ({ activeFeeTab, activeVerifyTab, activeFormTab }: IProps) => {
         scCall(
           NftStakingPoolsWsp,
           "payFee",
-          [BytesValue.fromUTF8(collection)],
+          [BytesValue.fromUTF8(collection.collection)],
           80000000,
           formatBalance({ balance: phase2.data.tokenAmount }, true)
         )
@@ -83,7 +86,7 @@ const FeeTab = ({ activeFeeTab, activeVerifyTab, activeFormTab }: IProps) => {
           mx="auto"
         >
           <Text fontSize="lg" fontWeight="bold" mb="4px">
-            {collection} collection verified!
+            {collection.collection} collection verified!
           </Text>
           <Text color="gray.400" fontWeight="500" fontSize="sm">
             By registering you can create as many pools as you wish for this

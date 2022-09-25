@@ -14,6 +14,10 @@ export interface IExistingPool {
   nfts: number;
   token: string;
   rewards: string;
+
+  poolName: string;
+  nftsNow: number;
+  urls: string[];
 }
 export interface IStaked {
   address: string;

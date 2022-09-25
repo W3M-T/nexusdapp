@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { INftCollection } from "../../types/collection";
 import {
   fetchExistringPools,
   fetchIsNftCreator,
@@ -38,7 +39,7 @@ export interface poolsState {
     error: string;
   };
   createPool: {
-    collection: string;
+    collection?: INftCollection;
     phase1?: {
       status: "success" | "error";
       message: string;
@@ -89,7 +90,7 @@ const initialState: poolsState = {
 
   //creando el form para crear pools pases
   createPool: {
-    collection: "",
+    collection: null,
     phase1: null,
     phase2: {
       message: "",

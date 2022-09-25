@@ -24,17 +24,22 @@ export const fetchExistringPools = createAsyncThunk(
   async () => {
     const res = await scQuery(NftStakingPoolsWsp, "getExistingPools");
     const { firstValue } = res;
+    console.log("getExistingPools", firstValue.valueOf());
 
     const data: IExistingPool[] = firstValue.valueOf().map((pool) => {
       return {
-        timestam: pool.creation_timestamp.toNumber(),
-        creator: pool.creator.bech32(),
-        collection: pool.collection,
-        nfts: pool.nr_of_nfts.toNumber(),
-        token: pool.reward_token,
-        rewards: pool.reward_amount.toNumber(),
+        timestam: pool.field0.creation_timestamp.toNumber(),
+        creator: pool.field0.creator.bech32(),
+        collection: pool.field0.collection,
+        nfts: pool.field0.nr_of_nfts.toNumber(),
+        token: pool.field0.reward_token,
+        rewards: pool.field0.reward_amount.toNumber(),
+        poolName: pool.field1.toString(),
+        nftsNow: pool.field2.toNumber(),
+        urls: pool.field3.map((url) => url.toString()),
       };
     });
+    console.log("getExistingPools", data);
 
     return data;
   }

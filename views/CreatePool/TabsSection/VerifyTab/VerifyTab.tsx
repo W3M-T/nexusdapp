@@ -62,7 +62,7 @@ const UserTab = ({ activeFeeTab }: IProps) => {
                 message: "Already verified !",
               })
             );
-            dispatch(setCreatePoolCollection(values.collection));
+            dispatch(setCreatePoolCollection(collectionDetails));
           } else {
             dispatch(
               setCreatePoolPahe1({
