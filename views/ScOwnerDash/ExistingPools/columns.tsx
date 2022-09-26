@@ -1,4 +1,5 @@
 import { Flex } from "@chakra-ui/react";
+import { IExistingPool } from "../../../redux/types/pools.interface";
 import { formatBalance } from "../../../utils/formatBalance";
 import { formatTokenI } from "../../../utils/formatTokenIdentifier";
 import { shortenHash } from "../../../utils/shortenHash";
@@ -62,7 +63,7 @@ export const columns = [
     Header: "NFTs",
     accessor: "nfts",
     Cell: ({ row }) => {
-      const pool = row.original;
+      const pool: IExistingPool = row.original;
       return (
         <Flex
           fontSize="14px"
@@ -71,7 +72,7 @@ export const columns = [
           alignItems={"center"}
           justifyContent="center"
         >
-          {pool.nfts}
+          {pool.nftsNow} / {pool.nfts}
         </Flex>
       );
     },

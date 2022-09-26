@@ -71,7 +71,7 @@ export const columns = [
           alignItems={"center"}
           justifyContent="center"
         >
-          {pool.nfts}
+          {pool.nftsNow} / {pool.nfts}
         </Flex>
       );
     },
