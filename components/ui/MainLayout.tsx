@@ -1,6 +1,5 @@
 import { Box, Container } from "@chakra-ui/react";
 import { PropsWithChildren, useEffect } from "react";
-import { addressdb } from "../../constants/addressess";
 import { useAccount } from "../../hooks/auth/useAccount";
 import { useLogin } from "../../hooks/auth/useLogin";
 import { useAppDispatch, useAppSelector } from "../../hooks/core/useRedux";
@@ -25,8 +24,8 @@ export const MainLayout = ({
   const dispatch = useAppDispatch();
   const { isLoggedIn, isLoggingIn } = useLogin();
   useEffect(() => {
-    // dispatch(setAddress(account.address));
-    dispatch(setAddress(addressdb.kostas));
+    dispatch(setAddress(account.address));
+    // dispatch(setAddress(addressdb.kostas));
   }, [account.address, dispatch]);
 
   useEffect(() => {

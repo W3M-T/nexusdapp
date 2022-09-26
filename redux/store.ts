@@ -3,12 +3,15 @@ import counterReducer from "../redux/slices/counterSlice";
 import poolsReducer from "../redux/slices/pools";
 import settingsReducer from "../redux/slices/settings";
 import transactionsReducer from "../redux/slices/transactions";
+import tokensReducer from "./slices/tokens";
+
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     settings: settingsReducer,
     transactions: transactionsReducer,
     pools: poolsReducer,
+    tokens: tokensReducer,
   },
 });
 

@@ -1,20 +1,83 @@
-import { Box, Center, Flex, Text } from "@chakra-ui/react";
+import { Box, Center, Flex, Text, useDisclosure } from "@chakra-ui/react";
+import {
+  Address,
+  AddressType,
+  AddressValue,
+  BigUIntType,
+  BigUIntValue,
+  BytesType,
+  BytesValue,
+  Field,
+  FieldDefinition,
+  Struct,
+  StructType,
+  TokenIdentifierType,
+  TokenIdentifierValue,
+  U32Type,
+  U32Value,
+  U64Type,
+  U64Value,
+} from "@elrondnetwork/erdjs/out";
+import BigNumber from "bignumber.js";
+import dynamic from "next/dynamic";
 import { ActionButton } from "../../../components/tools/ActionButton";
 import NextImg from "../../../components/ui/NextImg";
+import { selectedNetwork } from "../../../config/network";
 import { useScTransaction } from "../../../hooks/core/useScTransaction";
 import { IExistingPool } from "../../../redux/types/pools.interface";
+import { INft } from "../../../redux/types/tokens.interface";
+import { ESDTNFTTransfer } from "../../../services/sc/calls";
 import { formatBalance } from "../../../utils/formatBalance";
 import { formatTokenI } from "../../../utils/formatTokenIdentifier";
 import { TxCb } from "../../../utils/txCallback";
+
+const SelectNftModal = dynamic(
+  () => import("../SelectNftModal/SelectNftModal")
+);
+
 interface IProps {
   pool: IExistingPool;
 }
 const PoolItem = ({ pool }: IProps) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const { triggerTx } = useScTransaction({
     cb: TxCb,
   });
-  const handleStake = () => {
-    // triggerTx(ESDTNFTTransfer("stakeNft","", 1,  pool.))
+  const handleStake = (nft: INft) => {
+    const poolType = new StructType("pool", [
+      new FieldDefinition("creation_timestamp", "", new U64Type()),
+      new FieldDefinition("creator", "", new AddressType()),
+      new FieldDefinition("collection", "", new TokenIdentifierType()),
+      new FieldDefinition("nr_of_nfts", "", new U32Type()),
+      new FieldDefinition("reward_token", "", new BytesType()),
+      new FieldDefinition("reward_amount", "", new BigUIntType()),
+    ]);
+
+    const poolStruct = new Struct(poolType, [
+      new Field(
+        new U64Value(new BigNumber(pool.timestam)),
+        "creation_timestamp"
+      ),
+      new Field(new AddressValue(new Address(pool.creator)), "creator"),
+      new Field(new TokenIdentifierValue(pool.collection), "collection"),
+      new Field(new U32Value(new BigNumber(pool.nfts)), "nr_of_nfts"),
+      new Field(BytesValue.fromUTF8(pool.token), "reward_token"),
+      new Field(new BigUIntValue(new BigNumber(pool.nfts)), "reward_amount"),
+    ]);
+
+    triggerTx(
+      ESDTNFTTransfer(
+        "stakeNft",
+        "",
+        undefined,
+        nft,
+        selectedNetwork.contractAddr.nftsStaking,
+        70000000,
+        [poolStruct, BytesValue.fromUTF8(nft?.media[0]?.url || "")],
+        1
+      )
+    );
   };
   const date = new Date(pool.timestam * 1000);
   return (
@@ -74,11 +137,19 @@ const PoolItem = ({ pool }: IProps) => {
           borderRadius={"full"}
           fontSize="xs"
           py={1}
-          onClick={handleStake}
+          onClick={onOpen}
         >
           Stake
         </ActionButton>
       </Center>
+      {isOpen && (
+        <SelectNftModal
+          isOpenModal={isOpen}
+          onCloseModal={onClose}
+          onConfirm={handleStake}
+          colelction={pool.collection}
+        />
+      )}
     </Flex>
   );
 };

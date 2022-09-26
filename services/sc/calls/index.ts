@@ -19,7 +19,7 @@ export const ESDTNFTTransfer = (
   contractAddr = "",
   gasLimit = 200000000,
   args = [],
-  finalTokenValue
+  finalTokenValue = undefined
 ): ScTransactionParams => {
   const tokenId = token.collection;
   const tokenNonce = token.nonce;
@@ -48,6 +48,7 @@ export const ESDTNFTTransfer = (
     value: 0,
   };
 };
+
 export const scCall = (
   workspace,
   funcName,
