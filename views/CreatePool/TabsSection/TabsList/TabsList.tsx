@@ -31,6 +31,9 @@ const TabsList = ({
             address: false,
           })
         }
+        _focusVisible={{
+          boxShadow: "none",
+        }}
       >
         <Flex
           direction="column"
@@ -80,6 +83,9 @@ const TabsList = ({
             address: false,
           })
         }
+        _focusVisible={{
+          boxShadow: "none",
+        }}
       >
         <Flex
           direction="column"
@@ -131,6 +137,9 @@ const TabsList = ({
             address: true,
           })
         }
+        _focusVisible={{
+          boxShadow: "none",
+        }}
       >
         <Flex
           direction="column"

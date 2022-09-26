@@ -110,6 +110,12 @@ export const poolsSlice = createSlice({
     setCreatePoolPahe1: (state, action) => {
       state.createPool.phase1 = action.payload;
     },
+    setCreatePoolPahe2: (state, action) => {
+      state.createPool.phase2 = action.payload;
+    },
+    setCreatePool: (state, action) => {
+      state.createPool = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -203,7 +209,11 @@ export const selectUserStaked = (state: RootState) => state.pools.userStaked;
 
 // Action creators are generated for each case reducer function
 // export const { setAddress } = poolsSlice.actions;
-export const { setCreatePoolCollection, setCreatePoolPahe1 } =
-  poolsSlice.actions;
+export const {
+  setCreatePoolCollection,
+  setCreatePoolPahe1,
+  setCreatePoolPahe2,
+  setCreatePool,
+} = poolsSlice.actions;
 
 export default poolsSlice.reducer;

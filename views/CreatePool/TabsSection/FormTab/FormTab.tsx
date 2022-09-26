@@ -19,6 +19,7 @@ import BigNumber from "bignumber.js";
 
 // Icons
 import { useFormik } from "formik";
+import { useEffect } from "react";
 import * as yup from "yup";
 import { ActionButton } from "../../../../components/tools/ActionButton";
 import { CardWrapper } from "../../../../components/ui/CardWrapper";
@@ -34,7 +35,6 @@ import { NftStakingPoolsWsp } from "../../../../services/sc";
 import { ESDTTransfer, scCall } from "../../../../services/sc/calls";
 import { formatTokenI } from "../../../../utils/formatTokenIdentifier";
 import { TxCb } from "../../../../utils/txCallback";
-
 const validationSchema = yup.object({
   nftsNumber: yup.number().required(),
   dayliRewards: yup.number().required(),
@@ -95,6 +95,10 @@ const FormTab = ({ activeFeeTab }: IProps) => {
       }
     },
   });
+
+  useEffect(() => {
+    localStorage.setItem("poolcreationPhase", "3");
+  }, []);
 
   return (
     <CardWrapper>

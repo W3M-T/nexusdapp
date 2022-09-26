@@ -49,6 +49,10 @@ const FeeTab = ({ activeFeeTab, activeVerifyTab, activeFormTab }: IProps) => {
   });
 
   useEffect(() => {
+    localStorage.setItem("poolcreationPhase", "2");
+  }, []);
+
+  useEffect(() => {
     if (address) {
       dispatch(
         fetchRegistrationInfo({ address, collection: collection.collection })

@@ -10,10 +10,16 @@ import FormTab from "./FormTab/FormTab";
 // Custom components
 
 // Icons
+import { useEffect } from "react";
+import { useAppDispatch } from "../../../hooks/core/useRedux";
+import { setCreatePool } from "../../../redux/slices/pools";
+import { store } from "../../../redux/store";
 import TabsList from "./TabsList/TabsList";
 import UserTab from "./VerifyTab/VerifyTab";
 
 const TabsSection = () => {
+  const dispatch = useAppDispatch();
+
   // Set active bullets based on current state
   const [activeBullets, setActiveBullets] = useState({
     about: true,
@@ -38,9 +44,50 @@ const TabsSection = () => {
   };
   const activeFormTab = () => {
     if (verifyTab.current) {
+      console.log("activeFormTab");
       formTab.current.click();
     }
   };
+
+  useEffect(() => {
+    const phase = localStorage.getItem("poolcreationPhase");
+    console.log(phase);
+
+    if (phase === "2") {
+      setTimeout(() => {
+        activeFeeTab();
+      }, 500);
+    } else if (phase === "3") {
+      setTimeout(() => {
+        activeFormTab();
+      }, 500);
+    }
+  }, []);
+
+  useEffect(() => {
+    dispatch(
+      setCreatePool(
+        localStorage.getItem("createPool")
+          ? JSON.parse(localStorage.getItem("createPool"))
+          : {
+              collection: null,
+              phase1: null,
+              phase2: {
+                message: "",
+                status: "success",
+                data: null,
+              },
+            }
+      )
+    );
+  }, [dispatch]);
+  useEffect(() => {
+    store.subscribe(() => {
+      console.log("state", store.getState().pools.createPool);
+      const createPoolState = store.getState().pools.createPool;
+      localStorage.setItem("createPool", JSON.stringify(createPoolState));
+    });
+  }, []);
 
   return (
     <Tabs
