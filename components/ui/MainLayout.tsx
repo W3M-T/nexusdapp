@@ -25,11 +25,7 @@ export const MainLayout = ({
   const { isLoggedIn, isLoggingIn } = useLogin();
   useEffect(() => {
     // dispatch(setAddress(account.address));
-    dispatch(
-      setAddress(
-        "erd13j00d82gs7ec665z202lh25l7tjw6lpaxwe7th4e6uwlsk3r8pgq555qzg"
-      )
-    );
+    dispatch(setAddress(account.address));
   }, [account.address, dispatch]);
 
   useEffect(() => {
