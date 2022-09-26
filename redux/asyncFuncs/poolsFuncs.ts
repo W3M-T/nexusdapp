@@ -1,5 +1,6 @@
 import { Address, AddressValue, BytesValue } from "@elrondnetwork/erdjs/out";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { EgldToken } from "../../constants/tokens";
 import { getFromAllTokens } from "../../services/rest/axiosEldron";
 import { NftStakingPoolsWsp } from "../../services/sc";
 import { scQuery } from "../../services/sc/queries";
@@ -12,19 +13,35 @@ export const fetchStats = createAsyncThunk("pools/fetchStats", async () => {
   const tokens = firstValue.valueOf().field2.map((fee) => {
     return fee.field0;
   });
+
+  const resapitokens = await getFromAllTokens({
+    identifiers: tokens.join(","),
+  });
+  const tokensDetails = [...resapitokens.data, EgldToken];
+
   const data: IPoolStats = {
     feesCollected: firstValue.valueOf().field2.map((fee) => {
-      return { token: fee.field0, amount: fee.field1.toNumber() };
+      const index = tokensDetails.findIndex(
+        (token) => token.identifier === fee.field0
+      );
+      if (index !== -1) {
+        return {
+          token: fee.field0,
+          amount: fee.field1.toNumber(),
+          tokenDetials: tokensDetails[index],
+        };
+      }
     }),
     poolsCreated: firstValue.valueOf().field0.toNumber(),
     nftStaked: firstValue.valueOf().field1.toNumber(),
   };
 
-  const resapitokens = await getFromAllTokens({
-    identifiers: tokens.join(","),
-  });
+  console.log("tokens", tokens);
+  console.log("tokensDetails", tokensDetails);
 
-  return data;
+  console.log("resapitokens", resapitokens.data);
+
+  return { ...data, feesCollected: data.feesCollected };
 });
 
 export const fetchExistringPools = createAsyncThunk(

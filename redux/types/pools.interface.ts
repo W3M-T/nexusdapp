@@ -4,6 +4,14 @@ export interface IPoolStats {
   feesCollected: {
     token: string;
     amount: number;
+    tokenDetials: {
+      identifier: string;
+      name: string;
+      ticker: string;
+      decimals: number;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      assets: any;
+    };
   }[];
 }
 

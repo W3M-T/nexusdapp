@@ -1,4 +1,5 @@
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
+import Image from "next/image";
 import { CardWrapper } from "../../../components/ui/CardWrapper";
 import { useAppSelector } from "../../../hooks/core/useRedux";
 import { selectPoolStats } from "../../../redux/slices/pools";
@@ -31,10 +32,27 @@ const MainStats = () => {
         <Flex flexWrap={"wrap"} w="full" gap={3}>
           {stats.data.feesCollected.map((fees) => {
             return (
-              <Text key={fees.token}>
-                {formatBalance({ balance: fees.amount })}{" "}
-                {formatTokenI(fees.token)}
-              </Text>
+              <Flex key={fees.token} alignItems="center">
+                <Text>
+                  {formatBalance({ balance: fees.amount })}{" "}
+                  {formatTokenI(fees.token)}
+                </Text>
+                <Box boxSize={4} ml={1}>
+                  {fees.tokenDetials.assets?.img ? (
+                    fees.tokenDetials.assets?.img
+                  ) : (
+                    <Box borderRadius={"full"} boxSize={4}>
+                      <Image
+                        layout="intrinsic"
+                        width="30px"
+                        height="30px"
+                        src={fees.tokenDetials.assets.svgUrl}
+                        alt={fees.tokenDetials.name}
+                      />
+                    </Box>
+                  )}
+                </Box>
+              </Flex>
             );
           })}
         </Flex>
