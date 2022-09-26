@@ -1,5 +1,6 @@
 import { Address, AddressValue, BytesValue } from "@elrondnetwork/erdjs/out";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { getFromAllTokens } from "../../services/rest/axiosEldron";
 import { NftStakingPoolsWsp } from "../../services/sc";
 import { scQuery } from "../../services/sc/queries";
 import { IExistingPool, IPoolStats, IStaked } from "../types/pools.interface";
@@ -8,6 +9,9 @@ export const fetchStats = createAsyncThunk("pools/fetchStats", async () => {
   const res = await scQuery(NftStakingPoolsWsp, "getInfo");
   const { firstValue } = res;
 
+  const tokens = firstValue.valueOf().field2.map((fee) => {
+    return fee.field0;
+  });
   const data: IPoolStats = {
     feesCollected: firstValue.valueOf().field2.map((fee) => {
       return { token: fee.field0, amount: fee.field1.toNumber() };
@@ -15,6 +19,10 @@ export const fetchStats = createAsyncThunk("pools/fetchStats", async () => {
     poolsCreated: firstValue.valueOf().field0.toNumber(),
     nftStaked: firstValue.valueOf().field1.toNumber(),
   };
+
+  const resapitokens = await getFromAllTokens({
+    identifiers: tokens.join(","),
+  });
 
   return data;
 });

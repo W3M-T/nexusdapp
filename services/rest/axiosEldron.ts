@@ -14,3 +14,21 @@ export const getCollectionDetails = async (collection: string) => {
 export const getNft = async (identifier: string) => {
   return axiosEldron.get(`/nfts/${identifier}`);
 };
+
+export const getFromAllTokens = async ({
+  size = 10000,
+  name = undefined,
+  identifier = undefined,
+  identifiers = undefined,
+  search = undefined,
+}) => {
+  return await axiosEldron.get("/tokens", {
+    params: {
+      identifier,
+      identifiers,
+      name,
+      size,
+      search,
+    },
+  });
+};

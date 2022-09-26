@@ -62,6 +62,10 @@ const FormTab = ({ activeFeeTab }: IProps) => {
       const nft = await getNft(values.collection.collection + "-01");
       console.log("nft", nft);
 
+      const amountToSend = new BigNumber(values.nftsNumber)
+        .multipliedBy(values.dayliRewards)
+        .multipliedBy(30)
+        .toNumber();
       if (values.token === "EGLD") {
         triggerTx(
           scCall(
@@ -76,7 +80,7 @@ const FormTab = ({ activeFeeTab }: IProps) => {
               BytesValue.fromUTF8(nft?.data?.media[0]?.url || ""),
             ],
             80000000,
-            Number(values.nftsNumber) * Number(values.dayliRewards) * 30
+            amountToSend
           )
         );
       } else {
@@ -85,7 +89,7 @@ const FormTab = ({ activeFeeTab }: IProps) => {
             NftStakingPoolsWsp,
             "createPool",
             { identifier: values.token },
-            Number(values.nftsNumber) * Number(values.dayliRewards) * 30,
+            amountToSend,
             [
               BytesValue.fromUTF8(values.collection.collection),
               new U32Value(new BigNumber(values.nftsNumber)),
@@ -217,9 +221,10 @@ const FormTab = ({ activeFeeTab }: IProps) => {
                 Amount to be paid :{" "}
                 {Number(formik.values.nftsNumber) &&
                 Number(formik.values.dayliRewards)
-                  ? Number(formik.values.nftsNumber) *
-                    Number(formik.values.dayliRewards) *
-                    30
+                  ? new BigNumber(formik.values.nftsNumber)
+                      .multipliedBy(formik.values.dayliRewards)
+                      .multipliedBy(30)
+                      .toNumber()
                   : 0}
               </Heading>
             </Box>
