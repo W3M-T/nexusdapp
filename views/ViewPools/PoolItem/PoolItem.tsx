@@ -35,9 +35,7 @@ const PoolItem = ({ pool }: IProps) => {
               borderRadius: "full",
             },
           }}
-          src={
-            "https://media.xoxno.com/nftmedia/MAFIA-bd0abc/MAFIA-bd0abc-0517.avif"
-          } // use normal <img> attributes as props
+          src={pool.url} // use normal <img> attributes as props
           nextProps={{
             height: 490,
             width: 490,
@@ -46,7 +44,7 @@ const PoolItem = ({ pool }: IProps) => {
       </Center>
       <Center flexDir={"column"} alignItems="flex-start">
         <Text mb={2} fontWeight="bold" fontSize={"2xl"}>
-          {formatTokenI(pool.collection)}
+          {pool.poolName}
         </Text>
         <Flex flexDir={"column"} gap={1}>
           <Text>

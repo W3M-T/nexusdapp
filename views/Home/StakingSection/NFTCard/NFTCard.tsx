@@ -24,7 +24,7 @@ const NFTCard = ({ nft, onClick }: IProps) => {
             borderRadius: "0.7rem",
           },
         }}
-        src={nft.urls[0]} // use normal <img> attributes as props
+        src={nft.url} // use normal <img> attributes as props
         nextProps={{
           height: 490,
           width: 490,

@@ -36,11 +36,6 @@ export const fetchStats = createAsyncThunk("pools/fetchStats", async () => {
     nftStaked: firstValue.valueOf().field1.toNumber(),
   };
 
-  console.log("tokens", tokens);
-  console.log("tokensDetails", tokensDetails);
-
-  console.log("resapitokens", resapitokens.data);
-
   return { ...data, feesCollected: data.feesCollected };
 });
 
@@ -52,7 +47,7 @@ export const fetchExistringPools = createAsyncThunk(
     console.log("getExistingPools", firstValue.valueOf());
 
     const data: IExistingPool[] = firstValue.valueOf().map((pool) => {
-      return {
+      const data: IExistingPool = {
         timestam: pool.field0.creation_timestamp.toNumber(),
         creator: pool.field0.creator.bech32(),
         collection: pool.field0.collection,
@@ -61,8 +56,9 @@ export const fetchExistringPools = createAsyncThunk(
         rewards: pool.field0.reward_amount.toNumber(),
         poolName: pool.field1.toString(),
         nftsNow: pool.field2.toNumber(),
-        urls: pool.field3.map((url) => url.toString()),
+        url: pool.field3.toString(),
       };
+      return data;
     });
     console.log("getExistingPools", data);
 
@@ -79,7 +75,7 @@ export const fetchUserStaked = createAsyncThunk(
     console.log("fetchUserStaked firstValue", firstValue.valueOf());
 
     const data: IStaked[] = firstValue.valueOf().map((nft) => {
-      return {
+      const nftData: IStaked = {
         address: nft.field0.address.bech32(),
         nonce: nft.field0.nft_nonce.toNumber(),
         nftPool: {
@@ -91,11 +87,9 @@ export const fetchUserStaked = createAsyncThunk(
           rewards: nft.field0.nft_pool.reward_amount.toNumber(),
         },
         token: nft.field0.nft_token,
-        urls: nft.field1.map((url) => {
-          const b = new Buffer(url);
-          return b.toString();
-        }),
+        url: nft.field1.toString(),
       };
+      return nftData;
     });
     console.log("fetchUserStaked data", data);
 

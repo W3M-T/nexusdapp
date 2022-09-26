@@ -23,14 +23,14 @@ export interface IExistingPool {
   token: string;
   rewards: string;
 
-  poolName: string;
-  nftsNow: number;
-  urls: string[];
+  poolName?: string;
+  nftsNow?: number;
+  url?: string;
 }
 export interface IStaked {
   address: string;
   nonce: number;
   nftPool: IExistingPool;
   token: string;
-  urls: string[];
+  url: string;
 }
