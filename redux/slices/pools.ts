@@ -181,7 +181,7 @@ export const poolsSlice = createSlice({
       })
       .addCase(fetchRegistrationInfo.fulfilled, (state, action) => {
         state.createPool.phase2.status = "success";
-        state.createPool.phase2.message = "Registration completed !";
+        state.createPool.phase2.message = "Registration completed!";
         state.createPool.phase2.data = action.payload;
       })
       .addCase(fetchRegistrationInfo.rejected, (state, action) => {

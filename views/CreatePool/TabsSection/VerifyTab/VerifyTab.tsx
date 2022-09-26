@@ -59,7 +59,7 @@ const UserTab = ({ activeFeeTab }: IProps) => {
             dispatch(
               setCreatePoolPahe1({
                 status: "success",
-                message: "Already verified !",
+                message: "Verified!",
               })
             );
             dispatch(setCreatePoolCollection(collectionDetails));
@@ -67,15 +67,12 @@ const UserTab = ({ activeFeeTab }: IProps) => {
             dispatch(
               setCreatePoolPahe1({
                 status: "error",
-                message: "Verificaion failed !",
+                message: "Verificaion failed!",
               })
             );
           }
           console.log(res.data);
         } catch (error) {
-          console.log("error", error);
-          console.log("error?.message", error?.message);
-
           if (error?.response?.data?.message) {
             dispatch(
               setCreatePoolPahe1({
@@ -87,7 +84,7 @@ const UserTab = ({ activeFeeTab }: IProps) => {
             dispatch(
               setCreatePoolPahe1({
                 status: "error",
-                message: "Verificaion failed !",
+                message: "Verificaion failed!",
               })
             );
           }
