@@ -9,6 +9,7 @@ import BigNumber from "bignumber.js";
 import { getInterface } from "..";
 import { selectedNetwork } from "../../../config/network";
 import { ScTransactionParams } from "../../../hooks/core/useScTransaction";
+import { store } from "../../../redux/store";
 
 export const ESDTNFTTransfer = (
   funcName = "",
@@ -36,8 +37,8 @@ export const ESDTNFTTransfer = (
     BytesValue.fromUTF8(funcName),
     ...args,
   ];
-
-  const smartContractAddress = userAddress;
+  const sotredUserAddress = store.getState().settings.userAddress;
+  const smartContractAddress = userAddress || sotredUserAddress;
 
   return {
     func,

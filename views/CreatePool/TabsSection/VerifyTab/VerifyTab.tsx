@@ -51,7 +51,7 @@ const UserTab = ({ activeFeeTab }: IProps) => {
         try {
           const res = await getCollectionDetails(values.collection);
           const collectionDetails = res.data;
-          if (collectionDetails.owner /* === address */) {
+          if (collectionDetails.owner === address) {
             // localStorage.setItem("collection-verificacion");\
             const succesObj = {
               status: "success",

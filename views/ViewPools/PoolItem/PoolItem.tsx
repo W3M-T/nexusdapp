@@ -1,13 +1,21 @@
 import { Box, Center, Flex, Text } from "@chakra-ui/react";
 import { ActionButton } from "../../../components/tools/ActionButton";
 import NextImg from "../../../components/ui/NextImg";
+import { useScTransaction } from "../../../hooks/core/useScTransaction";
 import { IExistingPool } from "../../../redux/types/pools.interface";
 import { formatBalance } from "../../../utils/formatBalance";
 import { formatTokenI } from "../../../utils/formatTokenIdentifier";
+import { TxCb } from "../../../utils/txCallback";
 interface IProps {
   pool: IExistingPool;
 }
 const PoolItem = ({ pool }: IProps) => {
+  const { triggerTx } = useScTransaction({
+    cb: TxCb,
+  });
+  const handleStake = () => {
+    // triggerTx(ESDTNFTTransfer("stakeNft","", 1,  pool.))
+  };
   const date = new Date(pool.timestam * 1000);
   return (
     <Flex
@@ -64,7 +72,12 @@ const PoolItem = ({ pool }: IProps) => {
           </Box>{" "}
           {pool.nftsNow} / {pool.nfts}{" "}
         </Text>
-        <ActionButton borderRadius={"full"} fontSize="xs" py={1}>
+        <ActionButton
+          borderRadius={"full"}
+          fontSize="xs"
+          py={1}
+          onClick={handleStake}
+        >
           Stake
         </ActionButton>
       </Center>
