@@ -66,22 +66,20 @@ const FormTab = ({ activeFeeTab }: IProps) => {
         .multipliedBy(values.dayliRewards)
         .multipliedBy(30)
         .toNumber();
+
+      const args = [
+        BytesValue.fromUTF8(values.collection.collection),
+        new U32Value(new BigNumber(values.nftsNumber)),
+        BytesValue.fromUTF8(values.token),
+        new BigUIntValue(
+          new BigNumber(values.dayliRewards).multipliedBy(Math.pow(10, 18))
+        ),
+        BytesValue.fromUTF8(values.collection.name),
+        BytesValue.fromUTF8(nft?.data?.media[0]?.url || ""),
+      ];
       if (values.token === "EGLD") {
         triggerTx(
-          scCall(
-            NftStakingPoolsWsp,
-            "createPool",
-            [
-              BytesValue.fromUTF8(values.collection.collection),
-              new U32Value(new BigNumber(values.nftsNumber)),
-              BytesValue.fromUTF8(values.token),
-              new BigUIntValue(new BigNumber(values.dayliRewards)),
-              BytesValue.fromUTF8(values.collection.name),
-              BytesValue.fromUTF8(nft?.data?.media[0]?.url || ""),
-            ],
-            80000000,
-            amountToSend
-          )
+          scCall(NftStakingPoolsWsp, "createPool", args, 80000000, amountToSend)
         );
       } else {
         triggerTx(
@@ -90,14 +88,7 @@ const FormTab = ({ activeFeeTab }: IProps) => {
             "createPool",
             { identifier: values.token },
             amountToSend,
-            [
-              BytesValue.fromUTF8(values.collection.collection),
-              new U32Value(new BigNumber(values.nftsNumber)),
-              BytesValue.fromUTF8(values.token),
-              new BigUIntValue(new BigNumber(values.dayliRewards)),
-              BytesValue.fromUTF8(values.collection.name),
-              BytesValue.fromUTF8(nft?.data?.media[0]?.url || ""),
-            ],
+            args,
             80000000
           )
         );
