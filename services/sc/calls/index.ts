@@ -73,11 +73,11 @@ export const scCall = (
 export const ESDTTransfer = (
   workspace,
   funcName,
-  token,
+  token: { identifier: string; decimals?: number },
   val = 0,
   args = [],
   gasLimit = 200000000,
-  realValue
+  realValue?: string | number
 ): ScTransactionParams => {
   const tokenIdentifier = token.identifier;
   const multiplyier = Math.pow(10, token.decimals || 18);

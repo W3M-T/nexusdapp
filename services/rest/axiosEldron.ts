@@ -11,3 +11,6 @@ export default axiosEldron;
 export const getCollectionDetails = async (collection: string) => {
   return axiosEldron.get(`/collections/${collection}`);
 };
+export const getNft = async (identifier: string) => {
+  return axiosEldron.get(`/nfts/${identifier}`);
+};

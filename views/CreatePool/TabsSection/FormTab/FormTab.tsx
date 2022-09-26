@@ -29,8 +29,9 @@ import { tokensPools } from "../../../../constants/tokens";
 import { useAppSelector } from "../../../../hooks/core/useRedux";
 import { useScTransaction } from "../../../../hooks/core/useScTransaction";
 import { selectCreatePool } from "../../../../redux/slices/pools";
+import { getNft } from "../../../../services/rest/axiosEldron";
 import { NftStakingPoolsWsp } from "../../../../services/sc";
-import { scCall } from "../../../../services/sc/calls";
+import { ESDTTransfer, scCall } from "../../../../services/sc/calls";
 import { formatTokenI } from "../../../../utils/formatTokenIdentifier";
 import { TxCb } from "../../../../utils/txCallback";
 
@@ -57,7 +58,10 @@ const FormTab = ({ activeFeeTab }: IProps) => {
       dayliRewards: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
+      const nft = await getNft(values.collection.collection + "-01");
+      console.log("nft", nft);
+
       if (values.token === "EGLD") {
         triggerTx(
           scCall(
@@ -69,9 +73,28 @@ const FormTab = ({ activeFeeTab }: IProps) => {
               BytesValue.fromUTF8(values.token),
               new BigUIntValue(new BigNumber(values.dayliRewards)),
               BytesValue.fromUTF8(values.collection.name),
+              BytesValue.fromUTF8(nft?.data?.media[0]?.url || ""),
             ],
             80000000,
             Number(values.nftsNumber) * Number(values.dayliRewards) * 30
+          )
+        );
+      } else {
+        triggerTx(
+          ESDTTransfer(
+            NftStakingPoolsWsp,
+            "createPool",
+            { identifier: values.token },
+            Number(values.nftsNumber) * Number(values.dayliRewards) * 30,
+            [
+              BytesValue.fromUTF8(values.collection.collection),
+              new U32Value(new BigNumber(values.nftsNumber)),
+              BytesValue.fromUTF8(values.token),
+              new BigUIntValue(new BigNumber(values.dayliRewards)),
+              BytesValue.fromUTF8(values.collection.name),
+              BytesValue.fromUTF8(nft?.data?.media[0]?.url || ""),
+            ],
+            80000000
           )
         );
       }
