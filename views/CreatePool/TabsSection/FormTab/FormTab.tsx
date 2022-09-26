@@ -149,6 +149,7 @@ const FormTab = ({ activeFeeTab }: IProps) => {
                     formik.touched.token && Boolean(formik.errors.token)
                   }
                 >
+                  <OptionSelectDark> Token </OptionSelectDark>
                   <>
                     {tokensPools.map((t) => {
                       if (!t) {

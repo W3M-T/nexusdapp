@@ -33,6 +33,10 @@
                 {
                     "name": "nft_pool",
                     "type": "NftPool"
+                },
+                {
+                    "name": "nft_image",
+                    "type": "bytes"
                 }
             ],
             "outputs": []
@@ -91,6 +95,10 @@
                 },
                 {
                     "name": "collection_name",
+                    "type": "bytes"
+                },
+                {
+                    "name": "collection_image",
                     "type": "bytes"
                 }
             ],
@@ -195,7 +203,7 @@
             "inputs": [],
             "outputs": [
                 {
-                    "type": "List<tuple<NftPool,bytes,u32,List<bytes>>>"
+                    "type": "List<tuple<NftPool,bytes,u32,bytes>>"
                 }
             ]
         },
@@ -210,7 +218,7 @@
             ],
             "outputs": [
                 {
-                    "type": "List<tuple<NftStaking,List<bytes>>>"
+                    "type": "List<tuple<NftStaking,bytes>>"
                 }
             ]
         },
@@ -303,6 +311,25 @@
             ]
         },
         {
+            "name": "nftImage",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "nft_token",
+                    "type": "TokenIdentifier"
+                },
+                {
+                    "name": "nonce",
+                    "type": "u64"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "bytes"
+                }
+            ]
+        },
+        {
             "name": "creatorCollections",
             "mutability": "readonly",
             "inputs": [
@@ -365,6 +392,36 @@
             ]
         },
         {
+            "name": "collectionName",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "collection",
+                    "type": "TokenIdentifier"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "bytes"
+                }
+            ]
+        },
+        {
+            "name": "collectionImage",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "collection",
+                    "type": "TokenIdentifier"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "bytes"
+                }
+            ]
+        },
+        {
             "name": "allPoolStakings",
             "mutability": "readonly",
             "inputs": [
@@ -407,21 +464,6 @@
             "outputs": [
                 {
                     "type": "u64"
-                }
-            ]
-        },
-        {
-            "name": "poolName",
-            "mutability": "readonly",
-            "inputs": [
-                {
-                    "name": "pool",
-                    "type": "NftPool"
-                }
-            ],
-            "outputs": [
-                {
-                    "type": "bytes"
                 }
             ]
         },
