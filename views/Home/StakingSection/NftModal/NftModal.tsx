@@ -48,7 +48,7 @@ const NftModal = ({ isOpen, onClose, nft }: IProps) => {
         />
         <Grid templateColumns={{ sm: "1fr", lg: "1fr 1fr" }} gap={10}>
           <Center>
-            <Image src={nft.urls[0]} alt="nft" maxW={"350px"} w="full" />
+            <Image src={nft.url} alt="nft" maxW={"350px"} w="full" />
           </Center>
           <Center flexDir={"column"}>
             <Text
