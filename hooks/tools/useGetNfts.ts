@@ -13,19 +13,23 @@ const useGetNfts = (
 ) => {
   const { data: nfts } = useAppSelector(selectNfts);
   const connectedAddress = useAppSelector(selectUserAddress);
-  const [NFTs, setNFTs] = useState<INft[]>(options?.initialValue || []);
+  const [NFTs2, setNFTs] = useState<INft[]>(options?.initialValue || []);
 
   const dispatch = useAppDispatch();
   useEffect(() => {
+    console.log("me ejecuto");
     if (connectedAddress) {
       dispatch(fetchNfts(connectedAddress));
     }
   }, [dispatch, connectedAddress]);
+
   useEffect(() => {
     if (nfts.length > 0) {
       const sftsList = [];
 
       nfts.forEach((nft) => {
+        console.log("options?.filter.value", options?.filter.value);
+        console.log("nft collection", nft.collection);
         if (options?.filter?.value) {
           if (nft[options?.filter.key] === options?.filter.value) {
             sftsList.push(nft);
@@ -37,9 +41,9 @@ const useGetNfts = (
 
       setNFTs(sftsList);
     }
-  }, [options?.filter, nfts]);
+  }, [nfts, options?.filter.key, options?.filter.value]);
 
-  return NFTs;
+  return NFTs2;
 };
 
 export default useGetNfts;

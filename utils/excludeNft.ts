@@ -3,10 +3,7 @@ import { INft } from "../redux/types/tokens.interface";
 export const noShowMedia = (nft: INft) => {
   if (
     !nft.media ||
-    nft.media[0]?.url ===
-      "https://media.elrond.com/nfts/thumbnail/default.png" ||
-    nft.media[0]?.fileType !== "image/png" ||
-    nft.collection === "ELBADGES-2efe5c"
+    nft.media[0]?.url === "https://media.elrond.com/nfts/thumbnail/default.png"
   ) {
     return true;
   }
