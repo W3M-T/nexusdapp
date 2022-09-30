@@ -63,7 +63,7 @@ const PoolItem = ({ pool }: IProps) => {
       new Field(new TokenIdentifierValue(pool.collection), "collection"),
       new Field(new U32Value(new BigNumber(pool.nfts)), "nr_of_nfts"),
       new Field(BytesValue.fromUTF8(pool.token), "reward_token"),
-      new Field(new BigUIntValue(new BigNumber(pool.nfts)), "reward_amount"),
+      new Field(new BigUIntValue(new BigNumber(pool.rewards)), "reward_amount"),
     ]);
 
     triggerTx(
