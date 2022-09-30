@@ -1,5 +1,13 @@
-import { Box, Center, Flex, Heading, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Flex,
+  Heading,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { useState } from "react";
+import { Authenticated } from "../../../components/tools/Authenticated";
 import { useAppSelector } from "../../../hooks/core/useRedux";
 import { selectUserStaked } from "../../../redux/slices/pools";
 import NFTCard from "./NFTCard/NFTCard";
@@ -14,6 +22,7 @@ const StakingSection = () => {
     setSelectedNft(nft);
     onOpen();
   };
+
   return (
     <Box>
       <Center w="full">
@@ -21,23 +30,35 @@ const StakingSection = () => {
           Staked NFTs
         </Heading>
       </Center>
-      <Flex
-        justifyContent={"center"}
-        columnGap={5}
-        rowGap="10"
-        flexWrap="wrap"
-        mt={10}
+
+      <Authenticated
+        spinnerCentered
+        fallback={
+          <>
+            <Text fontWeight="bold" fontSize="2xl" textAlign="center" mt={8}>
+              Connect your wallet to view your staked NFTs!
+            </Text>
+          </>
+        }
       >
-        {stakedNfts.data.map((nft) => {
-          return (
-            <NFTCard
-              nft={nft}
-              key={nft.nonce}
-              onClick={() => handleViwNft(nft)}
-            />
-          );
-        })}
-      </Flex>
+        <Flex
+          justifyContent={"center"}
+          columnGap={5}
+          rowGap="10"
+          flexWrap="wrap"
+          mt={10}
+        >
+          {stakedNfts.data.map((nft) => {
+            return (
+              <NFTCard
+                nft={nft}
+                key={nft.nonce}
+                onClick={() => handleViwNft(nft)}
+              />
+            );
+          })}
+        </Flex>
+      </Authenticated>
 
       {isOpen && (
         <NftModal isOpen={isOpen} onClose={onClose} nft={selectedNft} />
