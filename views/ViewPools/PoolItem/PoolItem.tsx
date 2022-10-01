@@ -74,7 +74,11 @@ const PoolItem = ({ pool }: IProps) => {
         nft,
         selectedNetwork.contractAddr.nftsStaking,
         70000000,
-        [poolStruct, BytesValue.fromUTF8(nft?.media[0]?.url || "")],
+        [
+          poolStruct,
+          BytesValue.fromUTF8(nft?.media[0]?.url || ""),
+          BytesValue.fromUTF8(nft?.name || ""),
+        ],
         1
       )
     );

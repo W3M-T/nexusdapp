@@ -33,4 +33,5 @@ export interface IStaked {
   nftPool: IExistingPool;
   token: string;
   url: string;
+  name: string;
 }

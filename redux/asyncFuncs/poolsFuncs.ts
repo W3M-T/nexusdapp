@@ -87,7 +87,8 @@ export const fetchUserStaked = createAsyncThunk(
           rewards: nft.field0.nft_pool.reward_amount.toNumber(),
         },
         token: nft.field0.nft_token,
-        url: nft.field1.toString(),
+        name: nft.field1.toString(),
+        url: nft.field2.toString(),
       };
       return nftData;
     });

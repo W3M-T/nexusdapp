@@ -36,7 +36,7 @@ const NFTCard = ({ nft, onClick }: IProps) => {
         fontWeight="bold"
         marginTop={"20px"}
       >
-        Elrond Mafia
+        {nft.name}
       </Text>
     </Center>
   );
