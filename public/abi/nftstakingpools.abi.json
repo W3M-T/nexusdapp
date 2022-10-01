@@ -10,11 +10,11 @@
         "contractCrate": {
             "name": "nftstakingpools",
             "version": "0.0.0",
-            "git_version": "ec0ac44-modified"
+            "git_version": "8e2303d-modified"
         },
         "framework": {
             "name": "elrond-wasm",
-            "version": "0.34.1"
+            "version": "0.35.0"
         }
     },
     "name": "NftStakingPools",
@@ -36,6 +36,10 @@
                 },
                 {
                     "name": "nft_image",
+                    "type": "bytes"
+                },
+                {
+                    "name": "nft_name",
                     "type": "bytes"
                 }
             ],
@@ -218,7 +222,7 @@
             ],
             "outputs": [
                 {
-                    "type": "List<tuple<NftStaking,bytes>>"
+                    "type": "List<tuple<NftStaking,bytes,bytes>>"
                 }
             ]
         },
@@ -312,6 +316,25 @@
         },
         {
             "name": "nftImage",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "nft_token",
+                    "type": "TokenIdentifier"
+                },
+                {
+                    "name": "nonce",
+                    "type": "u64"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "bytes"
+                }
+            ]
+        },
+        {
+            "name": "nftName",
             "mutability": "readonly",
             "inputs": [
                 {

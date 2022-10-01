@@ -1,13 +1,13 @@
 import { Center, Flex, Heading } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { MainLayout } from "../../components/ui/MainLayout";
-import SearchBar from "../../components/ui/SearchBar";
 import { useAppDispatch, useAppSelector } from "../../hooks/core/useRedux";
 import { fetchExistringPools } from "../../redux/asyncFuncs/poolsFuncs";
 import { selectExistingPools } from "../../redux/slices/pools";
 import PoolItem from "./PoolItem/PoolItem";
+import Search from "./Search/Search";
 const ViewPools = () => {
-  const { data: pools } = useAppSelector(selectExistingPools);
+  const { data2: pools } = useAppSelector(selectExistingPools);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const ViewPools = () => {
         Pools
       </Heading>
       <Center>
-        <SearchBar w="full" maxWidth={"400px"} />
+        <Search />
       </Center>
       <Flex
         justifyContent={"center"}

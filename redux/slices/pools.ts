@@ -21,6 +21,7 @@ export interface poolsState {
   existingPools: {
     status: Status;
     data: IExistingPool[];
+    data2: IExistingPool[];
     error: string;
   };
   userStaked: {
@@ -69,6 +70,7 @@ const initialState: poolsState = {
   existingPools: {
     status: "idle",
     data: [],
+    data2: [],
     error: "",
   },
 
@@ -116,6 +118,9 @@ export const poolsSlice = createSlice({
     setCreatePool: (state, action) => {
       state.createPool = action.payload;
     },
+    setFilteredPools: (state, action: PayloadAction<IExistingPool[]>) => {
+      state.existingPools.data2 = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -139,6 +144,7 @@ export const poolsSlice = createSlice({
         (state, action: PayloadAction<IExistingPool[]>) => {
           state.existingPools.status = "success";
           state.existingPools.data = action.payload;
+          state.existingPools.data2 = action.payload;
         }
       )
       .addCase(fetchExistringPools.rejected, (state, action) => {
@@ -214,6 +220,7 @@ export const {
   setCreatePoolPahe1,
   setCreatePoolPahe2,
   setCreatePool,
+  setFilteredPools,
 } = poolsSlice.actions;
 
 export default poolsSlice.reducer;

@@ -1,13 +1,23 @@
-import { Center, Flex, FlexProps, Icon, Input } from "@chakra-ui/react";
+import {
+  Center,
+  Flex,
+  FlexProps,
+  Icon,
+  Input,
+  InputProps,
+} from "@chakra-ui/react";
 import { BsSearch } from "react-icons/bs";
 
-const SearchBar = ({ ...props }: FlexProps) => {
+interface IProps extends InputProps {
+  wrapperProps: FlexProps;
+}
+const SearchBar = ({ wrapperProps, ...props }: IProps) => {
   return (
     <Flex
       justifyContent={"space-between"}
       border="1px solid white"
       borderRadius={"xl"}
-      {...props}
+      {...wrapperProps}
     >
       <Input
         border="none"
@@ -17,6 +27,7 @@ const SearchBar = ({ ...props }: FlexProps) => {
           boxShadow: "none",
         }}
         pr={0}
+        {...props}
       />
       <Center px={3}>
         <Icon as={BsSearch} />
