@@ -1,4 +1,4 @@
-import { Center, Flex, Input } from "@chakra-ui/react";
+import { Center, Flex } from "@chakra-ui/react";
 import {
   Address,
   AddressType,
@@ -21,22 +21,17 @@ import {
 import BigNumber from "bignumber.js";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { ActionButton } from "../../../../components/tools/ActionButton";
-import SelectDark, {
-  OptionSelectDark,
-} from "../../../../components/ui/SelectDark";
-import { tokensPools } from "../../../../constants/tokens";
-import { useAppSelector } from "../../../../hooks/core/useRedux";
-import { useScTransaction } from "../../../../hooks/core/useScTransaction";
-import { selectExistingPools } from "../../../../redux/slices/pools";
-import { NftStakingPoolsWsp } from "../../../../services/sc";
-import { scCall } from "../../../../services/sc/calls";
-import { formatTokenI } from "../../../../utils/formatTokenIdentifier";
-import { TxCb } from "../../../../utils/txCallback";
+import { useAppSelector } from "../../hooks/core/useRedux";
+import { useScTransaction } from "../../hooks/core/useScTransaction";
+import { selectExistingPools } from "../../redux/slices/pools";
+import { NftStakingPoolsWsp } from "../../services/sc";
+import { scCall } from "../../services/sc/calls";
+import { formatTokenI } from "../../utils/formatTokenIdentifier";
+import { TxCb } from "../../utils/txCallback";
+import { ActionButton } from "../tools/ActionButton";
+import SelectDark, { OptionSelectDark } from "./SelectDark";
 
 const validationSchema = yup.object({
-  token: yup.string().required(),
-  amount: yup.number().required(),
   pool: yup.number().required(),
 });
 
@@ -48,8 +43,6 @@ const SendAirdrop = () => {
   });
   const formik = useFormik({
     initialValues: {
-      token: "",
-      amount: "",
       pool: "",
     },
     validationSchema: validationSchema,
@@ -82,48 +75,14 @@ const SendAirdrop = () => {
         ),
       ]);
 
-      triggerTx(
-        scCall(NftStakingPoolsWsp, "sendAirdrop", [
-          // new BigUIntValue(new BigNumber(values.amount)),
-          // BytesValue.fromUTF8(values.token),
-          poolStruct,
-        ])
-      );
+      triggerTx(scCall(NftStakingPoolsWsp, "sendAirdrop", [poolStruct]));
     },
   });
 
   return (
     <form onSubmit={formik.handleSubmit}>
       <Center flexDir={"column"}>
-        <Flex gap={4} mb={2} flexDir="column">
-          <Flex gap={4} mb={2}>
-            <Input
-              name="amount"
-              placeholder="Amount"
-              onChange={formik.handleChange}
-              isInvalid={formik.touched.amount && Boolean(formik.errors.amount)}
-            />
-            <SelectDark
-              onChange={formik.handleChange}
-              name="token"
-              isInvalid={formik.touched.token && Boolean(formik.errors.token)}
-            >
-              <>
-                <OptionSelectDark>Token</OptionSelectDark>
-                {tokensPools.map((t) => {
-                  if (!t) {
-                    return null;
-                  }
-                  return (
-                    <OptionSelectDark key={t.identifier} value={t.identifier}>
-                      {formatTokenI(t.identifier)}
-                    </OptionSelectDark>
-                  );
-                })}
-              </>
-            </SelectDark>
-          </Flex>
-
+        <Flex mb={2} flexDir="column">
           <SelectDark
             onChange={formik.handleChange}
             name="pool"
