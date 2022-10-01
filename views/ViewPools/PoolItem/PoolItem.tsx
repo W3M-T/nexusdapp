@@ -91,7 +91,9 @@ const PoolItem = ({ pool }: IProps) => {
       p={5}
       gap={8}
       minW="300px"
-      justifyContent={"space-between"}
+      justifyContent={{ sm: "center", md: "space-between" }}
+      alignItems={{ sm: "center", md: "flex-start" }}
+      flexDir={{ sm: "column", md: "row" }}
     >
       <Center h="full">
         <NextImg

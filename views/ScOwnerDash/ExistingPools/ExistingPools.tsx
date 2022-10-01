@@ -9,7 +9,7 @@ const ExistingPools = () => {
   const { data } = useAppSelector(selectExistingPools);
 
   return (
-    <CardWrapper>
+    <CardWrapper overflowX="auto">
       <Heading fontSize={"2xl"}>Existing Pools</Heading>
       {data.length !== 0 ? (
         <SearchTable1 tableData={data} columnsData={columns} />
