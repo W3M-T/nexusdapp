@@ -71,6 +71,9 @@ const SelectNftModal = ({
               />
             );
           })}
+          {nfts.length === 0 && (
+            <Center>You don’t have any NFTs for this collection</Center>
+          )}
         </Flex>
       </ModalBody>
 
@@ -79,9 +82,11 @@ const SelectNftModal = ({
           <ActionButton mx={3} onClick={onCloseModal}>
             Cancel
           </ActionButton>
-          <ActionButton mx={3} onClick={handleStake}>
-            Confirm
-          </ActionButton>
+          {nfts.length > 0 && (
+            <ActionButton mx={3} onClick={handleStake}>
+              Confirm
+            </ActionButton>
+          )}
         </Center>
       </ModalFooter>
     </MyModal>

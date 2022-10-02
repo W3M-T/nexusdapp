@@ -3,16 +3,22 @@ import { useEffect } from "react";
 import { MainLayout } from "../../components/ui/MainLayout";
 import { useAppDispatch, useAppSelector } from "../../hooks/core/useRedux";
 import { fetchExistringPools } from "../../redux/asyncFuncs/poolsFuncs";
+import { fetchNfts } from "../../redux/asyncFuncs/tokensFuncs";
 import { selectExistingPools } from "../../redux/slices/pools";
+import { selectUserAddress } from "../../redux/slices/settings";
 import PoolItem from "./PoolItem/PoolItem";
 import Search from "./Search/Search";
 const ViewPools = () => {
   const { data2: pools } = useAppSelector(selectExistingPools);
   const dispatch = useAppDispatch();
+  const connectedAddress = useAppSelector(selectUserAddress);
 
   useEffect(() => {
-    dispatch(fetchExistringPools());
-  }, [dispatch]);
+    if (connectedAddress) {
+      dispatch(fetchExistringPools());
+      dispatch(fetchNfts(connectedAddress));
+    }
+  }, [dispatch, connectedAddress]);
   return (
     <MainLayout metaTitle="View Pools">
       <Heading as={"h1"} w="full" textAlign={"center"} mt={10} mb={4}>
