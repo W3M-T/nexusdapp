@@ -104,7 +104,7 @@ const SendAirdrop = () => {
             </>
           </SelectDark>
         </Flex>
-        <ActionButton type="submit">Send Airdrop</ActionButton>
+        <ActionButton type="submit">Send Rewards</ActionButton>
       </Center>
     </form>
   );
