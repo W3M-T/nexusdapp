@@ -75,7 +75,7 @@ const SendAirdrop = () => {
         ),
       ]);
 
-      triggerTx(scCall(NftStakingPoolsWsp, "sendAirdrop", [poolStruct]));
+      triggerTx(scCall(NftStakingPoolsWsp, "sendRewards", [poolStruct]));
     },
   });
 
