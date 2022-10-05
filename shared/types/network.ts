@@ -11,6 +11,32 @@ export interface IToken {
   identifier: string;
   decimals?: number;
 }
+export interface IElrondToken extends IToken {
+  name: string;
+  ticker: string;
+  owner: string;
+  decimals: number;
+  isPaused: false;
+  assets: {
+    description: string;
+    status: string;
+    social: {
+      telegram: string;
+      twitter: string;
+    };
+    pngUrl: string;
+    svgUrl: string;
+  };
+  transactions: number;
+  accounts: number;
+  canUpgrade: boolean;
+  canMint: boolean;
+  canBurn: boolean;
+  canChangeOwner: boolean;
+  canPause: boolean;
+  canFreeze: boolean;
+  canWipe: boolean;
+}
 
 interface ITokens {
   EGLD: IToken;

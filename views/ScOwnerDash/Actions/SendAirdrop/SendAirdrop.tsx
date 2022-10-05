@@ -1,4 +1,4 @@
-import { Center, Flex } from "@chakra-ui/react";
+import { Center, Flex, Input } from "@chakra-ui/react";
 import {
   Address,
   AddressType,
@@ -18,6 +18,7 @@ import {
   U64Type,
   U64Value,
 } from "@elrondnetwork/erdjs/out";
+import { AxiosResponse } from "axios";
 import BigNumber from "bignumber.js";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -25,15 +26,20 @@ import { ActionButton } from "../../../../shared/components/tools/ActionButton";
 import SelectDark, {
   OptionSelectDark,
 } from "../../../../shared/components/ui/SelectDark";
+import { tokensPools } from "../../../../shared/constants/tokens";
 import { useAppSelector } from "../../../../shared/hooks/core/useRedux";
 import { useScTransaction } from "../../../../shared/hooks/core/useScTransaction";
+import { getFromAllTokens } from "../../../../shared/services/rest/axiosEldron";
 import { NftStakingPoolsWsp } from "../../../../shared/services/sc";
-import { scCall } from "../../../../shared/services/sc/calls";
+import { ESDTTransfer, scCall } from "../../../../shared/services/sc/calls";
 import { selectExistingPools } from "../../../../shared/slices/pools";
+import { IElrondToken } from "../../../../shared/types/network";
 import { formatTokenI } from "../../../../shared/utils/formatTokenIdentifier";
 import { TxCb } from "../../../../shared/utils/txCallback";
 
 const validationSchema = yup.object({
+  token: yup.string().required(),
+  amount: yup.number().required(),
   pool: yup.number().required(),
 });
 
@@ -45,11 +51,12 @@ const SendAirdrop = () => {
   });
   const formik = useFormik({
     initialValues: {
+      token: "",
+      amount: "",
       pool: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      console.log("values", values);
+    onSubmit: async (values) => {
       const index = Number(values.pool);
       const pool = existingPools.data[index];
 
@@ -77,14 +84,72 @@ const SendAirdrop = () => {
         ),
       ]);
 
-      triggerTx(scCall(NftStakingPoolsWsp, "sendRewards", [poolStruct]));
+      if (values.token === "EGLD") {
+        triggerTx(
+          scCall(
+            NftStakingPoolsWsp,
+            "sendAirdrop",
+            [poolStruct],
+            undefined,
+            values.amount
+          )
+        );
+      } else {
+        const { data: tokenDetail }: AxiosResponse<IElrondToken[]> =
+          await getFromAllTokens({
+            identifier: values.token,
+          });
+
+        if (tokenDetail[0]) {
+          triggerTx(
+            ESDTTransfer(
+              NftStakingPoolsWsp,
+              "sendAirdrop",
+              {
+                identifier: values.token,
+                decimals: tokenDetail[0].decimals,
+              },
+              Number(values.amount),
+              [poolStruct]
+            )
+          );
+        }
+      }
     },
   });
 
   return (
     <form onSubmit={formik.handleSubmit}>
       <Center flexDir={"column"}>
-        <Flex mb={2} flexDir="column">
+        <Flex gap={4} mb={2} flexDir="column">
+          <Flex gap={4} mb={2}>
+            <Input
+              name="amount"
+              placeholder="Amount"
+              onChange={formik.handleChange}
+              isInvalid={formik.touched.amount && Boolean(formik.errors.amount)}
+            />
+            <SelectDark
+              onChange={formik.handleChange}
+              name="token"
+              isInvalid={formik.touched.token && Boolean(formik.errors.token)}
+            >
+              <>
+                <OptionSelectDark>Token</OptionSelectDark>
+                {tokensPools.map((t) => {
+                  if (!t) {
+                    return null;
+                  }
+                  return (
+                    <OptionSelectDark key={t.identifier} value={t.identifier}>
+                      {formatTokenI(t.identifier)}
+                    </OptionSelectDark>
+                  );
+                })}
+              </>
+            </SelectDark>
+          </Flex>
+
           <SelectDark
             onChange={formik.handleChange}
             name="pool"
@@ -106,7 +171,7 @@ const SendAirdrop = () => {
             </>
           </SelectDark>
         </Flex>
-        <ActionButton type="submit">Send Rewards</ActionButton>
+        <ActionButton type="submit">Send Airdrop</ActionButton>
       </Center>
     </form>
   );
