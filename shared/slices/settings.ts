@@ -1,5 +1,6 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
+import { ONLY_ADMIN } from "../../config/constants";
 import { RootState } from "../../redux/store";
 import { adminAddresses } from "../constants/addressess";
 
@@ -24,7 +25,7 @@ export const settingsSlice = createSlice({
       if (adminAddresses.includes(action.payload)) {
         state.isAdmin = true;
       } else {
-        state.isAdmin = true;
+        state.isAdmin = !ONLY_ADMIN;
       }
     },
     setIsLogedIn: (state, action: PayloadAction<boolean>) => {

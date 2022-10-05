@@ -1,5 +1,6 @@
 import { Address, AddressValue, BytesValue } from "@elrondnetwork/erdjs/out";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { ONLY_NFT_CREATOR } from "../../config/constants";
 import {
   IExistingPool,
   IPoolStats,
@@ -109,7 +110,7 @@ export const fetchIsNftCreator = createAsyncThunk(
     ]);
     const { firstValue } = res;
 
-    const data = true;
+    const data = ONLY_NFT_CREATOR ? firstValue.valueOf() : true;
 
     return data;
   }

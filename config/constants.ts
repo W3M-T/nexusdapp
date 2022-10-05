@@ -9,3 +9,9 @@ export const defaultMetaTags = {
   description: "Open source Dapp template for the Elrond blockchain.",
   image: `${dappHostname}/og-image.png`,
 };
+
+// Only allow admin to go to admin pages
+export const ONLY_ADMIN = false;
+
+// Only allow nft creator to go to nft creator pages
+export const ONLY_NFT_CREATOR = false;
