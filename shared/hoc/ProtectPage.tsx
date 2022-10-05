@@ -9,8 +9,6 @@ const ProtectPage = (Component) => (props) => {
   const router = useRouter();
   const isLoggedIn = useAppSelector(selectIsLogedIn);
   useEffect(() => {
-    console.log("isLoggedIn", isLoggedIn);
-
     if (!isLoggedIn) {
       router.replace("/");
     }

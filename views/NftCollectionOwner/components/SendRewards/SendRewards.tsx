@@ -49,7 +49,6 @@ const SendAirdrop = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log("values", values);
       const index = Number(values.pool);
       const pool = existingPools.data[index];
 

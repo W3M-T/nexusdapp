@@ -53,8 +53,7 @@ const UserTab = ({ activeFeeTab }: IProps) => {
         try {
           const res = await getCollectionDetails(values.collection);
           const collectionDetails = res.data;
-          console.log("owner", collectionDetails.owner);
-          console.log("address", address);
+
           if (collectionDetails.owner === address) {
             // localStorage.setItem("collection-verificacion");\
             const succesObj = {
@@ -71,7 +70,6 @@ const UserTab = ({ activeFeeTab }: IProps) => {
               })
             );
           }
-          console.log(res.data);
         } catch (error) {
           console.log("error", error);
 
@@ -91,7 +89,6 @@ const UserTab = ({ activeFeeTab }: IProps) => {
             );
           }
         }
-        console.log(res.data);
       }
     },
   });

@@ -44,14 +44,12 @@ const TabsSection = () => {
   };
   const activeFormTab = () => {
     if (verifyTab.current) {
-      console.log("activeFormTab");
       formTab.current.click();
     }
   };
 
   useEffect(() => {
     const phase = localStorage.getItem("poolcreationPhase");
-    console.log(phase);
 
     if (phase === "2") {
       setTimeout(() => {
@@ -83,7 +81,6 @@ const TabsSection = () => {
   }, [dispatch]);
   useEffect(() => {
     store.subscribe(() => {
-      console.log("state", store.getState().pools.createPool);
       const createPoolState = store.getState().pools.createPool;
       localStorage.setItem("createPool", JSON.stringify(createPoolState));
     });

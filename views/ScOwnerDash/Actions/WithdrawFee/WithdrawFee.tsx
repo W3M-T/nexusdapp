@@ -29,7 +29,6 @@ const WithdrawFee = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log("values", values);
       triggerTx(
         scCall(NftStakingPoolsWsp, "withdrawFee", [
           BytesValue.fromUTF8(values.token),

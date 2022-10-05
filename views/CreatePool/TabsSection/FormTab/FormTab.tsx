@@ -60,7 +60,6 @@ const FormTab = ({ activeFeeTab }: IProps) => {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       const nft = await getNft(values.collection.collection + "-01");
-      console.log("nft", nft);
 
       const amountToSend = new BigNumber(values.nftsNumber)
         .multipliedBy(values.dayliRewards)
