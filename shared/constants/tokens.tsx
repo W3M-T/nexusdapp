@@ -1,6 +1,5 @@
 import { selectedNetwork } from "../../config/network";
 import EgldImg from "../assets/images/coinlogos/egldlogo.png";
-import NextImg from "../components/ui/NextImg";
 const tokens = selectedNetwork.tokens;
 export const tokensPools = [tokens.EGLD, tokens.MERMAID, tokens.WATER];
 
@@ -11,7 +10,6 @@ export const EgldToken = {
   decimals: selectedNetwork.tokens.EGLD.decimals,
   assets: {
     description: "EGLD",
-
-    img: <NextImg src={EgldImg} alt="" boxSize={4} />,
+    staticSrc: EgldImg,
   },
 };

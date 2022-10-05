@@ -38,19 +38,19 @@ const MainStats = () => {
                   {formatTokenI(fees.token)}
                 </Text>
                 <Box boxSize={4} ml={1}>
-                  {fees.tokenDetials.assets?.img ? (
-                    fees.tokenDetials.assets?.img
-                  ) : (
-                    <Box borderRadius={"full"} boxSize={4}>
-                      <Image
-                        layout="intrinsic"
-                        width="30px"
-                        height="30px"
-                        src={fees.tokenDetials.assets.svgUrl}
-                        alt={fees.tokenDetials.name}
-                      />
-                    </Box>
-                  )}
+                  <Box borderRadius={"full"} boxSize={4}>
+                    <Image
+                      layout="intrinsic"
+                      width="30px"
+                      height="30px"
+                      src={
+                        fees.tokenDetials.assets.svgUrl ||
+                        fees.tokenDetials.assets.staticSrc ||
+                        ""
+                      }
+                      alt={fees.tokenDetials.name}
+                    />
+                  </Box>
                 </Box>
               </Flex>
             );
