@@ -5,7 +5,8 @@ import { ActionButton } from "../../../../shared/components/tools/ActionButton";
 import SelectDark, {
   OptionSelectDark,
 } from "../../../../shared/components/ui/SelectDark";
-import { tokensPools } from "../../../../shared/constants/tokens";
+import { useAppSelector } from "../../../../shared/hooks/core/useRedux";
+import { selectRegistrationTokens } from "../../../../shared/slices/pools";
 import { formatTokenI } from "../../../../shared/utils/formatTokenIdentifier";
 interface IProps {
   onSubmit: (values) => void;
@@ -19,6 +20,7 @@ const validationSchema = yup.object({
 });
 
 const GeneralAction = ({ onSubmit, disabled, actionText }: IProps) => {
+  const { data: tokensPools } = useAppSelector(selectRegistrationTokens);
   const formik = useFormik({
     initialValues: {
       amount: "",
@@ -46,8 +48,8 @@ const GeneralAction = ({ onSubmit, disabled, actionText }: IProps) => {
                   return null;
                 }
                 return (
-                  <OptionSelectDark key={t.identifier} value={t.identifier}>
-                    {formatTokenI(t.identifier)}
+                  <OptionSelectDark key={t} value={t}>
+                    {formatTokenI(t)}
                   </OptionSelectDark>
                 );
               })}

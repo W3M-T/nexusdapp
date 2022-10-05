@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import { MainLayout } from "../../shared/components/ui/MainLayout";
 import { useAppDispatch } from "../../shared/hooks/core/useRedux";
 import {
+  fetchAllowedRegistrationTokens,
+  fetchAllowedRewardTokens,
   fetchExistringPools,
   fetchNonWithdrawnCollections,
   fetchStats,
@@ -18,6 +20,8 @@ const ScOwnerDashboardView = () => {
     dispatch(fetchStats());
     dispatch(fetchExistringPools());
     dispatch(fetchNonWithdrawnCollections());
+    dispatch(fetchAllowedRegistrationTokens());
+    dispatch(fetchAllowedRewardTokens());
   }, [dispatch]);
   return (
     <MainLayout metaTitle={route.scOwner.name}>

@@ -7,6 +7,8 @@ import {
   IStaked,
 } from "../../redux/types/pools.interface";
 import {
+  fetchAllowedRegistrationTokens,
+  fetchAllowedRewardTokens,
   fetchExistringPools,
   fetchIsNftCreator,
   fetchNonWithdrawnCollections,
@@ -39,6 +41,16 @@ export interface poolsState {
     error: string;
   };
   nonWithdrawnCollections: {
+    status: Status;
+    data: string[];
+    error: string;
+  };
+  allowedRegistrationTokens: {
+    status: Status;
+    data: string[];
+    error: string;
+  };
+  allowedRewardTokens: {
     status: Status;
     data: string[];
     error: string;
@@ -89,6 +101,16 @@ const initialState: poolsState = {
     error: "",
   },
   nonWithdrawnCollections: {
+    status: "idle",
+    data: [],
+    error: "",
+  },
+  allowedRegistrationTokens: {
+    status: "idle",
+    data: [],
+    error: "",
+  },
+  allowedRewardTokens: {
     status: "idle",
     data: [],
     error: "",
@@ -203,6 +225,28 @@ export const poolsSlice = createSlice({
       .addCase(fetchRegistrationInfo.rejected, (state, action) => {
         state.createPool.phase2.status = "error";
         state.createPool.phase2.message = action.error.message;
+      })
+      //fetchAllowedRegistrationTokens
+      .addCase(fetchAllowedRegistrationTokens.pending, (state) => {
+        state.allowedRegistrationTokens.status = "success";
+      })
+      .addCase(fetchAllowedRegistrationTokens.fulfilled, (state, action) => {
+        state.allowedRegistrationTokens.status = "success";
+        state.allowedRegistrationTokens.data = action.payload;
+      })
+      .addCase(fetchAllowedRegistrationTokens.rejected, (state) => {
+        state.allowedRegistrationTokens.status = "failed";
+      })
+      //fetchAllowedRewardTokens
+      .addCase(fetchAllowedRewardTokens.pending, (state) => {
+        state.allowedRewardTokens.status = "success";
+      })
+      .addCase(fetchAllowedRewardTokens.fulfilled, (state, action) => {
+        state.allowedRewardTokens.status = "success";
+        state.allowedRewardTokens.data = action.payload;
+      })
+      .addCase(fetchAllowedRewardTokens.rejected, (state) => {
+        state.allowedRewardTokens.status = "failed";
       });
   },
 });
@@ -216,6 +260,10 @@ export const selectNonWithdrawnCollections = (state: RootState) =>
   state.pools.nonWithdrawnCollections;
 export const selectCreatePool = (state: RootState) => state.pools.createPool;
 export const selectUserStaked = (state: RootState) => state.pools.userStaked;
+export const selectRegistrationTokens = (state: RootState) =>
+  state.pools.allowedRegistrationTokens;
+export const selectRewardsTokens = (state: RootState) =>
+  state.pools.allowedRewardTokens;
 
 // Action creators are generated for each case reducer function
 // export const { setAddress } = poolsSlice.actions;

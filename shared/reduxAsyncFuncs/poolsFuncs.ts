@@ -140,3 +140,25 @@ export const fetchRegistrationInfo = createAsyncThunk(
     };
   }
 );
+export const fetchAllowedRegistrationTokens = createAsyncThunk(
+  "pools/fetchAllowedRegistrationTokens",
+  async () => {
+    const res = await scQuery(NftStakingPoolsWsp, "allowedRegistrationTokens");
+    const { firstValue } = res;
+
+    const data = firstValue.valueOf();
+
+    return data;
+  }
+);
+export const fetchAllowedRewardTokens = createAsyncThunk(
+  "pools/fetchAllowedRewardTokens",
+  async () => {
+    const res = await scQuery(NftStakingPoolsWsp, "allowedRewardTokens");
+    const { firstValue } = res;
+
+    const data = firstValue.valueOf();
+
+    return data;
+  }
+);

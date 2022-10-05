@@ -18,7 +18,6 @@ import {
   U64Type,
   U64Value,
 } from "@elrondnetwork/erdjs/out";
-import { AxiosResponse } from "axios";
 import BigNumber from "bignumber.js";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -26,15 +25,16 @@ import { ActionButton } from "../../../../shared/components/tools/ActionButton";
 import SelectDark, {
   OptionSelectDark,
 } from "../../../../shared/components/ui/SelectDark";
-import { tokensPools } from "../../../../shared/constants/tokens";
 import { useAppSelector } from "../../../../shared/hooks/core/useRedux";
 import { useScTransaction } from "../../../../shared/hooks/core/useScTransaction";
-import { getFromAllTokens } from "../../../../shared/services/rest/axiosEldron";
 import { NftStakingPoolsWsp } from "../../../../shared/services/sc";
 import { ESDTTransfer, scCall } from "../../../../shared/services/sc/calls";
-import { selectExistingPools } from "../../../../shared/slices/pools";
-import { IElrondToken } from "../../../../shared/types/network";
+import {
+  selectExistingPools,
+  selectRewardsTokens,
+} from "../../../../shared/slices/pools";
 import { formatTokenI } from "../../../../shared/utils/formatTokenIdentifier";
+import { getTokenDetails } from "../../../../shared/utils/getTokenDetails";
 import { TxCb } from "../../../../shared/utils/txCallback";
 
 const validationSchema = yup.object({
@@ -45,6 +45,7 @@ const validationSchema = yup.object({
 
 const SendAirdrop = () => {
   const existingPools = useAppSelector(selectExistingPools);
+  const { data: rewardsTokens } = useAppSelector(selectRewardsTokens);
 
   const { triggerTx } = useScTransaction({
     cb: TxCb,
@@ -95,19 +96,15 @@ const SendAirdrop = () => {
           )
         );
       } else {
-        const { data: tokenDetail }: AxiosResponse<IElrondToken[]> =
-          await getFromAllTokens({
-            identifier: values.token,
-          });
-
-        if (tokenDetail[0]) {
+        const tokenD = await getTokenDetails(values.token);
+        if (tokenD) {
           triggerTx(
             ESDTTransfer(
               NftStakingPoolsWsp,
               "sendAirdrop",
               {
                 identifier: values.token,
-                decimals: tokenDetail[0].decimals,
+                decimals: tokenD.decimals,
               },
               Number(values.amount),
               [poolStruct]
@@ -136,13 +133,13 @@ const SendAirdrop = () => {
             >
               <>
                 <OptionSelectDark>Token</OptionSelectDark>
-                {tokensPools.map((t) => {
+                {rewardsTokens.map((t) => {
                   if (!t) {
                     return null;
                   }
                   return (
-                    <OptionSelectDark key={t.identifier} value={t.identifier}>
-                      {formatTokenI(t.identifier)}
+                    <OptionSelectDark key={t} value={t}>
+                      {formatTokenI(t)}
                     </OptionSelectDark>
                   );
                 })}
