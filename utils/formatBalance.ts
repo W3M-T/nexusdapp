@@ -60,7 +60,7 @@ export const getRealBalance = (
   return real.toNumber();
 };
 
-export const formatPrecision = (num, customPrecision = 2) => {
+export const formatPrecision = (num, customPrecision?: number) => {
   if (!num) {
     return 0;
   }
