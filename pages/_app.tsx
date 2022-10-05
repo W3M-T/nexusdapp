@@ -11,10 +11,10 @@ import "@fontsource/poppins/900.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
-import TxModal from "../components/ui/TxModal";
 import { theme } from "../config/chakraTheme";
-import { useElrondNetworkSync } from "../hooks/auth/useElrondNetworkSync";
 import { store } from "../redux/store";
+import TxModal from "../shared/components/ui/TxModal";
+import { useElrondNetworkSync } from "../shared/hooks/auth/useElrondNetworkSync";
 
 const NextJSDappTemplate = ({ Component, pageProps }: AppProps) => {
   useElrondNetworkSync();

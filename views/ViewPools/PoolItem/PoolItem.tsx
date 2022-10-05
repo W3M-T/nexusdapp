@@ -20,16 +20,16 @@ import {
 } from "@elrondnetwork/erdjs/out";
 import BigNumber from "bignumber.js";
 import dynamic from "next/dynamic";
-import { ActionButton } from "../../../components/tools/ActionButton";
-import NextImg from "../../../components/ui/NextImg";
 import { selectedNetwork } from "../../../config/network";
-import { useScTransaction } from "../../../hooks/core/useScTransaction";
 import { IExistingPool } from "../../../redux/types/pools.interface";
 import { INft } from "../../../redux/types/tokens.interface";
-import { ESDTNFTTransfer } from "../../../services/sc/calls";
-import { formatBalance } from "../../../utils/formatBalance";
-import { formatTokenI } from "../../../utils/formatTokenIdentifier";
-import { TxCb } from "../../../utils/txCallback";
+import { ActionButton } from "../../../shared/components/tools/ActionButton";
+import NextImg from "../../../shared/components/ui/NextImg";
+import { useScTransaction } from "../../../shared/hooks/core/useScTransaction";
+import { ESDTNFTTransfer } from "../../../shared/services/sc/calls";
+import { formatBalance } from "../../../shared/utils/formatBalance";
+import { formatTokenI } from "../../../shared/utils/formatTokenIdentifier";
+import { TxCb } from "../../../shared/utils/txCallback";
 
 const SelectNftModal = dynamic(
   () => import("../SelectNftModal/SelectNftModal")

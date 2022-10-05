@@ -7,9 +7,9 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { Authenticated } from "../../../components/tools/Authenticated";
-import { useAppSelector } from "../../../hooks/core/useRedux";
-import { selectUserStaked } from "../../../redux/slices/pools";
+import { Authenticated } from "../../../shared/components/tools/Authenticated";
+import { useAppSelector } from "../../../shared/hooks/core/useRedux";
+import { selectUserStaked } from "../../../shared/slices/pools";
 import NFTCard from "./NFTCard/NFTCard";
 import NftModal from "./NftModal/NftModal";
 const StakingSection = () => {

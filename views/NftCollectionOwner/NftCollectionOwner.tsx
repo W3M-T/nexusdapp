@@ -1,11 +1,11 @@
 import { Flex } from "@chakra-ui/react";
 import { useEffect } from "react";
-import { MainLayout } from "../../components/ui/MainLayout";
-import SendAirdrop from "../../components/ui/SendAirdrop";
-import { useAppDispatch } from "../../hooks/core/useRedux";
-import { fetchExistringPools } from "../../redux/asyncFuncs/poolsFuncs";
-import { route } from "../../utils/routes";
-import ExistingPools from "./ExistingPools/ExistingPools";
+import { MainLayout } from "../../shared/components/ui/MainLayout";
+import { useAppDispatch } from "../../shared/hooks/core/useRedux";
+import { fetchExistringPools } from "../../shared/reduxAsyncFuncs/poolsFuncs";
+import { route } from "../../shared/utils/routes";
+import ExistingPools from "./components/ExistingPools/ExistingPools";
+import SendAirdrop from "./components/SendAirdrop/SendAirdrop";
 
 const NftCollectionOwnerView = () => {
   const dispatch = useAppDispatch();

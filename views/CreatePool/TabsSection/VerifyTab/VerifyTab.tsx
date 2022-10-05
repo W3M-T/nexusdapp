@@ -16,19 +16,19 @@ import {
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { ActionButton } from "../../../../components/tools/ActionButton";
-import { CardWrapper } from "../../../../components/ui/CardWrapper";
+import { ActionButton } from "../../../../shared/components/tools/ActionButton";
+import { CardWrapper } from "../../../../shared/components/ui/CardWrapper";
 import {
   useAppDispatch,
   useAppSelector,
-} from "../../../../hooks/core/useRedux";
+} from "../../../../shared/hooks/core/useRedux";
+import { getCollectionDetails } from "../../../../shared/services/rest/axiosEldron";
 import {
   selectCreatePool,
   setCreatePoolCollection,
   setCreatePoolPahe1,
-} from "../../../../redux/slices/pools";
-import { selectUserAddress } from "../../../../redux/slices/settings";
-import { getCollectionDetails } from "../../../../services/rest/axiosEldron";
+} from "../../../../shared/slices/pools";
+import { selectUserAddress } from "../../../../shared/slices/settings";
 const validationSchema = yup.object({
   collection: yup.string().required().min(5),
 });

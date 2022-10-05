@@ -1,9 +1,12 @@
 import { Box } from "@chakra-ui/react";
 import { useEffect } from "react";
-import { MainLayout } from "../../components/ui/MainLayout";
-import { useAppDispatch, useAppSelector } from "../../hooks/core/useRedux";
-import { fetchUserStaked } from "../../redux/asyncFuncs/poolsFuncs";
-import { selectUserAddress } from "../../redux/slices/settings";
+import { MainLayout } from "../../shared/components/ui/MainLayout";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../shared/hooks/core/useRedux";
+import { fetchUserStaked } from "../../shared/reduxAsyncFuncs/poolsFuncs";
+import { selectUserAddress } from "../../shared/slices/settings";
 import StakingSection from "./StakingSection/StakingSection";
 
 const Home = () => {

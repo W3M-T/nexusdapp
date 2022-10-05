@@ -1,4 +1,4 @@
-import { NetworkType } from "../types/network";
+import { NetworkType } from "../shared/types/network";
 
 // Default Elrond network configuration (constants).
 // Change if you need, but by default, you shouldn't have to do that.

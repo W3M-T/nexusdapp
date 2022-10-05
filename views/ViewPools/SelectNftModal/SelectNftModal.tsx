@@ -7,10 +7,10 @@ import {
   ModalHeader,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { ActionButton } from "../../../components/tools/ActionButton";
-import MyModal from "../../../components/ui/MyModal";
-import useGetNfts from "../../../hooks/tools/useGetNfts";
 import { INft } from "../../../redux/types/tokens.interface";
+import { ActionButton } from "../../../shared/components/tools/ActionButton";
+import MyModal from "../../../shared/components/ui/MyModal";
+import useGetNfts from "../../../shared/hooks/tools/useGetNfts";
 import StakeNftItem from "./StakeNftItem";
 
 interface IProps {

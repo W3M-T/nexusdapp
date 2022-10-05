@@ -1,9 +1,12 @@
-import SearchBar from "../../../components/ui/SearchBar";
-import { useAppDispatch, useAppSelector } from "../../../hooks/core/useRedux";
+import SearchBar from "../../../shared/components/ui/SearchBar";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../shared/hooks/core/useRedux";
 import {
   selectExistingPools,
   setFilteredPools,
-} from "../../../redux/slices/pools";
+} from "../../../shared/slices/pools";
 
 const Search = () => {
   const dispatch = useAppDispatch();

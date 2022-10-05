@@ -1,8 +1,8 @@
 import { Flex } from "@chakra-ui/react";
 import { IExistingPool } from "../../../redux/types/pools.interface";
-import { formatBalance } from "../../../utils/formatBalance";
-import { formatTokenI } from "../../../utils/formatTokenIdentifier";
-import { shortenHash } from "../../../utils/shortenHash";
+import { formatBalance } from "../../../shared/utils/formatBalance";
+import { formatTokenI } from "../../../shared/utils/formatTokenIdentifier";
+import { shortenHash } from "../../../shared/utils/shortenHash";
 
 export const columns = [
   {

@@ -1,12 +1,12 @@
 import { BigUIntValue, BytesValue } from "@elrondnetwork/erdjs/out";
 import { useCallback } from "react";
 import { selectedNetwork } from "../../../../config/network";
-import { useScTransaction } from "../../../../hooks/core/useScTransaction";
-import { NftStakingPoolsWsp } from "../../../../services/sc";
-import { scCall } from "../../../../services/sc/calls";
-import { formatErdAmount } from "../../../../utils/erdAmount";
-import { formatTokenI } from "../../../../utils/formatTokenIdentifier";
-import { TxCb } from "../../../../utils/txCallback";
+import { useScTransaction } from "../../../../shared/hooks/core/useScTransaction";
+import { NftStakingPoolsWsp } from "../../../../shared/services/sc";
+import { scCall } from "../../../../shared/services/sc/calls";
+import { formatErdAmount } from "../../../../shared/utils/erdAmount";
+import { formatTokenI } from "../../../../shared/utils/formatTokenIdentifier";
+import { TxCb } from "../../../../shared/utils/txCallback";
 import GeneralAction from "../GeneralAction/GeneralAction";
 
 const SetOneTimeFee = () => {

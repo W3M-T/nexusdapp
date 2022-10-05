@@ -21,20 +21,20 @@ import BigNumber from "bignumber.js";
 import { useFormik } from "formik";
 import { useEffect } from "react";
 import * as yup from "yup";
-import { ActionButton } from "../../../../components/tools/ActionButton";
-import { CardWrapper } from "../../../../components/ui/CardWrapper";
+import { ActionButton } from "../../../../shared/components/tools/ActionButton";
+import { CardWrapper } from "../../../../shared/components/ui/CardWrapper";
 import SelectDark, {
   OptionSelectDark,
-} from "../../../../components/ui/SelectDark";
-import { tokensPools } from "../../../../constants/tokens";
-import { useAppSelector } from "../../../../hooks/core/useRedux";
-import { useScTransaction } from "../../../../hooks/core/useScTransaction";
-import { selectCreatePool } from "../../../../redux/slices/pools";
-import { getNft } from "../../../../services/rest/axiosEldron";
-import { NftStakingPoolsWsp } from "../../../../services/sc";
-import { ESDTTransfer, scCall } from "../../../../services/sc/calls";
-import { formatTokenI } from "../../../../utils/formatTokenIdentifier";
-import { TxCb } from "../../../../utils/txCallback";
+} from "../../../../shared/components/ui/SelectDark";
+import { tokensPools } from "../../../../shared/constants/tokens";
+import { useAppSelector } from "../../../../shared/hooks/core/useRedux";
+import { useScTransaction } from "../../../../shared/hooks/core/useScTransaction";
+import { getNft } from "../../../../shared/services/rest/axiosEldron";
+import { NftStakingPoolsWsp } from "../../../../shared/services/sc";
+import { ESDTTransfer, scCall } from "../../../../shared/services/sc/calls";
+import { selectCreatePool } from "../../../../shared/slices/pools";
+import { formatTokenI } from "../../../../shared/utils/formatTokenIdentifier";
+import { TxCb } from "../../../../shared/utils/txCallback";
 const validationSchema = yup.object({
   nftsNumber: yup.number().required(),
   dayliRewards: yup.number().required(),

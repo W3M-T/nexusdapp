@@ -2,17 +2,17 @@ import { Center, Flex } from "@chakra-ui/react";
 import { BytesValue } from "@elrondnetwork/erdjs/out";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { ActionButton } from "../../../../components/tools/ActionButton";
+import { ActionButton } from "../../../../shared/components/tools/ActionButton";
 import SelectDark, {
   OptionSelectDark,
-} from "../../../../components/ui/SelectDark";
-import { useAppSelector } from "../../../../hooks/core/useRedux";
-import { useScTransaction } from "../../../../hooks/core/useScTransaction";
-import { selectNonWithdrawnCollections } from "../../../../redux/slices/pools";
-import { NftStakingPoolsWsp } from "../../../../services/sc";
-import { scCall } from "../../../../services/sc/calls";
-import { formatTokenI } from "../../../../utils/formatTokenIdentifier";
-import { TxCb } from "../../../../utils/txCallback";
+} from "../../../../shared/components/ui/SelectDark";
+import { useAppSelector } from "../../../../shared/hooks/core/useRedux";
+import { useScTransaction } from "../../../../shared/hooks/core/useScTransaction";
+import { NftStakingPoolsWsp } from "../../../../shared/services/sc";
+import { scCall } from "../../../../shared/services/sc/calls";
+import { selectNonWithdrawnCollections } from "../../../../shared/slices/pools";
+import { formatTokenI } from "../../../../shared/utils/formatTokenIdentifier";
+import { TxCb } from "../../../../shared/utils/txCallback";
 
 const validationSchema = yup.object({
   token: yup.string().required(),

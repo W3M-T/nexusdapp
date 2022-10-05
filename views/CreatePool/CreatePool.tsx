@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
-import { MainLayout } from "../../components/ui/MainLayout";
-import { route } from "../../utils/routes";
+import { MainLayout } from "../../shared/components/ui/MainLayout";
+import { route } from "../../shared/utils/routes";
 
 // Chakra imports
 import { Flex } from "@chakra-ui/react";

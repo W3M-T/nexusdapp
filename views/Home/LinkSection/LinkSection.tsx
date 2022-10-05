@@ -1,7 +1,7 @@
 import { Box, Flex } from "@chakra-ui/react";
 import Link from "next/link";
-import { ActionButton } from "../../../components/tools/ActionButton";
-import { useLoggingIn } from "../../../hooks/auth/useLoggingIn";
+import { ActionButton } from "../../../shared/components/tools/ActionButton";
+import { useLoggingIn } from "../../../shared/hooks/auth/useLoggingIn";
 
 const LinkSection = () => {
   const { isLoggedIn } = useLoggingIn();

@@ -1,10 +1,10 @@
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import Image from "next/image";
-import { CardWrapper } from "../../../components/ui/CardWrapper";
-import { useAppSelector } from "../../../hooks/core/useRedux";
-import { selectPoolStats } from "../../../redux/slices/pools";
-import { formatBalance } from "../../../utils/formatBalance";
-import { formatTokenI } from "../../../utils/formatTokenIdentifier";
+import { CardWrapper } from "../../../shared/components/ui/CardWrapper";
+import { useAppSelector } from "../../../shared/hooks/core/useRedux";
+import { selectPoolStats } from "../../../shared/slices/pools";
+import { formatBalance } from "../../../shared/utils/formatBalance";
+import { formatTokenI } from "../../../shared/utils/formatTokenIdentifier";
 
 const MainStats = () => {
   const stats = useAppSelector(selectPoolStats);

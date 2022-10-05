@@ -1,12 +1,12 @@
 import { Center, Flex, Input } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { ActionButton } from "../../../../components/tools/ActionButton";
+import { ActionButton } from "../../../../shared/components/tools/ActionButton";
 import SelectDark, {
   OptionSelectDark,
-} from "../../../../components/ui/SelectDark";
-import { tokensPools } from "../../../../constants/tokens";
-import { formatTokenI } from "../../../../utils/formatTokenIdentifier";
+} from "../../../../shared/components/ui/SelectDark";
+import { tokensPools } from "../../../../shared/constants/tokens";
+import { formatTokenI } from "../../../../shared/utils/formatTokenIdentifier";
 interface IProps {
   onSubmit: (values) => void;
   actionText: string;

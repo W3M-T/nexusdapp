@@ -11,26 +11,26 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { BytesValue } from "@elrondnetwork/erdjs/out";
-import { ActionButton } from "../../../../components/tools/ActionButton";
+import { ActionButton } from "../../../../shared/components/tools/ActionButton";
 
 // Custom components
 
 // Icons
 import { useEffect } from "react";
-import { CardWrapper } from "../../../../components/ui/CardWrapper";
+import { CardWrapper } from "../../../../shared/components/ui/CardWrapper";
 import {
   useAppDispatch,
   useAppSelector,
-} from "../../../../hooks/core/useRedux";
-import { useScTransaction } from "../../../../hooks/core/useScTransaction";
-import { fetchRegistrationInfo } from "../../../../redux/asyncFuncs/poolsFuncs";
-import { selectCreatePool } from "../../../../redux/slices/pools";
-import { selectUserAddress } from "../../../../redux/slices/settings";
-import { NftStakingPoolsWsp } from "../../../../services/sc";
-import { scCall } from "../../../../services/sc/calls";
-import { formatBalance } from "../../../../utils/formatBalance";
-import { formatTokenI } from "../../../../utils/formatTokenIdentifier";
-import { TxCb } from "../../../../utils/txCallback";
+} from "../../../../shared/hooks/core/useRedux";
+import { useScTransaction } from "../../../../shared/hooks/core/useScTransaction";
+import { fetchRegistrationInfo } from "../../../../shared/reduxAsyncFuncs/poolsFuncs";
+import { NftStakingPoolsWsp } from "../../../../shared/services/sc";
+import { scCall } from "../../../../shared/services/sc/calls";
+import { selectCreatePool } from "../../../../shared/slices/pools";
+import { selectUserAddress } from "../../../../shared/slices/settings";
+import { formatBalance } from "../../../../shared/utils/formatBalance";
+import { formatTokenI } from "../../../../shared/utils/formatTokenIdentifier";
+import { TxCb } from "../../../../shared/utils/txCallback";
 
 interface IProps {
   activeFeeTab: () => void;

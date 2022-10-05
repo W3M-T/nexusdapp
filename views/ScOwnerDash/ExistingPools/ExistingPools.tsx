@@ -1,8 +1,8 @@
 import { Center, Heading, Text } from "@chakra-ui/react";
-import { CardWrapper } from "../../../components/ui/CardWrapper";
-import SearchTable1 from "../../../components/ui/SearchTable1";
-import { useAppSelector } from "../../../hooks/core/useRedux";
-import { selectExistingPools } from "../../../redux/slices/pools";
+import { CardWrapper } from "../../../shared/components/ui/CardWrapper";
+import SearchTable1 from "../../../shared/components/ui/SearchTable1";
+import { useAppSelector } from "../../../shared/hooks/core/useRedux";
+import { selectExistingPools } from "../../../shared/slices/pools";
 import { columns } from "./columns";
 
 const ExistingPools = () => {

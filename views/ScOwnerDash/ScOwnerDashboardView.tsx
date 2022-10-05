@@ -1,13 +1,13 @@
 import { Box, Flex, Grid } from "@chakra-ui/react";
 import { useEffect } from "react";
-import { MainLayout } from "../../components/ui/MainLayout";
-import { useAppDispatch } from "../../hooks/core/useRedux";
+import { MainLayout } from "../../shared/components/ui/MainLayout";
+import { useAppDispatch } from "../../shared/hooks/core/useRedux";
 import {
   fetchExistringPools,
   fetchNonWithdrawnCollections,
   fetchStats,
-} from "../../redux/asyncFuncs/poolsFuncs";
-import { route } from "../../utils/routes";
+} from "../../shared/reduxAsyncFuncs/poolsFuncs";
+import { route } from "../../shared/utils/routes";
 import Actions from "./Actions/Actions";
 import ExistingPools from "./ExistingPools/ExistingPools";
 import MainStats from "./MainStacks/MainStats";
