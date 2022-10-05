@@ -5,7 +5,7 @@ import { useAppDispatch } from "../../shared/hooks/core/useRedux";
 import { fetchExistringPools } from "../../shared/reduxAsyncFuncs/poolsFuncs";
 import { route } from "../../shared/utils/routes";
 import ExistingPools from "./components/ExistingPools/ExistingPools";
-import SendAirdrop from "./components/SendAirdrop/SendAirdrop";
+import SendAirdrop from "./components/SendRewards/SendRewards";
 
 const NftCollectionOwnerView = () => {
   const dispatch = useAppDispatch();
