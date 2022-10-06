@@ -11,7 +11,7 @@ export const defaultMetaTags = {
 };
 
 // Only allow admin to go to admin pages
-export const ONLY_ADMIN = false;
+export const ONLY_ADMIN = true;
 
 // Only allow nft creator to go to nft creator pages
-export const ONLY_NFT_CREATOR = false;
+export const ONLY_NFT_CREATOR = true;
