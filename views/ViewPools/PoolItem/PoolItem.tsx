@@ -135,7 +135,7 @@ const PoolItem = ({ pool }: IProps) => {
         <Text mb={2}>
           {" "}
           <Box as="span" fontWeight={"bold"}>
-            Total Nfts :{" "}
+            Total NFTs :{" "}
           </Box>{" "}
           {pool.nftsNow} / {pool.nfts}{" "}
         </Text>

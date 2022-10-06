@@ -78,7 +78,13 @@ const FormTab = ({ activeFeeTab }: IProps) => {
       ];
       if (values.token === "EGLD") {
         triggerTx(
-          scCall(NftStakingPoolsWsp, "createPool", args, 80000000, amountToSend)
+          scCall(
+            NftStakingPoolsWsp,
+            "createPool",
+            args,
+            undefined,
+            amountToSend
+          )
         );
       } else {
         triggerTx(
@@ -87,8 +93,7 @@ const FormTab = ({ activeFeeTab }: IProps) => {
             "createPool",
             { identifier: values.token },
             amountToSend,
-            args,
-            80000000
+            args
           )
         );
       }
