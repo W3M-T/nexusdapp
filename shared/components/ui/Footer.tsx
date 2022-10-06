@@ -5,7 +5,7 @@ export const Footer = () => {
     <Box
       height="80px"
       bgColor="dappTemplate.dark.darker"
-      color="dappTemplate.white"
+      color="gray.500"
       display="flex"
       alignItems="center"
     >
@@ -15,7 +15,8 @@ export const Footer = () => {
         fontWeight="normal"
         textAlign="center"
       >
-        <Box>Elrond NFTs Staking Pools </Box>
+        <Box>Made with ❤️ by the 💧 $WATER Community.</Box>
+        <Box>Copyright © 2022 The NFT NEXUS - All Rights Reserved.</Box>
       </Container>
     </Box>
   );

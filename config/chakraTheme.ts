@@ -38,7 +38,7 @@ export const theme = extendTheme({
           "linear-gradient(180deg, rgba(9,2,38,1) 0%, rgba(5,0,14,1) 100%);",
         bgSize: "700px",
         backgroundPositionX: "150px",
-        color: "dappTemplate.white",
+        color: "gray.200",
         fontSize: "14px",
       },
       "*": {

@@ -10,6 +10,7 @@ import {
   setIsLogedIn,
 } from "../../slices/settings";
 import Banner from "./Banner";
+import { Footer } from "./Footer";
 import { HeaderMenu } from "./HeaderMenu";
 import { HeaderMenuButtons } from "./HeaderMenuButtons";
 import { MetaHead, MetaHeadProps } from "./MetaHead";
@@ -62,7 +63,7 @@ export const MainLayout = ({
           <Box>{children}</Box>
         </Container>
       </Box>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 };
