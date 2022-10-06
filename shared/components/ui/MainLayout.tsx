@@ -9,6 +9,7 @@ import {
   setAddress,
   setIsLogedIn,
 } from "../../slices/settings";
+import Banner from "./Banner";
 import { HeaderMenu } from "./HeaderMenu";
 import { HeaderMenuButtons } from "./HeaderMenuButtons";
 import { MetaHead, MetaHeadProps } from "./MetaHead";
@@ -50,6 +51,9 @@ export const MainLayout = ({
         metaImage={metaImage}
         metaUrl={metaUrl}
       />
+      <Banner bg="dappTemplate.shadowColor">
+        A 💧 $WATER Community Project
+      </Banner>
       <Box minHeight="100vh" pb="24">
         <Container maxW="container.xl">
           <HeaderMenu>
