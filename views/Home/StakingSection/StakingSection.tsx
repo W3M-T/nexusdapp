@@ -58,6 +58,12 @@ const StakingSection = () => {
             );
           })}
         </Flex>
+
+        {stakedNfts.data.length === 0 && (
+          <Text fontWeight="bold" fontSize="2xl" textAlign="center" mt={8}>
+            You have not staked any nfts yet!
+          </Text>
+        )}
       </Authenticated>
 
       {isOpen && (
