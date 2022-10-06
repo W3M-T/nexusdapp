@@ -52,7 +52,7 @@ export const MainLayout = ({
         metaImage={metaImage}
         metaUrl={metaUrl}
       />
-      <Banner bg="dappTemplate.shadowColor">
+      <Banner bg="dappTemplate.dark.darker">
         A 💧 $WATER Community Project
       </Banner>
       <Box minHeight="100vh" pb="24">

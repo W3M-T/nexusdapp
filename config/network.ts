@@ -30,7 +30,7 @@ export const networkConfig: Record<string, NetworkType> = {
     gatewayAddress: "https://devnet-gateway.elrond.com",
     contractAddr: {
       nftsStaking:
-        "erd1qqqqqqqqqqqqqpgqxzpyuvz6xqdx92k5wv6qlkwuu4mmuneq8pgqya8qts",
+        "erd1qqqqqqqqqqqqqpgqz4vuknaw4yw38zv4wqze4a5hrg3ft5tz8pgq36nxy4",
     },
     tokens: {
       EGLD: { identifier: "EGLD" },
