@@ -38,7 +38,7 @@ interface IProps {
   activeFormTab: () => void;
 }
 
-const FeeTab = ({ activeFeeTab, activeVerifyTab, activeFormTab }: IProps) => {
+const FeeTab = ({ activeVerifyTab, activeFormTab }: IProps) => {
   const { phase2 } = useAppSelector(selectCreatePool);
   const { collection } = useAppSelector(selectCreatePool);
   const dispatch = useAppDispatch();
@@ -62,11 +62,6 @@ const FeeTab = ({ activeFeeTab, activeVerifyTab, activeFormTab }: IProps) => {
 
   const handlePayNow = () => {
     if (phase2.data.tokenAmount && collection) {
-      console.log(
-        "amount",
-        formatBalance({ balance: phase2.data.tokenAmount }, true)
-      );
-
       triggerTx(
         scCall(
           NftStakingPoolsWsp,

@@ -23,17 +23,12 @@ import { useEffect } from "react";
 import * as yup from "yup";
 import { ActionButton } from "../../../../shared/components/tools/ActionButton";
 import { CardWrapper } from "../../../../shared/components/ui/CardWrapper";
-import SelectDark, {
-  OptionSelectDark,
-} from "../../../../shared/components/ui/SelectDark";
-import { tokensPools } from "../../../../shared/constants/tokens";
 import { useAppSelector } from "../../../../shared/hooks/core/useRedux";
 import { useScTransaction } from "../../../../shared/hooks/core/useScTransaction";
 import { selectCreatePool } from "../../../../shared/redux/slices/pools";
 import { getNft } from "../../../../shared/services/rest/axiosEldron";
 import { NftStakingPoolsWsp } from "../../../../shared/services/sc";
 import { ESDTTransfer, scCall } from "../../../../shared/services/sc/calls";
-import { formatTokenI } from "../../../../shared/utils/formatTokenIdentifier";
 import { TxCb } from "../../../../shared/utils/txCallback";
 const validationSchema = yup.object({
   nftsNumber: yup.number().required(),
@@ -165,33 +160,20 @@ const FormTab = ({ activeFeeTab }: IProps) => {
                 <FormLabel fontWeight="bold" fontSize="xs">
                   Reward token
                 </FormLabel>
-                <SelectDark
-                  borderRadius="15px"
+                <Input
+                  color="gray.400"
+                  bg="#0F1535"
+                  border="0.5px solid"
                   borderColor="#E2E8F04D"
-                  mb={0}
-                  onChange={formik.handleChange}
+                  borderRadius="15px"
+                  placeholder="Token Identifier..."
+                  fontSize="xs"
                   name="token"
+                  onChange={formik.handleChange}
                   isInvalid={
                     formik.touched.token && Boolean(formik.errors.token)
                   }
-                >
-                  <OptionSelectDark> Token </OptionSelectDark>
-                  <>
-                    {tokensPools.map((t) => {
-                      if (!t) {
-                        return null;
-                      }
-                      return (
-                        <OptionSelectDark
-                          key={t.identifier}
-                          value={t.identifier}
-                        >
-                          {formatTokenI(t.identifier)}
-                        </OptionSelectDark>
-                      );
-                    })}
-                  </>
-                </SelectDark>
+                />
               </FormControl>
               <FormControl>
                 <FormLabel fontWeight="bold" fontSize="xs">
