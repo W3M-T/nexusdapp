@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "../shared/slices/counterSlice";
-import poolsReducer from "../shared/slices/pools";
-import settingsReducer from "../shared/slices/settings";
-import tokensReducer from "../shared/slices/tokens";
-import transactionsReducer from "../shared/slices/transactions";
+import counterReducer from "./slices/counterSlice";
+import poolsReducer from "./slices/pools";
+import settingsReducer from "./slices/settings";
+import tokensReducer from "./slices/tokens";
+import transactionsReducer from "./slices/transactions";
 
 export const store = configureStore({
   reducer: {

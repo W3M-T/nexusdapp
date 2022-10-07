@@ -22,13 +22,13 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "../../../../shared/hooks/core/useRedux";
-import { getCollectionDetails } from "../../../../shared/services/rest/axiosEldron";
 import {
   selectCreatePool,
   setCreatePoolCollection,
   setCreatePoolPahe1,
-} from "../../../../shared/slices/pools";
-import { selectUserAddress } from "../../../../shared/slices/settings";
+} from "../../../../shared/redux/slices/pools";
+import { selectUserAddress } from "../../../../shared/redux/slices/settings";
+import { getCollectionDetails } from "../../../../shared/services/rest/axiosEldron";
 const validationSchema = yup.object({
   collection: yup.string().required().min(5),
 });

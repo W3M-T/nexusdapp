@@ -29,10 +29,10 @@ import SelectDark, {
 import { tokensPools } from "../../../../shared/constants/tokens";
 import { useAppSelector } from "../../../../shared/hooks/core/useRedux";
 import { useScTransaction } from "../../../../shared/hooks/core/useScTransaction";
+import { selectCreatePool } from "../../../../shared/redux/slices/pools";
 import { getNft } from "../../../../shared/services/rest/axiosEldron";
 import { NftStakingPoolsWsp } from "../../../../shared/services/sc";
 import { ESDTTransfer, scCall } from "../../../../shared/services/sc/calls";
-import { selectCreatePool } from "../../../../shared/slices/pools";
 import { formatTokenI } from "../../../../shared/utils/formatTokenIdentifier";
 import { TxCb } from "../../../../shared/utils/txCallback";
 const validationSchema = yup.object({

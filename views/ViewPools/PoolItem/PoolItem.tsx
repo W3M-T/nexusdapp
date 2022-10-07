@@ -21,11 +21,11 @@ import {
 import BigNumber from "bignumber.js";
 import dynamic from "next/dynamic";
 import { selectedNetwork } from "../../../config/network";
-import { IExistingPool } from "../../../redux/types/pools.interface";
-import { INft } from "../../../redux/types/tokens.interface";
 import { ActionButton } from "../../../shared/components/tools/ActionButton";
 import NextImg from "../../../shared/components/ui/NextImg";
 import { useScTransaction } from "../../../shared/hooks/core/useScTransaction";
+import { IExistingPool } from "../../../shared/redux/types/pools.interface";
+import { INft } from "../../../shared/redux/types/tokens.interface";
 import { ESDTNFTTransfer } from "../../../shared/services/sc/calls";
 import { formatBalance } from "../../../shared/utils/formatBalance";
 import { formatTokenI } from "../../../shared/utils/formatTokenIdentifier";

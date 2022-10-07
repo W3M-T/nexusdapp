@@ -3,8 +3,8 @@ import Link from "next/link";
 import { customColors } from "../../../config/chakraTheme";
 import { useLogout } from "../../hooks/auth/useLogout";
 import { useAppSelector } from "../../hooks/core/useRedux";
-import { selectisNftCreator } from "../../slices/pools";
-import { selectIsAdmin } from "../../slices/settings";
+import { selectisNftCreator } from "../../redux/slices/pools";
+import { selectIsAdmin } from "../../redux/slices/settings";
 import { route } from "../../utils/routes";
 import { CardWrapper } from "./CardWrapper";
 

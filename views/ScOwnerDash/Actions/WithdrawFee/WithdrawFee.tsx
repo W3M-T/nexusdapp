@@ -8,9 +8,9 @@ import SelectDark, {
 } from "../../../../shared/components/ui/SelectDark";
 import { useAppSelector } from "../../../../shared/hooks/core/useRedux";
 import { useScTransaction } from "../../../../shared/hooks/core/useScTransaction";
+import { selectNonWithdrawnCollections } from "../../../../shared/redux/slices/pools";
 import { NftStakingPoolsWsp } from "../../../../shared/services/sc";
 import { scCall } from "../../../../shared/services/sc/calls";
-import { selectNonWithdrawnCollections } from "../../../../shared/slices/pools";
 import { formatTokenI } from "../../../../shared/utils/formatTokenIdentifier";
 import { TxCb } from "../../../../shared/utils/txCallback";
 

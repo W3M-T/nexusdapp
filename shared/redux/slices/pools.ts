@@ -1,11 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../../redux/store";
-import { Status } from "../../redux/types";
-import {
-  IExistingPool,
-  IPoolStats,
-  IStaked,
-} from "../../redux/types/pools.interface";
+import { INftCollection } from "../../types/collection";
 import {
   fetchAllowedRegistrationTokens,
   fetchAllowedRewardTokens,
@@ -16,7 +10,9 @@ import {
   fetchStats,
   fetchUserStaked,
 } from "../reduxAsyncFuncs/poolsFuncs";
-import { INftCollection } from "../types/collection";
+import { RootState } from "../store";
+import { Status } from "../types";
+import { IExistingPool, IPoolStats, IStaked } from "../types/pools.interface";
 
 export interface poolsState {
   stats: {

@@ -10,7 +10,7 @@ import {
   selectTxError,
   selectTxPending,
   selectTxResult,
-} from "../../slices/transactions";
+} from "../../redux/slices/transactions";
 import { LoginMethodsEnum } from "../../types/enums";
 import { shortenHash } from "../../utils/shortenHash";
 import { ActionButton } from "../tools/ActionButton";

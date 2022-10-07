@@ -6,7 +6,7 @@ import {
 import {
   selectExistingPools,
   setFilteredPools,
-} from "../../../shared/slices/pools";
+} from "../../../shared/redux/slices/pools";
 
 const Search = () => {
   const dispatch = useAppDispatch();

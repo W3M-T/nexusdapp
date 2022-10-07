@@ -9,10 +9,10 @@ import {
 import { BigUIntValue, BytesValue } from "@elrondnetwork/erdjs/out";
 import BigNumber from "bignumber.js";
 import { memo } from "react";
-import { IStaked } from "../../../../redux/types/pools.interface";
 import { ActionButton } from "../../../../shared/components/tools/ActionButton";
 import MyModal from "../../../../shared/components/ui/MyModal";
 import { useScTransaction } from "../../../../shared/hooks/core/useScTransaction";
+import { IStaked } from "../../../../shared/redux/types/pools.interface";
 import { NftStakingPoolsWsp } from "../../../../shared/services/sc";
 import { scCall } from "../../../../shared/services/sc/calls";
 import { TxCb } from "../../../../shared/utils/txCallback";

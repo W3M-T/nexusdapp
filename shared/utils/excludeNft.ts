@@ -1,4 +1,4 @@
-import { INft } from "../../redux/types/tokens.interface";
+import { INft } from "../redux/types/tokens.interface";
 
 export const noShowMedia = (nft: INft) => {
   if (

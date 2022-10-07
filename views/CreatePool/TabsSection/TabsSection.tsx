@@ -11,9 +11,9 @@ import FormTab from "./FormTab/FormTab";
 
 // Icons
 import { useEffect } from "react";
-import { store } from "../../../redux/store";
 import { useAppDispatch } from "../../../shared/hooks/core/useRedux";
-import { setCreatePool } from "../../../shared/slices/pools";
+import { setCreatePool } from "../../../shared/redux/slices/pools";
+import { store } from "../../../shared/redux/store";
 import TabsList from "./TabsList/TabsList";
 import UserTab from "./VerifyTab/VerifyTab";
 

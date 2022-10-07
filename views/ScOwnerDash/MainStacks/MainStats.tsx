@@ -2,7 +2,7 @@ import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import { CardWrapper } from "../../../shared/components/ui/CardWrapper";
 import { useAppSelector } from "../../../shared/hooks/core/useRedux";
-import { selectPoolStats } from "../../../shared/slices/pools";
+import { selectPoolStats } from "../../../shared/redux/slices/pools";
 import { formatBalance } from "../../../shared/utils/formatBalance";
 import { formatTokenI } from "../../../shared/utils/formatTokenIdentifier";
 

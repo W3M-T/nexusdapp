@@ -27,12 +27,12 @@ import SelectDark, {
 } from "../../../../shared/components/ui/SelectDark";
 import { useAppSelector } from "../../../../shared/hooks/core/useRedux";
 import { useScTransaction } from "../../../../shared/hooks/core/useScTransaction";
-import { NftStakingPoolsWsp } from "../../../../shared/services/sc";
-import { ESDTTransfer, scCall } from "../../../../shared/services/sc/calls";
 import {
   selectExistingPools,
   selectRewardsTokens,
-} from "../../../../shared/slices/pools";
+} from "../../../../shared/redux/slices/pools";
+import { NftStakingPoolsWsp } from "../../../../shared/services/sc";
+import { ESDTTransfer, scCall } from "../../../../shared/services/sc/calls";
 import { formatTokenI } from "../../../../shared/utils/formatTokenIdentifier";
 import { getTokenDetails } from "../../../../shared/utils/getTokenDetails";
 import { TxCb } from "../../../../shared/utils/txCallback";

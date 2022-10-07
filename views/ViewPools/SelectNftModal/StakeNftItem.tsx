@@ -1,6 +1,6 @@
 import { Center, Text } from "@chakra-ui/react";
-import { INft } from "../../../redux/types/tokens.interface";
 import NextImg from "../../../shared/components/ui/NextImg";
+import { INft } from "../../../shared/redux/types/tokens.interface";
 import { noShowMedia } from "../../../shared/utils/excludeNft";
 
 interface IProps {

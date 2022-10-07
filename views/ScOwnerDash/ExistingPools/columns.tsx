@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/react";
-import { IExistingPool } from "../../../redux/types/pools.interface";
+import { IExistingPool } from "../../../shared/redux/types/pools.interface";
 import { formatBalance } from "../../../shared/utils/formatBalance";
 import { formatTokenI } from "../../../shared/utils/formatTokenIdentifier";
 import { shortenHash } from "../../../shared/utils/shortenHash";

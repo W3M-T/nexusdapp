@@ -1,11 +1,11 @@
-import { store } from "../../redux/store";
 import { TransactionCb } from "../hooks/core/common-helpers/sendTxOperations";
-import axiosEldron from "../services/rest/axiosEldron";
 import {
   handleTxError,
   handleTxPending,
   handleTxTransaction,
-} from "../slices/transactions";
+} from "../redux/slices/transactions";
+import { store } from "../redux/store";
+import axiosEldron from "../services/rest/axiosEldron";
 export const TxCb = async ({ transaction, pending, error }: TransactionCb) => {
   if (transaction) {
     const status = await isSmartContractSuccess(transaction.getHash().hex());

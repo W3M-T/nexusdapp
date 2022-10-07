@@ -8,7 +8,7 @@ import {
   fetchExistringPools,
   fetchNonWithdrawnCollections,
   fetchStats,
-} from "../../shared/reduxAsyncFuncs/poolsFuncs";
+} from "../../shared/redux/reduxAsyncFuncs/poolsFuncs";
 import { route } from "../../shared/utils/routes";
 import Actions from "./Actions/Actions";
 import ExistingPools from "./ExistingPools/ExistingPools";

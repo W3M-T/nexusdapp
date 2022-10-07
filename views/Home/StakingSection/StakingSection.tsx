@@ -9,7 +9,7 @@ import {
 import { useState } from "react";
 import { Authenticated } from "../../../shared/components/tools/Authenticated";
 import { useAppSelector } from "../../../shared/hooks/core/useRedux";
-import { selectUserStaked } from "../../../shared/slices/pools";
+import { selectUserStaked } from "../../../shared/redux/slices/pools";
 import NFTCard from "./NFTCard/NFTCard";
 import NftModal from "./NftModal/NftModal";
 const StakingSection = () => {

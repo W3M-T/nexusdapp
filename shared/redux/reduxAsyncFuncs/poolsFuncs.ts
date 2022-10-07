@@ -1,15 +1,11 @@
 import { Address, AddressValue, BytesValue } from "@elrondnetwork/erdjs/out";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { ONLY_NFT_CREATOR } from "../../config/constants";
-import {
-  IExistingPool,
-  IPoolStats,
-  IStaked,
-} from "../../redux/types/pools.interface";
-import { EgldToken } from "../constants/tokens";
-import { getFromAllTokens } from "../services/rest/axiosEldron";
-import { NftStakingPoolsWsp } from "../services/sc";
-import { scQuery } from "../services/sc/queries";
+import { ONLY_NFT_CREATOR } from "../../../config/constants";
+import { EgldToken } from "../../constants/tokens";
+import { getFromAllTokens } from "../../services/rest/axiosEldron";
+import { NftStakingPoolsWsp } from "../../services/sc";
+import { scQuery } from "../../services/sc/queries";
+import { IExistingPool, IPoolStats, IStaked } from "../types/pools.interface";
 
 export const fetchStats = createAsyncThunk("pools/fetchStats", async () => {
   const res = await scQuery(NftStakingPoolsWsp, "getInfo");

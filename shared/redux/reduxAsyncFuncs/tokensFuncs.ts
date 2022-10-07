@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { INft } from "../../redux/types/tokens.interface";
-import { getNfts } from "../services/rest/axiosEldron";
+import { getNfts } from "../../services/rest/axiosEldron";
+import { INft } from "../types/tokens.interface";
 
 export const fetchNfts = createAsyncThunk(
   "tokens/fetchNfts",

@@ -5,10 +5,10 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "../../shared/hooks/core/useRedux";
-import { fetchExistringPools } from "../../shared/reduxAsyncFuncs/poolsFuncs";
-import { fetchNfts } from "../../shared/reduxAsyncFuncs/tokensFuncs";
-import { selectExistingPools } from "../../shared/slices/pools";
-import { selectUserAddress } from "../../shared/slices/settings";
+import { fetchExistringPools } from "../../shared/redux/reduxAsyncFuncs/poolsFuncs";
+import { fetchNfts } from "../../shared/redux/reduxAsyncFuncs/tokensFuncs";
+import { selectExistingPools } from "../../shared/redux/slices/pools";
+import { selectUserAddress } from "../../shared/redux/slices/settings";
 import PoolItem from "./PoolItem/PoolItem";
 import Search from "./Search/Search";
 const ViewPools = () => {

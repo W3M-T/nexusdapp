@@ -3,7 +3,7 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useAppSelector } from "../hooks/core/useRedux";
-import { selectIsLogedIn } from "../slices/settings";
+import { selectIsLogedIn } from "../redux/slices/settings";
 
 const ProtectPage = (Component) => (props) => {
   const router = useRouter();

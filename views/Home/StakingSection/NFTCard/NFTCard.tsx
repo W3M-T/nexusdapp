@@ -1,6 +1,6 @@
 import { Center, Text } from "@chakra-ui/react";
-import { IStaked } from "../../../../redux/types/pools.interface";
 import NextImg from "../../../../shared/components/ui/NextImg";
+import { IStaked } from "../../../../shared/redux/types/pools.interface";
 interface IProps {
   nft: IStaked;
   onClick: () => void;

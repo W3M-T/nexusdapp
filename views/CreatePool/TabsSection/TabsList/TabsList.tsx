@@ -8,7 +8,7 @@ import { Flex, Icon, Tab, TabList, Text } from "@chakra-ui/react";
 // Icons
 import { BsCircleFill } from "react-icons/bs";
 import { useAppSelector } from "../../../../shared/hooks/core/useRedux";
-import { selectCreatePool } from "../../../../shared/slices/pools";
+import { selectCreatePool } from "../../../../shared/redux/slices/pools";
 
 const TabsList = ({
   setActiveBullets,

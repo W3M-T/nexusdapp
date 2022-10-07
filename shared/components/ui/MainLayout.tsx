@@ -3,12 +3,12 @@ import { PropsWithChildren, useEffect } from "react";
 import { useAccount } from "../../hooks/auth/useAccount";
 import { useLogin } from "../../hooks/auth/useLogin";
 import { useAppDispatch, useAppSelector } from "../../hooks/core/useRedux";
-import { fetchIsNftCreator } from "../../reduxAsyncFuncs/poolsFuncs";
+import { fetchIsNftCreator } from "../../redux/reduxAsyncFuncs/poolsFuncs";
 import {
   selectUserAddress,
   setAddress,
   setIsLogedIn,
-} from "../../slices/settings";
+} from "../../redux/slices/settings";
 import Banner from "./Banner";
 import { Footer } from "./Footer";
 import { HeaderMenu } from "./HeaderMenu";

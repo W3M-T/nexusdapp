@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import ProtectPage from "../shared/hoc/ProtectPage";
-import { selectisNftCreator } from "../shared/slices/pools";
+import { selectisNftCreator } from "../shared/redux/slices/pools";
 import NftCollectionOwnerView from "../views/NftCollectionOwner/NftCollectionOwner";
 
 const NftCollectionOwner: NextPage = () => {

@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../../redux/store";
-import { Status } from "../../redux/types";
-import { INft } from "../../redux/types/tokens.interface";
 import { fetchNfts } from "../reduxAsyncFuncs/tokensFuncs";
+import { RootState } from "../store";
+import { Status } from "../types";
+import { INft } from "../types/tokens.interface";
 export interface tokensState {
   nfts: {
     status: Status;

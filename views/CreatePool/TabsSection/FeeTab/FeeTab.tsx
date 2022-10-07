@@ -23,11 +23,11 @@ import {
   useAppSelector,
 } from "../../../../shared/hooks/core/useRedux";
 import { useScTransaction } from "../../../../shared/hooks/core/useScTransaction";
-import { fetchRegistrationInfo } from "../../../../shared/reduxAsyncFuncs/poolsFuncs";
+import { fetchRegistrationInfo } from "../../../../shared/redux/reduxAsyncFuncs/poolsFuncs";
+import { selectCreatePool } from "../../../../shared/redux/slices/pools";
+import { selectUserAddress } from "../../../../shared/redux/slices/settings";
 import { NftStakingPoolsWsp } from "../../../../shared/services/sc";
 import { scCall } from "../../../../shared/services/sc/calls";
-import { selectCreatePool } from "../../../../shared/slices/pools";
-import { selectUserAddress } from "../../../../shared/slices/settings";
 import { formatBalance } from "../../../../shared/utils/formatBalance";
 import { formatTokenI } from "../../../../shared/utils/formatTokenIdentifier";
 import { TxCb } from "../../../../shared/utils/txCallback";

@@ -6,7 +6,7 @@ import SelectDark, {
   OptionSelectDark,
 } from "../../../../shared/components/ui/SelectDark";
 import { useAppSelector } from "../../../../shared/hooks/core/useRedux";
-import { selectRegistrationTokens } from "../../../../shared/slices/pools";
+import { selectRegistrationTokens } from "../../../../shared/redux/slices/pools";
 import { formatTokenI } from "../../../../shared/utils/formatTokenIdentifier";
 interface IProps {
   onSubmit: (values) => void;

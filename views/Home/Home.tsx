@@ -5,8 +5,8 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "../../shared/hooks/core/useRedux";
-import { fetchUserStaked } from "../../shared/reduxAsyncFuncs/poolsFuncs";
-import { selectUserAddress } from "../../shared/slices/settings";
+import { fetchUserStaked } from "../../shared/redux/reduxAsyncFuncs/poolsFuncs";
+import { selectUserAddress } from "../../shared/redux/slices/settings";
 import StakingSection from "./StakingSection/StakingSection";
 
 const Home = () => {

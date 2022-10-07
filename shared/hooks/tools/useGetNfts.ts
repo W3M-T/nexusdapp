@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { INft } from "../../../redux/types/tokens.interface";
-import { selectNfts } from "../../slices/tokens";
+import { selectNfts } from "../../redux/slices/tokens";
+import { INft } from "../../redux/types/tokens.interface";
 import { useAppSelector } from "../core/useRedux";
 
 const useGetNfts = (

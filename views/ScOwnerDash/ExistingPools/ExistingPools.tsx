@@ -2,7 +2,7 @@ import { Center, Heading, Text } from "@chakra-ui/react";
 import { CardWrapper } from "../../../shared/components/ui/CardWrapper";
 import SearchTable1 from "../../../shared/components/ui/SearchTable1";
 import { useAppSelector } from "../../../shared/hooks/core/useRedux";
-import { selectExistingPools } from "../../../shared/slices/pools";
+import { selectExistingPools } from "../../../shared/redux/slices/pools";
 import { columns } from "./columns";
 
 const ExistingPools = () => {

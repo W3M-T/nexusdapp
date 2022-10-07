@@ -8,8 +8,8 @@ import {
 import BigNumber from "bignumber.js";
 import { getInterface } from "..";
 import { selectedNetwork } from "../../../../config/network";
-import { store } from "../../../../redux/store";
 import { ScTransactionParams } from "../../../hooks/core/useScTransaction";
+import { store } from "../../../redux/store";
 
 export const ESDTNFTTransfer = (
   funcName = "",

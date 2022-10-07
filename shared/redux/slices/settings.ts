@@ -1,8 +1,8 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import { ONLY_ADMIN } from "../../config/constants";
-import { RootState } from "../../redux/store";
-import { adminAddresses } from "../constants/addressess";
+import { ONLY_ADMIN } from "../../../config/constants";
+import { adminAddresses } from "../../constants/addressess";
+import { RootState } from "../store";
 
 export interface SettingsState {
   isAdmin: boolean;
