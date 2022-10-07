@@ -31,9 +31,12 @@ export interface poolsState {
     data: IStaked[];
     error: string;
   };
-  isNftCreator: {
+  userStatus: {
     status: Status;
-    data: boolean;
+    data: {
+      isOwner: boolean;
+      isNftCreator: boolean;
+    };
     error: string;
   };
   nonWithdrawnCollections: {
@@ -91,9 +94,12 @@ const initialState: poolsState = {
     data: [],
     error: "",
   },
-  isNftCreator: {
+  userStatus: {
     status: "idle",
-    data: true,
+    data: {
+      isOwner: false,
+      isNftCreator: false,
+    },
     error: "",
   },
   nonWithdrawnCollections: {
@@ -187,15 +193,16 @@ export const poolsSlice = createSlice({
       })
       //fetchIsNftCreator
       .addCase(fetchIsNftCreator.pending, (state) => {
-        state.isNftCreator.status = "loading";
+        state.userStatus.status = "loading";
       })
       .addCase(fetchIsNftCreator.fulfilled, (state, action) => {
-        state.isNftCreator.status = "success";
-        state.isNftCreator.data = action.payload;
+        state.userStatus.status = "success";
+        state.userStatus.data.isNftCreator = action.payload.isNftCreator;
+        state.userStatus.data.isOwner = action.payload.isAdmin;
       })
       .addCase(fetchIsNftCreator.rejected, (state, action) => {
-        state.isNftCreator.status = "failed";
-        state.isNftCreator.error = action.error.message;
+        state.userStatus.status = "failed";
+        state.userStatus.error = action.error.message;
       })
       //fetchNonWithdrawnCollections
       .addCase(fetchNonWithdrawnCollections.pending, (state) => {
@@ -249,7 +256,9 @@ export const poolsSlice = createSlice({
 
 export const selectPoolStats = (state: RootState) => state.pools.stats;
 export const selectisNftCreator = (state: RootState) =>
-  state.pools.isNftCreator;
+  state.pools.userStatus.data.isNftCreator;
+export const selectisScOwner = (state: RootState) =>
+  state.pools.userStatus.data.isOwner;
 export const selectExistingPools = (state: RootState) =>
   state.pools.existingPools;
 export const selectNonWithdrawnCollections = (state: RootState) =>

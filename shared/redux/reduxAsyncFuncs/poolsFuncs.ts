@@ -1,6 +1,6 @@
 import { Address, AddressValue, BytesValue } from "@elrondnetwork/erdjs/out";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { ONLY_NFT_CREATOR } from "../../../config/constants";
+import { ONLY_ADMIN, ONLY_NFT_CREATOR } from "../../../config/constants";
 import { EgldToken } from "../../constants/tokens";
 import { getFromAllTokens } from "../../services/rest/axiosEldron";
 import { NftStakingPoolsWsp } from "../../services/sc";
@@ -97,12 +97,16 @@ export const fetchUserStaked = createAsyncThunk(
 export const fetchIsNftCreator = createAsyncThunk(
   "pools/fetchIsNftCreator",
   async (address: string) => {
-    const res = await scQuery(NftStakingPoolsWsp, "getIsNftCreator", [
+    const res = await scQuery(NftStakingPoolsWsp, "getIsNftCreatorAndScOwner", [
       new AddressValue(new Address(address)),
     ]);
     const { firstValue } = res;
+    console.log("firstValue", firstValue.valueOf());
 
-    const data = ONLY_NFT_CREATOR ? firstValue.valueOf() : true;
+    const data: { isNftCreator: boolean; isAdmin: boolean } = {
+      isNftCreator: ONLY_NFT_CREATOR ? firstValue.valueOf().field0 : true,
+      isAdmin: ONLY_ADMIN ? firstValue.valueOf().field1 : true,
+    };
 
     return data;
   }

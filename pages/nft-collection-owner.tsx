@@ -7,7 +7,7 @@ import { selectisNftCreator } from "../shared/redux/slices/pools";
 import NftCollectionOwnerView from "../views/NftCollectionOwner/NftCollectionOwner";
 
 const NftCollectionOwner: NextPage = () => {
-  const isNftCreator = useSelector(selectisNftCreator).data;
+  const isNftCreator = useSelector(selectisNftCreator);
   const router = useRouter();
 
   useEffect(() => {

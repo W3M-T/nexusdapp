@@ -10,7 +10,7 @@
         "contractCrate": {
             "name": "nftstakingpools",
             "version": "0.0.0",
-            "git_version": "8e2303d-modified"
+            "git_version": "89a1395-modified"
         },
         "framework": {
             "name": "elrond-wasm",
@@ -160,28 +160,6 @@
             "outputs": []
         },
         {
-            "name": "allowTokenAsReward",
-            "mutability": "mutable",
-            "inputs": [
-                {
-                    "name": "token",
-                    "type": "EgldOrEsdtTokenIdentifier"
-                }
-            ],
-            "outputs": []
-        },
-        {
-            "name": "disallowTokenAsReward",
-            "mutability": "mutable",
-            "inputs": [
-                {
-                    "name": "token",
-                    "type": "EgldOrEsdtTokenIdentifier"
-                }
-            ],
-            "outputs": []
-        },
-        {
             "name": "getInfo",
             "mutability": "readonly",
             "inputs": [],
@@ -227,7 +205,7 @@
             ]
         },
         {
-            "name": "getIsNftCreator",
+            "name": "getIsNftCreatorAndScOwner",
             "mutability": "readonly",
             "inputs": [
                 {
@@ -237,7 +215,7 @@
             ],
             "outputs": [
                 {
-                    "type": "bool"
+                    "type": "tuple<bool,bool>"
                 }
             ]
         },

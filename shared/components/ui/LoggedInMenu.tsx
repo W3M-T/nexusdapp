@@ -3,15 +3,14 @@ import Link from "next/link";
 import { customColors } from "../../../config/chakraTheme";
 import { useLogout } from "../../hooks/auth/useLogout";
 import { useAppSelector } from "../../hooks/core/useRedux";
-import { selectisNftCreator } from "../../redux/slices/pools";
-import { selectIsAdmin } from "../../redux/slices/settings";
+import { selectisNftCreator, selectisScOwner } from "../../redux/slices/pools";
 import { route } from "../../utils/routes";
 import { CardWrapper } from "./CardWrapper";
 
 const LoggedInMenu = () => {
   const { logout } = useLogout();
-  const isAdmin = useAppSelector(selectIsAdmin);
-  const { data: isNftCreator } = useAppSelector(selectisNftCreator);
+  const isAdmin = useAppSelector(selectisScOwner);
+  const isNftCreator = useAppSelector(selectisNftCreator);
   console.log("isNftCreator", isNftCreator);
 
   return (
@@ -38,25 +37,21 @@ const LoggedInMenu = () => {
             Disconnect
           </Flex>
 
-          <Flex
-            py={1}
-            cursor="pointer"
-            px={8}
-            w="full"
-            _hover={{
-              textShadow: "0 0 10px " + customColors.color2.base,
-            }}
-          >
-            {isAdmin ? (
+          {isAdmin && (
+            <Flex
+              py={1}
+              cursor="pointer"
+              px={8}
+              w="full"
+              _hover={{
+                textShadow: "0 0 10px " + customColors.color2.base,
+              }}
+            >
               <Link href={route.scOwner.route}>
                 <a>Owner Dashboard</a>
               </Link>
-            ) : (
-              <Text color="gray.400" cursor={"not-allowed"}>
-                Owner Dashboard
-              </Text>
-            )}
-          </Flex>
+            </Flex>
+          )}
 
           <Flex
             py={1}
