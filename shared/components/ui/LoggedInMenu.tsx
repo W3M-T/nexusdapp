@@ -1,4 +1,4 @@
-import { Box, Flex, VStack } from "@chakra-ui/react";
+import { Box, Flex, Text, VStack } from "@chakra-ui/react";
 import Link from "next/link";
 import { customColors } from "../../../config/chakraTheme";
 import { useLogout } from "../../hooks/auth/useLogout";
@@ -11,7 +11,9 @@ import { CardWrapper } from "./CardWrapper";
 const LoggedInMenu = () => {
   const { logout } = useLogout();
   const isAdmin = useAppSelector(selectIsAdmin);
-  const isNftCreator = useAppSelector(selectisNftCreator);
+  const { data: isNftCreator } = useAppSelector(selectisNftCreator);
+  console.log("isNftCreator", isNftCreator);
+
   return (
     <Box
       right={{ sm: "auto", lg: "0" }}
@@ -35,36 +37,46 @@ const LoggedInMenu = () => {
           >
             Disconnect
           </Flex>
-          {isAdmin && (
-            <Flex
-              py={1}
-              cursor="pointer"
-              px={8}
-              w="full"
-              _hover={{
-                textShadow: "0 0 10px " + customColors.color2.base,
-              }}
-            >
+
+          <Flex
+            py={1}
+            cursor="pointer"
+            px={8}
+            w="full"
+            _hover={{
+              textShadow: "0 0 10px " + customColors.color2.base,
+            }}
+          >
+            {isAdmin ? (
               <Link href={route.scOwner.route}>
                 <a>Owner Dashboard</a>
               </Link>
-            </Flex>
-          )}
-          {isNftCreator && (
-            <Flex
-              py={1}
-              cursor="pointer"
-              px={8}
-              w="full"
-              _hover={{
-                textShadow: "0 0 10px " + customColors.color2.base,
-              }}
-            >
+            ) : (
+              <Text color="gray.400" cursor={"not-allowed"}>
+                Owner Dashboard
+              </Text>
+            )}
+          </Flex>
+
+          <Flex
+            py={1}
+            cursor="pointer"
+            px={8}
+            w="full"
+            _hover={{
+              textShadow: "0 0 10px " + customColors.color2.base,
+            }}
+          >
+            {isNftCreator ? (
               <Link href={route.nftCollectionOwner.route}>
                 <a> NFT Creator Dashboard</a>
               </Link>
-            </Flex>
-          )}
+            ) : (
+              <Text color="gray.400" cursor={"not-allowed"}>
+                NFT Creator Dashboard
+              </Text>
+            )}
+          </Flex>
         </VStack>
       </CardWrapper>
     </Box>
