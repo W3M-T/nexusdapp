@@ -78,7 +78,8 @@ export const networkConfig: Record<string, NetworkType> = {
     apiTimeout: "40000",
     gatewayAddress: "https://gateway.elrond.com",
     contractAddr: {
-      nftsStaking: "",
+      nftsStaking:
+        "erd1qqqqqqqqqqqqqpgq8tn6u8l2vytjhv6pcv0vu5tug52acutm8pgqnle42n",
     },
     tokens: {
       EGLD: { identifier: "EGLD" },
