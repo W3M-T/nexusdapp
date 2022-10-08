@@ -46,9 +46,9 @@ const ViewPools = () => {
             const today = new Date();
 
             if (dateInAMonth < today) {
-              return true;
-            } else {
               return false;
+            } else {
+              return true;
             }
           })
           .map((pool, i) => {
