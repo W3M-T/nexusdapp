@@ -40,7 +40,7 @@ const ViewPools = () => {
       >
         {pools
           .filter((p) => {
-            const date = new Date(p.timestam);
+            const date = new Date(p.timestam * 1000);
 
             const dateInAMonth = addDays(date, 30);
             const today = new Date();

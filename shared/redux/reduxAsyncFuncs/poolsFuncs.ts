@@ -48,7 +48,7 @@ export const fetchExistringPools = createAsyncThunk(
 
     const data: IExistingPool[] = firstValue.valueOf().map((pool) => {
       const data: IExistingPool = {
-        timestam: pool.field0.creation_timestamp.toNumber() * 1000,
+        timestam: pool.field0.creation_timestamp.toNumber(),
         creator: pool.field0.creator.bech32(),
         collection: pool.field0.collection,
         nfts: pool.field0.nr_of_nfts.toNumber(),
@@ -77,7 +77,7 @@ export const fetchUserStaked = createAsyncThunk(
         address: nft.field0.address.bech32(),
         nonce: nft.field0.nft_nonce.toNumber(),
         nftPool: {
-          timestam: nft.field0.nft_pool.creation_timestamp.toNumber() * 1000,
+          timestam: nft.field0.nft_pool.creation_timestamp.toNumber(),
           creator: nft.field0.nft_pool.creator.bech32(),
           collection: nft.field0.nft_pool.collection,
           nfts: nft.field0.nft_pool.nr_of_nfts.toNumber(),
