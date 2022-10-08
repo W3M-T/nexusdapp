@@ -29,6 +29,7 @@ import { selectCreatePool } from "../../../../shared/redux/slices/pools";
 import { getNft } from "../../../../shared/services/rest/axiosEldron";
 import { NftStakingPoolsWsp } from "../../../../shared/services/sc";
 import { ESDTTransfer, scCall } from "../../../../shared/services/sc/calls";
+import { getTokenDetails } from "../../../../shared/utils/getTokenDetails";
 import { TxCb } from "../../../../shared/utils/txCallback";
 const validationSchema = yup.object({
   nftsNumber: yup.number().required(),
@@ -82,15 +83,18 @@ const FormTab = ({ activeFeeTab }: IProps) => {
           )
         );
       } else {
-        triggerTx(
-          ESDTTransfer(
-            NftStakingPoolsWsp,
-            "createPool",
-            { identifier: values.token },
-            amountToSend,
-            args
-          )
-        );
+        const tokenD = await getTokenDetails(values.token);
+        if (tokenD) {
+          triggerTx(
+            ESDTTransfer(
+              NftStakingPoolsWsp,
+              "createPool",
+              { identifier: values.token, decimals: tokenD.decimals },
+              amountToSend,
+              args
+            )
+          );
+        }
       }
     },
   });
