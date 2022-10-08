@@ -173,14 +173,11 @@ export const poolsSlice = createSlice({
         (state, action: PayloadAction<IExistingPool[]>) => {
           state.existingPools.status = "success";
 
-          state.existingPools.data2 = action.payload.filter((p) => {
+          const filteredPools = action.payload.filter((p) => {
             const date = new Date(p.timestam);
 
             const dateInAMonth = addDays(date, 30);
             const today = new Date();
-
-            console.log("dateInAMonth", dateInAMonth);
-            console.log("today", today);
 
             if (dateInAMonth < today) {
               return true;
@@ -188,7 +185,8 @@ export const poolsSlice = createSlice({
               return false;
             }
           });
-          state.existingPools.data2 = action.payload;
+          state.existingPools.data = filteredPools;
+          state.existingPools.data2 = filteredPools;
         }
       )
       .addCase(fetchExistringPools.rejected, (state, action) => {
