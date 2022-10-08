@@ -182,7 +182,7 @@ export const poolsSlice = createSlice({
             console.log("dateInAMonth", dateInAMonth);
             console.log("today", today);
 
-            if (dateInAMonth > today) {
+            if (dateInAMonth < today) {
               return true;
             } else {
               return false;
