@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { addDays } from "date-fns";
 import { INftCollection } from "../../types/collection";
 import {
   fetchAllowedRegistrationTokens,
@@ -172,21 +171,8 @@ export const poolsSlice = createSlice({
         fetchExistringPools.fulfilled,
         (state, action: PayloadAction<IExistingPool[]>) => {
           state.existingPools.status = "success";
-
-          const filteredPools = action.payload.filter((p) => {
-            const date = new Date(p.timestam);
-
-            const dateInAMonth = addDays(date, 30);
-            const today = new Date();
-
-            if (dateInAMonth < today) {
-              return true;
-            } else {
-              return false;
-            }
-          });
-          state.existingPools.data = filteredPools;
-          state.existingPools.data2 = filteredPools;
+          state.existingPools.data = action.payload;
+          state.existingPools.data2 = action.payload;
         }
       )
       .addCase(fetchExistringPools.rejected, (state, action) => {

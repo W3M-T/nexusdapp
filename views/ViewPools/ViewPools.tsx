@@ -1,4 +1,5 @@
 import { Center, Flex, Heading } from "@chakra-ui/react";
+import { addDays } from "date-fns";
 import { useEffect } from "react";
 import { MainLayout } from "../../shared/components/ui/MainLayout";
 import {
@@ -37,9 +38,22 @@ const ViewPools = () => {
         flexWrap="wrap"
         mt={10}
       >
-        {pools.map((pool, i) => {
-          return <PoolItem key={i} pool={pool} />;
-        })}
+        {pools
+          .filter((p) => {
+            const date = new Date(p.timestam);
+
+            const dateInAMonth = addDays(date, 30);
+            const today = new Date();
+
+            if (dateInAMonth < today) {
+              return true;
+            } else {
+              return false;
+            }
+          })
+          .map((pool, i) => {
+            return <PoolItem key={i} pool={pool} />;
+          })}
       </Flex>
     </MainLayout>
   );
