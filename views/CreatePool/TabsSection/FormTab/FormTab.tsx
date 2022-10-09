@@ -235,7 +235,7 @@ const FormTab = ({ activeFeeTab }: IProps) => {
                 type="submit"
               >
                 <Text fontSize="xs" color="#fff" fontWeight="bold">
-                  Pay & Create Pool
+                  Deposit and Create pool
                 </Text>
               </ActionButton>
             </Flex>
