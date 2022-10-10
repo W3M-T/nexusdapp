@@ -51,7 +51,7 @@ const UserTab = ({ activeFeeTab }: IProps) => {
       dispatch(setCreatePoolPahe1(null));
       if (values.collection) {
         try {
-          const res = await getCollectionDetails(values.collection);
+          const res = await getCollectionDetails(values.collection.trim());
           const collectionDetails = res.data;
 
           if (collectionDetails.owner === address) {

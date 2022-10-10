@@ -57,22 +57,26 @@ const FormTab = ({ activeFeeTab }: IProps) => {
     onSubmit: async (values) => {
       const nft = await getNft(values.collection.collection + "-01");
 
-      const amountToSend = new BigNumber(values.nftsNumber)
-        .multipliedBy(values.dayliRewards)
+      const nftsNumber = values.nftsNumber.trim();
+      const token = values.token.trim();
+      const dayliRewards = values.dayliRewards.trim();
+
+      const amountToSend = new BigNumber(nftsNumber)
+        .multipliedBy(dayliRewards)
         .multipliedBy(30)
         .toNumber();
 
       const args = [
         BytesValue.fromUTF8(values.collection.collection),
-        new U32Value(new BigNumber(values.nftsNumber)),
-        BytesValue.fromUTF8(values.token),
+        new U32Value(new BigNumber(nftsNumber)),
+        BytesValue.fromUTF8(token),
         new BigUIntValue(
-          new BigNumber(values.dayliRewards).multipliedBy(Math.pow(10, 18))
+          new BigNumber(dayliRewards).multipliedBy(Math.pow(10, 18))
         ),
         BytesValue.fromUTF8(values.collection.name),
         BytesValue.fromUTF8(nft?.data?.media[0]?.url || ""),
       ];
-      if (values.token === "EGLD") {
+      if (token === "EGLD") {
         triggerTx(
           scCall(
             NftStakingPoolsWsp,
@@ -83,13 +87,13 @@ const FormTab = ({ activeFeeTab }: IProps) => {
           )
         );
       } else {
-        const tokenD = await getTokenDetails(values.token);
+        const tokenD = await getTokenDetails(token);
         if (tokenD) {
           triggerTx(
             ESDTTransfer(
               NftStakingPoolsWsp,
               "createPool",
-              { identifier: values.token, decimals: tokenD.decimals },
+              { identifier: token, decimals: tokenD.decimals },
               amountToSend,
               args
             )
