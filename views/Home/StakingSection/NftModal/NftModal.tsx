@@ -59,7 +59,7 @@ const NftModal = ({ isOpen, onClose, nft }: IProps) => {
               mb={7}
               textAlign={{ sm: "center", lg: "left" }}
             >
-              ELrond Mafia
+              {nft.name}
             </Text>
             <Center
               w={"full"}
