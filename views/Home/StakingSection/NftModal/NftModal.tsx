@@ -1,13 +1,14 @@
 import {
+  Box,
   Center,
   Grid,
-  Image,
   ModalBody,
   ModalCloseButton,
   Text,
 } from "@chakra-ui/react";
 import { BigUIntValue, BytesValue } from "@elrondnetwork/erdjs/out";
 import BigNumber from "bignumber.js";
+import Image from "next/image";
 import { memo } from "react";
 import { ActionButton } from "../../../../shared/components/tools/ActionButton";
 import MyModal from "../../../../shared/components/ui/MyModal";
@@ -48,7 +49,15 @@ const NftModal = ({ isOpen, onClose, nft }: IProps) => {
         />
         <Grid templateColumns={{ sm: "1fr", lg: "1fr 1fr" }} gap={10}>
           <Center>
-            <Image src={nft.url} alt="nft" maxW={"350px"} w="full" />
+            <Box maxW={"350px"} w="full">
+              <Image
+                src={nft.url}
+                alt="nft"
+                layout="intrinsic"
+                width={"350px"}
+                height="400px"
+              />
+            </Box>
           </Center>
           <Center flexDir={"column"}>
             <Text
