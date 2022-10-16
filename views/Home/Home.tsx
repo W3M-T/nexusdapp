@@ -19,7 +19,6 @@ const Home = () => {
   return (
     <MainLayout metaTitle="Home">
       <Box mt={8}>
-        <h1>Development</h1>
         <StakingSection />
       </Box>
     </MainLayout>
