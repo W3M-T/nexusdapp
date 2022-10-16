@@ -28,6 +28,7 @@ import SelectDark, {
 import { useAppSelector } from "../../../../shared/hooks/core/useRedux";
 import { useScTransaction } from "../../../../shared/hooks/core/useScTransaction";
 import { selectExistingPools } from "../../../../shared/redux/slices/pools";
+import { selectUserAddress } from "../../../../shared/redux/slices/settings";
 import { NftStakingPoolsWsp } from "../../../../shared/services/sc";
 import { scCall } from "../../../../shared/services/sc/calls";
 import { formatTokenI } from "../../../../shared/utils/formatTokenIdentifier";
@@ -39,7 +40,7 @@ const validationSchema = yup.object({
 
 const SendAirdrop = () => {
   const existingPools = useAppSelector(selectExistingPools);
-
+  const address = useAppSelector(selectUserAddress);
   const { triggerTx } = useScTransaction({
     cb: TxCb,
   });
@@ -94,16 +95,18 @@ const SendAirdrop = () => {
           >
             <>
               <OptionSelectDark value={""}>Pool</OptionSelectDark>
-              {existingPools.data.map((pool, i) => {
-                if (!pool.collection) {
-                  return null;
-                }
-                return (
-                  <OptionSelectDark key={i} value={i}>
-                    {i + 1} - {formatTokenI(pool.collection)}
-                  </OptionSelectDark>
-                );
-              })}
+              {existingPools.data
+                .filter((pool) => pool.creator === address)
+                .map((pool, i) => {
+                  if (!pool.collection) {
+                    return null;
+                  }
+                  return (
+                    <OptionSelectDark key={i} value={i}>
+                      {i + 1} - {formatTokenI(pool.collection)}
+                    </OptionSelectDark>
+                  );
+                })}
             </>
           </SelectDark>
         </Flex>
