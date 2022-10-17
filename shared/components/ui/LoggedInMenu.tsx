@@ -11,7 +11,6 @@ const LoggedInMenu = () => {
   const { logout } = useLogout();
   const isAdmin = useAppSelector(selectisScOwner);
   const isNftCreator = useAppSelector(selectisNftCreator);
-  console.log("isNftCreator", isNftCreator);
 
   return (
     <Box

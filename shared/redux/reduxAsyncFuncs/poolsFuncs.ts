@@ -102,9 +102,7 @@ export const fetchIsNftCreator = createAsyncThunk(
       new AddressValue(new Address(address)),
     ]);
     const { firstValue } = res;
-    console.log("firstValue", firstValue.valueOf());
     const forceAdmin = process.env.NEXT_PUBLIC_IS_ADMIN === "true";
-    console.log(process.env.NEXT_PUBLIC_IS_ADMIN);
 
     const forceNftCreator = process.env.NEXT_PUBLIC_IS_CREATOR === "true";
     const data: { isNftCreator: boolean; isAdmin: boolean } = {

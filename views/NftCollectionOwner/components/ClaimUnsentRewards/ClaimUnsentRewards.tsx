@@ -96,11 +96,7 @@ const ClaimUnsentRewards = () => {
     if (poolIndexStr) {
       const index = Number(poolIndexStr);
       const p = existingPools.data[index];
-
       const validClaim = validatePoolByDate(p);
-
-      console.log(validClaim);
-
       setValidateClaim(validClaim);
     }
   }, [existingPools.data, formik.values.pool]);
