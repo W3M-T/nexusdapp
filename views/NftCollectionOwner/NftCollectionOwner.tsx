@@ -4,6 +4,7 @@ import { MainLayout } from "../../shared/components/ui/MainLayout";
 import { useAppDispatch } from "../../shared/hooks/core/useRedux";
 import { fetchExistringPools } from "../../shared/redux/reduxAsyncFuncs/poolsFuncs";
 import { route } from "../../shared/utils/routes";
+import ClaimUnsentRewards from "./components/ClaimUnsentRewards/ClaimUnsentRewards";
 import ExistingPools from "./components/ExistingPools/ExistingPools";
 import SendAirdrop from "./components/SendRewards/SendRewards";
 
@@ -18,6 +19,7 @@ const NftCollectionOwnerView = () => {
       <Flex gap={8} flexDir="column">
         <ExistingPools />
         <SendAirdrop />
+        <ClaimUnsentRewards />
       </Flex>
     </MainLayout>
   );
