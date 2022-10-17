@@ -1,3 +1,5 @@
+import { IElrondToken } from "../../types/network";
+
 export interface IPoolStats {
   poolsCreated: number;
   nftStaked: number;
@@ -35,4 +37,8 @@ export interface IStaked {
   url: string;
   name: string;
   estimatedRewards: number;
+}
+
+export interface IStakedWithTokenDetails extends IStaked {
+  tokenDetails: IElrondToken;
 }

@@ -1,10 +1,17 @@
 import { Address, AddressValue, BytesValue } from "@elrondnetwork/erdjs/out";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { AxiosResponse } from "axios";
 import { EgldToken } from "../../constants/tokens";
 import { getFromAllTokens } from "../../services/rest/axiosEldron";
 import { NftStakingPoolsWsp } from "../../services/sc";
 import { scQuery } from "../../services/sc/queries";
-import { IExistingPool, IPoolStats, IStaked } from "../types/pools.interface";
+import { IElrondToken } from "../../types/network";
+import {
+  IExistingPool,
+  IPoolStats,
+  IStaked,
+  IStakedWithTokenDetails,
+} from "../types/pools.interface";
 
 export const fetchStats = createAsyncThunk("pools/fetchStats", async () => {
   const res = await scQuery(NftStakingPoolsWsp, "getInfo");
@@ -86,13 +93,32 @@ export const fetchUserStaked = createAsyncThunk(
         token: nft.field0.nft_token,
         name: nft.field1.toString(),
         url: nft.field2.toString(),
-        estimatedRewards: 1800465465465465,
+        estimatedRewards: nft.field3.toNumber(),
       };
 
       return nftData;
     });
 
-    return data;
+    const { data: tokensDetails }: AxiosResponse<IElrondToken[]> =
+      await getFromAllTokens({
+        identifiers: data
+          .map((stakedInfo) => stakedInfo.nftPool.token)
+          .join(","),
+      });
+
+    const finalData: IStakedWithTokenDetails[] = data.map((stakedInfo) => {
+      const details: IElrondToken = tokensDetails.find(
+        (token) => token.identifier === stakedInfo.nftPool.token
+      );
+
+      const stakedWithInfo: IStakedWithTokenDetails = {
+        ...stakedInfo,
+        tokenDetails: details,
+      };
+
+      return stakedWithInfo;
+    });
+    return finalData;
   }
 );
 export const fetchIsNftCreator = createAsyncThunk(

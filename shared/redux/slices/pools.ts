@@ -12,7 +12,11 @@ import {
 } from "../reduxAsyncFuncs/poolsFuncs";
 import { RootState } from "../store";
 import { Status } from "../types";
-import { IExistingPool, IPoolStats, IStaked } from "../types/pools.interface";
+import {
+  IExistingPool,
+  IPoolStats,
+  IStakedWithTokenDetails,
+} from "../types/pools.interface";
 
 export interface poolsState {
   stats: {
@@ -28,7 +32,7 @@ export interface poolsState {
   };
   userStaked: {
     status: Status;
-    data: IStaked[];
+    data: IStakedWithTokenDetails[];
     error: string;
   };
   userStatus: {

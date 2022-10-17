@@ -1,10 +1,10 @@
 import { Flex, Text } from "@chakra-ui/react";
 import NextImg from "../../../../shared/components/ui/NextImg";
-import { IStaked } from "../../../../shared/redux/types/pools.interface";
+import { IStakedWithTokenDetails } from "../../../../shared/redux/types/pools.interface";
 import { formatBalance } from "../../../../shared/utils/formatBalance";
 import { formatTokenI } from "../../../../shared/utils/formatTokenIdentifier";
 interface IProps {
-  nft: IStaked;
+  nft: IStakedWithTokenDetails;
   onClick: () => void;
 }
 const NFTCard = ({ nft, onClick }: IProps) => {
@@ -29,7 +29,10 @@ const NFTCard = ({ nft, onClick }: IProps) => {
           Est. Rewards:
         </Text>{" "}
         <Text>
-          {formatBalance({ balance: nft.estimatedRewards })}{" "}
+          {formatBalance({
+            balance: nft.estimatedRewards,
+            decimals: nft.tokenDetails?.decimals,
+          })}{" "}
           {formatTokenI(nft.nftPool.token)}
         </Text>{" "}
       </Flex>

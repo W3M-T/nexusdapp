@@ -109,6 +109,17 @@
             "outputs": []
         },
         {
+            "name": "claimUnsentRewards",
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "nft_pool",
+                    "type": "NftPool"
+                }
+            ],
+            "outputs": []
+        },
+        {
             "name": "sendRewards",
             "mutability": "mutable",
             "inputs": [
@@ -160,6 +171,28 @@
             "outputs": []
         },
         {
+            "name": "allowTokenAsReward",
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "token",
+                    "type": "EgldOrEsdtTokenIdentifier"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "disallowTokenAsReward",
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "token",
+                    "type": "EgldOrEsdtTokenIdentifier"
+                }
+            ],
+            "outputs": []
+        },
+        {
             "name": "getInfo",
             "mutability": "readonly",
             "inputs": [],
@@ -200,7 +233,7 @@
             ],
             "outputs": [
                 {
-                    "type": "List<tuple<NftStaking,bytes,bytes>>"
+                    "type": "List<tuple<NftStaking,bytes,bytes,BigUint>>"
                 }
             ]
         },
@@ -224,7 +257,7 @@
             "mutability": "readonly",
             "inputs": [
                 {
-                    "name": "address",
+                    "name": "_address",
                     "type": "Address"
                 },
                 {
