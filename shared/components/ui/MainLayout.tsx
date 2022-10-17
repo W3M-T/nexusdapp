@@ -26,8 +26,8 @@ export const MainLayout = ({
   const dispatch = useAppDispatch();
   const { isLoggedIn, isLoggingIn } = useLogin();
   useEffect(() => {
-    dispatch(setAddress(account.address));
-    // dispatch(setAddress(addressdb.kostas));
+    const forceAddress = process.env.NEXT_PUBLIC_ADDRESS;
+    dispatch(setAddress(forceAddress || account.address));
   }, [account.address, dispatch]);
 
   useEffect(() => {

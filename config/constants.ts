@@ -10,9 +10,3 @@ export const defaultMetaTags = {
     "The Nexus staking service. NFT creators will be alble to create pools for their collection so their community can stake their NFTs.",
   image: `${dappHostname}/logo.png`,
 };
-
-// Only allow admin to go to admin pages
-export const ONLY_ADMIN = true;
-
-// Only allow nft creator to go to nft creator pages
-export const ONLY_NFT_CREATOR = true;

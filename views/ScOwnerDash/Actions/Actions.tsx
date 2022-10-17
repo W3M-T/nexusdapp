@@ -2,6 +2,7 @@ import { Center, Divider, Flex, Heading, Text } from "@chakra-ui/react";
 import { Authenticated } from "../../../shared/components/tools/Authenticated";
 import { LoginModalButton } from "../../../shared/components/tools/LoginModalButton";
 import { CardWrapper } from "../../../shared/components/ui/CardWrapper";
+import AllowTokenForAirdrop from "./AllowTokenForAirdrop/AllowTokenForAirdrop";
 import SendAirdrop from "./SendAirdrop/SendAirdrop";
 import SetOneTimeFee from "./SetOneTimeFee/SetOneTimeFee";
 import WithdrawFee from "./WithdrawFee/WithdrawFee";
@@ -29,6 +30,8 @@ const Actions = () => {
           <SetOneTimeFee />
           <Divider />
           <WithdrawFee />
+          <Divider />
+          <AllowTokenForAirdrop />
           <Divider />
           <SendAirdrop />
         </Center>
