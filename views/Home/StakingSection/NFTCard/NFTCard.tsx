@@ -1,44 +1,53 @@
-import { Center, Text } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 import NextImg from "../../../../shared/components/ui/NextImg";
 import { IStaked } from "../../../../shared/redux/types/pools.interface";
+import { formatBalance } from "../../../../shared/utils/formatBalance";
+import { formatTokenI } from "../../../../shared/utils/formatTokenIdentifier";
 interface IProps {
   nft: IStaked;
   onClick: () => void;
 }
 const NFTCard = ({ nft, onClick }: IProps) => {
   return (
-    <Center
+    <Flex
       height="full"
-      // onClick={() => handleViwNft(nft)}
       cursor="pointer"
       position={"relative"}
       flexDir="column"
       onClick={onClick}
+      border="1px solid"
+      borderColor={"dappTemplate.color2.base"}
+      borderRadius="0.7rem"
+      padding={"4"}
+      bg="black"
     >
-      {" "}
+      <Text fontSize={"xl"} fontWeight="bold" mb={1}>
+        {nft.name}
+      </Text>{" "}
+      <Flex mb={3} fontSize="small" flexDir={{ sm: "column", lsm: "row" }}>
+        <Text color="gray.400" fontWeight="bold" mr={1}>
+          Est. Rewards:
+        </Text>{" "}
+        <Text>
+          {formatBalance({ balance: nft.estimatedRewards })}{" "}
+          {formatTokenI(nft.nftPool.token)}
+        </Text>{" "}
+      </Flex>
       <NextImg
         alt={"nft"}
-        width={["80px", "100px", "150px", "263px"]}
+        width={["160px", "160px", "160px", "253px"]}
         sx={{
           span: {
-            borderRadius: "0.7rem",
+            borderRadius: "1rem",
           },
         }}
-        src={nft.url} // use normal <img> attributes as props
+        src={nft.url}
         nextProps={{
           height: 490,
           width: 490,
         }}
       />
-      <Text
-        textAlign={"center"}
-        fontSize={"small"}
-        fontWeight="bold"
-        marginTop={"20px"}
-      >
-        {nft.name}
-      </Text>
-    </Center>
+    </Flex>
   );
 };
 

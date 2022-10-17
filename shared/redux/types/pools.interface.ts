@@ -34,4 +34,5 @@ export interface IStaked {
   token: string;
   url: string;
   name: string;
+  estimatedRewards: number;
 }
