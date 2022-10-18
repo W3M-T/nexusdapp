@@ -8,6 +8,8 @@ import { formatTokenI } from "../../../shared/utils/formatTokenIdentifier";
 
 const MainStats = () => {
   const stats = useAppSelector(selectPoolStats);
+  console.log(stats);
+
   return (
     <CardWrapper>
       <Heading as="h3" fontSize="2xl" mb={8}>
@@ -37,21 +39,24 @@ const MainStats = () => {
                   {formatBalance({ balance: fees.amount })}{" "}
                   {formatTokenI(fees.token)}
                 </Text>
-                <Box boxSize={4} ml={1}>
-                  <Box borderRadius={"full"} boxSize={4}>
-                    <Image
-                      layout="intrinsic"
-                      width="30px"
-                      height="30px"
-                      src={
-                        fees.tokenDetials.assets.svgUrl ||
-                        fees.tokenDetials.assets.staticSrc ||
-                        ""
-                      }
-                      alt={fees.tokenDetials.name}
-                    />
+                {(fees.tokenDetials.assets?.svgUrl ||
+                  fees.tokenDetials.assets?.staticSrc) && (
+                  <Box boxSize={4} ml={1}>
+                    <Box borderRadius={"full"} boxSize={4}>
+                      <Image
+                        layout="intrinsic"
+                        width="30px"
+                        height="30px"
+                        src={
+                          fees.tokenDetials.assets.svgUrl ||
+                          fees.tokenDetials.assets.staticSrc ||
+                          ""
+                        }
+                        alt={fees.tokenDetials.name}
+                      />
+                    </Box>
                   </Box>
-                </Box>
+                )}
               </Flex>
             );
           })}
