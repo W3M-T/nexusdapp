@@ -48,6 +48,9 @@
         {
             "name": "unstakeNft",
             "mutability": "mutable",
+            "payableInTokens": [
+                "*"
+            ],
             "inputs": [
                 {
                     "name": "nft_token",
