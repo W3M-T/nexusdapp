@@ -8,7 +8,6 @@ import { formatTokenI } from "../../../shared/utils/formatTokenIdentifier";
 
 const MainStats = () => {
   const stats = useAppSelector(selectPoolStats);
-  console.log(stats);
 
   return (
     <CardWrapper>
