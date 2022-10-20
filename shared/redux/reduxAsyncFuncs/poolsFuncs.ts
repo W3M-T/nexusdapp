@@ -1,6 +1,12 @@
-import { Address, AddressValue, BytesValue } from "@elrondnetwork/erdjs/out";
+import {
+  Address,
+  AddressValue,
+  BigUIntValue,
+  BytesValue,
+} from "@elrondnetwork/erdjs/out";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AxiosResponse } from "axios";
+import BigNumber from "bignumber.js";
 import { adminAddresses } from "../../constants/addressess";
 import { EgldToken } from "../../constants/tokens";
 import { getFromAllTokens } from "../../services/rest/axiosEldron";
@@ -73,13 +79,14 @@ export const fetchExistringPools = createAsyncThunk(
 );
 export const fetchUserStaked = createAsyncThunk(
   "pools/fetchUserStaked",
-  async (address: string) => {
+  async ({ address, page }: { address: string; page: number }) => {
     const res = await scQuery(NftStakingPoolsWsp, "getUserStaked", [
       new AddressValue(new Address(address)),
+      new BigUIntValue(new BigNumber(page)),
     ]);
     const { firstValue } = res;
 
-    const data: IStaked[] = firstValue.valueOf().map((nft) => {
+    const data: IStaked[] = firstValue.valueOf().field2.map((nft) => {
       const nftData: IStaked = {
         address: nft.field0.address.bech32(),
         nonce: nft.field0.nft_nonce.toNumber(),
@@ -122,10 +129,8 @@ export const fetchUserStaked = createAsyncThunk(
     return {
       nfts: finalData,
       pagination: {
-        page: 1,
-        pageSize: 3,
-        pageCount: 1,
-        totalElements: 3,
+        totalElements: firstValue.valueOf().field0.toNumber(),
+        pageCount: firstValue.valueOf().field1.toNumber(),
       },
     };
   }

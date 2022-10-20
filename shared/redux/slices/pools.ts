@@ -33,7 +33,11 @@ export interface poolsState {
   };
   userStaked: {
     status: Status;
-    data: { nfts: IStakedWithTokenDetails[]; pagination: IPagination };
+    data: {
+      nfts: IStakedWithTokenDetails[];
+      pagination: IPagination;
+    };
+    page: number;
     error: string;
   };
   userStatus: {
@@ -96,7 +100,14 @@ const initialState: poolsState = {
 
   userStaked: {
     status: "idle",
-    data: { nfts: [], pagination: null },
+    data: {
+      nfts: [],
+      pagination: {
+        pageCount: 0,
+        totalElements: 0,
+      },
+    },
+    page: 1,
     error: "",
   },
   userStatus: {
@@ -153,6 +164,9 @@ export const poolsSlice = createSlice({
     },
     setFilteredPools: (state, action: PayloadAction<IExistingPool[]>) => {
       state.existingPools.data2 = action.payload;
+    },
+    changeStakedNftPage: (state, action: PayloadAction<number>) => {
+      state.userStaked.page = action.payload;
     },
   },
   extraReducers(builder) {
@@ -283,6 +297,7 @@ export const {
   setCreatePoolPahe2,
   setCreatePool,
   setFilteredPools,
+  changeStakedNftPage,
 } = poolsSlice.actions;
 
 export default poolsSlice.reducer;

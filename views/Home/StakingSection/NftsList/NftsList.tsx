@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Center, Flex, Spinner } from "@chakra-ui/react";
 import { useAppSelector } from "../../../../shared/hooks/core/useRedux";
 import { selectUserStaked } from "../../../../shared/redux/slices/pools";
 import { IStakedWithTokenDetails } from "../../../../shared/redux/types/pools.interface";
@@ -19,15 +19,23 @@ const NftsList = ({ handleViwNft }: IProps) => {
       flexWrap="wrap"
       mt={10}
     >
-      {stakedNfts.data.nfts.map((nft) => {
-        return (
-          <NFTCard
-            nft={nft}
-            key={nft.nonce}
-            onClick={() => handleViwNft(nft)}
-          />
-        );
-      })}
+      {stakedNfts.status === "loading" ? (
+        <Center minH={"300px"}>
+          <Spinner size={"lg"} />
+        </Center>
+      ) : (
+        <>
+          {stakedNfts.data.nfts.map((nft) => {
+            return (
+              <NFTCard
+                nft={nft}
+                key={nft.nonce}
+                onClick={() => handleViwNft(nft)}
+              />
+            );
+          })}
+        </>
+      )}
     </Flex>
   );
 };

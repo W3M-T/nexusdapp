@@ -4,14 +4,20 @@ import styled from "@emotion/styled";
 import { useState } from "react";
 import ReactPaginate from "react-paginate";
 import { Authenticated } from "../../../shared/components/tools/Authenticated";
-import { useAppSelector } from "../../../shared/hooks/core/useRedux";
-import { selectUserStaked } from "../../../shared/redux/slices/pools";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../shared/hooks/core/useRedux";
+import {
+  changeStakedNftPage,
+  selectUserStaked,
+} from "../../../shared/redux/slices/pools";
 import NftModal from "./NftModal/NftModal";
 import NftsList from "./NftsList/NftsList";
 
 const StakingSection = () => {
   const stakedNfts = useAppSelector(selectUserStaked);
-
+  const dispatch = useAppDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedNft, setSelectedNft] = useState(null);
 
@@ -20,10 +26,10 @@ const StakingSection = () => {
     onOpen();
   };
 
-  const handleOnPageChange = (e) => {
-    console.log("page change", e);
+  const handleOnPageChange = async (e) => {
+    const { selected: page } = e;
+    dispatch(changeStakedNftPage(page + 1));
   };
-  const pageCount = 4;
 
   return (
     <Box>
@@ -78,15 +84,24 @@ const ReactPaginateS = styled(ReactPaginate)`
   list-style: none;
   margin-top: 25px;
 
-  .item {
+  .item a {
     height: 25px;
     width: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #040481;
-    border-radius: 100%;
+    background-color: #1c7bda;
+    border-radius: 5px;
     margin: 0 10px;
+  }
+
+  .selected a {
+    background-color: #012f5d;
+  }
+
+  .disabled a {
+    color: #8d8d8d;
+    cursor: not-allowed;
   }
 `;
 
