@@ -119,7 +119,15 @@ export const fetchUserStaked = createAsyncThunk(
 
       return stakedWithInfo;
     });
-    return finalData;
+    return {
+      nfts: finalData,
+      pagination: {
+        page: 1,
+        pageSize: 3,
+        pageCount: 1,
+        totalElements: 3,
+      },
+    };
   }
 );
 export const fetchIsNftCreator = createAsyncThunk(

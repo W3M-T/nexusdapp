@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { INftCollection } from "../../types/collection";
+import { IPagination } from "../../types/pagination";
 import {
   fetchAllowedRegistrationTokens,
   fetchAllowedRewardTokens,
@@ -32,7 +33,7 @@ export interface poolsState {
   };
   userStaked: {
     status: Status;
-    data: IStakedWithTokenDetails[];
+    data: { nfts: IStakedWithTokenDetails[]; pagination: IPagination };
     error: string;
   };
   userStatus: {
@@ -95,7 +96,7 @@ const initialState: poolsState = {
 
   userStaked: {
     status: "idle",
-    data: [],
+    data: { nfts: [], pagination: null },
     error: "",
   },
   userStatus: {
