@@ -83,10 +83,12 @@ export const fetchUserStaked = createAsyncThunk(
     const res = await scQuery(NftStakingPoolsWsp, "getUserStaked", [
       new AddressValue(new Address(address)),
       new BigUIntValue(new BigNumber(page)),
+      new BigUIntValue(new BigNumber(10)),
     ]);
+
     const { firstValue } = res;
 
-    const data: IStaked[] = firstValue.valueOf().field2.map((nft) => {
+    const data: IStaked[] = firstValue.valueOf().field1.map((nft) => {
       const nftData: IStaked = {
         address: nft.field0.address.bech32(),
         nonce: nft.field0.nft_nonce.toNumber(),
@@ -129,8 +131,7 @@ export const fetchUserStaked = createAsyncThunk(
     return {
       nfts: finalData,
       pagination: {
-        totalElements: firstValue.valueOf().field0.toNumber(),
-        pageCount: firstValue.valueOf().field1.toNumber(),
+        pageCount: firstValue.valueOf().field0.toNumber(),
       },
     };
   }

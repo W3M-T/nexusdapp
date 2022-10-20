@@ -236,11 +236,15 @@
                 {
                     "name": "page",
                     "type": "u32"
+                },
+                {
+                    "name": "nfts_per_page",
+                    "type": "u32"
                 }
             ],
             "outputs": [
                 {
-                    "type": "tuple<u32,u32,List<tuple<NftStaking,bytes,bytes,BigUint>>>"
+                    "type": "tuple<u32,List<tuple<NftStaking,bytes,bytes,BigUint>>>"
                 }
             ]
         },

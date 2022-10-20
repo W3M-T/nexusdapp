@@ -104,7 +104,6 @@ const initialState: poolsState = {
       nfts: [],
       pagination: {
         pageCount: 0,
-        totalElements: 0,
       },
     },
     page: 1,
