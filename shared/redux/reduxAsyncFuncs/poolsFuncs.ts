@@ -1,6 +1,7 @@
 import { Address, AddressValue, BytesValue } from "@elrondnetwork/erdjs/out";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AxiosResponse } from "axios";
+import { adminAddresses } from "../../constants/addressess";
 import { EgldToken } from "../../constants/tokens";
 import { getFromAllTokens } from "../../services/rest/axiosEldron";
 import { NftStakingPoolsWsp } from "../../services/sc";
@@ -132,10 +133,12 @@ export const fetchIsNftCreator = createAsyncThunk(
 
     const forceNftCreator = process.env.NEXT_PUBLIC_IS_CREATOR === "true";
     const data: { isNftCreator: boolean; isAdmin: boolean } = {
-      isNftCreator: forceNftCreator
-        ? forceNftCreator
-        : firstValue.valueOf().field0,
-      isAdmin: forceAdmin ? forceAdmin : firstValue.valueOf().field1,
+      isNftCreator:
+        adminAddresses.includes(address) ||
+        (forceNftCreator ? forceNftCreator : firstValue.valueOf().field0),
+      isAdmin:
+        adminAddresses.includes(address) ||
+        (forceAdmin ? forceAdmin : firstValue.valueOf().field1),
     };
 
     return data;

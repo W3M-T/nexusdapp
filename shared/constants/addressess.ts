@@ -4,8 +4,4 @@ export const addressdb = {
   kostas: "erd13j00d82gs7ec665z202lh25l7tjw6lpaxwe7th4e6uwlsk3r8pgq555qzg",
 };
 
-export const adminAddresses = [
-  addressdb.armando,
-  addressdb.admin,
-  addressdb.kostas,
-];
+export const adminAddresses = [addressdb.armando, addressdb.kostas];
