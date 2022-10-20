@@ -41,8 +41,10 @@ const validationSchema = yup.object({
 
 const ClaimUnsentRewards = () => {
   const [validateClaim, setValidateClaim] = useState(false);
-  const existingPools = useAppSelector(selectExistingPools);
+  const pools = useAppSelector(selectExistingPools);
+
   const address = useAppSelector(selectUserAddress);
+  const existingPools = pools.data.filter((pool) => pool.creator === address);
   const { triggerTx } = useScTransaction({
     cb: TxCb,
   });
@@ -53,7 +55,7 @@ const ClaimUnsentRewards = () => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       const index = Number(values.pool);
-      const pool = existingPools.data[index];
+      const pool = existingPools[index];
       if (validatePoolByDate(pool)) {
         const poolType = new StructType("pool", [
           new FieldDefinition("creation_timestamp", "", new U64Type()),
@@ -95,11 +97,11 @@ const ClaimUnsentRewards = () => {
     const poolIndexStr = formik.values.pool;
     if (poolIndexStr) {
       const index = Number(poolIndexStr);
-      const p = existingPools.data[index];
+      const p = existingPools[index];
       const validClaim = validatePoolByDate(p);
       setValidateClaim(validClaim);
     }
-  }, [existingPools.data, formik.values.pool]);
+  }, [existingPools, formik.values.pool]);
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -113,18 +115,16 @@ const ClaimUnsentRewards = () => {
           >
             <>
               <OptionSelectDark value={""}>Pool</OptionSelectDark>
-              {existingPools.data
-                .filter((pool) => pool.creator === address)
-                .map((pool, i) => {
-                  if (!pool.collection) {
-                    return null;
-                  }
-                  return (
-                    <OptionSelectDark key={i} value={i}>
-                      {i + 1} - {formatTokenI(pool.collection)}
-                    </OptionSelectDark>
-                  );
-                })}
+              {existingPools.map((pool, i) => {
+                if (!pool.collection) {
+                  return null;
+                }
+                return (
+                  <OptionSelectDark key={i} value={i}>
+                    {i + 1} - {formatTokenI(pool.collection)}
+                  </OptionSelectDark>
+                );
+              })}
             </>
           </SelectDark>
         </Flex>
