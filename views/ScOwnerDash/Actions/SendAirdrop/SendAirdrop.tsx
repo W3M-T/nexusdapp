@@ -108,7 +108,7 @@ const SendAirdrop = () => {
               },
               Number(values.amount),
               [poolStruct],
-              100000000
+              170000000
             )
           );
         }
