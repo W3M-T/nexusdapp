@@ -17,7 +17,7 @@ export const ESDTNFTTransfer = (
   value = 0,
   token,
   contractAddr = "",
-  gasLimit = 30000000,
+  gasLimit = 130000000,
   args = [],
   finalTokenValue = undefined
 ): ScTransactionParams => {
@@ -53,7 +53,7 @@ export const scCall = (
   workspace,
   funcName,
   args = [],
-  gasLimit = 30000000,
+  gasLimit = 130000000,
   value = undefined
 ): ScTransactionParams => {
   const { simpleAddress } = getInterface(workspace);
@@ -78,7 +78,7 @@ export const ESDTTransfer = (
   token: { identifier: string; decimals?: number },
   val = 0,
   args = [],
-  gasLimit = 30000000,
+  gasLimit = 130000000,
   realValue?: string | number
 ): ScTransactionParams => {
   const tokenIdentifier = token.identifier;
