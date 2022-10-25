@@ -80,7 +80,7 @@ const SendAirdrop = () => {
       ]);
 
       triggerTx(
-        scCall(NftStakingPoolsWsp, "sendRewards", [poolStruct], 170000000)
+        scCall(NftStakingPoolsWsp, "sendRewards", [poolStruct], 400000000)
       );
     },
   });
