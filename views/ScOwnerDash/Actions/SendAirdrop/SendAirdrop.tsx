@@ -107,7 +107,8 @@ const SendAirdrop = () => {
                 decimals: tokenD.decimals,
               },
               Number(values.amount),
-              [poolStruct]
+              [poolStruct],
+              100000000
             )
           );
         }
