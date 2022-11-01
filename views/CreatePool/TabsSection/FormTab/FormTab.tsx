@@ -55,36 +55,51 @@ const FormTab = ({ activeFeeTab }: IProps) => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      const nft = await getNft(values.collection.collection + "-01");
+      let imgageUrl = "";
+      let scFunc = "";
+      let args = [];
 
       const nftsNumber = values.nftsNumber.trim();
       const token = values.token.trim();
       const dayliRewards = values.dayliRewards.trim();
+
+      if (values.collection.collection !== "All-Elrond-NFTs") {
+        const nft = await getNft(values.collection.collection + "-01");
+        imgageUrl = nft?.data?.media[0]?.url;
+        scFunc = "createPool";
+        args = [
+          BytesValue.fromUTF8(values.collection.collection),
+          new U32Value(new BigNumber(nftsNumber)),
+          BytesValue.fromUTF8(token),
+          new BigUIntValue(
+            new BigNumber(dayliRewards).multipliedBy(Math.pow(10, 18))
+          ),
+          BytesValue.fromUTF8(values.collection.name),
+          BytesValue.fromUTF8(imgageUrl || ""),
+        ];
+      } else {
+        scFunc = "createAenPool";
+        imgageUrl = "/TheNFTNEXUSLOGO.png";
+
+        args = [
+          new U32Value(new BigNumber(nftsNumber)),
+          BytesValue.fromUTF8(token),
+          new BigUIntValue(
+            new BigNumber(dayliRewards).multipliedBy(Math.pow(10, 18))
+          ),
+          BytesValue.fromUTF8(values.collection.name),
+          BytesValue.fromUTF8(imgageUrl || ""),
+        ];
+      }
 
       const amountToSend = new BigNumber(nftsNumber)
         .multipliedBy(dayliRewards)
         .multipliedBy(30)
         .toNumber();
 
-      const args = [
-        BytesValue.fromUTF8(values.collection.collection),
-        new U32Value(new BigNumber(nftsNumber)),
-        BytesValue.fromUTF8(token),
-        new BigUIntValue(
-          new BigNumber(dayliRewards).multipliedBy(Math.pow(10, 18))
-        ),
-        BytesValue.fromUTF8(values.collection.name),
-        BytesValue.fromUTF8(nft?.data?.media[0]?.url || ""),
-      ];
       if (token === "EGLD") {
         triggerTx(
-          scCall(
-            NftStakingPoolsWsp,
-            "createPool",
-            args,
-            undefined,
-            amountToSend
-          )
+          scCall(NftStakingPoolsWsp, scFunc, args, undefined, amountToSend)
         );
       } else {
         const tokenD = await getTokenDetails(token);
@@ -92,7 +107,7 @@ const FormTab = ({ activeFeeTab }: IProps) => {
           triggerTx(
             ESDTTransfer(
               NftStakingPoolsWsp,
-              "createPool",
+              scFunc,
               { identifier: token, decimals: tokenD.decimals },
               amountToSend,
               args

@@ -54,9 +54,11 @@ const FeeTab = ({ activeVerifyTab, activeFormTab }: IProps) => {
 
   useEffect(() => {
     if (address) {
-      dispatch(
-        fetchRegistrationInfo({ address, collection: collection.collection })
-      );
+      if (collection.collection !== "All-Elrond-NFTs") {
+        dispatch(
+          fetchRegistrationInfo({ address, collection: collection.collection })
+        );
+      }
     }
   }, [address, collection, dispatch, transaction]);
 

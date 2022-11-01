@@ -18,6 +18,10 @@ export const route = {
     route: "/view-pool",
     name: "View Pools",
   },
+  aenPools: {
+    route: "/aen-pools",
+    name: "AEN Pools",
+  },
   scOwner: {
     route: "/sc-owner-dashboard",
     name: "SC Owner",

@@ -11,14 +11,21 @@ import FormTab from "./FormTab/FormTab";
 
 // Icons
 import { useEffect } from "react";
-import { useAppDispatch } from "../../../shared/hooks/core/useRedux";
-import { setCreatePool } from "../../../shared/redux/slices/pools";
+import { ActionButton } from "../../../shared/components/tools/ActionButton";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../shared/hooks/core/useRedux";
+import {
+  selectisScOwner,
+  setCreatePool,
+} from "../../../shared/redux/slices/pools";
 import TabsList from "./TabsList/TabsList";
 import UserTab from "./VerifyTab/VerifyTab";
 
 const TabsSection = () => {
   const dispatch = useAppDispatch();
-
+  const isAdmin = useAppSelector(selectisScOwner);
   // Set active bullets based on current state
   const [activeBullets, setActiveBullets] = useState({
     about: true,
@@ -45,6 +52,35 @@ const TabsSection = () => {
     if (verifyTab.current) {
       formTab.current.click();
     }
+  };
+
+  const handleCreateAllElrondPool = () => {
+    dispatch(
+      setCreatePool({
+        collection: { collection: "All-Elrond-NFTs", name: "All-Elrond-NFTs" },
+        phase1: {
+          status: "success",
+          message: "Verified!",
+        },
+        phase2: {
+          message: "",
+          status: "success",
+          data: {
+            tokenI: "EGLD",
+            tokenAmount: 0,
+            payed: true,
+          },
+        },
+      })
+    );
+
+    setTimeout(() => {
+      activeFeeTab();
+    }, 500);
+
+    setTimeout(() => {
+      activeFormTab();
+    }, 1000);
   };
 
   // useEffect(() => {
@@ -99,37 +135,48 @@ const TabsSection = () => {
   // }, []);
 
   return (
-    <Tabs
-      variant="unstyled"
-      mt="24px"
-      display="flex"
-      flexDirection="column"
-      isLazy
-    >
-      {" "}
-      <TabsList
-        verifyTab={verifyTab}
-        feeTab={feeTab}
-        activeBullets={activeBullets}
-        formTab={formTab}
-        setActiveBullets={setActiveBullets}
-      />
-      <TabPanels mt="24px" maxW={{ md: "90%", lg: "100%" }} mx="auto">
-        <TabPanel w={{ sm: "330px", md: "700px", lg: "850px" }} mx="auto">
-          <UserTab activeFeeTab={activeFeeTab} />
-        </TabPanel>
-        <TabPanel w={{ sm: "330px", md: "700px", lg: "850px" }} mx="auto">
-          <FeeTab
-            activeVerifyTab={activeVerifyTab}
-            activeFormTab={activeFormTab}
-            activeFeeTab={activeFeeTab}
-          />
-        </TabPanel>
-        <TabPanel w={{ sm: "330px", md: "700px", lg: "850px" }} mx="auto">
-          <FormTab activeFeeTab={activeFeeTab} />
-        </TabPanel>
-      </TabPanels>
-    </Tabs>
+    <>
+      <Tabs
+        variant="unstyled"
+        mt="24px"
+        display="flex"
+        flexDirection="column"
+        isLazy
+      >
+        {" "}
+        <TabsList
+          verifyTab={verifyTab}
+          feeTab={feeTab}
+          activeBullets={activeBullets}
+          formTab={formTab}
+          setActiveBullets={setActiveBullets}
+        />
+        <TabPanels mt="24px" maxW={{ md: "90%", lg: "100%" }} mx="auto">
+          <TabPanel w={{ sm: "330px", md: "700px", lg: "850px" }} mx="auto">
+            <UserTab activeFeeTab={activeFeeTab} />
+          </TabPanel>
+          <TabPanel w={{ sm: "330px", md: "700px", lg: "850px" }} mx="auto">
+            <FeeTab
+              activeVerifyTab={activeVerifyTab}
+              activeFormTab={activeFormTab}
+              activeFeeTab={activeFeeTab}
+            />
+          </TabPanel>
+          <TabPanel w={{ sm: "330px", md: "700px", lg: "850px" }} mx="auto">
+            <FormTab activeFeeTab={activeFeeTab} />
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
+      {isAdmin && (
+        <ActionButton
+          bg="dappTemplate.color2.base"
+          mt={8}
+          onClick={handleCreateAllElrondPool}
+        >
+          Create All-Elrond-NFTs
+        </ActionButton>
+      )}
+    </>
   );
 };
 
