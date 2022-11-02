@@ -15,7 +15,7 @@ export const route = {
     name: "Create Pool",
   },
   view: {
-    route: "/view-pool",
+    route: "/view-pools",
     name: "View Pools",
   },
   aenPools: {

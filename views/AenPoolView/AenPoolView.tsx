@@ -11,6 +11,7 @@ import { fetchExistringPools } from "../../shared/redux/reduxAsyncFuncs/poolsFun
 import { fetchNfts } from "../../shared/redux/reduxAsyncFuncs/tokensFuncs";
 import { selectExistingPools } from "../../shared/redux/slices/pools";
 import { selectUserAddress } from "../../shared/redux/slices/settings";
+import { route } from "../../shared/utils/routes";
 import PoolItem from "../ViewPools/PoolItem/PoolItem";
 
 const AenPoolView = () => {
@@ -25,9 +26,9 @@ const AenPoolView = () => {
     }
   }, [dispatch, connectedAddress]);
   return (
-    <MainLayout metaTitle="View Pools">
+    <MainLayout metaTitle={route.aenPools.name}>
       <Heading as={"h1"} w="full" textAlign={"center"} mt={10} mb={4}>
-        Pools
+        AEN Pools
       </Heading>
 
       <Flex
