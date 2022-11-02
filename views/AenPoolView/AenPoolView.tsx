@@ -1,5 +1,6 @@
-import { Center, Flex, Heading } from "@chakra-ui/react";
+import { Flex, Heading } from "@chakra-ui/react";
 import { addDays } from "date-fns";
+import orderBy from "lodash/orderBy";
 import { useEffect } from "react";
 import { MainLayout } from "../../shared/components/ui/MainLayout";
 import {
@@ -10,10 +11,10 @@ import { fetchExistringPools } from "../../shared/redux/reduxAsyncFuncs/poolsFun
 import { fetchNfts } from "../../shared/redux/reduxAsyncFuncs/tokensFuncs";
 import { selectExistingPools } from "../../shared/redux/slices/pools";
 import { selectUserAddress } from "../../shared/redux/slices/settings";
-import PoolItem from "./PoolItem/PoolItem";
-import Search from "./Search/Search";
-const ViewPools = () => {
-  const { data2: pools } = useAppSelector(selectExistingPools);
+import PoolItem from "../ViewPools/PoolItem/PoolItem";
+
+const AenPoolView = () => {
+  const { data: pools } = useAppSelector(selectExistingPools);
   const dispatch = useAppDispatch();
   const connectedAddress = useAppSelector(selectUserAddress);
 
@@ -28,9 +29,7 @@ const ViewPools = () => {
       <Heading as={"h1"} w="full" textAlign={"center"} mt={10} mb={4}>
         Pools
       </Heading>
-      <Center>
-        <Search />
-      </Center>
+
       <Flex
         justifyContent={"center"}
         columnGap={5}
@@ -38,14 +37,22 @@ const ViewPools = () => {
         flexWrap="wrap"
         mt={10}
       >
-        {pools
+        {orderBy(
+          pools,
+          [
+            function (pool) {
+              return Number(pool.nftsNow);
+            },
+          ],
+          "asc"
+        )
           .filter((p) => {
             const date = new Date(p.timestam * 1000);
 
             const dateInAMonth = addDays(date, 30);
             const today = new Date();
 
-            if (dateInAMonth < today || p.collection === "") {
+            if (dateInAMonth < today || p.collection !== "") {
               return false;
             } else {
               return true;
@@ -59,4 +66,4 @@ const ViewPools = () => {
   );
 };
 
-export default ViewPools;
+export default AenPoolView;
