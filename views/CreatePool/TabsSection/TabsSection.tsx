@@ -167,7 +167,7 @@ const TabsSection = () => {
           </TabPanel>
         </TabPanels>
       </Tabs>
-      {isAdmin && (
+      {isAdmin && !activeBullets.address && (
         <ActionButton
           bg="dappTemplate.color2.base"
           mt={8}

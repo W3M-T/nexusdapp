@@ -1,16 +1,16 @@
 {
     "buildInfo": {
         "rustc": {
-            "version": "1.62.0-nightly",
-            "commitHash": "88860d5474a32f507dde8fba8df35fd2064f11b9",
-            "commitDate": "2022-05-09",
+            "version": "1.66.0-nightly",
+            "commitHash": "5e9772042948002f9c6f60c4c81603170035fffa",
+            "commitDate": "2022-10-29",
             "channel": "Nightly",
-            "short": "rustc 1.62.0-nightly (88860d547 2022-05-09)"
+            "short": "rustc 1.66.0-nightly (5e9772042 2022-10-29)"
         },
         "contractCrate": {
             "name": "nftstakingpools",
             "version": "0.0.0",
-            "git_version": "89a1395-modified"
+            "git_version": "ef915af-modified"
         },
         "framework": {
             "name": "elrond-wasm",
@@ -191,6 +191,36 @@
                 {
                     "name": "token",
                     "type": "EgldOrEsdtTokenIdentifier"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "createAenPool",
+            "mutability": "mutable",
+            "payableInTokens": [
+                "*"
+            ],
+            "inputs": [
+                {
+                    "name": "nr_of_nfts",
+                    "type": "u32"
+                },
+                {
+                    "name": "reward_token",
+                    "type": "EgldOrEsdtTokenIdentifier"
+                },
+                {
+                    "name": "daily_reward",
+                    "type": "BigUint"
+                },
+                {
+                    "name": "collection_name",
+                    "type": "bytes"
+                },
+                {
+                    "name": "collection_image",
+                    "type": "bytes"
                 }
             ],
             "outputs": []
