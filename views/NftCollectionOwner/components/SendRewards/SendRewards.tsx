@@ -53,7 +53,6 @@ const SendAirdrop = () => {
     onSubmit: (values) => {
       const index = Number(values.pool);
       const pool = existingPools[index];
-      console.log("pool", pool);
 
       const poolType = new StructType("pool", [
         new FieldDefinition("creation_timestamp", "", new U64Type()),

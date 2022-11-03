@@ -71,8 +71,6 @@ const UserTab = ({ activeFeeTab }: IProps) => {
             );
           }
         } catch (error) {
-          console.log("error", error);
-
           if (error?.response?.data?.message) {
             dispatch(
               setCreatePoolPahe1({

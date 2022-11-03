@@ -218,7 +218,6 @@ export const fetcHhasStakedForAEN = createAsyncThunk(
     const { firstValue } = res;
 
     const data = firstValue.valueOf();
-    console.log("data", data);
 
     return data;
   }
