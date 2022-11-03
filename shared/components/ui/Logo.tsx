@@ -1,9 +1,8 @@
-import { Box, Text } from "@chakra-ui/react";
-import NextLink from "next/link";
+import { Box, Link, Text } from "@chakra-ui/react";
 
 export const Logo = () => {
   return (
-    <NextLink href="/">
+    <Link href="https://thenftnexus.com/" isExternal>
       <Box
         display="flex"
         alignItems="center"
@@ -23,6 +22,6 @@ export const Logo = () => {
           The NFT Nexus
         </Text>
       </Box>
-    </NextLink>
+    </Link>
   );
 };
