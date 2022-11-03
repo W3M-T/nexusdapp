@@ -1,4 +1,11 @@
-import { Box, Center, Flex, Text, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Flex,
+  Text,
+  Tooltip,
+  useDisclosure,
+} from "@chakra-ui/react";
 import {
   Address,
   AddressType,
@@ -141,15 +148,23 @@ const PoolItem = ({ pool }: IProps) => {
           </Box>{" "}
           {pool.nftsNow} / {pool.nfts}{" "}
         </Text>
-        <ActionButton
-          borderRadius={"full"}
-          fontSize="xs"
-          py={1}
-          disabled={pool.collection === "" && !hasStakenForAEN.data}
-          onClick={onOpen}
+        <Tooltip
+          label="Make sure you have staked at least one NFT of PARROT, EXPLORER, or TEDDY1 collections."
+          borderRadius={"5px"}
+          isDisabled={!(pool.collection === "" && !hasStakenForAEN.data)}
         >
-          Stake
-        </ActionButton>
+          <Box>
+            <ActionButton
+              borderRadius={"full"}
+              fontSize="xs"
+              py={1}
+              disabled={pool.collection === "" && !hasStakenForAEN.data}
+              onClick={onOpen}
+            >
+              Stake
+            </ActionButton>
+          </Box>
+        </Tooltip>
       </Center>
       {isOpen && (
         <SelectNftModal
