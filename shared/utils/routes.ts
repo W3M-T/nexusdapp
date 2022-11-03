@@ -7,7 +7,6 @@ export const route = {
   home: {
     route: "/",
     name: "Home",
-    outNav: true,
   },
 
   create: {
