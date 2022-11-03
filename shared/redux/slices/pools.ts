@@ -5,6 +5,7 @@ import {
   fetchAllowedRegistrationTokens,
   fetchAllowedRewardTokens,
   fetchExistringPools,
+  fetcHhasStakedForAEN,
   fetchIsNftCreator,
   fetchNonWithdrawnCollections,
   fetchRegistrationInfo,
@@ -61,6 +62,11 @@ export interface poolsState {
   allowedRewardTokens: {
     status: Status;
     data: string[];
+    error: string;
+  };
+  hasStakedForAEN: {
+    status: Status;
+    data: boolean;
     error: string;
   };
   createPool: {
@@ -142,6 +148,12 @@ const initialState: poolsState = {
       status: "success",
       data: null,
     },
+  },
+
+  hasStakedForAEN: {
+    status: "idle",
+    data: false,
+    error: "",
   },
 };
 
@@ -268,6 +280,17 @@ export const poolsSlice = createSlice({
       })
       .addCase(fetchAllowedRewardTokens.rejected, (state) => {
         state.allowedRewardTokens.status = "failed";
+      })
+      //fetcHhasStakedForAEN
+      .addCase(fetcHhasStakedForAEN.pending, (state) => {
+        state.hasStakedForAEN.status = "success";
+      })
+      .addCase(fetcHhasStakedForAEN.fulfilled, (state, action) => {
+        state.hasStakedForAEN.status = "success";
+        state.hasStakedForAEN.data = action.payload;
+      })
+      .addCase(fetcHhasStakedForAEN.rejected, (state) => {
+        state.hasStakedForAEN.status = "failed";
       });
   },
 });
@@ -287,6 +310,8 @@ export const selectRegistrationTokens = (state: RootState) =>
   state.pools.allowedRegistrationTokens;
 export const selectRewardsTokens = (state: RootState) =>
   state.pools.allowedRewardTokens;
+export const selectHasStakedForAEN = (state: RootState) =>
+  state.pools.hasStakedForAEN;
 
 // Action creators are generated for each case reducer function
 // export const { setAddress } = poolsSlice.actions;

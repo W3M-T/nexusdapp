@@ -3,16 +3,19 @@ import { addDays } from "date-fns";
 import orderBy from "lodash/orderBy";
 import { useEffect } from "react";
 import { MainLayout } from "../../shared/components/ui/MainLayout";
+import PoolItem from "../../shared/components/ui/PoolItem";
 import {
   useAppDispatch,
   useAppSelector,
 } from "../../shared/hooks/core/useRedux";
-import { fetchExistringPools } from "../../shared/redux/reduxAsyncFuncs/poolsFuncs";
+import {
+  fetchExistringPools,
+  fetcHhasStakedForAEN,
+} from "../../shared/redux/reduxAsyncFuncs/poolsFuncs";
 import { fetchNfts } from "../../shared/redux/reduxAsyncFuncs/tokensFuncs";
 import { selectExistingPools } from "../../shared/redux/slices/pools";
 import { selectUserAddress } from "../../shared/redux/slices/settings";
 import { route } from "../../shared/utils/routes";
-import PoolItem from "../ViewPools/PoolItem/PoolItem";
 
 const AenPoolView = () => {
   const { data: pools } = useAppSelector(selectExistingPools);
@@ -22,6 +25,7 @@ const AenPoolView = () => {
   useEffect(() => {
     if (connectedAddress) {
       dispatch(fetchExistringPools());
+      dispatch(fetcHhasStakedForAEN(connectedAddress));
       dispatch(fetchNfts(connectedAddress));
     }
   }, [dispatch, connectedAddress]);

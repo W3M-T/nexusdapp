@@ -2,6 +2,7 @@ import { Center, Flex, Heading } from "@chakra-ui/react";
 import { addDays } from "date-fns";
 import { useEffect } from "react";
 import { MainLayout } from "../../shared/components/ui/MainLayout";
+import PoolItem from "../../shared/components/ui/PoolItem";
 import {
   useAppDispatch,
   useAppSelector,
@@ -10,7 +11,6 @@ import { fetchExistringPools } from "../../shared/redux/reduxAsyncFuncs/poolsFun
 import { fetchNfts } from "../../shared/redux/reduxAsyncFuncs/tokensFuncs";
 import { selectExistingPools } from "../../shared/redux/slices/pools";
 import { selectUserAddress } from "../../shared/redux/slices/settings";
-import PoolItem from "./PoolItem/PoolItem";
 import Search from "./Search/Search";
 const ViewPools = () => {
   const { data2: pools } = useAppSelector(selectExistingPools);
@@ -20,6 +20,7 @@ const ViewPools = () => {
   useEffect(() => {
     if (connectedAddress) {
       dispatch(fetchExistringPools());
+
       dispatch(fetchNfts(connectedAddress));
     }
   }, [dispatch, connectedAddress]);

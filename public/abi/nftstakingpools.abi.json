@@ -313,6 +313,21 @@
             ]
         },
         {
+            "name": "hasStakedForAEN",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "address",
+                    "type": "Address"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "bool"
+                }
+            ]
+        },
+        {
             "name": "stakedIn",
             "mutability": "readonly",
             "inputs": [
@@ -654,6 +669,17 @@
             "outputs": [
                 {
                     "type": "u64"
+                }
+            ]
+        },
+        {
+            "name": "tokensRequiredForAEN",
+            "mutability": "readonly",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "variadic<TokenIdentifier>",
+                    "multi_result": true
                 }
             ]
         },
