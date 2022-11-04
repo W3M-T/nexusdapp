@@ -17,7 +17,7 @@ const NFTCard = ({ nft, onClick }: IProps) => {
     const p = nft.nftPool;
     const date = new Date(p.timestam * 1000);
 
-    const dateInAMonth = addDays(date, 1);
+    const dateInAMonth = addDays(date, 30);
     const today = new Date();
 
     if (dateInAMonth < today) {
