@@ -20,7 +20,9 @@ const StakeNftItem = ({ nft, onClick, selected }: IProps) => {
       flexDir="column"
       onClick={onClick}
       boxShadow={selected && "0px 0px 5px white"}
-      pb={2}
+      px={2}
+      borderRadius="10px"
+      py={2}
     >
       {" "}
       <NextImg

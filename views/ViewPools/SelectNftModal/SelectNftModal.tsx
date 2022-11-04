@@ -6,13 +6,12 @@ import {
   ModalFooter,
   ModalHeader,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ActionButton } from "../../../shared/components/tools/ActionButton";
 import MyModal from "../../../shared/components/ui/MyModal";
 import useGetNfts from "../../../shared/hooks/tools/useGetNfts";
 import { INft } from "../../../shared/redux/types/tokens.interface";
 import StakeNftItem from "./StakeNftItem";
-
 interface IProps {
   isOpenModal: boolean;
   onCloseModal: () => void;
@@ -37,6 +36,12 @@ const SelectNftModal = ({
     onCloseModal();
     onConfirm(selectedNFT);
   };
+  useEffect(() => {
+    if (nfts.length === 1) {
+      setSelectedNFT(nfts[0]);
+    }
+  }, [nfts]);
+
   return (
     <MyModal
       isOpen={isOpenModal}

@@ -75,22 +75,24 @@ const PoolItem = ({ pool }: IProps) => {
       new Field(new BigUIntValue(new BigNumber(pool.rewards)), "reward_amount"),
     ]);
 
-    triggerTx(
-      ESDTNFTTransfer(
-        "stakeNft",
-        "",
-        undefined,
-        nft,
-        selectedNetwork.contractAddr.nftsStaking,
-        70000000,
-        [
-          poolStruct,
-          BytesValue.fromUTF8(nft?.media[0]?.url || ""),
-          BytesValue.fromUTF8(nft?.name || ""),
-        ],
-        1
-      )
-    );
+    if (nft) {
+      triggerTx(
+        ESDTNFTTransfer(
+          "stakeNft",
+          "",
+          undefined,
+          nft,
+          selectedNetwork.contractAddr.nftsStaking,
+          70000000,
+          [
+            poolStruct,
+            BytesValue.fromUTF8(nft?.media[0]?.url || ""),
+            BytesValue.fromUTF8(nft?.name || ""),
+          ],
+          1
+        )
+      );
+    }
   };
   const date = new Date(pool.timestam * 1000);
   return (
