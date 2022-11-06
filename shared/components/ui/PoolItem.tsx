@@ -38,6 +38,7 @@ import { formatBalance } from "../../utils/formatBalance";
 import { formatTokenI } from "../../utils/formatTokenIdentifier";
 import { TxCb } from "../../utils/txCallback";
 import { ActionButton } from "../tools/ActionButton";
+import { Authenticated } from "../tools/Authenticated";
 import NextImg from "./NextImg";
 
 const SelectNftModal = dynamic(
@@ -150,23 +151,25 @@ const PoolItem = ({ pool }: IProps) => {
           </Box>{" "}
           {pool.nftsNow} / {pool.nfts}{" "}
         </Text>
-        <Tooltip
-          label="Make sure you have staked at least one NFT of PARROT, EXPLORER, or TEDDY1 collections."
-          borderRadius={"5px"}
-          isDisabled={!(pool.collection === "" && !hasStakenForAEN.data)}
-        >
-          <Box>
-            <ActionButton
-              borderRadius={"full"}
-              fontSize="xs"
-              py={1}
-              disabled={pool.collection === "" && !hasStakenForAEN.data}
-              onClick={onOpen}
-            >
-              Stake
-            </ActionButton>
-          </Box>
-        </Tooltip>
+        <Authenticated>
+          <Tooltip
+            label="Make sure you have staked at least one NFT of PARROT, EXPLORER, or TEDDY1 collections."
+            borderRadius={"5px"}
+            isDisabled={!(pool.collection === "" && !hasStakenForAEN.data)}
+          >
+            <Box>
+              <ActionButton
+                borderRadius={"full"}
+                fontSize="xs"
+                py={1}
+                disabled={pool.collection === "" && !hasStakenForAEN.data}
+                onClick={onOpen}
+              >
+                Stake
+              </ActionButton>
+            </Box>
+          </Tooltip>
+        </Authenticated>
       </Center>
       {isOpen && (
         <SelectNftModal

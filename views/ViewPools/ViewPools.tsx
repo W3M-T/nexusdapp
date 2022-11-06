@@ -28,10 +28,10 @@ const ViewPools = () => {
   useEffect(() => {
     if (connectedAddress) {
       dispatch(fetchExistringPools());
-
       dispatch(fetchNfts(connectedAddress));
     }
   }, [dispatch, connectedAddress]);
+
   useEffect(() => {
     const newPoolsCollections = [...poolsGroupedByCollection];
 

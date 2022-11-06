@@ -10,7 +10,7 @@ const NavMenu = () => {
   return (
     <Flex alignItems={"center"} gap={5} mr={{ sm: 0, lg: "24" }}>
       {routes.map((route) => {
-        if (!isLoggedIn || route.outNav) {
+        if ((!isLoggedIn && !route.public) || route.outNav) {
           // if (route.route !== "/") {
           return null;
           // }

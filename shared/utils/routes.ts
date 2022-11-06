@@ -2,11 +2,13 @@ interface IRoute {
   route: string;
   name: string;
   outNav?: boolean;
+  public?: boolean;
 }
 export const route = {
   home: {
     route: "/",
     name: "Home",
+    public: true,
   },
 
   create: {
@@ -16,10 +18,12 @@ export const route = {
   view: {
     route: "/view-pools",
     name: "View Pools",
+    public: true,
   },
   aenPools: {
     route: "/aen-pools",
     name: "AEN Pools",
+    public: true,
   },
   scOwner: {
     route: "/sc-owner-dashboard",
