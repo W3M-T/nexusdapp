@@ -31,8 +31,8 @@ const AenPoolView = () => {
   );
 
   useEffect(() => {
+    dispatch(fetchExistringPools());
     if (connectedAddress) {
-      dispatch(fetchExistringPools());
       dispatch(fetcHhasStakedForAEN(connectedAddress));
       dispatch(fetchNfts(connectedAddress));
     }

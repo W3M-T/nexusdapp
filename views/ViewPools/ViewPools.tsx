@@ -26,8 +26,8 @@ const ViewPools = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    dispatch(fetchExistringPools());
     if (connectedAddress) {
-      dispatch(fetchExistringPools());
       dispatch(fetchNfts(connectedAddress));
     }
   }, [dispatch, connectedAddress]);
