@@ -9,7 +9,7 @@ export const HeaderMenu = ({ children }: PropsWithChildren) => {
       alignItems="center"
       justifyContent={{ sm: "center", xl: "space-between" }}
       gap="2"
-      py={9}
+      pt={9}
       flexDirection={{ sm: "column", xl: "row" }}
       textAlign={"center"}
     >

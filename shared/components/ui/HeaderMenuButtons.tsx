@@ -16,6 +16,7 @@ export const HeaderMenuButtons = ({ enabled }: HeaderMenuButtonsProps) => {
       width={{ sm: "100%", lg: "auto" }}
     >
       {/* <SocialMediaIcons /> */}
+
       <NavMenu />
       {enabled.includes("auth") && <LoginModalButton />}
     </Box>

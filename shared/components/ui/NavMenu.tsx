@@ -8,7 +8,12 @@ const NavMenu = () => {
   const { isLoggedIn } = useLoggingIn();
 
   return (
-    <Flex alignItems={"center"} gap={5} mr={{ sm: 0, lg: "24" }}>
+    <Flex
+      alignItems={"center"}
+      gap={5}
+      mr={{ sm: 0, lg: "24" }}
+      display={{ sm: "none", md: "flex" }}
+    >
       {routes.map((route) => {
         if ((!isLoggedIn && !route.public) || route.outNav) {
           // if (route.route !== "/") {

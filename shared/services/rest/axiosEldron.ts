@@ -36,3 +36,12 @@ export const getFromAllTokens = async ({
 export const getNfts = async (address, size = 1000) => {
   return await axiosEldron.get(`/accounts/${address}/nfts?size=${size}`);
 };
+
+export const swrFetcher = (url) => axiosEldron.get(url).then((res) => res.data);
+
+// export const swrGetUserNfts = async (address, size = 1000) => {
+//   return await  axiosEldron.get(`/accounts/${address}/nfts?size=${size}`);
+// };
+// // const fetcher = url => axios.get(url).then(res => res.data)
+
+// const fetcher = (url) => axios.get(url).then((res) => res.data);
