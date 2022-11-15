@@ -10,6 +10,11 @@ export const route = {
     name: "Home",
     public: true,
   },
+  staked: {
+    route: "/staked",
+    name: "Staked NFTs",
+    public: true,
+  },
 
   create: {
     route: "/create-pool",
