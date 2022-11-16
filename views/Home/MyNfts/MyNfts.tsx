@@ -109,7 +109,7 @@ const MyNfts = () => {
                           />
                         )}
                       </Box>
-                      <Box fontSize={{ sm: "7px", md: "sm" }}>{nft.name}</Box>
+                      <Box fontSize={{ sm: "7px", md: "11px" }}>{nft.name}</Box>
                     </Flex>
                   </SwiperSlide>
                 );
