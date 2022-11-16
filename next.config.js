@@ -2,7 +2,11 @@
 
 const nextConfig = {
   images: {
-    domains: ["media.elrond.com", "media.xoxno.com", "devnet-media.elrond.com"],
+    domains: [
+      "media.elrond.com",
+      "gateway.pinata.cloud",
+      "devnet-media.elrond.com",
+    ],
   },
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     config.resolve.fallback = {

@@ -1,4 +1,4 @@
-import { Flex, Text, Tooltip } from "@chakra-ui/react";
+import { Flex, FlexProps, Text, Tooltip } from "@chakra-ui/react";
 import { addDays } from "date-fns";
 import { useEffect, useState } from "react";
 import NextImg from "../../../../shared/components/ui/NextImg";
@@ -9,8 +9,10 @@ import { formatTokenI } from "../../../../shared/utils/formatTokenIdentifier";
 interface IProps {
   nft: IStakedWithTokenDetails;
   onClick: () => void;
+  wrapperProps?: FlexProps;
+  fromHome?: boolean;
 }
-const NFTCard = ({ nft, onClick }: IProps) => {
+const NFTCard = ({ nft, onClick, fromHome, wrapperProps }: IProps) => {
   const [isNew, setIsNew] = useState(true);
   useEffect(() => {
     let isNew = true;
@@ -46,25 +48,34 @@ const NFTCard = ({ nft, onClick }: IProps) => {
         borderRadius="0.7rem"
         padding={"4"}
         bg="black"
+        {...wrapperProps}
       >
-        <Text fontSize={"xl"} fontWeight="bold" mb={1}>
-          {nft.name}
-        </Text>{" "}
-        <Flex mb={3} fontSize="small" flexDir={{ sm: "column", lsm: "row" }}>
-          <Text color="gray.400" fontWeight="bold" mr={1}>
-            Est. Rewards:
-          </Text>{" "}
-          <Text>
-            {formatBalance({
-              balance: nft.estimatedRewards,
-              decimals: nft.tokenDetails?.decimals,
-            })}{" "}
-            {formatTokenI(nft.nftPool.token)}
-          </Text>{" "}
-        </Flex>
+        {!fromHome && (
+          <>
+            <Text fontSize={"xl"} fontWeight="bold" mb={1}>
+              {nft.name}
+            </Text>
+            <Flex
+              mb={3}
+              fontSize="small"
+              flexDir={{ sm: "column", lsm: "row" }}
+            >
+              <Text color="gray.400" fontWeight="bold" mr={1}>
+                Est. Rewards:
+              </Text>{" "}
+              <Text>
+                {formatBalance({
+                  balance: nft.estimatedRewards,
+                  decimals: nft.tokenDetails?.decimals,
+                })}{" "}
+                {formatTokenI(nft.nftPool.token)}
+              </Text>{" "}
+            </Flex>
+          </>
+        )}
         <NextImg
           alt={"nft"}
-          width={["160px", "160px", "160px", "253px"]}
+          width={"100%"}
           sx={{
             span: {
               borderRadius: "1rem",
@@ -72,8 +83,8 @@ const NFTCard = ({ nft, onClick }: IProps) => {
           }}
           src={nft.url}
           nextProps={{
-            height: 490,
-            width: 490,
+            height: "600px",
+            width: "600px",
           }}
         />
       </Flex>

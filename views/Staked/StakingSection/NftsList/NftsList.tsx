@@ -1,4 +1,4 @@
-import { Center, Flex, Spinner } from "@chakra-ui/react";
+import { Center, Grid, Spinner } from "@chakra-ui/react";
 import { useAppSelector } from "../../../../shared/hooks/core/useRedux";
 import { selectUserStaked } from "../../../../shared/redux/slices/pools";
 import { IStakedWithTokenDetails } from "../../../../shared/redux/types/pools.interface";
@@ -12,12 +12,16 @@ const NftsList = ({ handleViwNft }: IProps) => {
   const stakedNfts = useAppSelector(selectUserStaked);
 
   return (
-    <Flex
-      justifyContent={"center"}
+    <Grid
       columnGap={5}
       rowGap="10"
-      flexWrap="wrap"
       mt={10}
+      templateColumns={{
+        sm: "1fr",
+        lsm: "1fr 1fr",
+        lg: "1fr 1fr 1fr",
+        xl: "1fr 1fr 1fr 1fr",
+      }}
     >
       {stakedNfts.status === "loading" ? (
         <Center minH={"300px"}>
@@ -36,7 +40,7 @@ const NftsList = ({ handleViwNft }: IProps) => {
           })}
         </>
       )}
-    </Flex>
+    </Grid>
   );
 };
 

@@ -1,5 +1,5 @@
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
-import { Box, Center, Heading, Text, useDisclosure } from "@chakra-ui/react";
+import { Box, Heading, Text, useDisclosure } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { useState } from "react";
 import ReactPaginate from "react-paginate";
@@ -33,11 +33,9 @@ const StakingSection = () => {
 
   return (
     <Box>
-      <Center w="full">
-        <Heading fontSize={"3xl"} borderBottom="3px solid white">
-          Staked NFTs
-        </Heading>
-      </Center>
+      <Heading fontSize={"3xl"} borderBottom="3px solid white" w="fit-content">
+        Staked NFTs
+      </Heading>
 
       <Authenticated
         spinnerCentered

@@ -1,11 +1,4 @@
-import {
-  Box,
-  Center,
-  Flex,
-  Text,
-  Tooltip,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Center, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import {
   Address,
   AddressType,
@@ -28,32 +21,28 @@ import {
 import BigNumber from "bignumber.js";
 import dynamic from "next/dynamic";
 import { selectedNetwork } from "../../../config/network";
-import { useAppSelector } from "../../hooks/core/useRedux";
-import { useScTransaction } from "../../hooks/core/useScTransaction";
-import { selectHasStakedForAEN } from "../../redux/slices/pools";
-import { IExistingPool } from "../../redux/types/pools.interface";
-import { INft } from "../../redux/types/tokens.interface";
-import { ESDTNFTTransfer } from "../../services/sc/calls";
-import { formatBalance } from "../../utils/formatBalance";
-import { formatTokenI } from "../../utils/formatTokenIdentifier";
-import { TxCb } from "../../utils/txCallback";
-import { ActionButton } from "../tools/ActionButton";
-import { Authenticated } from "../tools/Authenticated";
-import NextImg from "./NextImg";
+import NextImg from "../../../shared/components/ui/NextImg";
+import { useAppSelector } from "../../../shared/hooks/core/useRedux";
+import { useScTransaction } from "../../../shared/hooks/core/useScTransaction";
+import { selectHasStakedForAEN } from "../../../shared/redux/slices/pools";
+import { IExistingPool } from "../../../shared/redux/types/pools.interface";
+import { INft } from "../../../shared/redux/types/tokens.interface";
+import { ESDTNFTTransfer } from "../../../shared/services/sc/calls";
+import { TxCb } from "../../../shared/utils/txCallback";
 
-const SelectNftModal = dynamic(
-  () => import("../../../views/ViewPools/SelectNftModal/SelectNftModal")
-);
+const HomePoolModal = dynamic(() => import("./SelectNftModal"));
 
 interface IProps {
   pool: IExistingPool;
+  small?: boolean;
 }
-const PoolItem = ({ pool }: IProps) => {
+const HomePool = ({ pool, small }: IProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const hasStakenForAEN = useAppSelector(selectHasStakedForAEN);
   const { triggerTx } = useScTransaction({
     cb: TxCb,
   });
+
   const handleStake = (nft: INft) => {
     const poolType = new StructType("pool", [
       new FieldDefinition("creation_timestamp", "", new U64Type()),
@@ -95,23 +84,25 @@ const PoolItem = ({ pool }: IProps) => {
       );
     }
   };
-  const date = new Date(pool.timestam * 1000);
+
   return (
     <Flex
       border="1px solid white"
       borderRadius={"lg"}
-      p={5}
+      p={{ sm: 2, md: 5 }}
+      h="full"
       gap={8}
-      minW="300px"
       justifyContent={{ sm: "center", md: "space-between" }}
       alignItems={{ sm: "center", md: "flex-start" }}
-      flexDir={{ sm: "column", md: "row" }}
+      flexDir={"column"}
+      onClick={onOpen}
+      cursor="pointer"
     >
-      <Center h="full">
+      <Center h="full" w="full">
         <NextImg
           alt={"nft"}
           width={"full"}
-          minW="100px"
+          maxW="250px"
           sx={{
             span: {
               borderRadius: "full",
@@ -124,64 +115,30 @@ const PoolItem = ({ pool }: IProps) => {
           }}
         />
       </Center>
-      <Center flexDir={"column"} alignItems="flex-start" flex={1}>
-        <Text mb={2} fontWeight="bold" fontSize={"2xl"}>
-          {pool.poolName}
-        </Text>
-        <Flex flexDir={"column"} gap={1}>
-          <Text>
-            <Box as="span" fontWeight={"bold"}>
-              {" "}
-              Daily Rewards :
-            </Box>{" "}
-            {formatBalance({ balance: pool.rewards })}{" "}
-            {formatTokenI(pool.token)}{" "}
-          </Text>
-          <Text>
-            {" "}
-            <Box as="span" fontWeight={"bold"}>
-              Created :{" "}
-            </Box>{" "}
-            {date.toLocaleDateString("en-US")}{" "}
-          </Text>
-        </Flex>
-        <Text mb={2}>
-          {" "}
-          <Box as="span" fontWeight={"bold"}>
-            Total NFTs :{" "}
-          </Box>{" "}
-          {pool.nftsNow} / {pool.nfts}{" "}
-        </Text>
-        <Authenticated>
-          <Tooltip
-            label="Make sure you have staked at least one NFT of PARROT, EXPLORER, or TEDDY1 collections."
-            borderRadius={"5px"}
-            isDisabled={!(pool.collection === "" && !hasStakenForAEN.data)}
+      {!small && (
+        <Center flexDir={"column"} alignItems="flex-start" flex={1} w="full">
+          <Text
+            mb={2}
+            fontWeight="bold"
+            textAlign={"center"}
+            fontSize={"xs"}
+            w="full"
           >
-            <Box>
-              <ActionButton
-                borderRadius={"full"}
-                fontSize="xs"
-                py={1}
-                disabled={pool.collection === "" && !hasStakenForAEN.data}
-                onClick={onOpen}
-              >
-                Stake
-              </ActionButton>
-            </Box>
-          </Tooltip>
-        </Authenticated>
-      </Center>
+            {pool.poolName}
+          </Text>
+        </Center>
+      )}
       {isOpen && (
-        <SelectNftModal
+        <HomePoolModal
           isOpenModal={isOpen}
           onCloseModal={onClose}
           onConfirm={handleStake}
-          colelction={pool.collection}
+          pool={pool}
+          hasStakenForAEN={hasStakenForAEN.data}
         />
       )}
     </Flex>
   );
 };
 
-export default PoolItem;
+export default HomePool;

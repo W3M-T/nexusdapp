@@ -1,19 +1,24 @@
 import { useEffect, useState } from "react";
-import { selectNfts } from "../../redux/slices/tokens";
+import useSWR from "swr";
+import { selectUserAddress } from "../../redux/slices/settings";
 import { INft } from "../../redux/types/tokens.interface";
+import { swrFetcher } from "../../services/rest/axiosEldron";
 import { useAppSelector } from "../core/useRedux";
-
 const useGetNfts = (
   options: {
     filter?: { key: string; value: string };
     initialValue?: INft[];
   } = null
 ) => {
-  const { data: nfts } = useAppSelector(selectNfts);
+  const address = useAppSelector(selectUserAddress);
+  const { data: nfts, error } = useSWR<INft[]>(
+    address && `/accounts/${address}/nfts`,
+    swrFetcher
+  );
   const [NFTs2, setNFTs] = useState<INft[]>(options?.initialValue || []);
 
   useEffect(() => {
-    if (nfts.length > 0) {
+    if (nfts && nfts.length > 0) {
       const sftsList = [];
 
       nfts.forEach((nft) => {
