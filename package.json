@@ -55,7 +55,7 @@
     "react-table": "^7.8.0",
     "stream-browserify": "3.0.0",
     "swiper": "^8.4.4",
-    "swr": "^1.3.0",
+    "swr": "2.0.0-beta.6",
     "to-hex": "^0.0.18",
     "valtio": "1.6.3",
     "yup": "^0.32.11"
