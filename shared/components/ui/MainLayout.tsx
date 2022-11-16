@@ -10,6 +10,7 @@ import {
   setIsLogedIn,
 } from "../../redux/slices/settings";
 import Banner from "./Banner";
+import ButtonNav from "./ButtonNav";
 import { Footer } from "./Footer";
 import { HeaderMenu } from "./HeaderMenu";
 import { HeaderMenuButtons } from "./HeaderMenuButtons";
@@ -62,6 +63,7 @@ export const MainLayout = ({
           </HeaderMenu>
           <Box>{children}</Box>
         </Container>
+        <ButtonNav />
       </Box>
       <Footer />
     </>

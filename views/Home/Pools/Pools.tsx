@@ -55,7 +55,10 @@ const Pools = () => {
       </Heading>
       {data.length > 0 && (
         <Grid templateColumns={"1fr 1.5fr"} gap={{ sm: 3, md: 8 }}>
-          <Box mb={3}>{data[0] && <HomePool pool={data[0]} />}</Box>
+          <Box mb={{ sm: 3, md: 8 }}>
+            {data[0] && <HomePool pool={data[0]} />}
+          </Box>
+
           <Grid templateColumns={"1fr 1fr"} gap={{ sm: 3, md: 8 }}>
             {data[1] ? <HomePool pool={data[1]} small /> : <Box></Box>}
 
