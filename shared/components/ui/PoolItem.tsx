@@ -29,7 +29,7 @@ import BigNumber from "bignumber.js";
 import dynamic from "next/dynamic";
 import { selectedNetwork } from "../../../config/network";
 import { useAppSelector } from "../../hooks/core/useRedux";
-import { useScTransaction } from "../../hooks/core/useScTransaction";
+import { useScTransaction } from "../../hooks/core/useScTxs";
 import { selectHasStakedForAEN } from "../../redux/slices/pools";
 import { IExistingPool } from "../../redux/types/pools.interface";
 import { INft } from "../../redux/types/tokens.interface";
@@ -54,7 +54,7 @@ const PoolItem = ({ pool }: IProps) => {
   const { triggerTx } = useScTransaction({
     cb: TxCb,
   });
-  const handleStake = (nft: INft) => {
+  const handleStake = (nfts: INft[]) => {
     const poolType = new StructType("pool", [
       new FieldDefinition("creation_timestamp", "", new U64Type()),
       new FieldDefinition("creator", "", new AddressType()),
@@ -76,9 +76,9 @@ const PoolItem = ({ pool }: IProps) => {
       new Field(new BigUIntValue(new BigNumber(pool.rewards)), "reward_amount"),
     ]);
 
-    if (nft) {
-      triggerTx(
-        ESDTNFTTransfer(
+    if (nfts.length > 0) {
+      const scParams = nfts.map((nft) => {
+        return ESDTNFTTransfer(
           "stakeNft",
           "",
           undefined,
@@ -91,8 +91,9 @@ const PoolItem = ({ pool }: IProps) => {
             BytesValue.fromUTF8(nft?.name || ""),
           ],
           1
-        )
-      );
+        );
+      });
+      triggerTx(scParams);
     }
   };
   const date = new Date(pool.timestam * 1000);

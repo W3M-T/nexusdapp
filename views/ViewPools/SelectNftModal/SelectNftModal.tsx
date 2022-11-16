@@ -15,7 +15,7 @@ import StakeNftItem from "./StakeNftItem";
 interface IProps {
   isOpenModal: boolean;
   onCloseModal: () => void;
-  onConfirm: (nft: INft) => void;
+  onConfirm: (nfts: INft[]) => void;
   colelction: string;
 }
 
@@ -25,20 +25,20 @@ const SelectNftModal = ({
   onConfirm,
   colelction,
 }: IProps) => {
-  const [selectedNFT, setSelectedNFT] = useState<INft>(null);
+  const [selectedNFTs, setSelectedNFTs] = useState<INft[]>([]);
   const handleSelectNFT = (NFT) => {
-    setSelectedNFT(NFT);
+    setSelectedNFTs([...selectedNFTs, NFT]);
   };
 
   const nfts = useGetNfts({ filter: { key: "collection", value: colelction } });
 
   const handleStake = () => {
     onCloseModal();
-    onConfirm(selectedNFT);
+    onConfirm(selectedNFTs);
   };
   useEffect(() => {
     if (nfts.length === 1) {
-      setSelectedNFT(nfts[0]);
+      setSelectedNFTs([nfts[0]]);
     }
   }, [nfts]);
 
@@ -72,7 +72,11 @@ const SelectNftModal = ({
                 nft={nft}
                 key={nft.nonce}
                 onClick={() => handleSelectNFT(nft)}
-                selected={selectedNFT?.identifier === nft.identifier}
+                selected={Boolean(
+                  selectedNFTs.find(
+                    (selectednft) => selectednft.identifier === nft.identifier
+                  )
+                )}
               />
             );
           })}

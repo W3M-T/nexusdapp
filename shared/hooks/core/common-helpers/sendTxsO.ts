@@ -12,22 +12,27 @@ import { DappProvider } from "../../../types/network";
 import { errorParse } from "../../../utils/errorParse";
 
 export interface TransactionCb {
-  transaction?: Transaction | Transaction[] | null;
+  transaction?: Transaction[] | null;
   error?: string;
   pending?: boolean;
 }
 
 export const postSendTxOperations = async (
-  tx: Transaction,
-  setTransaction: Dispatch<SetStateAction<Transaction | null>>,
+  txs: Transaction[],
+  setTransactions: Dispatch<SetStateAction<Transaction[]>>,
   apiNetworkProvider: ApiNetworkProvider,
   cb?: (params: TransactionCb) => void
 ) => {
   const transactionWatcher = new TransactionWatcher(apiNetworkProvider);
-  await transactionWatcher.awaitCompleted(tx);
-  setTransaction(tx);
-  cb?.({ transaction: tx, pending: false });
-  const sender = tx.getSender();
+
+  await Promise.all(
+    txs.map((tx) => {
+      return transactionWatcher.awaitCompleted(tx);
+    })
+  );
+  setTransactions(txs);
+  cb?.({ transaction: txs, pending: false });
+  const sender = txs[0].getSender();
   const senderAccount = new Account(sender);
   const userAccountOnNetwork = await apiNetworkProvider.getAccount(sender);
   senderAccount.update(userAccountOnNetwork);
@@ -38,10 +43,10 @@ export const postSendTxOperations = async (
 
 export const sendTxOperations = async (
   dappProvider: DappProvider,
-  tx: Transaction,
+  txs: Transaction[],
   loginInfoSnap: LoginInfoState,
   apiNetworkProvider: ApiNetworkProvider,
-  setTransaction: Dispatch<SetStateAction<Transaction | null>>,
+  setTransactions: Dispatch<SetStateAction<Transaction[]>>,
   setError: Dispatch<SetStateAction<string>>,
   setPending: Dispatch<SetStateAction<boolean>>,
   webWalletRedirectUrl?: string,
@@ -50,22 +55,27 @@ export const sendTxOperations = async (
   try {
     if (dappProvider instanceof WalletProvider) {
       const currentUrl = window?.location.href;
-      await dappProvider.signTransaction(tx, {
+      await dappProvider.signTransactions(txs, {
         callbackUrl: webWalletRedirectUrl || currentUrl,
       });
     }
     if (dappProvider instanceof ExtensionProvider) {
-      await dappProvider.signTransaction(tx);
+      await dappProvider.signTransactions(txs);
     }
     if (dappProvider instanceof WalletConnectProvider) {
-      await dappProvider.signTransaction(tx);
+      await dappProvider.signTransactions(txs);
     }
     if (dappProvider instanceof HWProvider) {
-      await dappProvider.signTransaction(tx);
+      await dappProvider.signTransactions(txs);
     }
     if (loginInfoSnap.loginMethod !== LoginMethodsEnum.wallet) {
-      await apiNetworkProvider.sendTransaction(tx);
-      await postSendTxOperations(tx, setTransaction, apiNetworkProvider, cb);
+      await Promise.all(
+        txs.map((tx) => {
+          return apiNetworkProvider.sendTransaction(tx);
+        })
+      );
+
+      await postSendTxOperations(txs, setTransactions, apiNetworkProvider, cb);
     }
   } catch (e) {
     const err = errorParse(e);

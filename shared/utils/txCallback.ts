@@ -1,3 +1,4 @@
+import { isArray } from "lodash";
 import { TransactionCb } from "../hooks/core/common-helpers/sendTxOperations";
 import {
   handleTxError,
@@ -7,7 +8,7 @@ import {
 import { store } from "../redux/store";
 import axiosEldron from "../services/rest/axiosEldron";
 export const TxCb = async ({ transaction, pending, error }: TransactionCb) => {
-  if (transaction) {
+  if (transaction && !isArray(transaction)) {
     const status = await isSmartContractSuccess(transaction.getHash().hex());
 
     store.dispatch(
@@ -17,6 +18,21 @@ export const TxCb = async ({ transaction, pending, error }: TransactionCb) => {
         status: status,
       })
     );
+  } else {
+    if (transaction) {
+      console.log("transaction", transaction);
+
+      const tx = transaction[0];
+      const status = await isSmartContractSuccess(tx.getHash().hex());
+
+      store.dispatch(
+        handleTxTransaction({
+          type: "tx",
+          content: tx.getHash().hex(),
+          status: status,
+        })
+      );
+    }
   }
   if (pending) {
     store.dispatch(handleTxPending());
