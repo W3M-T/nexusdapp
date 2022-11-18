@@ -2,8 +2,10 @@ import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { MetaHead } from "../shared/components/ui/MetaHead";
 import ProtectPage from "../shared/hoc/ProtectPage";
 import { selectisNftCreator } from "../shared/redux/slices/pools";
+import { route } from "../shared/utils/routes";
 import NftCollectionOwnerView from "../views/NftCollectionOwner/NftCollectionOwner";
 
 const NftCollectionOwner: NextPage = () => {
@@ -16,7 +18,13 @@ const NftCollectionOwner: NextPage = () => {
     }
   }, [isNftCreator, router]);
 
-  return <NftCollectionOwnerView />;
+  return (
+    <>
+      <MetaHead metaTitle={route.nftCollectionOwner.name} />
+
+      <NftCollectionOwnerView />
+    </>
+  );
 };
 
 export default ProtectPage(NftCollectionOwner);

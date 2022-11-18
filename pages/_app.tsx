@@ -12,6 +12,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import { theme } from "../config/chakraTheme";
+import { MetaHead } from "../shared/components/ui/MetaHead";
 import TxModal from "../shared/components/ui/TxModal";
 import { useElrondNetworkSync } from "../shared/hooks/auth/useElrondNetworkSync";
 import { store } from "../shared/redux/store";
@@ -23,6 +24,7 @@ const NextJSDappTemplate = ({ Component, pageProps }: AppProps) => {
     <Provider store={store}>
       <ChakraProvider theme={theme}>
         <TxModal />
+        <MetaHead />
         <Component {...pageProps} />
       </ChakraProvider>
     </Provider>
