@@ -1,7 +1,7 @@
 import { Box, Container } from "@chakra-ui/react";
+import { useGetAccountInfo, useGetLoginInfo } from "@elrondnetwork/dapp-core";
 import { PropsWithChildren, useEffect } from "react";
-import { useAccount } from "../../hooks/auth/useAccount";
-import { useLogin } from "../../hooks/auth/useLogin";
+import withElronDapp from "../../hoc/withElronDapp";
 import { useAppDispatch, useAppSelector } from "../../hooks/core/useRedux";
 import { fetchIsNftCreator } from "../../redux/reduxAsyncFuncs/poolsFuncs";
 import {
@@ -18,19 +18,17 @@ import { MetaHeadProps } from "./MetaHead";
 
 export const MainLayout = withElronDapp(
   ({ children }: PropsWithChildren<MetaHeadProps>) => {
-    const account = useAccount();
+    const account = useGetAccountInfo();
     const dispatch = useAppDispatch();
-    const { isLoggedIn, isLoggingIn } = useLogin();
+    const { isLoggedIn } = useGetLoginInfo();
     useEffect(() => {
       const forceAddress = process.env.NEXT_PUBLIC_ADDRESS;
       dispatch(setAddress(forceAddress || account.address));
     }, [account.address, dispatch]);
 
     useEffect(() => {
-      if (!isLoggingIn) {
-        dispatch(setIsLogedIn(isLoggedIn));
-      }
-    }, [isLoggedIn, isLoggingIn, dispatch]);
+      dispatch(setIsLogedIn(isLoggedIn));
+    }, [isLoggedIn, dispatch]);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const address: any = useAppSelector(selectUserAddress);
@@ -59,5 +57,3 @@ export const MainLayout = withElronDapp(
     );
   }
 );
-
-import withElronDapp from "../../hoc/withElronDapp";

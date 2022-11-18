@@ -32,7 +32,7 @@ const LoginModal = ({ opened, close, isLoggingIn }: IProps) => {
       >
         <ModalCloseButton _focus={{ outline: "none" }} />
         <ModalBody>
-          <Text textAlign="center" mb={7} fontWeight="black" fontSize="2xl">
+          <Text textAlign="center" mb={7} fontWeight="500" fontSize="2xl">
             Connect your wallet
           </Text>
           {isLoggingIn && (

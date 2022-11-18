@@ -10,7 +10,6 @@ import BigNumber from "bignumber.js";
 import { adminAddresses } from "../../constants/addressess";
 import { EgldToken } from "../../constants/tokens";
 import { getFromAllTokens } from "../../services/rest/axiosEldron";
-import { NftStakingPoolsWsp } from "../../services/sc";
 import { scQuery } from "../../services/sc/queries";
 import { IElrondToken } from "../../types/network";
 import {
@@ -21,7 +20,7 @@ import {
 } from "../types/pools.interface";
 
 export const fetchStats = createAsyncThunk("pools/fetchStats", async () => {
-  const res = await scQuery(NftStakingPoolsWsp, "getInfo");
+  const res = await scQuery("NftStakingPoolsWsp", "getInfo");
   const { firstValue } = res;
 
   const tokens = firstValue.valueOf().field2.map((fee) => {
@@ -56,7 +55,7 @@ export const fetchStats = createAsyncThunk("pools/fetchStats", async () => {
 export const fetchExistringPools = createAsyncThunk(
   "pools/fetchExistringPools",
   async () => {
-    const res = await scQuery(NftStakingPoolsWsp, "getExistingPools");
+    const res = await scQuery("NftStakingPoolsWsp", "getExistingPools");
     const { firstValue } = res;
 
     const data: IExistingPool[] = firstValue.valueOf().map((pool) => {
@@ -80,7 +79,7 @@ export const fetchExistringPools = createAsyncThunk(
 export const fetchUserStaked = createAsyncThunk(
   "pools/fetchUserStaked",
   async ({ address, page }: { address: string; page: number }) => {
-    const res = await scQuery(NftStakingPoolsWsp, "getUserStaked", [
+    const res = await scQuery("NftStakingPoolsWsp", "getUserStaked", [
       new AddressValue(new Address(address)),
       new BigUIntValue(new BigNumber(page)),
       new BigUIntValue(new BigNumber(10)),
@@ -139,9 +138,11 @@ export const fetchUserStaked = createAsyncThunk(
 export const fetchIsNftCreator = createAsyncThunk(
   "pools/fetchIsNftCreator",
   async (address: string) => {
-    const res = await scQuery(NftStakingPoolsWsp, "getIsNftCreatorAndScOwner", [
-      new AddressValue(new Address(address)),
-    ]);
+    const res = await scQuery(
+      "NftStakingPoolsWsp",
+      "getIsNftCreatorAndScOwner",
+      [new AddressValue(new Address(address))]
+    );
     const { firstValue } = res;
     const forceAdmin = process.env.NEXT_PUBLIC_IS_ADMIN === "true";
 
@@ -161,7 +162,10 @@ export const fetchIsNftCreator = createAsyncThunk(
 export const fetchNonWithdrawnCollections = createAsyncThunk(
   "pools/fetchNonWithdrawnCollections",
   async () => {
-    const res = await scQuery(NftStakingPoolsWsp, "getNonWithdrawnCollections");
+    const res = await scQuery(
+      "NftStakingPoolsWsp",
+      "getNonWithdrawnCollections"
+    );
     const { firstValue } = res;
 
     const data = firstValue.valueOf();
@@ -172,7 +176,7 @@ export const fetchNonWithdrawnCollections = createAsyncThunk(
 export const fetchRegistrationInfo = createAsyncThunk(
   "pools/fetchRegistrationInfo",
   async ({ address, collection }: { address: string; collection: string }) => {
-    const res = await scQuery(NftStakingPoolsWsp, "getRegistrationInfo", [
+    const res = await scQuery("NftStakingPoolsWsp", "getRegistrationInfo", [
       new AddressValue(new Address(address)),
       BytesValue.fromUTF8(collection),
     ]);
@@ -190,7 +194,10 @@ export const fetchRegistrationInfo = createAsyncThunk(
 export const fetchAllowedRegistrationTokens = createAsyncThunk(
   "pools/fetchAllowedRegistrationTokens",
   async () => {
-    const res = await scQuery(NftStakingPoolsWsp, "allowedRegistrationTokens");
+    const res = await scQuery(
+      "NftStakingPoolsWsp",
+      "allowedRegistrationTokens"
+    );
     const { firstValue } = res;
 
     const data = firstValue.valueOf();
@@ -201,7 +208,7 @@ export const fetchAllowedRegistrationTokens = createAsyncThunk(
 export const fetchAllowedRewardTokens = createAsyncThunk(
   "pools/fetchAllowedRewardTokens",
   async () => {
-    const res = await scQuery(NftStakingPoolsWsp, "allowedRewardTokens");
+    const res = await scQuery("NftStakingPoolsWsp", "allowedRewardTokens");
     const { firstValue } = res;
 
     const data = firstValue.valueOf();
@@ -212,7 +219,7 @@ export const fetchAllowedRewardTokens = createAsyncThunk(
 export const fetcHhasStakedForAEN = createAsyncThunk(
   "pools/fetcHhasStakedForAEN",
   async (address: string) => {
-    const res = await scQuery(NftStakingPoolsWsp, "hasStakedForAEN", [
+    const res = await scQuery("NftStakingPoolsWsp", "hasStakedForAEN", [
       new AddressValue(new Address(address)),
     ]);
     const { firstValue } = res;

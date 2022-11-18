@@ -9,11 +9,13 @@ import "@fontsource/poppins/800.css";
 import "@fontsource/poppins/900.css";
 
 import { ChakraProvider } from "@chakra-ui/react";
+import "@elrondnetwork/dapp-core/dist/index.css";
 import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import { theme } from "../config/chakraTheme";
 import { MetaHead } from "../shared/components/ui/MetaHead";
 import TxModal from "../shared/components/ui/TxModal";
+import "../shared/global.css";
 import { store } from "../shared/redux/store";
 
 const NextJSDappTemplate = ({ Component, pageProps }: AppProps) => {

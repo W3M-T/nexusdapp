@@ -6,17 +6,17 @@ import {
   useDisclosure,
   useOutsideClick,
 } from "@chakra-ui/react";
+import { useGetAccountInfo } from "@elrondnetwork/dapp-core";
 import dynamic from "next/dynamic";
 import { useRef } from "react";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
-import { useAccount } from "../../hooks/auth/useAccount";
 import { shortenHash } from "../../utils/shortenHash";
 import { ActionButton } from "../tools/ActionButton";
 
 const LoggedInMenu = dynamic(() => import("./LoggedInMenu"));
 
 const LogedInButton = () => {
-  const account = useAccount();
+  const { account } = useGetAccountInfo();
   const { isOpen, onClose, onToggle } = useDisclosure();
 
   const ref = useRef();
@@ -25,7 +25,9 @@ const LogedInButton = () => {
     handler: () => onClose(),
   });
 
-  const username = account.username.slice(0, account.username.length - 7);
+  const username = account.username
+    ? account.username.slice(0, account.username.length - 7)
+    : "";
 
   const userDisplay =
     username !== "" ? "@" + username : shortenHash(account.address);

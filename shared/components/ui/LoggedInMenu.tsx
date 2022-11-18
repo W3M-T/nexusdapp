@@ -1,14 +1,13 @@
 import { Box, Flex, Text, VStack } from "@chakra-ui/react";
+import { logout } from "@elrondnetwork/dapp-core";
 import Link from "next/link";
 import { customColors } from "../../../config/chakraTheme";
-import { useLogout } from "../../hooks/auth/useLogout";
 import { useAppSelector } from "../../hooks/core/useRedux";
 import { selectisNftCreator, selectisScOwner } from "../../redux/slices/pools";
 import { route } from "../../utils/routes";
 import { CardWrapper } from "./CardWrapper";
 
 const LoggedInMenu = () => {
-  const { logout } = useLogout();
   const isAdmin = useAppSelector(selectisScOwner);
   const isNftCreator = useAppSelector(selectisNftCreator);
 

@@ -1,6 +1,5 @@
-import { Flex, Spinner } from "@chakra-ui/react";
+import { useGetLoginInfo } from "@elrondnetwork/dapp-core";
 import { FC, PropsWithChildren, ReactElement } from "react";
-import { useLoggingIn } from "../../hooks/auth/useLoggingIn";
 
 interface AuthenticatedProps {
   fallback?: ReactElement;
@@ -14,20 +13,7 @@ export const Authenticated: FC<PropsWithChildren<AuthenticatedProps>> = ({
   noSpinner = false,
   spinnerCentered = false,
 }) => {
-  const { isLoggingIn, isLoggedIn } = useLoggingIn();
-
-  if (isLoggingIn)
-    return noSpinner ? null : (
-      <Flex justify={spinnerCentered ? "center" : "flex-start"}>
-        <Spinner
-          thickness="3px"
-          speed="0.4s"
-          color="elvenTools.color2.base"
-          size="md"
-          mt={3}
-        />
-      </Flex>
-    );
+  const { isLoggedIn } = useGetLoginInfo();
 
   if (!isLoggedIn) return fallback;
 

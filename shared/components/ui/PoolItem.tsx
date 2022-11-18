@@ -27,16 +27,12 @@ import {
 } from "@elrondnetwork/erdjs/out";
 import BigNumber from "bignumber.js";
 import dynamic from "next/dynamic";
-import { selectedNetwork } from "../../../config/network";
 import { useAppSelector } from "../../hooks/core/useRedux";
-import { useScTransaction } from "../../hooks/core/useScTxs";
 import { selectHasStakedForAEN } from "../../redux/slices/pools";
 import { IExistingPool } from "../../redux/types/pools.interface";
 import { INft } from "../../redux/types/tokens.interface";
-import { ESDTNFTTransfer } from "../../services/sc/calls";
 import { formatBalance } from "../../utils/formatBalance";
 import { formatTokenI } from "../../utils/formatTokenIdentifier";
-import { TxCb } from "../../utils/txCallback";
 import { ActionButton } from "../tools/ActionButton";
 import { Authenticated } from "../tools/Authenticated";
 import NextImg from "./NextImg";
@@ -51,9 +47,7 @@ interface IProps {
 const PoolItem = ({ pool }: IProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const hasStakenForAEN = useAppSelector(selectHasStakedForAEN);
-  const { triggerTx } = useScTransaction({
-    cb: TxCb,
-  });
+
   const handleStake = (nfts: INft[]) => {
     const poolType = new StructType("pool", [
       new FieldDefinition("creation_timestamp", "", new U64Type()),
@@ -76,25 +70,8 @@ const PoolItem = ({ pool }: IProps) => {
       new Field(new BigUIntValue(new BigNumber(pool.rewards)), "reward_amount"),
     ]);
 
-    if (nfts.length > 0) {
-      const scParams = nfts.map((nft) => {
-        return ESDTNFTTransfer(
-          "stakeNft",
-          "",
-          undefined,
-          nft,
-          selectedNetwork.contractAddr.nftsStaking,
-          70000000,
-          [
-            poolStruct,
-            BytesValue.fromUTF8(nft?.media[0]?.url || ""),
-            BytesValue.fromUTF8(nft?.name || ""),
-          ],
-          1
-        );
-      });
-      triggerTx(scParams);
-    }
+    // if (nfts.length > 0) {
+    // }
   };
   const date = new Date(pool.timestam * 1000);
   return (

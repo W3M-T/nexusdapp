@@ -79,19 +79,25 @@ export const sendMultipleTransactions = async ({
 };
 
 export const ESDTNFTTransfer = async (
+  workspace: WORKSPACES,
   funcName = "",
-  userAddress = "",
   value = 0,
-  token,
-  contractAddr = "",
-  gasL = 200000000,
+  token: {
+    collection: string;
+    nonce: number;
+  },
   args = [],
-  finalTokenValue
+  gasL = 200000000,
+  finalTokenValue?: number
 ) => {
+  const { simpleAddress: contractAddr } = getInterface(workspace);
+
   try {
     const tokenId = token.collection;
     const tokenNonce = token.nonce;
     const finalValue = finalTokenValue || Number(value) * Math.pow(10, 18);
+    console.log("finalValue", finalValue);
+
     const payload = TransactionPayload.contractCall()
       .setFunction(new ContractFunction("ESDTNFTTransfer"))
       .setArgs([
@@ -103,7 +109,7 @@ export const ESDTNFTTransfer = async (
         ...args,
       ])
       .build();
-
+    const userAddress = store.getState().settings.userAddress;
     const transactionData: any = {
       addr: userAddress,
       payload: payload,

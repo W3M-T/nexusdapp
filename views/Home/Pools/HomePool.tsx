@@ -20,15 +20,12 @@ import {
 } from "@elrondnetwork/erdjs/out";
 import BigNumber from "bignumber.js";
 import dynamic from "next/dynamic";
-import { selectedNetwork } from "../../../config/network";
 import NextImg from "../../../shared/components/ui/NextImg";
 import { useAppSelector } from "../../../shared/hooks/core/useRedux";
-import { useScTransaction } from "../../../shared/hooks/core/useScTransaction";
 import { selectHasStakedForAEN } from "../../../shared/redux/slices/pools";
 import { IExistingPool } from "../../../shared/redux/types/pools.interface";
 import { INft } from "../../../shared/redux/types/tokens.interface";
 import { ESDTNFTTransfer } from "../../../shared/services/sc/calls";
-import { TxCb } from "../../../shared/utils/txCallback";
 
 const HomePoolModal = dynamic(() => import("./SelectNftModal"));
 
@@ -39,9 +36,6 @@ interface IProps {
 const HomePool = ({ pool, small }: IProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const hasStakenForAEN = useAppSelector(selectHasStakedForAEN);
-  const { triggerTx } = useScTransaction({
-    cb: TxCb,
-  });
 
   const handleStake = (nft: INft) => {
     const poolType = new StructType("pool", [
@@ -66,21 +60,19 @@ const HomePool = ({ pool, small }: IProps) => {
     ]);
 
     if (nft) {
-      triggerTx(
-        ESDTNFTTransfer(
-          "stakeNft",
-          "",
-          undefined,
-          nft,
-          selectedNetwork.contractAddr.nftsStaking,
-          70000000,
-          [
-            poolStruct,
-            BytesValue.fromUTF8(nft?.media[0]?.url || ""),
-            BytesValue.fromUTF8(nft?.name || ""),
-          ],
-          1
-        )
+      ESDTNFTTransfer(
+        "NftStakingPoolsWsp",
+        "stakeNft",
+        undefined,
+        nft,
+
+        [
+          poolStruct,
+          BytesValue.fromUTF8(nft?.media[0]?.url || ""),
+          BytesValue.fromUTF8(nft?.name || ""),
+        ],
+        70000000,
+        1
       );
     }
   };
