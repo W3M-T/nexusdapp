@@ -12,11 +12,8 @@ import Image from "next/image";
 import { memo } from "react";
 import { ActionButton } from "../../../../shared/components/tools/ActionButton";
 import MyModal from "../../../../shared/components/ui/MyModal";
-import { useScTransaction } from "../../../../shared/hooks/core/useScTransaction";
 import { IStaked } from "../../../../shared/redux/types/pools.interface";
-import { NftStakingPoolsWsp } from "../../../../shared/services/sc";
-import { scCall } from "../../../../shared/services/sc/calls";
-import { TxCb } from "../../../../shared/utils/txCallback";
+import { EGLDPayment } from "../../../../shared/services/sc/calls";
 
 interface IProps {
   nft: IStaked;
@@ -25,21 +22,16 @@ interface IProps {
 }
 
 const NftModal = ({ isOpen, onClose, nft }: IProps) => {
-  const { triggerTx } = useScTransaction({
-    cb: TxCb,
-  });
   const handleUnstake = () => {
-    triggerTx(
-      scCall(
-        NftStakingPoolsWsp,
-        "unstakeNft",
-        [
-          BytesValue.fromUTF8(nft.token),
-          new BigUIntValue(new BigNumber(nft.nonce)),
-        ],
-        70000000,
-        0.002
-      )
+    EGLDPayment(
+      "NftStakingPoolsWsp",
+      "unstakeNft",
+      0.002,
+      [
+        BytesValue.fromUTF8(nft.token),
+        new BigUIntValue(new BigNumber(nft.nonce)),
+      ],
+      70000000
     );
   };
 

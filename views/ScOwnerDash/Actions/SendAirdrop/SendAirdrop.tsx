@@ -26,16 +26,17 @@ import SelectDark, {
   OptionSelectDark,
 } from "../../../../shared/components/ui/SelectDark";
 import { useAppSelector } from "../../../../shared/hooks/core/useRedux";
-import { useScTransaction } from "../../../../shared/hooks/core/useScTransaction";
 import {
   selectExistingPools,
   selectRewardsTokens,
 } from "../../../../shared/redux/slices/pools";
-import { NftStakingPoolsWsp } from "../../../../shared/services/sc";
-import { ESDTTransfer, scCall } from "../../../../shared/services/sc/calls";
+import { getInterface } from "../../../../shared/services/sc";
+import {
+  EGLDPayment,
+  ESDTTransfer,
+} from "../../../../shared/services/sc/calls";
 import { formatTokenI } from "../../../../shared/utils/formatTokenIdentifier";
 import { getTokenDetails } from "../../../../shared/utils/getTokenDetails";
-import { TxCb } from "../../../../shared/utils/txCallback";
 
 const validationSchema = yup.object({
   token: yup.string().required(),
@@ -47,9 +48,6 @@ const SendAirdrop = () => {
   const existingPools = useAppSelector(selectExistingPools);
   const { data: rewardsTokens } = useAppSelector(selectRewardsTokens);
 
-  const { triggerTx } = useScTransaction({
-    cb: TxCb,
-  });
   const formik = useFormik({
     initialValues: {
       token: "",
@@ -86,31 +84,26 @@ const SendAirdrop = () => {
       ]);
 
       if (values.token === "EGLD") {
-        triggerTx(
-          scCall(
-            NftStakingPoolsWsp,
-            "sendAirdrop",
-            [poolStruct],
-            undefined,
-            values.amount
-          )
+        EGLDPayment(
+          "NftStakingPoolsWsp",
+          "sendAirdrop",
+          Number(values.amount),
+          [poolStruct]
         );
       } else {
         const tokenD = await getTokenDetails(values.token);
         if (tokenD) {
-          triggerTx(
-            ESDTTransfer(
-              NftStakingPoolsWsp,
-              "sendAirdrop",
-              {
-                identifier: values.token,
-                decimals: tokenD.decimals,
-              },
-              Number(values.amount),
-              [poolStruct],
-              400000000
-            )
-          );
+          ESDTTransfer({
+            args: [poolStruct],
+            contractAddr: getInterface("NftStakingPoolsWsp").simpleAddress,
+            funcName: "sendAirdrop",
+            token: {
+              identifier: values.token,
+              decimals: tokenD.decimals,
+            },
+            val: Number(values.amount),
+            gasL: 400000000,
+          });
         }
       }
     },

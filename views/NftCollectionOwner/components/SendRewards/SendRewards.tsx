@@ -26,13 +26,10 @@ import SelectDark, {
   OptionSelectDark,
 } from "../../../../shared/components/ui/SelectDark";
 import { useAppSelector } from "../../../../shared/hooks/core/useRedux";
-import { useScTransaction } from "../../../../shared/hooks/core/useScTransaction";
 import { selectExistingPools } from "../../../../shared/redux/slices/pools";
 import { selectUserAddress } from "../../../../shared/redux/slices/settings";
-import { NftStakingPoolsWsp } from "../../../../shared/services/sc";
 import { scCall } from "../../../../shared/services/sc/calls";
 import { formatTokenI } from "../../../../shared/utils/formatTokenIdentifier";
-import { TxCb } from "../../../../shared/utils/txCallback";
 
 const validationSchema = yup.object({
   pool: yup.number().required(),
@@ -42,9 +39,7 @@ const SendAirdrop = () => {
   const pools = useAppSelector(selectExistingPools);
   const address = useAppSelector(selectUserAddress);
   const existingPools = pools.data.filter((pool) => pool.creator === address);
-  const { triggerTx } = useScTransaction({
-    cb: TxCb,
-  });
+
   const formik = useFormik({
     initialValues: {
       pool: "",
@@ -78,9 +73,7 @@ const SendAirdrop = () => {
         ),
       ]);
 
-      triggerTx(
-        scCall(NftStakingPoolsWsp, "sendRewards", [poolStruct], 400000000)
-      );
+      scCall("NftStakingPoolsWsp", "sendRewards", [poolStruct], 400000000);
     },
   });
 

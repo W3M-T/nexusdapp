@@ -22,15 +22,12 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "../../../../shared/hooks/core/useRedux";
-import { useScTransaction } from "../../../../shared/hooks/core/useScTransaction";
 import { fetchRegistrationInfo } from "../../../../shared/redux/reduxAsyncFuncs/poolsFuncs";
 import { selectCreatePool } from "../../../../shared/redux/slices/pools";
 import { selectUserAddress } from "../../../../shared/redux/slices/settings";
-import { NftStakingPoolsWsp } from "../../../../shared/services/sc";
-import { scCall } from "../../../../shared/services/sc/calls";
+import { EGLDPayment } from "../../../../shared/services/sc/calls";
 import { formatBalance } from "../../../../shared/utils/formatBalance";
 import { formatTokenI } from "../../../../shared/utils/formatTokenIdentifier";
-import { TxCb } from "../../../../shared/utils/txCallback";
 
 interface IProps {
   activeFeeTab: () => void;
@@ -44,10 +41,6 @@ const FeeTab = ({ activeVerifyTab, activeFormTab }: IProps) => {
   const dispatch = useAppDispatch();
   const address = useAppSelector(selectUserAddress);
 
-  const { triggerTx, transaction } = useScTransaction({
-    cb: TxCb,
-  });
-
   useEffect(() => {
     localStorage.setItem("poolcreationPhase", "2");
   }, []);
@@ -60,18 +53,16 @@ const FeeTab = ({ activeVerifyTab, activeFormTab }: IProps) => {
         );
       }
     }
-  }, [address, collection, dispatch, transaction]);
+  }, [address, collection, dispatch]);
 
   const handlePayNow = () => {
     if (phase2.data.tokenAmount && collection) {
-      triggerTx(
-        scCall(
-          NftStakingPoolsWsp,
-          "payFee",
-          [BytesValue.fromUTF8(collection.collection)],
-          80000000,
-          formatBalance({ balance: phase2.data.tokenAmount }, true)
-        )
+      EGLDPayment(
+        "NftStakingPoolsWsp",
+        "payFee",
+        formatBalance({ balance: phase2.data.tokenAmount }, true),
+        [BytesValue.fromUTF8(collection.collection)],
+        80000000
       );
     }
   };

@@ -7,12 +7,9 @@ import SelectDark, {
   OptionSelectDark,
 } from "../../../../shared/components/ui/SelectDark";
 import { useAppSelector } from "../../../../shared/hooks/core/useRedux";
-import { useScTransaction } from "../../../../shared/hooks/core/useScTransaction";
 import { selectNonWithdrawnCollections } from "../../../../shared/redux/slices/pools";
-import { NftStakingPoolsWsp } from "../../../../shared/services/sc";
 import { scCall } from "../../../../shared/services/sc/calls";
 import { formatTokenI } from "../../../../shared/utils/formatTokenIdentifier";
-import { TxCb } from "../../../../shared/utils/txCallback";
 
 const validationSchema = yup.object({
   token: yup.string().required(),
@@ -20,20 +17,16 @@ const validationSchema = yup.object({
 
 const WithdrawFee = () => {
   const collections = useAppSelector(selectNonWithdrawnCollections);
-  const { triggerTx } = useScTransaction({
-    cb: TxCb,
-  });
+
   const formik = useFormik({
     initialValues: {
       token: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      triggerTx(
-        scCall(NftStakingPoolsWsp, "withdrawFee", [
-          BytesValue.fromUTF8(values.token),
-        ])
-      );
+      scCall("NftStakingPoolsWsp", "withdrawFee", [
+        BytesValue.fromUTF8(values.token),
+      ]);
     },
   });
 

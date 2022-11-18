@@ -24,13 +24,14 @@ import * as yup from "yup";
 import { ActionButton } from "../../../../shared/components/tools/ActionButton";
 import { CardWrapper } from "../../../../shared/components/ui/CardWrapper";
 import { useAppSelector } from "../../../../shared/hooks/core/useRedux";
-import { useScTransaction } from "../../../../shared/hooks/core/useScTransaction";
 import { selectCreatePool } from "../../../../shared/redux/slices/pools";
 import { getNft } from "../../../../shared/services/rest/axiosEldron";
-import { NftStakingPoolsWsp } from "../../../../shared/services/sc";
-import { ESDTTransfer, scCall } from "../../../../shared/services/sc/calls";
+import { getInterface } from "../../../../shared/services/sc";
+import {
+  EGLDPayment,
+  ESDTTransfer,
+} from "../../../../shared/services/sc/calls";
 import { getTokenDetails } from "../../../../shared/utils/getTokenDetails";
-import { TxCb } from "../../../../shared/utils/txCallback";
 const validationSchema = yup.object({
   nftsNumber: yup.number().required(),
   dayliRewards: yup.number().required(),
@@ -43,9 +44,7 @@ interface IProps {
 
 const FormTab = ({ activeFeeTab }: IProps) => {
   const { collection: collection } = useAppSelector(selectCreatePool);
-  const { triggerTx } = useScTransaction({
-    cb: TxCb,
-  });
+
   const formik = useFormik({
     initialValues: {
       collection: collection,
@@ -98,21 +97,23 @@ const FormTab = ({ activeFeeTab }: IProps) => {
         .toNumber();
 
       if (token === "EGLD") {
-        triggerTx(
-          scCall(NftStakingPoolsWsp, scFunc, args, undefined, amountToSend)
+        EGLDPayment(
+          "NftStakingPoolsWsp",
+          scFunc,
+          amountToSend,
+          args,
+          undefined
         );
       } else {
         const tokenD = await getTokenDetails(token);
         if (tokenD) {
-          triggerTx(
-            ESDTTransfer(
-              NftStakingPoolsWsp,
-              scFunc,
-              { identifier: token, decimals: tokenD.decimals },
-              amountToSend,
-              args
-            )
-          );
+          ESDTTransfer({
+            token: { identifier: token, decimals: tokenD.decimals },
+            funcName: scFunc,
+            contractAddr: getInterface("NftStakingPoolsWsp").simpleAddress,
+            val: amountToSend,
+            args: args,
+          });
         }
       }
     },
