@@ -2,13 +2,15 @@ import { Center, Grid, Spinner } from "@chakra-ui/react";
 import { useAppSelector } from "../../../../shared/hooks/core/useRedux";
 import { selectUserStaked } from "../../../../shared/redux/slices/pools";
 import { IStakedWithTokenDetails } from "../../../../shared/redux/types/pools.interface";
+import { createIndentifierByCollectionAndNonce } from "../../../../shared/utils/formatTokenIdentifier";
 import NFTCard from "../NFTCard/NFTCard";
 
 interface IProps {
   handleViwNft: (nft: IStakedWithTokenDetails) => void;
+  selectedNfts: IStakedWithTokenDetails[];
 }
 
-const NftsList = ({ handleViwNft }: IProps) => {
+const NftsList = ({ handleViwNft, selectedNfts }: IProps) => {
   const stakedNfts = useAppSelector(selectUserStaked);
 
   return (
@@ -35,6 +37,19 @@ const NftsList = ({ handleViwNft }: IProps) => {
                 nft={nft}
                 key={nft.nonce}
                 onClick={() => handleViwNft(nft)}
+                selected={Boolean(
+                  selectedNfts.find(
+                    (stakedNft) =>
+                      createIndentifierByCollectionAndNonce(
+                        stakedNft.token,
+                        stakedNft.nonce
+                      ) ===
+                      createIndentifierByCollectionAndNonce(
+                        nft.token,
+                        nft.nonce
+                      )
+                  )
+                )}
               />
             );
           })}

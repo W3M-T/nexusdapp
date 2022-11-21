@@ -11,8 +11,15 @@ interface IProps {
   onClick: () => void;
   wrapperProps?: FlexProps;
   fromHome?: boolean;
+  selected?: boolean;
 }
-const NFTCard = ({ nft, onClick, fromHome, wrapperProps }: IProps) => {
+const NFTCard = ({
+  nft,
+  onClick,
+  fromHome,
+  wrapperProps,
+  selected,
+}: IProps) => {
   const [isNew, setIsNew] = useState(true);
   useEffect(() => {
     let isNew = true;
@@ -43,8 +50,10 @@ const NFTCard = ({ nft, onClick, fromHome, wrapperProps }: IProps) => {
         position={"relative"}
         flexDir="column"
         onClick={onClick}
-        border="1px solid"
-        borderColor={isNew ? "dappTemplate.color2.base" : "red"}
+        border={selected ? "3px solid" : "1px solid"}
+        borderColor={
+          selected ? "green.200" : isNew ? "dappTemplate.color2.base" : "red"
+        }
         borderRadius="0.7rem"
         padding={"4"}
         bg="black"

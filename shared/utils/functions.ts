@@ -1,5 +1,4 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-import toHex from "to-hex";
 
 export function preventExponetialNotation(x: any) {
   return ("" + +x).replace(
@@ -11,12 +10,3 @@ export function preventExponetialNotation(x: any) {
     }
   );
 }
-
-export const createIndentifierByCollectionAndNonce = (
-  collection: string,
-  nonce: number
-): string => {
-  const newNonce = toHex(nonce, { evenLength: true });
-
-  return collection + "-" + newNonce;
-};
