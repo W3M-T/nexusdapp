@@ -31,12 +31,12 @@ import { useAppSelector } from "../../hooks/core/useRedux";
 import { selectHasStakedForAEN } from "../../redux/slices/pools";
 import { IExistingPool } from "../../redux/types/pools.interface";
 import { INft } from "../../redux/types/tokens.interface";
+import { stakeNfts } from "../../services/sc/calls/multiTx/stake";
 import { formatBalance } from "../../utils/formatBalance";
 import { formatTokenI } from "../../utils/formatTokenIdentifier";
 import { ActionButton } from "../tools/ActionButton";
 import { Authenticated } from "../tools/Authenticated";
 import NextImg from "./NextImg";
-
 const SelectNftModal = dynamic(
   () => import("../../../views/ViewPools/SelectNftModal/SelectNftModal")
 );
@@ -49,29 +49,33 @@ const PoolItem = ({ pool }: IProps) => {
   const hasStakenForAEN = useAppSelector(selectHasStakedForAEN);
 
   const handleStake = (nfts: INft[]) => {
-    const poolType = new StructType("pool", [
-      new FieldDefinition("creation_timestamp", "", new U64Type()),
-      new FieldDefinition("creator", "", new AddressType()),
-      new FieldDefinition("collection", "", new TokenIdentifierType()),
-      new FieldDefinition("nr_of_nfts", "", new U32Type()),
-      new FieldDefinition("reward_token", "", new BytesType()),
-      new FieldDefinition("reward_amount", "", new BigUIntType()),
-    ]);
+    if (nfts.length > 0 && nfts.length <= 10) {
+      const poolType = new StructType("pool", [
+        new FieldDefinition("creation_timestamp", "", new U64Type()),
+        new FieldDefinition("creator", "", new AddressType()),
+        new FieldDefinition("collection", "", new TokenIdentifierType()),
+        new FieldDefinition("nr_of_nfts", "", new U32Type()),
+        new FieldDefinition("reward_token", "", new BytesType()),
+        new FieldDefinition("reward_amount", "", new BigUIntType()),
+      ]);
 
-    const poolStruct = new Struct(poolType, [
-      new Field(
-        new U64Value(new BigNumber(pool.timestam)),
-        "creation_timestamp"
-      ),
-      new Field(new AddressValue(new Address(pool.creator)), "creator"),
-      new Field(new TokenIdentifierValue(pool.collection), "collection"),
-      new Field(new U32Value(new BigNumber(pool.nfts)), "nr_of_nfts"),
-      new Field(BytesValue.fromUTF8(pool.token), "reward_token"),
-      new Field(new BigUIntValue(new BigNumber(pool.rewards)), "reward_amount"),
-    ]);
+      const poolStruct = new Struct(poolType, [
+        new Field(
+          new U64Value(new BigNumber(pool.timestam)),
+          "creation_timestamp"
+        ),
+        new Field(new AddressValue(new Address(pool.creator)), "creator"),
+        new Field(new TokenIdentifierValue(pool.collection), "collection"),
+        new Field(new U32Value(new BigNumber(pool.nfts)), "nr_of_nfts"),
+        new Field(BytesValue.fromUTF8(pool.token), "reward_token"),
+        new Field(
+          new BigUIntValue(new BigNumber(pool.rewards)),
+          "reward_amount"
+        ),
+      ]);
 
-    // if (nfts.length > 0) {
-    // }
+      stakeNfts(nfts, poolStruct);
+    }
   };
   const date = new Date(pool.timestam * 1000);
   return (

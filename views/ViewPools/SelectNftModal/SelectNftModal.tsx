@@ -27,7 +27,9 @@ const SelectNftModal = ({
 }: IProps) => {
   const [selectedNFTs, setSelectedNFTs] = useState<INft[]>([]);
   const handleSelectNFT = (NFT) => {
-    setSelectedNFTs([...selectedNFTs, NFT]);
+    if (selectedNFTs.length <= 10) {
+      setSelectedNFTs([...selectedNFTs, NFT]);
+    }
   };
 
   const nfts = useGetNfts({ filter: { key: "collection", value: colelction } });

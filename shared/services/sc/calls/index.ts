@@ -60,6 +60,12 @@ export const sendMultipleTransactions = async ({
   errorMessage,
   successMessage,
   transactionDuration,
+}: {
+  txs: Transaction[];
+  processingMessage?: any;
+  errorMessage?: any;
+  successMessage?: any;
+  transactionDuration?: any;
 }) => {
   await refreshAccount();
 
