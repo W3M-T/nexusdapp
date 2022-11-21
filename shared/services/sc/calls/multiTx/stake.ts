@@ -14,6 +14,12 @@ import { store } from "../../../../redux/store";
 import { INft } from "../../../../redux/types/tokens.interface";
 
 export const stakeNfts = async (nfts: INft[], poolStruct) => {
+  let payment = 0;
+
+  if (nfts.length > 1) {
+    payment = 0.001;
+  }
+
   const transactions: Transaction[] = [];
 
   const Args: any = [
@@ -43,7 +49,7 @@ export const stakeNfts = async (nfts: INft[], poolStruct) => {
     const tx = new Transaction({
       sender: senderAddress,
       receiver: senderAddress,
-      value: 0,
+      value: payment * Math.pow(10, 18),
       data: payload,
       gasLimit: 70000000,
       chainID: selectedNetwork.shortId,
