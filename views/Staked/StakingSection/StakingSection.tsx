@@ -1,17 +1,9 @@
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
-import {
-  Box,
-  Flex,
-  FormLabel,
-  Heading,
-  Switch,
-  Text,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import styled from "@emotion/styled";
-import dynamic from "next/dynamic";
 import { useState } from "react";
 import ReactPaginate from "react-paginate";
+import Swal from "sweetalert2";
 import { ActionButton } from "../../../shared/components/tools/ActionButton";
 import { Authenticated } from "../../../shared/components/tools/Authenticated";
 import {
@@ -23,28 +15,17 @@ import {
   selectUserStaked,
 } from "../../../shared/redux/slices/pools";
 import { IStakedWithTokenDetails } from "../../../shared/redux/types/pools.interface";
+import { claimUserRewards } from "../../../shared/services/sc/calls/multiTx/claimRewards";
+import { unstakeNfts } from "../../../shared/services/sc/calls/multiTx/unstake";
 import { createIndentifierByCollectionAndNonce } from "../../../shared/utils/formatTokenIdentifier";
 import NftsList from "./NftsList/NftsList";
-
-//Dynamic  nextjs import of NFtModal
-const NftModal = dynamic(() => import("./NftModal/NftModal"));
-
-//Dynamic nextjs import of stakedNfts
-const StakedNftsModal = dynamic(
-  () => import("./StakedNftsModal/StakedNftsModal")
-);
 
 const StakingSection = () => {
   const stakedNfts = useAppSelector(selectUserStaked);
   const dispatch = useAppDispatch();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const {
-    isOpen: isStakedModal,
-    onOpen: openStakedModal,
-    onClose: closeStakedModal,
-  } = useDisclosure();
+
   const [selectedNft, setSelectedNft] = useState(null);
-  const [isMultipleUnstake, setIsMultipleUnstake] = useState(false);
+  const [isMultipleUnstake] = useState(true);
   const [selectedNftsToUnstake, setSelectedNftsToUnstake] = useState<
     IStakedWithTokenDetails[]
   >([]);
@@ -67,7 +48,7 @@ const StakingSection = () => {
       }
     } else {
       setSelectedNft(nft);
-      onOpen();
+      // onOpen();
     }
   };
 
@@ -76,11 +57,28 @@ const StakingSection = () => {
     dispatch(changeStakedNftPage(page + 1));
   };
 
-  const handleChangeMultiUnstake = (e) => {
-    setIsMultipleUnstake((s) => !s);
+  // const handleChangeMultiUnstake = (e) => {
+  //   setIsMultipleUnstake((s) => !s);
+  // };
+  const handleUnstake = () => {
+    unstakeNfts(selectedNftsToUnstake);
   };
-  console.log("selectedNftsToUnstake", selectedNftsToUnstake);
-
+  const handleClaimRewards = () => {
+    Swal.fire({
+      title: "Are you sure that you want to take this action?",
+      text: "By claiming rewards you will be able to harvest rewards for the selected NFTs, thus they will no longer be sent out by NFT creator. You will have to claim any new rewards of your stakings",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#032545",
+      cancelButtonColor: "#ad0303",
+      confirmButtonText: "Accept",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        claimUserRewards(selectedNftsToUnstake);
+      }
+    });
+  };
   return (
     <Box>
       <Flex justifyContent={"space-between"}>
@@ -93,14 +91,22 @@ const StakingSection = () => {
         </Heading>
         <Flex gap={4}>
           {isMultipleUnstake && (
-            <ActionButton
-              onClick={openStakedModal}
-              disabled={selectedNftsToUnstake.length === 0}
-            >
-              Multiple Unstake
-            </ActionButton>
+            <>
+              <ActionButton
+                onClick={handleClaimRewards}
+                disabled={selectedNftsToUnstake.length === 0}
+              >
+                Claim Rewards
+              </ActionButton>
+              <ActionButton
+                onClick={handleUnstake}
+                disabled={selectedNftsToUnstake.length === 0}
+              >
+                Unstake
+              </ActionButton>
+            </>
           )}
-          <Flex alignItems={"center"} gap="8px">
+          {/* <Flex alignItems={"center"} gap="8px">
             <Switch
               id="multipleUnstake"
               size="md"
@@ -109,7 +115,7 @@ const StakingSection = () => {
             <FormLabel htmlFor="multipleUnstake" fontSize={"sm"} m={0}>
               Allow multiple unstake
             </FormLabel>
-          </Flex>
+          </Flex> */}
         </Flex>
       </Flex>
 
@@ -148,17 +154,6 @@ const StakingSection = () => {
           </Text>
         )}
       </Authenticated>
-
-      {isOpen && (
-        <NftModal isOpen={isOpen} onClose={onClose} nft={selectedNft} />
-      )}
-      {isStakedModal && (
-        <StakedNftsModal
-          isOpen={isStakedModal}
-          onClose={closeStakedModal}
-          selectedNftsToUnstake={selectedNftsToUnstake}
-        />
-      )}
     </Box>
   );
 };

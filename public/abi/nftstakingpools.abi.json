@@ -64,6 +64,24 @@
             "outputs": []
         },
         {
+            "name": "claimRewards",
+            "mutability": "mutable",
+            "payableInTokens": [
+                "*"
+            ],
+            "inputs": [
+                {
+                    "name": "nft_token",
+                    "type": "TokenIdentifier"
+                },
+                {
+                    "name": "nonce",
+                    "type": "u64"
+                }
+            ],
+            "outputs": []
+        },
+        {
             "name": "payFee",
             "mutability": "mutable",
             "payableInTokens": [

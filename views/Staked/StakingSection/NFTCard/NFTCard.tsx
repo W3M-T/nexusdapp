@@ -52,7 +52,7 @@ const NFTCard = ({
         onClick={onClick}
         border={selected ? "3px solid" : "1px solid"}
         borderColor={
-          selected ? "green.200" : isNew ? "dappTemplate.color2.base" : "red"
+          selected ? "green" : isNew ? "dappTemplate.color2.base" : "red"
         }
         borderRadius="0.7rem"
         padding={"4"}
