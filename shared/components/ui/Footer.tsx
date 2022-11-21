@@ -6,8 +6,9 @@ export const Footer = () => {
       height="80px"
       bgColor="dappTemplate.dark.darker"
       color="gray.500"
-      display="flex"
+      display={{ sm: "none", md: "flex" }}
       alignItems="center"
+      as="footer"
     >
       <Container
         maxW="container.xl"

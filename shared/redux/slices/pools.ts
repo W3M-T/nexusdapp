@@ -164,7 +164,7 @@ const initialState: poolsState = {
 
   canUserStake: {
     status: "idle",
-    data: false,
+    data: true,
     error: "",
   },
 };

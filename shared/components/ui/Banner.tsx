@@ -1,11 +1,11 @@
-import { Box } from "@chakra-ui/react";
+import { Box, BoxProps } from "@chakra-ui/react";
 import { PropsWithChildren } from "react";
 
-interface IProps extends PropsWithChildren {
+interface IProps extends PropsWithChildren, BoxProps {
   bg?: string;
 }
 
-const Banner = ({ children, bg }: IProps) => {
+const Banner = ({ children, bg, ...props }: IProps) => {
   return (
     <Box
       width={"full"}
@@ -16,6 +16,7 @@ const Banner = ({ children, bg }: IProps) => {
       left={0}
       right={0}
       background={bg || "mainDark"}
+      {...props}
     >
       {children}
     </Box>

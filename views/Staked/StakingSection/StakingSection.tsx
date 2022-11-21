@@ -81,7 +81,7 @@ const StakingSection = () => {
   };
   return (
     <Box>
-      <Flex justifyContent={"space-between"}>
+      <Flex justifyContent={"space-between"} flexWrap="wrap" rowGap={8}>
         <Heading
           fontSize={"3xl"}
           borderBottom="3px solid white"

@@ -31,6 +31,7 @@ import { useAppSelector } from "../../hooks/core/useRedux";
 import {
   selectCanUserStake,
   selectHasStakedForAEN,
+  selectUserStaked,
 } from "../../redux/slices/pools";
 import { IExistingPool } from "../../redux/types/pools.interface";
 import { INft } from "../../redux/types/tokens.interface";
@@ -51,6 +52,9 @@ const PoolItem = ({ pool }: IProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const hasStakenForAEN = useAppSelector(selectHasStakedForAEN);
   const canuserUnstake = useAppSelector(selectCanUserStake);
+
+  const nftsStaked = useAppSelector(selectUserStaked);
+
   const handleStake = (nfts: INft[]) => {
     if (nfts.length > 0 && nfts.length <= 10) {
       const poolType = new StructType("pool", [
@@ -77,7 +81,7 @@ const PoolItem = ({ pool }: IProps) => {
         ),
       ]);
 
-      stakeNfts(nfts, poolStruct);
+      stakeNfts(nfts, poolStruct, nftsStaked.data.nfts.length);
     }
   };
 
@@ -157,18 +161,20 @@ const PoolItem = ({ pool }: IProps) => {
             }
           >
             <Box>
-              <ActionButton
-                borderRadius={"full"}
-                fontSize="xs"
-                py={1}
-                disabled={
-                  (pool.collection === "" && !hasStakenForAEN.data) ||
-                  !canuserUnstake.data
-                }
-                onClick={onOpen}
-              >
-                Stake
-              </ActionButton>
+              {nftsStaked.status === "success" && (
+                <ActionButton
+                  borderRadius={"full"}
+                  fontSize="xs"
+                  py={1}
+                  disabled={
+                    (pool.collection === "" && !hasStakenForAEN.data) ||
+                    !canuserUnstake.data
+                  }
+                  onClick={onOpen}
+                >
+                  Stake
+                </ActionButton>
+              )}
             </Box>
           </Tooltip>
         </Authenticated>

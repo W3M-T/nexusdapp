@@ -16,7 +16,7 @@ const ButtonNav = () => {
       bg={customColors.color2.darker}
       px={{ sm: 5, lsm: 7 }}
       py={3}
-      justifyContent="space-between"
+      justifyContent="space-around"
       display={{ sm: "flex", md: "none" }}
     >
       {routes.map((route) => {

@@ -1,13 +1,14 @@
 import {
-  AiFillEye,
-  AiOutlineCrown,
-  AiOutlineEye,
   AiOutlineHome,
   AiOutlineSafety,
   AiOutlineUpCircle,
   AiOutlineUser,
 } from "react-icons/ai";
+import { CgCloseR } from "react-icons/cg";
+import { TbWorld } from "react-icons/tb";
+
 import { IconType } from "react-icons/lib";
+import { RiGalleryLine } from "react-icons/ri";
 
 interface IRoute {
   route: string;
@@ -27,7 +28,7 @@ export const route = {
     route: "/staked",
     name: "Staked NFTs",
     public: true,
-    icon: AiOutlineCrown,
+    icon: RiGalleryLine,
   },
 
   create: {
@@ -37,15 +38,15 @@ export const route = {
   },
   view: {
     route: "/view-pools",
-    name: "View Pools",
+    name: "Pools",
     public: true,
-    icon: AiOutlineEye,
+    icon: TbWorld,
   },
   aenPools: {
     route: "/aen-pools",
     name: "AEN Pools",
     public: true,
-    icon: AiFillEye,
+    icon: CgCloseR,
   },
   scOwner: {
     route: "/sc-owner-dashboard",

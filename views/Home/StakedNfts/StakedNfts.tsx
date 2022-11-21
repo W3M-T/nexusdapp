@@ -18,7 +18,6 @@ import {
 import { fetchUserStaked } from "../../../shared/redux/reduxAsyncFuncs/poolsFuncs";
 import { selectUserStaked } from "../../../shared/redux/slices/pools";
 import { selectUserAddress } from "../../../shared/redux/slices/settings";
-import { createIndentifierByCollectionAndNonce } from "../../../shared/utils/functions";
 import { route } from "../../../shared/utils/routes";
 import NFTCard from "../../Staked/StakingSection/NFTCard/NFTCard";
 import NftModal from "../../Staked/StakingSection/NftModal/NftModal";
@@ -125,12 +124,7 @@ const StakedNfts = () => {
               console.log("nft", nft);
 
               return (
-                <SwiperSlide
-                  key={createIndentifierByCollectionAndNonce(
-                    nft.token,
-                    nft.nonce
-                  )}
-                >
+                <SwiperSlide key={i}>
                   <Box width="80%">
                     <NFTCard
                       nft={nft}
