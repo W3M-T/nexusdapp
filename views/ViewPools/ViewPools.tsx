@@ -8,7 +8,10 @@ import {
   useAppSelector,
 } from "../../shared/hooks/core/useRedux";
 import useGroupByField from "../../shared/hooks/tools/useGroupByField";
-import { fetchExistringPools } from "../../shared/redux/reduxAsyncFuncs/poolsFuncs";
+import {
+  fetchCanUserStake,
+  fetchExistringPools,
+} from "../../shared/redux/reduxAsyncFuncs/poolsFuncs";
 import { fetchNfts } from "../../shared/redux/reduxAsyncFuncs/tokensFuncs";
 import { selectExistingPools } from "../../shared/redux/slices/pools";
 import { selectUserAddress } from "../../shared/redux/slices/settings";
@@ -29,6 +32,7 @@ const ViewPools = () => {
     dispatch(fetchExistringPools());
     if (connectedAddress) {
       dispatch(fetchNfts(connectedAddress));
+      dispatch(fetchCanUserStake(connectedAddress));
     }
   }, [dispatch, connectedAddress]);
 

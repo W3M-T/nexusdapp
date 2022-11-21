@@ -229,3 +229,16 @@ export const fetcHhasStakedForAEN = createAsyncThunk(
     return data;
   }
 );
+export const fetchCanUserStake = createAsyncThunk(
+  "pools/fetchCanUserStake",
+  async (address: string) => {
+    const res = await scQuery("NftStakingPoolsWsp", "needsToUnstake", [
+      new AddressValue(new Address(address)),
+    ]);
+    const { firstValue } = res;
+
+    const data = firstValue.valueOf();
+
+    return data;
+  }
+);

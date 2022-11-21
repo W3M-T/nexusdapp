@@ -4,6 +4,7 @@ import { IPagination } from "../../types/pagination";
 import {
   fetchAllowedRegistrationTokens,
   fetchAllowedRewardTokens,
+  fetchCanUserStake,
   fetchExistringPools,
   fetcHhasStakedForAEN,
   fetchIsNftCreator,
@@ -65,6 +66,11 @@ export interface poolsState {
     error: string;
   };
   hasStakedForAEN: {
+    status: Status;
+    data: boolean;
+    error: string;
+  };
+  canUserStake: {
     status: Status;
     data: boolean;
     error: string;
@@ -151,6 +157,12 @@ const initialState: poolsState = {
   },
 
   hasStakedForAEN: {
+    status: "idle",
+    data: false,
+    error: "",
+  },
+
+  canUserStake: {
     status: "idle",
     data: false,
     error: "",
@@ -291,6 +303,17 @@ export const poolsSlice = createSlice({
       })
       .addCase(fetcHhasStakedForAEN.rejected, (state) => {
         state.hasStakedForAEN.status = "failed";
+      })
+      //fetchCanUserStake
+      .addCase(fetchCanUserStake.pending, (state) => {
+        state.canUserStake.status = "success";
+      })
+      .addCase(fetchCanUserStake.fulfilled, (state, action) => {
+        state.canUserStake.status = "success";
+        state.canUserStake.data = action.payload;
+      })
+      .addCase(fetchCanUserStake.rejected, (state) => {
+        state.canUserStake.status = "failed";
       });
   },
 });
@@ -312,6 +335,8 @@ export const selectRewardsTokens = (state: RootState) =>
   state.pools.allowedRewardTokens;
 export const selectHasStakedForAEN = (state: RootState) =>
   state.pools.hasStakedForAEN;
+export const selectCanUserStake = (state: RootState) =>
+  state.pools.canUserStake;
 
 // Action creators are generated for each case reducer function
 // export const { setAddress } = poolsSlice.actions;

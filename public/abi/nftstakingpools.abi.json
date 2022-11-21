@@ -346,6 +346,21 @@
             ]
         },
         {
+            "name": "needsToUnstake",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "address",
+                    "type": "Address"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "bool"
+                }
+            ]
+        },
+        {
             "name": "stakedIn",
             "mutability": "readonly",
             "inputs": [

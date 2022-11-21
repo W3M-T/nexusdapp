@@ -28,7 +28,10 @@ import {
 import BigNumber from "bignumber.js";
 import dynamic from "next/dynamic";
 import { useAppSelector } from "../../hooks/core/useRedux";
-import { selectHasStakedForAEN } from "../../redux/slices/pools";
+import {
+  selectCanUserStake,
+  selectHasStakedForAEN,
+} from "../../redux/slices/pools";
 import { IExistingPool } from "../../redux/types/pools.interface";
 import { INft } from "../../redux/types/tokens.interface";
 import { stakeNfts } from "../../services/sc/calls/multiTx/stake";
@@ -47,7 +50,7 @@ interface IProps {
 const PoolItem = ({ pool }: IProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const hasStakenForAEN = useAppSelector(selectHasStakedForAEN);
-
+  const canuserUnstake = useAppSelector(selectCanUserStake);
   const handleStake = (nfts: INft[]) => {
     if (nfts.length > 0 && nfts.length <= 10) {
       const poolType = new StructType("pool", [
@@ -77,6 +80,12 @@ const PoolItem = ({ pool }: IProps) => {
       stakeNfts(nfts, poolStruct);
     }
   };
+
+  console.log(
+    "test",
+    !(pool.collection === "" && !hasStakenForAEN.data) || !canuserUnstake.data
+  );
+
   const date = new Date(pool.timestam * 1000);
   return (
     <Flex
@@ -136,16 +145,26 @@ const PoolItem = ({ pool }: IProps) => {
         </Text>
         <Authenticated>
           <Tooltip
-            label="Make sure you have staked at least one NFT of PARROT, EXPLORER, or TEDDY1 collections."
+            label={
+              canuserUnstake
+                ? "You must first unstake your NFTs from completed pools (marked red)."
+                : "Make sure you have staked at least one NFT of PARROT, EXPLORER, or TEDDY1 collections."
+            }
             borderRadius={"5px"}
-            isDisabled={!(pool.collection === "" && !hasStakenForAEN.data)}
+            isDisabled={
+              !(pool.collection === "" && !hasStakenForAEN.data) &&
+              canuserUnstake.data
+            }
           >
             <Box>
               <ActionButton
                 borderRadius={"full"}
                 fontSize="xs"
                 py={1}
-                disabled={pool.collection === "" && !hasStakenForAEN.data}
+                disabled={
+                  (pool.collection === "" && !hasStakenForAEN.data) ||
+                  !canuserUnstake.data
+                }
                 onClick={onOpen}
               >
                 Stake
