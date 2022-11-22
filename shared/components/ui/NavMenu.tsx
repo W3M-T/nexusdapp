@@ -1,11 +1,12 @@
 import { Box, Flex } from "@chakra-ui/react";
-import { useGetAccountInfo } from "@elrondnetwork/dapp-core";
+import { useGetLoginInfo } from "@elrondnetwork/dapp-core";
 import Link from "next/link";
 import { customColors } from "../../../config/chakraTheme";
 import { routes } from "../../utils/routes";
 
 const NavMenu = () => {
-  const { isAccountLoading: isLoggedIn } = useGetAccountInfo();
+  const { isLoggedIn } = useGetLoginInfo();
+  console.log("isLoggedIn", isLoggedIn);
 
   return (
     <Flex
