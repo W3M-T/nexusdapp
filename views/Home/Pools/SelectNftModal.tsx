@@ -11,10 +11,16 @@ import {
   ModalHeader,
   Text,
   Tooltip,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { ActionButton } from "../../../shared/components/tools/ActionButton";
+import { useAppSelector } from "../../../shared/hooks/core/useRedux";
 import useGetNfts from "../../../shared/hooks/tools/useGetNfts";
+import {
+  selectCanUserStake,
+  selectUserStaked,
+} from "../../../shared/redux/slices/pools";
 import { IExistingPool } from "../../../shared/redux/types/pools.interface";
 import { INft } from "../../../shared/redux/types/tokens.interface";
 import { formatBalance } from "../../../shared/utils/formatBalance";
@@ -35,6 +41,11 @@ const HomePoolModal = ({
   pool,
   hasStakenForAEN,
 }: IProps) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const canUserStake = useAppSelector(selectCanUserStake);
+
+  const nftsStaked = useAppSelector(selectUserStaked);
+
   const [selectedNFTs, setSelectedNFT] = useState<INft[]>([]);
   const handleSelectNFT = (NFT: INft) => {
     const indexNft = selectedNFTs.findIndex(
@@ -137,14 +148,30 @@ const HomePoolModal = ({
             </ActionButton>
             {nfts.length > 0 && (
               <Tooltip
-                label="Make sure you have staked at least one NFT of PARROT, EXPLORER, or TEDDY1 collections."
+                label={
+                  canUserStake
+                    ? "You must first unstake your NFTs from completed pools (marked red)."
+                    : "Make sure you have staked at least one NFT of PARROT, EXPLORER, or TEDDY1 collections."
+                }
                 borderRadius={"5px"}
-                isDisabled={!(pool.collection === "" && !hasStakenForAEN)}
+                isDisabled={
+                  !(pool.collection === "" && !hasStakenForAEN) &&
+                  !canUserStake.data
+                }
               >
                 <Box>
-                  <ActionButton mx={3} onClick={handleStake} w="100px">
-                    Stake
-                  </ActionButton>
+                  {nftsStaked.status === "success" && (
+                    <ActionButton
+                      w="100px"
+                      disabled={
+                        (pool.collection === "" && !hasStakenForAEN) ||
+                        !canUserStake.data
+                      }
+                      onClick={onOpen}
+                    >
+                      Stake
+                    </ActionButton>
+                  )}
                 </Box>
               </Tooltip>
             )}
