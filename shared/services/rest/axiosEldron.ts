@@ -39,6 +39,14 @@ export const getNfts = async (address, size = 1000) => {
 
 export const swrFetcher = (url) => axiosEldron.get(url).then((res) => res.data);
 
+export const getCollectionsCount = async (colectionIdentifier: string) => {
+  const res = await axiosEldron.get<number>(
+    `/collections/${colectionIdentifier}/nfts/count`
+  );
+
+  return res.data;
+};
+
 // export const swrGetUserNfts = async (address, size = 1000) => {
 //   return await  axiosEldron.get(`/accounts/${address}/nfts?size=${size}`);
 // };

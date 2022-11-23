@@ -3,10 +3,12 @@ import {
   Flex,
   Heading,
   SkeletonCircle,
+  useDisclosure,
   useMediaQuery,
 } from "@chakra-ui/react";
 import { SwiperSlide } from "swiper/react";
 // Import Swiper styles
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { Fragment } from "react";
 import useSWR from "swr";
@@ -17,20 +19,21 @@ import { selectUserAddress } from "../../../shared/redux/slices/settings";
 import { INft } from "../../../shared/redux/types/tokens.interface";
 import { swrFetcher } from "../../../shared/services/rest/axiosEldron";
 import { noShowMedia } from "../../../shared/utils/excludeNft";
+
+const NftsUserModal = dynamic(
+  () => import("../../../shared/components/ui/NftsUserModal/NftsUserModal")
+);
+
 const MyNfts = () => {
   const address = useAppSelector(selectUserAddress);
   const { data } = useSWR<INft[]>(
     address && `/accounts/${address}/nfts`,
     swrFetcher
   );
-
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [isLargerThanLg] = useMediaQuery(`(min-width: ${breakpoints.lg})`);
-  const [isLargerThanTablet] = useMediaQuery(`(min-width: ${breakpoints.lsm})`);
+  let poolItems = 4;
 
-  let poolItems = 5;
-  if (isLargerThanTablet) {
-    poolItems = 6;
-  }
   if (isLargerThanLg) {
     poolItems = 8;
   }
@@ -58,23 +61,19 @@ const MyNfts = () => {
         {!data ? (
           <Fragment>
             <SwiperSlide>
-              <SkeletonCircle boxSize={{ sm: "40px", md: "100px" }} />
+              <SkeletonCircle boxSize={{ sm: "65px", md: "100px" }} />
             </SwiperSlide>
 
             <SwiperSlide>
-              <SkeletonCircle boxSize={{ sm: "40px", md: "100px" }} />
+              <SkeletonCircle boxSize={{ sm: "65px", md: "100px" }} />
             </SwiperSlide>
 
             <SwiperSlide>
-              <SkeletonCircle boxSize={{ sm: "40px", md: "100px" }} />
+              <SkeletonCircle boxSize={{ sm: "65px", md: "100px" }} />
             </SwiperSlide>
 
             <SwiperSlide>
-              <SkeletonCircle boxSize={{ sm: "40px", md: "100px" }} />
-            </SwiperSlide>
-
-            <SwiperSlide>
-              <SkeletonCircle boxSize={{ sm: "40px", md: "100px" }} />
+              <SkeletonCircle boxSize={{ sm: "65px", md: "100px" }} />
             </SwiperSlide>
           </Fragment>
         ) : (
@@ -92,7 +91,7 @@ const MyNfts = () => {
                       cursor="pointer"
                     >
                       <Box
-                        boxSize={{ sm: "40px", md: "100px" }}
+                        boxSize={{ sm: "65px", md: "100px" }}
                         borderRadius={"full"}
                         position="relative"
                         overflow={"hidden"}
@@ -109,7 +108,9 @@ const MyNfts = () => {
                           />
                         )}
                       </Box>
-                      <Box fontSize={{ sm: "7px", md: "11px" }}>{nft.name}</Box>
+                      <Box fontSize={{ sm: "10px", md: "11px" }}>
+                        {nft.name}
+                      </Box>
                     </Flex>
                   </SwiperSlide>
                 );
@@ -121,11 +122,14 @@ const MyNfts = () => {
         w="full"
         justifyContent={"flex-end"}
         display={{ sm: "none", md: "flex" }}
+        mt={2}
+        onClick={onOpen}
       >
         <Box cursor="pointer" _hover={{ fontWeight: "bold" }}>
           View all
         </Box>
       </Flex>
+      {isOpen && <NftsUserModal onClose={onClose} isOpen={isOpen} />}
     </Flex>
   );
 };
