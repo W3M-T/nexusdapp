@@ -34,7 +34,7 @@ export const columns = [
           alignItems={"center"}
           justifyContent="center"
         >
-          {formatTokenI(pool.collection)}
+          {formatTokenI(pool.poolName)}
         </Flex>
       );
     },
