@@ -23,7 +23,7 @@ import StakeNftItem from "./StakeNftItem";
 interface IProps {
   isOpenModal: boolean;
   onCloseModal: () => void;
-  onConfirm: (nft: INft) => void;
+  onConfirm: (nft: INft[]) => void;
   pool: IExistingPool;
   hasStakenForAEN: boolean;
 }
@@ -35,9 +35,19 @@ const HomePoolModal = ({
   pool,
   hasStakenForAEN,
 }: IProps) => {
-  const [selectedNFT, setSelectedNFT] = useState<INft>(null);
-  const handleSelectNFT = (NFT) => {
-    setSelectedNFT(NFT);
+  const [selectedNFTs, setSelectedNFT] = useState<INft[]>([]);
+  const handleSelectNFT = (NFT: INft) => {
+    const indexNft = selectedNFTs.findIndex(
+      (nft) => nft.identifier === NFT.identifier
+    );
+    if (indexNft >= 0) {
+      const newStakedArray = selectedNFTs.filter((n, i) => i !== indexNft);
+      setSelectedNFT(newStakedArray);
+    } else {
+      if (selectedNFTs.length < 10) {
+        setSelectedNFT([...selectedNFTs, NFT]);
+      }
+    }
   };
 
   const nfts = useGetNfts({
@@ -46,11 +56,11 @@ const HomePoolModal = ({
 
   const handleStake = () => {
     onCloseModal();
-    onConfirm(selectedNFT);
+    onConfirm(selectedNFTs);
   };
   useEffect(() => {
     if (nfts.length === 1) {
-      setSelectedNFT(nfts[0]);
+      setSelectedNFT([nfts[0]]);
     }
   }, [nfts]);
   const date = new Date(pool.timestam * 1000);
@@ -108,7 +118,9 @@ const HomePoolModal = ({
                   nft={nft}
                   key={nft.nonce}
                   onClick={() => handleSelectNFT(nft)}
-                  selected={selectedNFT?.identifier === nft.identifier}
+                  selected={Boolean(
+                    selectedNFTs.find((n) => n.identifier === nft.identifier)
+                  )}
                 />
               );
             })}
@@ -120,7 +132,7 @@ const HomePoolModal = ({
 
         <ModalFooter>
           <Center w={"full"}>
-            <ActionButton mx={3} onClick={onCloseModal}>
+            <ActionButton mx={3} onClick={onCloseModal} w="100px">
               Cancel
             </ActionButton>
             {nfts.length > 0 && (
@@ -130,8 +142,8 @@ const HomePoolModal = ({
                 isDisabled={!(pool.collection === "" && !hasStakenForAEN)}
               >
                 <Box>
-                  <ActionButton mx={3} onClick={handleStake}>
-                    Confirm
+                  <ActionButton mx={3} onClick={handleStake} w="100px">
+                    Stake
                   </ActionButton>
                 </Box>
               </Tooltip>

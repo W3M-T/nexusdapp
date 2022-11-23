@@ -85,11 +85,6 @@ const PoolItem = ({ pool }: IProps) => {
     }
   };
 
-  console.log(
-    "test",
-    !(pool.collection === "" && !hasStakenForAEN.data) || !canuserUnstake.data
-  );
-
   const date = new Date(pool.timestam * 1000);
   return (
     <Flex

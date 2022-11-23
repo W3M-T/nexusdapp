@@ -75,6 +75,18 @@ const MyNfts = () => {
             <SwiperSlide>
               <SkeletonCircle boxSize={{ sm: "65px", md: "100px" }} />
             </SwiperSlide>
+            <SwiperSlide>
+              <SkeletonCircle boxSize={{ sm: "65px", md: "100px" }} />
+            </SwiperSlide>
+            <SwiperSlide>
+              <SkeletonCircle boxSize={{ sm: "65px", md: "100px" }} />
+            </SwiperSlide>
+            <SwiperSlide>
+              <SkeletonCircle boxSize={{ sm: "65px", md: "100px" }} />
+            </SwiperSlide>
+            <SwiperSlide>
+              <SkeletonCircle boxSize={{ sm: "65px", md: "100px" }} />
+            </SwiperSlide>
           </Fragment>
         ) : (
           <Fragment>

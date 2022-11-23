@@ -22,10 +22,13 @@ import BigNumber from "bignumber.js";
 import dynamic from "next/dynamic";
 import NextImg from "../../../shared/components/ui/NextImg";
 import { useAppSelector } from "../../../shared/hooks/core/useRedux";
-import { selectHasStakedForAEN } from "../../../shared/redux/slices/pools";
+import {
+  selectHasStakedForAEN,
+  selectUserStaked,
+} from "../../../shared/redux/slices/pools";
 import { IExistingPool } from "../../../shared/redux/types/pools.interface";
 import { INft } from "../../../shared/redux/types/tokens.interface";
-import { ESDTNFTTransfer } from "../../../shared/services/sc/calls";
+import { stakeNfts } from "../../../shared/services/sc/calls/multiTx/stake";
 
 const HomePoolModal = dynamic(() => import("./SelectNftModal"));
 
@@ -36,44 +39,35 @@ interface IProps {
 const HomePool = ({ pool, small }: IProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const hasStakenForAEN = useAppSelector(selectHasStakedForAEN);
+  const nftsStaked = useAppSelector(selectUserStaked);
 
-  const handleStake = (nft: INft) => {
-    const poolType = new StructType("pool", [
-      new FieldDefinition("creation_timestamp", "", new U64Type()),
-      new FieldDefinition("creator", "", new AddressType()),
-      new FieldDefinition("collection", "", new TokenIdentifierType()),
-      new FieldDefinition("nr_of_nfts", "", new U32Type()),
-      new FieldDefinition("reward_token", "", new BytesType()),
-      new FieldDefinition("reward_amount", "", new BigUIntType()),
-    ]);
+  const handleStake = (nfts: INft[]) => {
+    if (nfts.length > 0 && nfts.length <= 10) {
+      const poolType = new StructType("pool", [
+        new FieldDefinition("creation_timestamp", "", new U64Type()),
+        new FieldDefinition("creator", "", new AddressType()),
+        new FieldDefinition("collection", "", new TokenIdentifierType()),
+        new FieldDefinition("nr_of_nfts", "", new U32Type()),
+        new FieldDefinition("reward_token", "", new BytesType()),
+        new FieldDefinition("reward_amount", "", new BigUIntType()),
+      ]);
 
-    const poolStruct = new Struct(poolType, [
-      new Field(
-        new U64Value(new BigNumber(pool.timestam)),
-        "creation_timestamp"
-      ),
-      new Field(new AddressValue(new Address(pool.creator)), "creator"),
-      new Field(new TokenIdentifierValue(pool.collection), "collection"),
-      new Field(new U32Value(new BigNumber(pool.nfts)), "nr_of_nfts"),
-      new Field(BytesValue.fromUTF8(pool.token), "reward_token"),
-      new Field(new BigUIntValue(new BigNumber(pool.rewards)), "reward_amount"),
-    ]);
+      const poolStruct = new Struct(poolType, [
+        new Field(
+          new U64Value(new BigNumber(pool.timestam)),
+          "creation_timestamp"
+        ),
+        new Field(new AddressValue(new Address(pool.creator)), "creator"),
+        new Field(new TokenIdentifierValue(pool.collection), "collection"),
+        new Field(new U32Value(new BigNumber(pool.nfts)), "nr_of_nfts"),
+        new Field(BytesValue.fromUTF8(pool.token), "reward_token"),
+        new Field(
+          new BigUIntValue(new BigNumber(pool.rewards)),
+          "reward_amount"
+        ),
+      ]);
 
-    if (nft) {
-      ESDTNFTTransfer(
-        "NftStakingPoolsWsp",
-        "stakeNft",
-        undefined,
-        nft,
-
-        [
-          poolStruct,
-          BytesValue.fromUTF8(nft?.media[0]?.url || ""),
-          BytesValue.fromUTF8(nft?.name || ""),
-        ],
-        70000000,
-        1
-      );
+      stakeNfts(nfts, poolStruct, nftsStaked.data.nfts.length);
     }
   };
 
