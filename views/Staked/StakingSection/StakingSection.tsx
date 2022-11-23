@@ -73,6 +73,7 @@ const StakingSection = () => {
       cancelButtonColor: "#ad0303",
       confirmButtonText: "Accept",
       cancelButtonText: "Cancel",
+      background: "#04101b",
     }).then((result) => {
       if (result.isConfirmed) {
         claimUserRewards(selectedNftsToUnstake);
