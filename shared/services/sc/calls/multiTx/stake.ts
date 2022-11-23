@@ -20,7 +20,7 @@ export const stakeNfts = async (
 ) => {
   let payment = 0;
 
-  if (nfts.length >= 1) {
+  if (nfts.length > 1) {
     payment = 0.001;
   }
 
