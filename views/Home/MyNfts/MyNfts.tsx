@@ -130,17 +130,19 @@ const MyNfts = () => {
           </Fragment>
         )}
       </SwipperS>
-      <Flex
-        w="full"
-        justifyContent={"flex-end"}
-        display={{ sm: "none", md: "flex" }}
-        mt={2}
-        onClick={onOpen}
-      >
-        <Box cursor="pointer" _hover={{ fontWeight: "bold" }}>
-          View all
-        </Box>
-      </Flex>
+      {poolItems > data?.length && (
+        <Flex
+          w="full"
+          justifyContent={"flex-end"}
+          display={{ sm: "none", md: "flex" }}
+          mt={2}
+          onClick={onOpen}
+        >
+          <Box cursor="pointer" _hover={{ fontWeight: "bold" }}>
+            View all
+          </Box>
+        </Flex>
+      )}
       {isOpen && <NftsUserModal onClose={onClose} isOpen={isOpen} />}
     </Flex>
   );

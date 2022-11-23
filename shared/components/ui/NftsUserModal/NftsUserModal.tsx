@@ -11,6 +11,7 @@ import { useAppSelector } from "../../../hooks/core/useRedux";
 import { selectUserAddress } from "../../../redux/slices/settings";
 import { INft } from "../../../redux/types/tokens.interface";
 import { swrFetcher } from "../../../services/rest/axiosEldron";
+import { noShowMedia } from "../../../utils/excludeNft";
 import MyModal from "../MyModal";
 import UserNftCard from "./UserNftCard";
 interface IProps {
@@ -40,9 +41,11 @@ const NftsUserModal = ({ onClose, isOpen }: IProps) => {
             templateColumns={{ sm: "1fr 1fr 1fr", lg: "1fr 1fr 1fr 1fr" }}
             gap={5}
           >
-            {nfts.map((nft) => {
-              return <UserNftCard key={nft.identifier} nft={nft} />;
-            })}
+            {nfts
+              .filter((nft) => !noShowMedia(nft))
+              .map((nft) => {
+                return <UserNftCard key={nft.identifier} nft={nft} />;
+              })}
           </Grid>
         </ModalBody>
 
