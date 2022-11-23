@@ -17,7 +17,9 @@ const NavMenu = () => {
     >
       {routes.map((route) => {
         if ((!isLoggedIn && !route.public) || route.outNav) {
+          // if (route.route !== "/") {
           return null;
+          // }
         }
         return (
           <Link href={route.route} key={route.route}>
