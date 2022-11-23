@@ -1,31 +1,29 @@
 import { Box, Flex, Grid, Heading } from "@chakra-ui/react";
 import { addDays } from "date-fns";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   useAppDispatch,
   useAppSelector,
 } from "../../../shared/hooks/core/useRedux";
-import useGroupByField from "../../../shared/hooks/tools/useGroupByField";
-import { fetchExistringPools } from "../../../shared/redux/reduxAsyncFuncs/poolsFuncs";
+import {
+  fetchExistringPools,
+  fetchNeedsToUnstake,
+} from "../../../shared/redux/reduxAsyncFuncs/poolsFuncs";
 import { selectExistingPools } from "../../../shared/redux/slices/pools";
-import { IExistingPool } from "../../../shared/redux/types/pools.interface";
+import { selectUserAddress } from "../../../shared/redux/slices/settings";
 import { route } from "../../../shared/utils/routes";
 import HomePool from "./HomePool";
 
 const Pools = () => {
   const { data: pools } = useAppSelector(selectExistingPools);
-  const [poolData, setPoolData] = useState([]);
-  const poolsGroupedByCollection: IExistingPool[][] = useGroupByField(
-    pools,
-    "collection"
-  );
-
+  const connectedAddress = useAppSelector(selectUserAddress);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchExistringPools());
-  }, [dispatch]);
+    dispatch(fetchNeedsToUnstake(connectedAddress));
+  }, [connectedAddress, dispatch]);
 
   const data = pools.filter((p) => {
     const date = new Date(p.timestam * 1000);

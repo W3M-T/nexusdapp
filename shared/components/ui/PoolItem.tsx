@@ -51,7 +51,7 @@ interface IProps {
 const PoolItem = ({ pool }: IProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const hasStakenForAEN = useAppSelector(selectHasStakedForAEN);
-  const canUserStake = useAppSelector(selectCanUserStake);
+  const needToUnstake = useAppSelector(selectCanUserStake);
 
   const nftsStaked = useAppSelector(selectUserStaked);
 
@@ -145,14 +145,14 @@ const PoolItem = ({ pool }: IProps) => {
         <Authenticated>
           <Tooltip
             label={
-              canUserStake
+              needToUnstake
                 ? "You must first unstake your NFTs from completed pools (marked red)."
                 : "Make sure you have staked at least one NFT of PARROT, EXPLORER, or TEDDY1 collections."
             }
             borderRadius={"5px"}
             isDisabled={
               !(pool.collection === "" && !hasStakenForAEN.data) &&
-              canUserStake.data
+              !needToUnstake.data
             }
           >
             <Box>
@@ -163,7 +163,7 @@ const PoolItem = ({ pool }: IProps) => {
                   py={1}
                   disabled={
                     (pool.collection === "" && !hasStakenForAEN.data) ||
-                    !canUserStake.data
+                    needToUnstake.data
                   }
                   onClick={onOpen}
                 >

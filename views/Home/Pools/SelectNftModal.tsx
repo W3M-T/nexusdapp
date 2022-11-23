@@ -42,7 +42,7 @@ const HomePoolModal = ({
   hasStakenForAEN,
 }: IProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const canUserStake = useAppSelector(selectCanUserStake);
+  const needToUnstake = useAppSelector(selectCanUserStake);
 
   const nftsStaked = useAppSelector(selectUserStaked);
 
@@ -149,14 +149,14 @@ const HomePoolModal = ({
             {nfts.length > 0 && (
               <Tooltip
                 label={
-                  canUserStake
+                  needToUnstake
                     ? "You must first unstake your NFTs from completed pools (marked red)."
                     : "Make sure you have staked at least one NFT of PARROT, EXPLORER, or TEDDY1 collections."
                 }
                 borderRadius={"5px"}
                 isDisabled={
                   !(pool.collection === "" && !hasStakenForAEN) &&
-                  !canUserStake.data
+                  !needToUnstake.data
                 }
               >
                 <Box>
@@ -165,7 +165,7 @@ const HomePoolModal = ({
                       w="100px"
                       disabled={
                         (pool.collection === "" && !hasStakenForAEN) ||
-                        !canUserStake.data
+                        needToUnstake.data
                       }
                       onClick={onOpen}
                     >

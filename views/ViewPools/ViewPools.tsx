@@ -9,8 +9,8 @@ import {
 } from "../../shared/hooks/core/useRedux";
 import useGroupByField from "../../shared/hooks/tools/useGroupByField";
 import {
-  fetchCanUserStake,
   fetchExistringPools,
+  fetchNeedsToUnstake,
   fetchUserStaked,
 } from "../../shared/redux/reduxAsyncFuncs/poolsFuncs";
 import { fetchNfts } from "../../shared/redux/reduxAsyncFuncs/tokensFuncs";
@@ -33,7 +33,7 @@ const ViewPools = () => {
     dispatch(fetchExistringPools());
     if (connectedAddress) {
       dispatch(fetchNfts(connectedAddress));
-      dispatch(fetchCanUserStake(connectedAddress));
+      dispatch(fetchNeedsToUnstake(connectedAddress));
       dispatch(fetchUserStaked({ address: connectedAddress, page: 0 }));
     }
   }, [dispatch, connectedAddress]);

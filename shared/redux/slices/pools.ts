@@ -4,10 +4,10 @@ import { IPagination } from "../../types/pagination";
 import {
   fetchAllowedRegistrationTokens,
   fetchAllowedRewardTokens,
-  fetchCanUserStake,
   fetchExistringPools,
   fetcHhasStakedForAEN,
   fetchIsNftCreator,
+  fetchNeedsToUnstake,
   fetchNonWithdrawnCollections,
   fetchRegistrationInfo,
   fetchStats,
@@ -70,7 +70,7 @@ export interface poolsState {
     data: boolean;
     error: string;
   };
-  canUserStake: {
+  needToUnstake: {
     status: Status;
     data: boolean;
     error: string;
@@ -162,9 +162,9 @@ const initialState: poolsState = {
     error: "",
   },
 
-  canUserStake: {
+  needToUnstake: {
     status: "idle",
-    data: true,
+    data: false,
     error: "",
   },
 };
@@ -304,16 +304,16 @@ export const poolsSlice = createSlice({
       .addCase(fetcHhasStakedForAEN.rejected, (state) => {
         state.hasStakedForAEN.status = "failed";
       })
-      //fetchCanUserStake
-      .addCase(fetchCanUserStake.pending, (state) => {
-        state.canUserStake.status = "success";
+      //fetchNeedsToUnstake
+      .addCase(fetchNeedsToUnstake.pending, (state) => {
+        state.needToUnstake.status = "success";
       })
-      .addCase(fetchCanUserStake.fulfilled, (state, action) => {
-        state.canUserStake.status = "success";
-        state.canUserStake.data = action.payload;
+      .addCase(fetchNeedsToUnstake.fulfilled, (state, action) => {
+        state.needToUnstake.status = "success";
+        state.needToUnstake.data = action.payload;
       })
-      .addCase(fetchCanUserStake.rejected, (state) => {
-        state.canUserStake.status = "failed";
+      .addCase(fetchNeedsToUnstake.rejected, (state) => {
+        state.needToUnstake.status = "failed";
       });
   },
 });
@@ -336,7 +336,7 @@ export const selectRewardsTokens = (state: RootState) =>
 export const selectHasStakedForAEN = (state: RootState) =>
   state.pools.hasStakedForAEN;
 export const selectCanUserStake = (state: RootState) =>
-  state.pools.canUserStake;
+  state.pools.needToUnstake;
 
 // Action creators are generated for each case reducer function
 // export const { setAddress } = poolsSlice.actions;
