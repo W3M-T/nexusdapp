@@ -27,21 +27,16 @@ import { ActionButton } from "../../../../shared/components/tools/ActionButton";
 import SelectDark, {
   OptionSelectDark,
 } from "../../../../shared/components/ui/SelectDark";
-import { useAppSelector } from "../../../../shared/hooks/core/useRedux";
-import { selectExistingPools } from "../../../../shared/redux/slices/pools";
-import { selectUserAddress } from "../../../../shared/redux/slices/settings";
+import useNumerizePools from "../../../../shared/hooks/tools/useNumerizePools";
 import { scCall } from "../../../../shared/services/sc/calls";
-import { formatTokenI } from "../../../../shared/utils/formatTokenIdentifier";
 const validationSchema = yup.object({
   pool: yup.number().required(),
 });
 
 const ClaimUnsentRewards = () => {
   const [validateClaim, setValidateClaim] = useState(false);
-  const pools = useAppSelector(selectExistingPools);
 
-  const address = useAppSelector(selectUserAddress);
-  const existingPools = pools.data.filter((pool) => pool.creator === address);
+  const { poolsByAddress: existingPools } = useNumerizePools();
 
   const formik = useFormik({
     initialValues: {
@@ -109,12 +104,9 @@ const ClaimUnsentRewards = () => {
             <>
               <OptionSelectDark value={""}>Pool</OptionSelectDark>
               {existingPools.map((pool, i) => {
-                if (!pool.collection) {
-                  return null;
-                }
                 return (
                   <OptionSelectDark key={i} value={i}>
-                    {i + 1} - {formatTokenI(pool.collection)}
+                    {i + 1} - {pool.poolName}
                   </OptionSelectDark>
                 );
               })}
