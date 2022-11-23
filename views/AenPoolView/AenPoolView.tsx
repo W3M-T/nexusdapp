@@ -12,6 +12,7 @@ import useGroupByField from "../../shared/hooks/tools/useGroupByField";
 import {
   fetchExistringPools,
   fetcHhasStakedForAEN,
+  fetchUserStaked,
 } from "../../shared/redux/reduxAsyncFuncs/poolsFuncs";
 import { fetchNfts } from "../../shared/redux/reduxAsyncFuncs/tokensFuncs";
 import { selectExistingPools } from "../../shared/redux/slices/pools";
@@ -33,6 +34,7 @@ const AenPoolView = () => {
   useEffect(() => {
     dispatch(fetchExistringPools());
     if (connectedAddress) {
+      dispatch(fetchUserStaked({ address: connectedAddress, page: 0 }));
       dispatch(fetcHhasStakedForAEN(connectedAddress));
       dispatch(fetchNfts(connectedAddress));
     }

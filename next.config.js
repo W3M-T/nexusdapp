@@ -6,6 +6,7 @@ const nextConfig = {
       "media.elrond.com",
       "gateway.pinata.cloud",
       "devnet-media.elrond.com",
+      "arweave.net",
     ],
   },
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
