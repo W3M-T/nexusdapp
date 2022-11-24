@@ -11,7 +11,6 @@ import {
   ModalHeader,
   Text,
   Tooltip,
-  useDisclosure,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { ActionButton } from "../../../shared/components/tools/ActionButton";
@@ -41,7 +40,6 @@ const HomePoolModal = ({
   pool,
   hasStakenForAEN,
 }: IProps) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const needToUnstake = useAppSelector(selectCanUserStake);
 
   const nftsStaked = useAppSelector(selectUserStaked);
@@ -167,7 +165,7 @@ const HomePoolModal = ({
                         (pool.collection === "" && !hasStakenForAEN) ||
                         needToUnstake.data
                       }
-                      onClick={onOpen}
+                      onClick={handleStake}
                     >
                       Stake
                     </ActionButton>

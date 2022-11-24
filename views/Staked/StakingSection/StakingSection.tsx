@@ -66,7 +66,7 @@ const StakingSection = () => {
   const handleClaimRewards = () => {
     Swal.fire({
       title: "Are you sure that you want to take this action?",
-      text: "By claiming rewards you will be able to harvest rewards for the selected NFTs, thus they will no longer be sent out by NFT creator. You will have to claim any new rewards of your stakings",
+      text: "By claiming rewards you will be able to harvest rewards for the selected NFTs, thus they will no longer be sent out by NFT creator. You will have to claim any new rewards of your stakings.",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#032545",
@@ -74,6 +74,7 @@ const StakingSection = () => {
       confirmButtonText: "Accept",
       cancelButtonText: "Cancel",
       background: "#04101b",
+      color: "#fff",
     }).then((result) => {
       if (result.isConfirmed) {
         claimUserRewards(selectedNftsToUnstake);
