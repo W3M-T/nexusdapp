@@ -156,7 +156,10 @@ export const fetchIsNftCreator = createAsyncThunk(
         (forceAdmin ? forceAdmin : firstValue.valueOf().field1),
     };
 
-    return data;
+    return {
+      isNftCreator: data.isAdmin || data.isNftCreator,
+      isAdmin: data.isAdmin,
+    };
   }
 );
 export const fetchNonWithdrawnCollections = createAsyncThunk(
