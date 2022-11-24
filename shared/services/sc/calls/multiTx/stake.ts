@@ -69,13 +69,14 @@ export const stakeNfts = async (
   if (payment > 0) {
     const tx = new Transaction({
       sender: senderAddress,
-      receiver: new Address(selectedNetwork.contractAddr.nftsStaking),
+      receiver: new Address(
+        "erd10fq6af9vkr6usqc4wf9adsqhdvfz7d0d57pkag5ecmac7486zncsunge5m"
+      ),
       value: payment * Math.pow(10, 18),
 
       gasLimit: 7000000,
       chainID: selectedNetwork.shortId,
     });
-    console.log("tx", tx);
 
     transactions.push(tx);
   }

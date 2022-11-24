@@ -10,7 +10,7 @@
         "contractCrate": {
             "name": "nftstakingpools",
             "version": "0.0.0",
-            "git_version": "ef915af-modified"
+            "git_version": "ad4aad1-modified"
         },
         "framework": {
             "name": "elrond-wasm",
@@ -453,6 +453,21 @@
             ]
         },
         {
+            "name": "stakingDaysDistributed",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "staking",
+                    "type": "NftStaking"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "u64"
+                }
+            ]
+        },
+        {
             "name": "creatorCollections",
             "mutability": "readonly",
             "inputs": [
@@ -686,6 +701,17 @@
             ]
         },
         {
+            "name": "tokensRequiredForAEN",
+            "mutability": "readonly",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "variadic<TokenIdentifier>",
+                    "multi_result": true
+                }
+            ]
+        },
+        {
             "name": "minimumStakingDays",
             "mutability": "readonly",
             "inputs": [],
@@ -702,17 +728,6 @@
             "outputs": [
                 {
                     "type": "u64"
-                }
-            ]
-        },
-        {
-            "name": "tokensRequiredForAEN",
-            "mutability": "readonly",
-            "inputs": [],
-            "outputs": [
-                {
-                    "type": "variadic<TokenIdentifier>",
-                    "multi_result": true
                 }
             ]
         },
