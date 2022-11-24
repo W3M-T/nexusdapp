@@ -1,7 +1,6 @@
 import { Flex } from "@chakra-ui/react";
 import { IExistingPool } from "../../../shared/redux/types/pools.interface";
 import { formatBalance } from "../../../shared/utils/formatBalance";
-import { formatTokenI } from "../../../shared/utils/formatTokenIdentifier";
 import { shortenHash } from "../../../shared/utils/shortenHash";
 
 export const columns = [
@@ -35,7 +34,7 @@ export const columns = [
           alignItems={"center"}
           justifyContent="center"
         >
-          {formatTokenI(pool.collection)}
+          {pool.poolName}
         </Flex>
       );
     },

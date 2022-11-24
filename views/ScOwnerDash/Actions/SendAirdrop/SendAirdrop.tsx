@@ -26,10 +26,8 @@ import SelectDark, {
   OptionSelectDark,
 } from "../../../../shared/components/ui/SelectDark";
 import { useAppSelector } from "../../../../shared/hooks/core/useRedux";
-import {
-  selectExistingPools,
-  selectRewardsTokens,
-} from "../../../../shared/redux/slices/pools";
+import useNumerizePools from "../../../../shared/hooks/tools/useNumerizePools";
+import { selectRewardsTokens } from "../../../../shared/redux/slices/pools";
 import { getInterface } from "../../../../shared/services/sc";
 import {
   EGLDPayment,
@@ -45,7 +43,8 @@ const validationSchema = yup.object({
 });
 
 const SendAirdrop = () => {
-  const existingPools = useAppSelector(selectExistingPools);
+  const { pools: existingPools } = useNumerizePools();
+
   const { data: rewardsTokens } = useAppSelector(selectRewardsTokens);
 
   const formik = useFormik({
@@ -57,7 +56,7 @@ const SendAirdrop = () => {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       const index = Number(values.pool);
-      const pool = existingPools.data[index];
+      const pool = existingPools[index];
 
       const poolType = new StructType("pool", [
         new FieldDefinition("creation_timestamp", "", new U64Type()),
@@ -149,13 +148,10 @@ const SendAirdrop = () => {
           >
             <>
               <OptionSelectDark value={""}>Pool</OptionSelectDark>
-              {existingPools.data.map((pool, i) => {
-                if (!pool.collection) {
-                  return null;
-                }
+              {existingPools.map((pool, i) => {
                 return (
                   <OptionSelectDark key={i} value={i}>
-                    {i + 1} - {formatTokenI(pool.collection)}
+                    {i + 1} - {pool.poolName}
                   </OptionSelectDark>
                 );
               })}

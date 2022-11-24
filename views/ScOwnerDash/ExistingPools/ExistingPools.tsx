@@ -1,12 +1,11 @@
 import { Center, Heading, Text } from "@chakra-ui/react";
 import { CardWrapper } from "../../../shared/components/ui/CardWrapper";
 import SearchTable1 from "../../../shared/components/ui/SearchTable1";
-import { useAppSelector } from "../../../shared/hooks/core/useRedux";
-import { selectExistingPools } from "../../../shared/redux/slices/pools";
+import useNumerizePools from "../../../shared/hooks/tools/useNumerizePools";
 import { columns } from "./columns";
 
 const ExistingPools = () => {
-  const { data } = useAppSelector(selectExistingPools);
+  const { pools: data } = useNumerizePools();
 
   return (
     <CardWrapper overflowX="auto">
