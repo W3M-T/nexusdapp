@@ -6,7 +6,6 @@ import { routes } from "../../utils/routes";
 
 const NavMenu = () => {
   const { isLoggedIn } = useGetLoginInfo();
-  console.log("isLoggedIn", isLoggedIn);
 
   return (
     <Flex

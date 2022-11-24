@@ -67,8 +67,6 @@ const StakedNfts = () => {
       <SwipperS
         slidesPerView={poolItems}
         // spaceBetween={"auto"}
-        onSlideChange={() => console.log("slide change")}
-        onSwiper={(swiper) => console.log(swiper)}
       >
         {stakedNfts.status === "loading" ? (
           <Fragment>
@@ -121,8 +119,6 @@ const StakedNfts = () => {
         ) : (
           <Fragment>
             {stakedNfts.data.nfts.map((nft, i) => {
-              console.log("nft", nft);
-
               return (
                 <SwiperSlide key={i}>
                   <Box width="80%">

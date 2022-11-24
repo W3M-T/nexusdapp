@@ -53,11 +53,7 @@ const MyNfts = () => {
       >
         My NFTs
       </Heading>
-      <SwipperS
-        slidesPerView={poolItems}
-        onSlideChange={() => console.log("slide change")}
-        onSwiper={(swiper) => console.log(swiper)}
-      >
+      <SwipperS slidesPerView={poolItems}>
         {!data ? (
           <Fragment>
             <SwiperSlide>

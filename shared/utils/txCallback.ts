@@ -20,8 +20,6 @@ export const TxCb = async ({ transaction, pending, error }: TransactionCb) => {
     );
   } else {
     if (transaction) {
-      console.log("transaction", transaction);
-
       const tx = transaction[0];
       const status = await isSmartContractSuccess(tx.getHash().hex());
 

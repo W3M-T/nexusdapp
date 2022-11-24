@@ -147,7 +147,7 @@ const HomePoolModal = ({
             {nfts.length > 0 && (
               <Tooltip
                 label={
-                  needToUnstake
+                  needToUnstake.data
                     ? "You must first unstake your NFTs from completed pools (marked red)."
                     : "Make sure you have staked at least one NFT of PARROT, EXPLORER, or TEDDY1 collections."
                 }

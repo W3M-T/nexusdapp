@@ -13,10 +13,10 @@ const mobileText = (
   </ActionButton>
 );
 const desktopText = (
-  <ActionButton as={"div"} isFullWidth borderRadius={"7px !important"}>
+  <Box as={"div"} py="6px" borderRadius={"7px !important"}>
     {" "}
     Maiar Browser Extension
-  </ActionButton>
+  </Box>
 );
 const webText = (
   <ActionButton as={"div"} isFullWidth borderRadius={"7px !important"}>
@@ -48,13 +48,16 @@ export const LoginComponent = memo(() => {
               className="DappUIButton"
               w="100%"
             />
-            <Box
-              as={DappUI.ExtensionLoginButton}
-              shouldRenderDefaultCss={false}
-              loginButtonText={desktopText}
-              className="DappUIButton"
-              w="100%"
-            />
+            <ActionButton w={"full"} px={0} py={0}>
+              <Box
+                as={DappUI.ExtensionLoginButton}
+                shouldRenderDefaultCss={false}
+                loginButtonText={desktopText}
+                className="DappUIButton Extension"
+                buttonClass="buttonLogin"
+                w="100%"
+              />
+            </ActionButton>
             <Box
               as={DappUI.WalletConnectLoginButton}
               shouldRenderDefaultCss={false}
@@ -79,5 +82,23 @@ const LoginWrapperS = styled(Stack)`
   }
   .DappUIButton {
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .dapp-core-ui-component a {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white !important;
+    padding: 6px 0;
+  }
+  .dapp-core-ui-component a div div {
+    width: auto;
+  }
+  .dapp-core-ui-component a svg {
+    width: auto;
+    margin-left: 10px;
   }
 `;

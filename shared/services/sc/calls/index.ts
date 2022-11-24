@@ -102,7 +102,6 @@ export const ESDTNFTTransfer = async (
     const tokenId = token.collection;
     const tokenNonce = token.nonce;
     const finalValue = finalTokenValue || Number(value) * Math.pow(10, 18);
-    console.log("finalValue", finalValue);
 
     const payload = TransactionPayload.contractCall()
       .setFunction(new ContractFunction("ESDTNFTTransfer"))

@@ -8,6 +8,7 @@ import {
 } from "../../../shared/hooks/core/useRedux";
 import {
   fetchExistringPools,
+  fetcHhasStakedForAEN,
   fetchNeedsToUnstake,
 } from "../../../shared/redux/reduxAsyncFuncs/poolsFuncs";
 import { selectExistingPools } from "../../../shared/redux/slices/pools";
@@ -17,12 +18,16 @@ import HomePool from "./HomePool";
 
 const Pools = () => {
   const { data: pools } = useAppSelector(selectExistingPools);
+
   const connectedAddress = useAppSelector(selectUserAddress);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchExistringPools());
-    dispatch(fetchNeedsToUnstake(connectedAddress));
+    if (connectedAddress) {
+      dispatch(fetchNeedsToUnstake(connectedAddress));
+      dispatch(fetcHhasStakedForAEN(connectedAddress));
+    }
   }, [connectedAddress, dispatch]);
 
   const data = pools.filter((p) => {
@@ -31,7 +36,7 @@ const Pools = () => {
     const dateInAMonth = addDays(date, 30);
     const today = new Date();
 
-    if (dateInAMonth < today || p.collection === "") {
+    if (dateInAMonth < today) {
       return false;
     } else {
       return true;
@@ -53,9 +58,7 @@ const Pools = () => {
       </Heading>
       {data.length > 0 && (
         <Grid templateColumns={"1fr 1.5fr"} gap={{ sm: 3, md: 8 }}>
-          <Box mb={{ sm: 3, md: 8 }}>
-            {data[0] && <HomePool pool={data[0]} />}
-          </Box>
+          <Box>{data[0] && <HomePool pool={data[0]} />}</Box>
 
           <Grid templateColumns={"1fr 1fr"} gap={{ sm: 3, md: 8 }}>
             {data[1] ? <HomePool pool={data[1]} small /> : <Box></Box>}
@@ -64,7 +67,6 @@ const Pools = () => {
 
             {data[3] ? <HomePool pool={data[3]} small /> : <Box></Box>}
             {data[4] ? <HomePool pool={data[4]} small /> : <Box></Box>}
-            {data[5] ? <HomePool pool={data[5]} small /> : <Box></Box>}
           </Grid>
         </Grid>
       )}
@@ -72,6 +74,7 @@ const Pools = () => {
         w="full"
         justifyContent={"flex-end"}
         display={{ sm: "none", md: "flex" }}
+        mt={2}
       >
         <Link href={route.view.route}>
           <a>
