@@ -126,7 +126,7 @@ const MyNfts = () => {
           </Fragment>
         )}
       </SwipperS>
-      {poolItems > data?.length && (
+      {poolItems < data?.length && (
         <Flex
           w="full"
           justifyContent={"flex-end"}
