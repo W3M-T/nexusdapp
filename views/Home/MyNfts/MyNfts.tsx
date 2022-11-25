@@ -50,6 +50,8 @@ const MyNfts = () => {
         as="h2"
         fontSize={"24px"}
         color="dappTemplate.color2.base"
+        cursor={!isLargerThanLg && "pointer"}
+        onClick={!isLargerThanLg && onOpen}
       >
         My NFTs
       </Heading>
