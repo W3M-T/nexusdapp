@@ -38,7 +38,12 @@ const NftsUserModal = ({ onClose, isOpen }: IProps) => {
         <ModalHeader borderRadius="1.5rem 1.5rem 0 0">My NFTs</ModalHeader>
         <ModalBody>
           <Grid
-            templateColumns={{ sm: "1fr 1fr 1fr", lg: "1fr 1fr 1fr 1fr" }}
+            templateColumns={{
+              sm: "1fr ",
+              lsm: "1fr 1fr",
+              md: "1fr 1fr 1fr",
+              lg: "1fr 1fr 1fr 1fr",
+            }}
             gap={5}
           >
             {nfts

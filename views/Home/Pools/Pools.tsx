@@ -43,19 +43,34 @@ const Pools = () => {
     }
   });
 
-  console.log("data", data);
-
   return (
     <Flex flexDir={"column"}>
-      <Heading
-        mb={4}
-        fontWeight="600"
-        as="h2"
-        fontSize={"24px"}
-        color="dappTemplate.color2.base"
-      >
-        Pools
-      </Heading>
+      <Flex display={{ sm: "flex", md: "none" }}>
+        <Link href={route.view.route}>
+          <a>
+            <Heading
+              mb={4}
+              fontWeight="600"
+              as="h2"
+              fontSize={"24px"}
+              color="dappTemplate.color2.base"
+            >
+              Pools
+            </Heading>
+          </a>
+        </Link>
+      </Flex>
+      <Flex display={{ sm: "none", md: "flex" }}>
+        <Heading
+          mb={4}
+          fontWeight="600"
+          as="h2"
+          fontSize={"24px"}
+          color="dappTemplate.color2.base"
+        >
+          Pools
+        </Heading>
+      </Flex>
       {data.length > 0 && (
         <Grid templateColumns={"1fr 1.5fr"} gap={{ sm: 3, md: 8 }}>
           <Box>{data[0] && <HomePool pool={data[0]} />}</Box>
