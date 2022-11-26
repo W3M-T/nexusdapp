@@ -1,4 +1,5 @@
 import { Center, Flex, Text, useDisclosure } from "@chakra-ui/react";
+import { transactionServices } from "@elrondnetwork/dapp-core";
 import {
   Address,
   AddressType,
@@ -20,6 +21,8 @@ import {
 } from "@elrondnetwork/erdjs/out";
 import BigNumber from "bignumber.js";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
+import { useState } from "react";
 import NextImg from "../../../shared/components/ui/NextImg";
 import { useAppSelector } from "../../../shared/hooks/core/useRedux";
 import {
@@ -29,7 +32,7 @@ import {
 import { IExistingPool } from "../../../shared/redux/types/pools.interface";
 import { INft } from "../../../shared/redux/types/tokens.interface";
 import { stakeNfts } from "../../../shared/services/sc/calls/multiTx/stake";
-
+import { route } from "../../../shared/utils/routes";
 const HomePoolModal = dynamic(() => import("./SelectNftModal"));
 
 interface IProps {
@@ -40,8 +43,17 @@ const HomePool = ({ pool, small }: IProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const hasStakenForAEN = useAppSelector(selectHasStakedForAEN);
   const nftsStaked = useAppSelector(selectUserStaked);
+  const router = useRouter();
+  const [sessionId, setSessionId] = useState<string>();
+  const onSuccess = () => {
+    router.push(route.staked.route);
+  };
+  const transactionStatus = transactionServices.useTrackTransactionStatus({
+    transactionId: sessionId,
+    onSuccess: onSuccess,
+  });
 
-  const handleStake = (nfts: INft[]) => {
+  const handleStake = async (nfts: INft[]) => {
     if (nfts.length > 0 && nfts.length <= 10) {
       const poolType = new StructType("pool", [
         new FieldDefinition("creation_timestamp", "", new U64Type()),
@@ -67,7 +79,12 @@ const HomePool = ({ pool, small }: IProps) => {
         ),
       ]);
 
-      stakeNfts(nfts, poolStruct, nftsStaked.data.nfts.length);
+      const res = await stakeNfts(
+        nfts,
+        poolStruct,
+        nftsStaked.data.nfts.length
+      );
+      setSessionId(res.sessionId);
     }
   };
 

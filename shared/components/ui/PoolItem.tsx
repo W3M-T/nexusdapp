@@ -6,6 +6,7 @@ import {
   Tooltip,
   useDisclosure,
 } from "@chakra-ui/react";
+import { transactionServices } from "@elrondnetwork/dapp-core";
 import {
   Address,
   AddressType,
@@ -27,6 +28,7 @@ import {
 } from "@elrondnetwork/erdjs/out";
 import BigNumber from "bignumber.js";
 import dynamic from "next/dynamic";
+import { useState } from "react";
 import { useAppSelector } from "../../hooks/core/useRedux";
 import {
   selectCanUserStake,
@@ -54,8 +56,16 @@ const PoolItem = ({ pool }: IProps) => {
   const needToUnstake = useAppSelector(selectCanUserStake);
 
   const nftsStaked = useAppSelector(selectUserStaked);
+  const [sessionId, setSessionId] = useState();
+  const onSuccess = () => {
+    window.location.reload();
+  };
+  const transactionStatus = transactionServices.useTrackTransactionStatus({
+    transactionId: sessionId,
+    onSuccess: onSuccess,
+  });
 
-  const handleStake = (nfts: INft[]) => {
+  const handleStake = async (nfts: INft[]) => {
     if (nfts.length > 0 && nfts.length <= 10) {
       const poolType = new StructType("pool", [
         new FieldDefinition("creation_timestamp", "", new U64Type()),
@@ -81,7 +91,12 @@ const PoolItem = ({ pool }: IProps) => {
         ),
       ]);
 
-      stakeNfts(nfts, poolStruct, nftsStaked.data.nfts.length);
+      const res: any = await stakeNfts(
+        nfts,
+        poolStruct,
+        nftsStaked.data.nfts.length
+      );
+      setSessionId(res.sessionId);
     }
   };
 

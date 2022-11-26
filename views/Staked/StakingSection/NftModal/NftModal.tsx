@@ -6,14 +6,17 @@ import {
   ModalCloseButton,
   Text,
 } from "@chakra-ui/react";
+import { transactionServices } from "@elrondnetwork/dapp-core";
 import { BigUIntValue, BytesValue } from "@elrondnetwork/erdjs/out";
 import BigNumber from "bignumber.js";
 import Image from "next/image";
-import { memo } from "react";
+import { useRouter } from "next/router";
+import { memo, useState } from "react";
 import { ActionButton } from "../../../../shared/components/tools/ActionButton";
 import MyModal from "../../../../shared/components/ui/MyModal";
 import { IStaked } from "../../../../shared/redux/types/pools.interface";
 import { EGLDPayment } from "../../../../shared/services/sc/calls";
+import { route } from "../../../../shared/utils/routes";
 
 interface IProps {
   nft: IStaked;
@@ -22,8 +25,18 @@ interface IProps {
 }
 
 const NftModal = ({ isOpen, onClose, nft }: IProps) => {
-  const handleUnstake = () => {
-    EGLDPayment(
+  const router = useRouter();
+  const [sessionId, setSessionId] = useState<string>();
+  const onSuccess = () => {
+    router.push(route.view.route);
+  };
+  const transactionStatus = transactionServices.useTrackTransactionStatus({
+    transactionId: sessionId,
+    onSuccess: onSuccess,
+  });
+
+  const handleUnstake = async () => {
+    const res = await EGLDPayment(
       "NftStakingPoolsWsp",
       "unstakeNft",
       0.002,
@@ -33,6 +46,8 @@ const NftModal = ({ isOpen, onClose, nft }: IProps) => {
       ],
       70000000
     );
+
+    setSessionId(res.sessionId);
   };
 
   return (

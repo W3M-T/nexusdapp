@@ -54,32 +54,15 @@ const StakedNfts = () => {
   }
   return (
     <Flex flexDir={"column"}>
-      <Flex display={{ sm: "flex", md: "none" }}>
-        <Link href={route.staked.route}>
-          <a>
-            <Heading
-              mb={4}
-              fontWeight="600"
-              as="h2"
-              fontSize={"24px"}
-              color="dappTemplate.color2.base"
-            >
-              Staked NFTs
-            </Heading>
-          </a>
-        </Link>
-      </Flex>
-      <Flex display={{ sm: "none", md: "flex" }}>
-        <Heading
-          mb={4}
-          fontWeight="600"
-          as="h2"
-          fontSize={"24px"}
-          color="dappTemplate.color2.base"
-        >
-          Staked NFTs
-        </Heading>
-      </Flex>
+      <Heading
+        mb={4}
+        fontWeight="600"
+        as="h2"
+        fontSize={"24px"}
+        color="dappTemplate.color2.base"
+      >
+        Staked NFTs
+      </Heading>
 
       <SwipperS
         slidesPerView={poolItems}
