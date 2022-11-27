@@ -11,13 +11,11 @@ import { SwiperSlide } from "swiper/react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { Fragment } from "react";
-import useSWR from "swr";
 import { breakpoints } from "../../../config/chakraTheme";
 import { SwipperS } from "../../../shared/components/ui/SwiperS";
 import { useAppSelector } from "../../../shared/hooks/core/useRedux";
+import useGetNfts from "../../../shared/hooks/tools/useGetNfts";
 import { selectUserAddress } from "../../../shared/redux/slices/settings";
-import { INft } from "../../../shared/redux/types/tokens.interface";
-import { swrFetcher } from "../../../shared/services/rest/axiosEldron";
 import { noShowMedia } from "../../../shared/utils/excludeNft";
 
 const NftsUserModal = dynamic(
@@ -26,10 +24,7 @@ const NftsUserModal = dynamic(
 
 const MyNfts = () => {
   const address = useAppSelector(selectUserAddress);
-  const { data } = useSWR<INft[]>(
-    address && `/accounts/${address}/nfts`,
-    swrFetcher
-  );
+  const data = useGetNfts();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isLargerThanLg] = useMediaQuery(`(min-width: ${breakpoints.lg})`);
   let poolItems = 4;

@@ -12,7 +12,7 @@ const useGetNfts = (
 ) => {
   const address = useAppSelector(selectUserAddress);
   const { data: nfts, error } = useSWR<INft[]>(
-    address && `/accounts/${address}/nfts`,
+    address && `/accounts/${address}/nfts?size=1000`,
     swrFetcher
   );
   const [NFTs2, setNFTs] = useState<INft[]>(options?.initialValue || []);

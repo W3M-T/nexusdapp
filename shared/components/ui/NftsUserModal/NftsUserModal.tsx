@@ -6,25 +6,19 @@ import {
   ModalFooter,
   ModalHeader,
 } from "@chakra-ui/react";
-import useSWR from "swr";
-import { useAppSelector } from "../../../hooks/core/useRedux";
-import { selectUserAddress } from "../../../redux/slices/settings";
-import { INft } from "../../../redux/types/tokens.interface";
-import { swrFetcher } from "../../../services/rest/axiosEldron";
+import dynamic from "next/dynamic";
+import useGetNfts from "../../../hooks/tools/useGetNfts";
 import { noShowMedia } from "../../../utils/excludeNft";
 import MyModal from "../MyModal";
-import UserNftCard from "./UserNftCard";
+
+const UserNftCard = dynamic(() => import("./UserNftCard"));
+
 interface IProps {
   onClose: () => void;
   isOpen: boolean;
 }
 const NftsUserModal = ({ onClose, isOpen }: IProps) => {
-  const address = useAppSelector(selectUserAddress);
-
-  const { data: nfts } = useSWR<INft[]>(
-    address && `/accounts/${address}/nfts`,
-    swrFetcher
-  );
+  const nfts = useGetNfts();
   return (
     <MyModal isOpen={isOpen} onClose={onClose} size={"6xl"}>
       <ModalContent background={"dappTemplate.dark.darker"}>
