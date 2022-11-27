@@ -125,7 +125,7 @@ const HomePoolModal = ({
               return (
                 <StakeNftItem
                   nft={nft}
-                  key={nft.nonce}
+                  key={nft.identifier}
                   onClick={() => handleSelectNFT(nft)}
                   selected={Boolean(
                     selectedNFTs.find((n) => n.identifier === nft.identifier)
