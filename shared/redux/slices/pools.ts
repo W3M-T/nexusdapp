@@ -5,6 +5,7 @@ import {
   fetchAllowedRegistrationTokens,
   fetchAllowedRewardTokens,
   fetchExistringPools,
+  fetchHasReadWarning,
   fetcHhasStakedForAEN,
   fetchIsNftCreator,
   fetchNeedsToUnstake,
@@ -71,6 +72,11 @@ export interface poolsState {
     error: string;
   };
   needToUnstake: {
+    status: Status;
+    data: boolean;
+    error: string;
+  };
+  hasSeenWarning: {
     status: Status;
     data: boolean;
     error: string;
@@ -165,6 +171,11 @@ const initialState: poolsState = {
   needToUnstake: {
     status: "idle",
     data: false,
+    error: "",
+  },
+  hasSeenWarning: {
+    status: "idle",
+    data: true,
     error: "",
   },
 };
@@ -314,6 +325,17 @@ export const poolsSlice = createSlice({
       })
       .addCase(fetchNeedsToUnstake.rejected, (state) => {
         state.needToUnstake.status = "failed";
+      })
+      //fetchHasReadWarning
+      .addCase(fetchHasReadWarning.pending, (state) => {
+        state.hasSeenWarning.status = "success";
+      })
+      .addCase(fetchHasReadWarning.fulfilled, (state, action) => {
+        state.hasSeenWarning.status = "success";
+        state.hasSeenWarning.data = action.payload;
+      })
+      .addCase(fetchHasReadWarning.rejected, (state) => {
+        state.hasSeenWarning.status = "failed";
       });
   },
 });
@@ -335,6 +357,8 @@ export const selectRewardsTokens = (state: RootState) =>
   state.pools.allowedRewardTokens;
 export const selectHasStakedForAEN = (state: RootState) =>
   state.pools.hasStakedForAEN;
+export const selectHasSeenWarning = (state: RootState) =>
+  state.pools.hasSeenWarning;
 export const selectCanUserStake = (state: RootState) =>
   state.pools.needToUnstake;
 

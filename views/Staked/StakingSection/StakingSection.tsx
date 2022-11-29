@@ -12,6 +12,7 @@ import {
 } from "../../../shared/hooks/core/useRedux";
 import {
   changeStakedNftPage,
+  selectHasSeenWarning,
   selectUserStaked,
 } from "../../../shared/redux/slices/pools";
 import { IStakedWithTokenDetails } from "../../../shared/redux/types/pools.interface";
@@ -23,7 +24,7 @@ import NftsList from "./NftsList/NftsList";
 const StakingSection = () => {
   const stakedNfts = useAppSelector(selectUserStaked);
   const dispatch = useAppDispatch();
-
+  const { data: userHasSeenWarning } = useAppSelector(selectHasSeenWarning);
   const [selectedNft, setSelectedNft] = useState(null);
   const [isMultipleUnstake] = useState(true);
   const [selectedNftsToUnstake, setSelectedNftsToUnstake] = useState<
@@ -64,22 +65,26 @@ const StakingSection = () => {
     unstakeNfts(selectedNftsToUnstake);
   };
   const handleClaimRewards = () => {
-    Swal.fire({
-      title: "Are you sure that you want to take this action?",
-      text: "By claiming rewards you will be able to harvest rewards for the selected NFTs, thus they will no longer be sent out by NFT creator. You will have to claim any new rewards of your stakings.",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#032545",
-      cancelButtonColor: "#ad0303",
-      confirmButtonText: "Accept",
-      cancelButtonText: "Cancel",
-      background: "#04101b",
-      color: "#fff",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        claimUserRewards(selectedNftsToUnstake);
-      }
-    });
+    if (userHasSeenWarning) {
+      claimUserRewards(selectedNftsToUnstake);
+    } else {
+      Swal.fire({
+        title: "Are you sure that you want to take this action?",
+        text: "By claiming rewards you will be able to harvest rewards for the selected NFTs, thus they will no longer be sent out by NFT creator. You will have to claim any new rewards of your stakings.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#032545",
+        cancelButtonColor: "#ad0303",
+        confirmButtonText: "Accept",
+        cancelButtonText: "Cancel",
+        background: "#04101b",
+        color: "#fff",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          claimUserRewards(selectedNftsToUnstake);
+        }
+      });
+    }
   };
   return (
     <Box>

@@ -1,16 +1,16 @@
 {
     "buildInfo": {
         "rustc": {
-            "version": "1.66.0-nightly",
-            "commitHash": "5e9772042948002f9c6f60c4c81603170035fffa",
-            "commitDate": "2022-10-29",
+            "version": "1.67.0-nightly",
+            "commitHash": "b7bc90fea3b441234a84b49fdafeb75815eebbab",
+            "commitDate": "2022-11-21",
             "channel": "Nightly",
-            "short": "rustc 1.66.0-nightly (5e9772042 2022-10-29)"
+            "short": "rustc 1.67.0-nightly (b7bc90fea 2022-11-21)"
         },
         "contractCrate": {
             "name": "nftstakingpools",
             "version": "0.0.0",
-            "git_version": "ad4aad1-modified"
+            "git_version": "19975a8-modified"
         },
         "framework": {
             "name": "elrond-wasm",
@@ -347,6 +347,21 @@
         },
         {
             "name": "needsToUnstake",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "address",
+                    "type": "Address"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "hasReadWarning",
             "mutability": "readonly",
             "inputs": [
                 {

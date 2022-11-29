@@ -245,3 +245,16 @@ export const fetchNeedsToUnstake = createAsyncThunk(
     return data;
   }
 );
+export const fetchHasReadWarning = createAsyncThunk(
+  "pools/fetchHasReadWarning",
+  async (address: string) => {
+    const res = await scQuery("NftStakingPoolsWsp", "hasReadWarning", [
+      new AddressValue(new Address(address)),
+    ]);
+    const { firstValue } = res;
+
+    const data = firstValue.valueOf();
+
+    return data;
+  }
+);
