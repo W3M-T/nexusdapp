@@ -1,10 +1,10 @@
 import { Box, Flex, Icon, Text } from "@chakra-ui/react";
+import { useGetLoginInfo } from "@elrondnetwork/dapp-core";
 import Link from "next/link";
 import { customColors } from "../../../config/chakraTheme";
-import { useLoggingIn } from "../../hooks/auth/useLoggingIn";
 import { routes } from "../../utils/routes";
 const ButtonNav = () => {
-  const { isLoggedIn } = useLoggingIn();
+  const { isLoggedIn } = useGetLoginInfo();
 
   return (
     <Flex

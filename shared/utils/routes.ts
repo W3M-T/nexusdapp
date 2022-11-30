@@ -1,11 +1,10 @@
 import {
   AiOutlineHome,
-  AiOutlineSafety,
   AiOutlineUpCircle,
   AiOutlineUser,
 } from "react-icons/ai";
 import { CgCloseR } from "react-icons/cg";
-import { TbWorld } from "react-icons/tb";
+import { TbPyramid, TbWorld } from "react-icons/tb";
 
 import { IconType } from "react-icons/lib";
 import { RiGalleryLine } from "react-icons/ri";
@@ -34,7 +33,7 @@ export const route = {
   create: {
     route: "/create-pool",
     name: "Create Pool",
-    icon: AiOutlineSafety,
+    icon: TbPyramid,
   },
   view: {
     route: "/view-pools",
