@@ -177,7 +177,6 @@ const FormTab = ({ activeFeeTab }: IProps) => {
                   onChange={formik.handleChange}
                   value={formik.values.name}
                   isInvalid={formik.touched.name && Boolean(formik.errors.name)}
-                  readOnly
                 />
               </FormControl>
               <FormControl>
