@@ -36,6 +36,7 @@ const validationSchema = yup.object({
   nftsNumber: yup.number().required(),
   dayliRewards: yup.number().required(),
   token: yup.string().required(),
+  name: yup.string().required(),
 });
 
 interface IProps {
@@ -48,6 +49,7 @@ const FormTab = ({ activeFeeTab }: IProps) => {
   const formik = useFormik({
     initialValues: {
       collection: collection,
+      name: collection.name,
       nftsNumber: "",
       token: "",
       dayliRewards: "",
@@ -73,7 +75,7 @@ const FormTab = ({ activeFeeTab }: IProps) => {
           new BigUIntValue(
             new BigNumber(dayliRewards).multipliedBy(Math.pow(10, 18))
           ),
-          BytesValue.fromUTF8(values.collection.name),
+          BytesValue.fromUTF8(values.name),
           BytesValue.fromUTF8(imgageUrl || ""),
         ];
       } else {
@@ -86,7 +88,7 @@ const FormTab = ({ activeFeeTab }: IProps) => {
           new BigUIntValue(
             new BigNumber(dayliRewards).multipliedBy(Math.pow(10, 18))
           ),
-          BytesValue.fromUTF8(values.collection.name),
+          BytesValue.fromUTF8(values.name),
           BytesValue.fromUTF8(imgageUrl || ""),
         ];
       }
@@ -156,6 +158,25 @@ const FormTab = ({ activeFeeTab }: IProps) => {
                   placeholder="eg. "
                   fontSize="xs"
                   value={collection.collection}
+                  readOnly
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel fontWeight="bold" fontSize="xs">
+                  Pool name
+                </FormLabel>
+                <Input
+                  color="gray.400"
+                  bg="#0F1535"
+                  border="0.5px solid"
+                  borderColor="#E2E8F04D"
+                  borderRadius="15px"
+                  placeholder="eg. "
+                  fontSize="xs"
+                  name="name"
+                  onChange={formik.handleChange}
+                  value={formik.values.name}
+                  isInvalid={formik.touched.name && Boolean(formik.errors.name)}
                   readOnly
                 />
               </FormControl>
