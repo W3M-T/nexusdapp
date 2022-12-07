@@ -10,7 +10,7 @@ import {
 
 const Search = () => {
   const dispatch = useAppDispatch();
-  const { data: pools } = useAppSelector(selectExistingPools);
+  const { data3: pools } = useAppSelector(selectExistingPools);
   const handleSearch = (e) => {
     const query = e.target.value;
 

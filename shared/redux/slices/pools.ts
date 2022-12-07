@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { addDays } from "date-fns";
 import { INftCollection } from "../../types/collection";
 import { IPagination } from "../../types/pagination";
 import {
@@ -32,6 +33,8 @@ export interface poolsState {
     status: Status;
     data: IExistingPool[];
     data2: IExistingPool[];
+    data3: IExistingPool[];
+    data4: IExistingPool[];
     error: string;
   };
   userStaked: {
@@ -113,6 +116,8 @@ const initialState: poolsState = {
     status: "idle",
     data: [],
     data2: [],
+    data3: [],
+    data4: [],
     error: "",
   },
 
@@ -197,7 +202,7 @@ export const poolsSlice = createSlice({
       state.createPool = action.payload;
     },
     setFilteredPools: (state, action: PayloadAction<IExistingPool[]>) => {
-      state.existingPools.data2 = action.payload;
+      state.existingPools.data4 = action.payload;
     },
     changeStakedNftPage: (state, action: PayloadAction<number>) => {
       state.userStaked.page = action.payload;
@@ -226,6 +231,30 @@ export const poolsSlice = createSlice({
           state.existingPools.status = "success";
           state.existingPools.data = action.payload;
           state.existingPools.data2 = action.payload;
+          state.existingPools.data3 = action.payload.filter((p) => {
+            const date = new Date(p.timestam * 1000);
+
+            const dateInAMonth = addDays(date, 30);
+            const today = new Date();
+
+            if (dateInAMonth < today || p.collection === "") {
+              return false;
+            } else {
+              return true;
+            }
+          });
+          state.existingPools.data4 = action.payload.filter((p) => {
+            const date = new Date(p.timestam * 1000);
+
+            const dateInAMonth = addDays(date, 30);
+            const today = new Date();
+
+            if (dateInAMonth < today || p.collection === "") {
+              return false;
+            } else {
+              return true;
+            }
+          });
         }
       )
       .addCase(fetchExistringPools.rejected, (state, action) => {

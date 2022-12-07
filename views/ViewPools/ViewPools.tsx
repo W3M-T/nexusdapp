@@ -1,5 +1,4 @@
 import { Center, Flex, Heading } from "@chakra-ui/react";
-import { addDays } from "date-fns";
 import { useEffect, useState } from "react";
 import { MainLayout } from "../../shared/components/ui/MainLayout";
 import PoolItem from "../../shared/components/ui/PoolItem";
@@ -19,22 +18,14 @@ import { selectUserAddress } from "../../shared/redux/slices/settings";
 import { IExistingPool } from "../../shared/redux/types/pools.interface";
 import Search from "./Search/Search";
 const ViewPools = () => {
-  const { data2: pools } = useAppSelector(selectExistingPools);
+  const { data4: pools } = useAppSelector(selectExistingPools);
   const connectedAddress = useAppSelector(selectUserAddress);
   const [poolData, setPoolData] = useState([]);
+
+  console.log("pools", pools);
+
   const poolsGroupedByCollection: IExistingPool[][] = useGroupByField(
-    pools.filter((p) => {
-      const date = new Date(p.timestam * 1000);
-
-      const dateInAMonth = addDays(date, 30);
-      const today = new Date();
-
-      if (dateInAMonth < today || p.collection === "") {
-        return false;
-      } else {
-        return true;
-      }
-    }),
+    pools,
     "collection"
   );
 
@@ -87,22 +78,9 @@ const ViewPools = () => {
         flexWrap="wrap"
         mt={10}
       >
-        {poolData
-          .filter((p) => {
-            const date = new Date(p.timestam * 1000);
-
-            const dateInAMonth = addDays(date, 30);
-            const today = new Date();
-
-            if (dateInAMonth < today || p.collection === "") {
-              return false;
-            } else {
-              return true;
-            }
-          })
-          .map((pool, i) => {
-            return <PoolItem key={i} pool={pool} />;
-          })}
+        {poolData.map((pool, i) => {
+          return <PoolItem key={i} pool={pool} />;
+        })}
       </Flex>
     </MainLayout>
   );
