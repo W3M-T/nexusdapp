@@ -3,6 +3,7 @@ import { Authenticated } from "../../../shared/components/tools/Authenticated";
 import { LoginModalButton } from "../../../shared/components/tools/LoginModalButton";
 import { CardWrapper } from "../../../shared/components/ui/CardWrapper";
 import AllowTokenForAirdrop from "./AllowTokenForAirdrop/AllowTokenForAirdrop";
+import RetriveAllSfts from "./RetriveAllSfts/RetriveAllSfts";
 import SendAirdrop from "./SendAirdrop/SendAirdrop";
 import SetOneTimeFee from "./SetOneTimeFee/SetOneTimeFee";
 import WithdrawFee from "./WithdrawFee/WithdrawFee";
@@ -34,6 +35,8 @@ const Actions = () => {
           <AllowTokenForAirdrop />
           <Divider />
           <SendAirdrop />
+          <Divider />
+          <RetriveAllSfts />
         </Center>
       </Authenticated>
     </CardWrapper>

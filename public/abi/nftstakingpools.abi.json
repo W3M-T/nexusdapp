@@ -10,7 +10,7 @@
         "contractCrate": {
             "name": "nftstakingpools",
             "version": "0.0.0",
-            "git_version": "19975a8-modified"
+            "git_version": "a70d3e8-modified"
         },
         "framework": {
             "name": "elrond-wasm",
@@ -119,11 +119,26 @@
                     "type": "BigUint"
                 },
                 {
-                    "name": "collection_name",
+                    "name": "pool_name",
                     "type": "bytes"
                 },
                 {
                     "name": "collection_image",
+                    "type": "bytes"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "renamePool",
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "nft_pool",
+                    "type": "NftPool"
+                },
+                {
+                    "name": "new_name",
                     "type": "bytes"
                 }
             ],
@@ -233,7 +248,7 @@
                     "type": "BigUint"
                 },
                 {
-                    "name": "collection_name",
+                    "name": "pool_name",
                     "type": "bytes"
                 },
                 {
@@ -242,6 +257,106 @@
                 }
             ],
             "outputs": []
+        },
+        {
+            "name": "returnSfts",
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "stakings",
+                    "type": "variadic<NftStaking>",
+                    "multi_arg": true
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "returnSftManually",
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "nft_token",
+                    "type": "TokenIdentifier"
+                },
+                {
+                    "name": "nft_nonce",
+                    "type": "u64"
+                },
+                {
+                    "name": "amount",
+                    "type": "BigUint"
+                },
+                {
+                    "name": "address",
+                    "type": "Address"
+                },
+                {
+                    "name": "pool",
+                    "type": "NftPool"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "forceReturnSftManually",
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "nft_token",
+                    "type": "TokenIdentifier"
+                },
+                {
+                    "name": "nft_nonce",
+                    "type": "u64"
+                },
+                {
+                    "name": "amount",
+                    "type": "BigUint"
+                },
+                {
+                    "name": "address",
+                    "type": "Address"
+                },
+                {
+                    "name": "pool",
+                    "type": "NftPool"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "getAllSfts",
+            "mutability": "readonly",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "variadic<tuple<TokenIdentifier,u64,BigUint>>",
+                    "multi_result": true
+                }
+            ]
+        },
+        {
+            "name": "getTokenData",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "address",
+                    "type": "Address"
+                },
+                {
+                    "name": "token",
+                    "type": "TokenIdentifier"
+                },
+                {
+                    "name": "nonce",
+                    "type": "u64"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "bytes"
+                }
+            ]
         },
         {
             "name": "getInfo",
@@ -617,6 +732,21 @@
             "outputs": [
                 {
                     "type": "u64"
+                }
+            ]
+        },
+        {
+            "name": "poolName",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "pool",
+                    "type": "NftPool"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "bytes"
                 }
             ]
         },

@@ -32,6 +32,22 @@ export const getFromAllTokens = async ({
     },
   });
 };
+export const getFromAllNFTs = async ({
+  size = 10000,
+  name = undefined,
+  identifiers = undefined,
+  search = undefined,
+  extraQuery = "",
+}) => {
+  return await axiosEldron.get("/nfts" + extraQuery, {
+    params: {
+      identifiers,
+      name,
+      size,
+      search,
+    },
+  });
+};
 
 export const getNfts = async (address, size = 1000) => {
   return await axiosEldron.get(`/accounts/${address}/nfts?size=${size}`);
