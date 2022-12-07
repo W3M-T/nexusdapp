@@ -23,7 +23,18 @@ const ViewPools = () => {
   const connectedAddress = useAppSelector(selectUserAddress);
   const [poolData, setPoolData] = useState([]);
   const poolsGroupedByCollection: IExistingPool[][] = useGroupByField(
-    pools,
+    pools.filter((p) => {
+      const date = new Date(p.timestam * 1000);
+
+      const dateInAMonth = addDays(date, 30);
+      const today = new Date();
+
+      if (dateInAMonth < today || p.collection === "") {
+        return false;
+      } else {
+        return true;
+      }
+    }),
     "collection"
   );
 
