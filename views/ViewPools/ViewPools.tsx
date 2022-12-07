@@ -22,8 +22,6 @@ const ViewPools = () => {
   const connectedAddress = useAppSelector(selectUserAddress);
   const [poolData, setPoolData] = useState([]);
 
-  console.log("pools", pools);
-
   const poolsGroupedByCollection: IExistingPool[][] = useGroupByField(
     pools,
     "collection"

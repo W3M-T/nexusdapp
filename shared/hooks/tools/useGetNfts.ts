@@ -8,10 +8,12 @@ const useGetNfts = (
   options: {
     filter?: { key: string; value: string };
     initialValue?: INft[];
-  } = null
-) => {
+  } = null,
+  transformResponse?: (nfts: INft[]) => any[]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+): any => {
   const address = useAppSelector(selectUserAddress);
-  const { data: nfts, error } = useSWR<INft[]>(
+  const { data: nfts } = useSWR<INft[]>(
     address && `/accounts/${address}/nfts?size=1000`,
     swrFetcher
   );
@@ -35,7 +37,11 @@ const useGetNfts = (
     }
   }, [nfts, options?.filter.key, options?.filter.value]);
 
-  return NFTs2;
+  if (transformResponse) {
+    return transformResponse(NFTs2);
+  } else {
+    return NFTs2;
+  }
 };
 
 export default useGetNfts;

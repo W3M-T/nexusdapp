@@ -59,9 +59,16 @@ const HomePoolModal = ({
     }
   };
 
-  const nfts = useGetNfts({
-    filter: { key: "collection", value: pool.collection },
-  });
+  function filterResponse(nfts: INft[]): INft[] {
+    return nfts.filter((nft) => nft.type === "NonFungibleESDT");
+  }
+
+  const nfts = useGetNfts(
+    {
+      filter: { key: "collection", value: pool.collection },
+    },
+    filterResponse
+  );
 
   const handleStake = () => {
     onCloseModal();

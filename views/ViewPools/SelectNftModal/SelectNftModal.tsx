@@ -32,7 +32,16 @@ const SelectNftModal = ({
     }
   };
 
-  const nfts = useGetNfts({ filter: { key: "collection", value: colelction } });
+  function filterResponse(nfts: INft[]): INft[] {
+    return nfts.filter((nft) => nft.type !== "SemiFungibleESDT");
+  }
+
+  const nfts: INft[] = useGetNfts(
+    {
+      filter: { key: "collection", value: colelction },
+    },
+    filterResponse
+  );
 
   const handleStake = () => {
     onCloseModal();
