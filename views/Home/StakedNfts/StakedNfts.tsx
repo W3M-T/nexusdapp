@@ -45,7 +45,7 @@ const StakedNfts = () => {
 
   useEffect(() => {
     if (address) {
-      dispatch(fetchUserStaked({ address: address, page: 0 }));
+      dispatch(fetchUserStaked({ address: address, page: 1 }));
     }
   }, [address, dispatch]);
 
