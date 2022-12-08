@@ -9,8 +9,6 @@ import {
   BytesValue,
   Field,
   FieldDefinition,
-  List,
-  ListType,
   Struct,
   StructType,
   TokenIdentifierType,
@@ -202,34 +200,7 @@ const RetriveAllSfts = () => {
         return nftToSendStruct;
       });
 
-      scCall("NftStakingPoolsWsp", "returnSfts", [
-        new List(
-          new ListType(
-            new StructType("nftToSend", [
-              new FieldDefinition("address", "", new AddressType()),
-              new FieldDefinition("nft_token", "", new TokenIdentifierType()),
-              new FieldDefinition("nft_nonce", "", new U64Type()),
-              new FieldDefinition(
-                "nft_pool",
-                "",
-                new StructType("pool", [
-                  new FieldDefinition("creation_timestamp", "", new U64Type()),
-                  new FieldDefinition("creator", "", new AddressType()),
-                  new FieldDefinition(
-                    "collection",
-                    "",
-                    new TokenIdentifierType()
-                  ),
-                  new FieldDefinition("nr_of_nfts", "", new U32Type()),
-                  new FieldDefinition("reward_token", "", new BytesType()),
-                  new FieldDefinition("reward_amount", "", new BigUIntType()),
-                ])
-              ),
-            ])
-          ),
-          prepareNftsToSend
-        ),
-      ]);
+      scCall("NftStakingPoolsWsp", "returnSfts", prepareNftsToSend);
     },
   });
 
