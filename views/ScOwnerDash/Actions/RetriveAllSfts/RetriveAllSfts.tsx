@@ -123,11 +123,21 @@ const RetriveAllSfts = () => {
       }
 
       const elrondTypesNftsArr = elrondNFts.flatMap((nft) => nft);
+      console.log("elrondTypesNftsArr", elrondTypesNftsArr);
+      console.log("scNfts", scNfts);
+      console.log("elrondNFts", elrondNFts);
 
       const elrondNftsDataAndScData = elrondTypesNftsArr.map((nft, i) => {
+        const scData = scNfts.find(
+          (n) =>
+            createIndentifierByCollectionAndNonce(
+              n.nft_token,
+              n.nft_nonce.toNumber()
+            ) === nft.identifier
+        );
         return {
           ...nft,
-          ...scNfts[i],
+          ...scData,
         };
       });
 
