@@ -123,9 +123,6 @@ const RetriveAllSfts = () => {
       }
 
       const elrondTypesNftsArr = elrondNFts.flatMap((nft) => nft);
-      console.log("elrondTypesNftsArr", elrondTypesNftsArr);
-      console.log("scNfts", scNfts);
-      console.log("elrondNFts", elrondNFts);
 
       const elrondNftsDataAndScData = elrondTypesNftsArr.map((nft, i) => {
         const scData = scNfts.find(
@@ -144,7 +141,6 @@ const RetriveAllSfts = () => {
       const filterNfts = elrondNftsDataAndScData.filter(
         (nft) => nft.type === "SemiFungibleESDT"
       );
-      console.log("filterNfts", filterNfts);
 
       const prepareNftsToSend = filterNfts.map((nft) => {
         const pool = nft.nft_pool;
