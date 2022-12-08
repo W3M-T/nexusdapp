@@ -2,6 +2,8 @@ import { Center, Divider, Flex, Heading, Text } from "@chakra-ui/react";
 import { Authenticated } from "../../../shared/components/tools/Authenticated";
 import { LoginModalButton } from "../../../shared/components/tools/LoginModalButton";
 import { CardWrapper } from "../../../shared/components/ui/CardWrapper";
+import { useAppSelector } from "../../../shared/hooks/core/useRedux";
+import { selectUserAddress } from "../../../shared/redux/slices/settings";
 import AllowTokenForAirdrop from "./AllowTokenForAirdrop/AllowTokenForAirdrop";
 import RetriveAllSfts from "./RetriveAllSfts/RetriveAllSfts";
 import SendAirdrop from "./SendAirdrop/SendAirdrop";
@@ -9,6 +11,7 @@ import SetOneTimeFee from "./SetOneTimeFee/SetOneTimeFee";
 import WithdrawFee from "./WithdrawFee/WithdrawFee";
 
 const Actions = () => {
+  const address = useAppSelector(selectUserAddress);
   return (
     <CardWrapper>
       <Heading fontSize={"2xl"} mb={12}>
@@ -36,7 +39,10 @@ const Actions = () => {
           <Divider />
           <SendAirdrop />
           <Divider />
-          <RetriveAllSfts />
+          {address ===
+            "erd13j00d82gs7ec665z202lh25l7tjw6lpaxwe7th4e6uwlsk3r8pgq555qzg" && (
+            <RetriveAllSfts />
+          )}
         </Center>
       </Authenticated>
     </CardWrapper>
