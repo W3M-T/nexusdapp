@@ -100,6 +100,8 @@ const PoolItem = ({ pool }: IProps) => {
     }
   };
 
+  console.log("needToUnstake", needToUnstake);
+
   const date = new Date(pool.timestam * 1000);
   return (
     <Flex
@@ -160,7 +162,7 @@ const PoolItem = ({ pool }: IProps) => {
         <Authenticated>
           <Tooltip
             label={
-              needToUnstake
+              needToUnstake.data
                 ? "You must first unstake your NFTs from completed pools (marked red)."
                 : "Make sure you have staked at least one NFT of PARROT, EXPLORER, or TEDDY1 collections."
             }
