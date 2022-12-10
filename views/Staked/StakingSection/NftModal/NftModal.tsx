@@ -39,7 +39,7 @@ const NftModal = ({ isOpen, onClose, nft }: IProps) => {
     const res = await EGLDPayment(
       "NftStakingPoolsWsp",
       "unstakeNft",
-      0.002,
+      0.00075,
       [
         BytesValue.fromUTF8(nft.token),
         new BigUIntValue(new BigNumber(nft.nonce)),
