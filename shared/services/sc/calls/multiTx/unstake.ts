@@ -31,7 +31,7 @@ export const unstakeNfts = async (nfts: { token: string; nonce: number }[]) => {
 
     const tx = new Transaction({
       sender: senderAddress,
-      value: 0.002 * Math.pow(10, 18),
+      value: 0.00075 * Math.pow(10, 18),
       receiver: receiverAddress,
       data: payload,
       gasLimit: 70000000,
