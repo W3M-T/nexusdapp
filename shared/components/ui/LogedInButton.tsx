@@ -25,12 +25,15 @@ const LogedInButton = () => {
     handler: () => onClose(),
   });
 
-  const username = account.username
+  if (!account) {
+    return null;
+  }
+  const username = account?.username
     ? account.username.slice(0, account.username.length - 7)
     : "";
 
   const userDisplay =
-    username !== "" ? "@" + username : shortenHash(account.address);
+    username !== "" ? "@" + username : shortenHash(account?.address);
 
   return (
     <Box position={"relative"} w={{ sm: "full", lg: "auto" }} ref={ref}>

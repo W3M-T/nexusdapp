@@ -35,6 +35,7 @@ import { getTokenDetails } from "../../../../shared/utils/getTokenDetails";
 const validationSchema = yup.object({
   nftsNumber: yup.number().required(),
   dayliRewards: yup.number().required(),
+  duration: yup.number().required(),
   token: yup.string().required(),
   name: yup.string().required(),
 });
@@ -53,6 +54,7 @@ const FormTab = ({ activeFeeTab }: IProps) => {
       nftsNumber: "",
       token: "",
       dayliRewards: "",
+      duration: "",
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -236,6 +238,25 @@ const FormTab = ({ activeFeeTab }: IProps) => {
                   isInvalid={
                     formik.touched.dayliRewards &&
                     Boolean(formik.errors.dayliRewards)
+                  }
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel fontWeight="bold" fontSize="xs">
+                  Duration (days)
+                </FormLabel>
+                <Input
+                  color="gray.400"
+                  bg="#0F1535"
+                  border="0.5px solid"
+                  borderColor="#E2E8F04D"
+                  borderRadius="15px"
+                  placeholder="eg. 30"
+                  fontSize="xs"
+                  name="duration"
+                  onChange={formik.handleChange}
+                  isInvalid={
+                    formik.touched.duration && Boolean(formik.errors.duration)
                   }
                 />
               </FormControl>
