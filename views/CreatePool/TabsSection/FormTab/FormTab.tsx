@@ -77,6 +77,7 @@ const FormTab = ({ activeFeeTab }: IProps) => {
           new BigUIntValue(
             new BigNumber(dayliRewards).multipliedBy(Math.pow(10, 18))
           ),
+          new BigUIntValue(new BigNumber(values.duration)),
           BytesValue.fromUTF8(values.name),
           BytesValue.fromUTF8(imgageUrl || ""),
         ];
@@ -90,6 +91,7 @@ const FormTab = ({ activeFeeTab }: IProps) => {
           new BigUIntValue(
             new BigNumber(dayliRewards).multipliedBy(Math.pow(10, 18))
           ),
+          new BigUIntValue(new BigNumber(values.duration)),
           BytesValue.fromUTF8(values.name),
           BytesValue.fromUTF8(imgageUrl || ""),
         ];
