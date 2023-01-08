@@ -61,6 +61,8 @@ const ViewPools = () => {
     });
     setPoolData(colelctionsPools);
   }, [poolsGroupedByCollection]);
+  console.log("pools", pools);
+
   return (
     <MainLayout metaTitle="View Pools">
       <Heading as={"h1"} w="full" textAlign={"center"} mt={10} mb={4}>
