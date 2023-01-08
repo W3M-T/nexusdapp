@@ -35,7 +35,12 @@ import { getTokenDetails } from "../../../../shared/utils/getTokenDetails";
 const validationSchema = yup.object({
   nftsNumber: yup.number().required(),
   dayliRewards: yup.number().required(),
-  duration: yup.number().required(),
+  duration: yup
+    .number()
+
+    .integer("This field must be a integer")
+    .moreThan(0, "This field must be a integer number more than 0")
+    .required(),
   token: yup.string().required(),
   name: yup.string().required(),
 });
@@ -99,7 +104,7 @@ const FormTab = ({ activeFeeTab }: IProps) => {
 
       const amountToSend = new BigNumber(nftsNumber)
         .multipliedBy(dayliRewards)
-        .multipliedBy(30)
+        .multipliedBy(values.duration)
         .toNumber();
 
       if (token === "EGLD") {
@@ -128,6 +133,8 @@ const FormTab = ({ activeFeeTab }: IProps) => {
   useEffect(() => {
     localStorage.setItem("poolcreationPhase", "3");
   }, []);
+
+  console.log("formik", formik.errors);
 
   return (
     <CardWrapper>
@@ -261,6 +268,9 @@ const FormTab = ({ activeFeeTab }: IProps) => {
                     formik.touched.duration && Boolean(formik.errors.duration)
                   }
                 />
+                <Text mt={2} fontSize="xs" color="tomato">
+                  {formik.errors.duration}
+                </Text>
               </FormControl>
             </Stack>
 
@@ -268,10 +278,11 @@ const FormTab = ({ activeFeeTab }: IProps) => {
               <Heading fontSize={"md"}>
                 Amount to be paid :{" "}
                 {Number(formik.values.nftsNumber) &&
-                Number(formik.values.dayliRewards)
+                Number(formik.values.dayliRewards) &&
+                formik.values.duration
                   ? new BigNumber(formik.values.nftsNumber)
                       .multipliedBy(formik.values.dayliRewards)
-                      .multipliedBy(30)
+                      .multipliedBy(formik.values.duration)
                       .toNumber()
                   : 0}
               </Heading>
