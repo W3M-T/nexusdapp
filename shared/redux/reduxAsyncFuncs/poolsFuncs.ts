@@ -80,7 +80,8 @@ export const fetchExistringPools = createAsyncThunk(
         rewards: pool.field0.reward_amount.toNumber(),
         poolName: pool.field1.toString(),
         nftsNow: pool.field2.toNumber(),
-        url: pool.field3.toString(),
+        poolDuration: pool.field3.toNumber(),
+        url: pool.field4.toString(),
       };
       return data;
     });
