@@ -84,7 +84,7 @@ export const networkConfig: Record<string, NetworkType> = {
     tokens: {
       EGLD: { identifier: "EGLD" },
       WATER: { identifier: "WATER-9ed400" },
-      MERMAID: { identifier: "MERMAID-9c388a" },
+      MERMAID: { identifier: "MERMAID-9c388a", decimals: 18 },
     },
   },
 };
