@@ -12,6 +12,7 @@ import {
   Text,
   Tooltip,
 } from "@chakra-ui/react";
+import { addDays } from "date-fns";
 import { useEffect, useState } from "react";
 import { ActionButton } from "../../../shared/components/tools/ActionButton";
 import { useAppSelector } from "../../../shared/hooks/core/useRedux";
@@ -79,8 +80,8 @@ const HomePoolModal = ({
       setSelectedNFT([nfts[0]]);
     }
   }, [nfts]);
-  const date = new Date(pool.timestam * 1000);
-
+  const createdDate = new Date(pool.timestam * 1000);
+  const endDate = addDays(createdDate, pool.poolDuration);
   return (
     <Modal isOpen={isOpenModal} onClose={onCloseModal}>
       <ModalCloseButton
@@ -107,9 +108,9 @@ const HomePoolModal = ({
             <Text>
               {" "}
               <Box as="span" fontWeight={"bold"}>
-                Created :{" "}
+                Ends :{" "}
               </Box>{" "}
-              {date.toLocaleDateString("en-US")}{" "}
+              {endDate.toLocaleDateString("en-US")}{" "}
             </Text>
           </Flex>
           <Text mb={2}>
