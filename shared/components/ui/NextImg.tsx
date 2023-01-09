@@ -1,5 +1,6 @@
 import { Box, BoxProps } from "@chakra-ui/react";
 import Image, { StaticImageData } from "next/image";
+import { isValidImageUrl } from "../../utils/functions";
 
 interface IProps extends BoxProps {
   src: string | StaticImageData;
@@ -12,7 +13,13 @@ const NextImg = ({ src, alt = "", nextProps, ...props }: IProps) => {
   return (
     <Box {...props}>
       <Image
-        src={src}
+        src={
+          typeof src === "string"
+            ? isValidImageUrl(src)
+              ? src
+              : "/TheNFTNEXUSLOGO.png"
+            : src
+        }
         alt={alt}
         width="24px"
         height="24px"
