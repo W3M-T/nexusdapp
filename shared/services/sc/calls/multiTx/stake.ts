@@ -66,13 +66,26 @@ export const stakeNfts = async (
     transactions.push(tx);
   }
 
-  if (payment > 0) {
+  if (selectedNetwork.tokens?.MERMAID.identifier && payment > 0) {
+    const tokenIdentifier = selectedNetwork.tokens.MERMAID.identifier;
+    const multiplyier = Math.pow(10, selectedNetwork.tokens.MERMAID.decimals);
+    const finalValue = Number(payment) * multiplyier;
+    const payload2 = TransactionPayload.contractCall()
+      .setFunction(new ContractFunction("ESDTTransfer"))
+      .setArgs([
+        BytesValue.fromUTF8(tokenIdentifier),
+        new BigUIntValue(new BigNumber(finalValue)),
+        BytesValue.fromUTF8("fee"),
+      ])
+      .build();
+
     const tx = new Transaction({
       sender: senderAddress,
       receiver: new Address(
         "erd10fq6af9vkr6usqc4wf9adsqhdvfz7d0d57pkag5ecmac7486zncsunge5m"
       ),
-      value: payment * Math.pow(10, 18),
+      value: 0,
+      data: payload2,
 
       gasLimit: 7000000,
       chainID: selectedNetwork.shortId,
