@@ -27,7 +27,7 @@ import {
   U64Value,
 } from "@elrondnetwork/erdjs/out";
 import BigNumber from "bignumber.js";
-import { addDays } from "date-fns/esm";
+import { addDays } from "date-fns";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import { useAppSelector } from "../../hooks/core/useRedux";

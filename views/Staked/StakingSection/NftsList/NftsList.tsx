@@ -1,4 +1,6 @@
 import { Center, Grid, Spinner } from "@chakra-ui/react";
+import { addDays } from "date-fns";
+import orderBy from "lodash/orderBy";
 import { useAppSelector } from "../../../../shared/hooks/core/useRedux";
 import { selectUserStaked } from "../../../../shared/redux/slices/pools";
 import { IStakedWithTokenDetails } from "../../../../shared/redux/types/pools.interface";
@@ -31,7 +33,18 @@ const NftsList = ({ handleViwNft, selectedNfts }: IProps) => {
         </Center>
       ) : (
         <>
-          {stakedNfts.data.nfts.map((nft) => {
+          {orderBy(
+            stakedNfts.data.nfts,
+            [
+              function (pool) {
+                return addDays(
+                  new Date(pool.nftPool.timestam * 1000),
+                  pool.nftPool.poolDuration
+                ).getTime();
+              },
+            ],
+            "asc"
+          ).map((nft) => {
             return (
               <NFTCard
                 nft={nft}
