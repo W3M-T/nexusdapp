@@ -33,7 +33,7 @@ export const claimUserRewards = async (
 
     const tx = new Transaction({
       sender: senderAddress,
-      value: 0.001 * Math.pow(10, 18),
+      value: 0,
       receiver: receiverAddress,
       data: payload,
       gasLimit: 70000000,
