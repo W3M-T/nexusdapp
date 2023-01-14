@@ -109,13 +109,14 @@ export const fetchUserStaked = createAsyncThunk(
           creator: nft.field0.nft_pool.creator.bech32(),
           collection: nft.field0.nft_pool.collection,
           nfts: nft.field0.nft_pool.nr_of_nfts.toNumber(),
+          poolDuration: nft.field1.toNumber(),
           token: nft.field0.nft_pool.reward_token,
           rewards: nft.field0.nft_pool.reward_amount.toNumber(),
         },
         token: nft.field0.nft_token,
-        name: nft.field1.toString(),
-        url: nft.field2.toString(),
-        estimatedRewards: nft.field3.toNumber(),
+        name: nft.field2.toString(),
+        url: nft.field3.toString(),
+        estimatedRewards: nft.field4.toNumber(),
       };
 
       return nftData;

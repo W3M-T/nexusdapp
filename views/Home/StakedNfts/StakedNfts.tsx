@@ -6,6 +6,8 @@ import {
   useDisclosure,
   useMediaQuery,
 } from "@chakra-ui/react";
+import { addDays } from "date-fns";
+import orderBy from "lodash/orderBy";
 import Link from "next/link";
 import { Fragment, useEffect, useState } from "react";
 import { SwiperSlide } from "swiper/react";
@@ -52,6 +54,9 @@ const StakedNfts = () => {
   if (stakedNfts.data.nfts.length === 0) {
     return null;
   }
+
+  console.log("stakedNfts", stakedNfts);
+
   return (
     <Flex flexDir={"column"}>
       <Heading
@@ -118,7 +123,18 @@ const StakedNfts = () => {
           </Fragment>
         ) : (
           <Fragment>
-            {stakedNfts.data.nfts.map((nft, i) => {
+            {orderBy(
+              stakedNfts.data.nfts,
+              [
+                function (pool) {
+                  return addDays(
+                    new Date(pool.nftPool.timestam * 1000),
+                    pool.nftPool.poolDuration
+                  ).getTime();
+                },
+              ],
+              "asc"
+            ).map((nft, i) => {
               return (
                 <SwiperSlide key={i}>
                   <Box width="80%">

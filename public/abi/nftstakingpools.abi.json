@@ -10,7 +10,7 @@
         "contractCrate": {
             "name": "nftstakingpools",
             "version": "0.0.0",
-            "git_version": "21f7913-modified"
+            "git_version": "01174cb-modified"
         },
         "framework": {
             "name": "elrond-wasm",
@@ -329,6 +329,36 @@
             "outputs": []
         },
         {
+            "name": "fixStorage",
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "nft_token",
+                    "type": "TokenIdentifier"
+                },
+                {
+                    "name": "nft_nonce",
+                    "type": "u64"
+                },
+                {
+                    "name": "address",
+                    "type": "Address"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "fixStorageSt",
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "staking",
+                    "type": "NftStaking"
+                }
+            ],
+            "outputs": []
+        },
+        {
             "name": "getInfo",
             "mutability": "readonly",
             "inputs": [],
@@ -377,7 +407,7 @@
             ],
             "outputs": [
                 {
-                    "type": "tuple<u32,List<tuple<NftStaking,bytes,bytes,BigUint>>>"
+                    "type": "tuple<u32,List<tuple<NftStaking,u64,bytes,bytes,BigUint>>>"
                 }
             ]
         },
@@ -482,6 +512,23 @@
                     "type": "bytes"
                 }
             ]
+        },
+        {
+            "name": "scan",
+            "mutability": "readonly",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "variadic<NftStaking>",
+                    "multi_result": true
+                }
+            ]
+        },
+        {
+            "name": "fixAfterScan",
+            "mutability": "mutable",
+            "inputs": [],
+            "outputs": []
         },
         {
             "name": "stakedIn",
