@@ -18,22 +18,17 @@ export const stakeNfts = async (
   poolStruct,
   amountNftsStaked: number
 ) => {
-  let payment = 0;
+  const payment = nfts.length * 5;
 
-  if (nfts.length > 1) {
-    payment = 0.001;
-  }
+  // if (nfts.length > 1) {
+  //   payment = 0.001;
+  // }
 
-  if (amountNftsStaked >= 10) {
-    payment = nfts.length * 0.001;
-  }
+  // if (amountNftsStaked >= 10) {
+  //   payment = nfts.length * 0.001;
+  // }
 
   const transactions: Transaction[] = [];
-
-  const Args: any = [
-    new AddressValue(new Address(selectedNetwork.contractAddr.nftsStaking)),
-    new BigUIntValue(new BigNumber(nfts.length)),
-  ];
 
   const sender = store.getState().settings.userAddress;
   const senderAddress = new Address(sender);
