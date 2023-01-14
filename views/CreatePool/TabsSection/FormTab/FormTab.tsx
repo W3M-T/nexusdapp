@@ -134,8 +134,6 @@ const FormTab = ({ activeFeeTab }: IProps) => {
     localStorage.setItem("poolcreationPhase", "3");
   }, []);
 
-  console.log("formik", formik.errors);
-
   return (
     <CardWrapper>
       <Box mb="40px">

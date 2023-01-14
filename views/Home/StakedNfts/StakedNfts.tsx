@@ -55,8 +55,6 @@ const StakedNfts = () => {
     return null;
   }
 
-  console.log("stakedNfts", stakedNfts);
-
   return (
     <Flex flexDir={"column"}>
       <Heading
