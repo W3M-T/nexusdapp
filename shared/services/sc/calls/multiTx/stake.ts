@@ -18,11 +18,11 @@ export const stakeNfts = async (
   poolStruct,
   amountNftsStaked: number
 ) => {
-  const payment = nfts.length * 5;
+  let payment = 0;
 
-  // if (nfts.length > 1) {
-  //   payment = 0.001;
-  // }
+  if (nfts.length > 1) {
+    payment = nfts.length * 5;
+  }
 
   // if (amountNftsStaked >= 10) {
   //   payment = nfts.length * 0.001;
