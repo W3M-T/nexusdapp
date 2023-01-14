@@ -9,18 +9,18 @@ import { ActionButton } from "./ActionButton";
 
 const mobileText = (
   <ActionButton as={"div"} isFullWidth borderRadius={"7px !important"}>
-    Maiar Mobile App
+    xPortal Mobile App
   </ActionButton>
 );
 const desktopText = (
   <Box as={"div"} py="6px" borderRadius={"7px !important"}>
     {" "}
-    Maiar Browser Extension
+    xPortal Browser Extension
   </Box>
 );
 const webText = (
   <ActionButton as={"div"} isFullWidth borderRadius={"7px !important"}>
-    Elrond Web Wallet
+    MultiversX Web Wallet
   </ActionButton>
 );
 
