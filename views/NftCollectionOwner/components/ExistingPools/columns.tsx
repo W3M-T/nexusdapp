@@ -1,4 +1,5 @@
 import { Flex } from "@chakra-ui/react";
+import { addDays } from "date-fns";
 import { formatBalance } from "../../../../shared/utils/formatBalance";
 import { shortenHash } from "../../../../shared/utils/shortenHash";
 
@@ -112,11 +113,13 @@ export const columns = [
     },
   },
   {
-    Header: "Created",
+    Header: "Ends",
     accessor: "timestam",
     Cell: ({ row }) => {
       const pool = row.original;
-      const date = new Date(pool.timestam * 1000);
+      const createdDate = new Date(pool.timestam * 1000);
+
+      const endDate = addDays(createdDate, pool.poolDuration);
       return (
         <Flex
           fontSize="14px"
@@ -125,7 +128,7 @@ export const columns = [
           alignItems={"center"}
           justifyContent="center"
         >
-          {date.toLocaleString("en-US")}
+          {endDate.toLocaleString("en-US")}
         </Flex>
       );
     },

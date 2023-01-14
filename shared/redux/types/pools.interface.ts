@@ -25,6 +25,7 @@ export interface IExistingPool {
   token: string;
   rewards: string;
 
+  poolDuration?: number;
   poolName?: string;
   nftsNow?: number;
   url?: string;

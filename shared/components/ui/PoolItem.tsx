@@ -27,6 +27,7 @@ import {
   U64Value,
 } from "@elrondnetwork/erdjs/out";
 import BigNumber from "bignumber.js";
+import { addDays } from "date-fns";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import { useAppSelector } from "../../hooks/core/useRedux";
@@ -100,9 +101,9 @@ const PoolItem = ({ pool }: IProps) => {
     }
   };
 
-  console.log("needToUnstake", needToUnstake);
+  const createdDate = new Date(pool.timestam * 1000);
 
-  const date = new Date(pool.timestam * 1000);
+  const endDate = addDays(createdDate, pool.poolDuration);
   return (
     <Flex
       border="1px solid white"
@@ -147,9 +148,9 @@ const PoolItem = ({ pool }: IProps) => {
           <Text>
             {" "}
             <Box as="span" fontWeight={"bold"}>
-              Created :{" "}
+              Ends :{" "}
             </Box>{" "}
-            {date.toLocaleDateString("en-US")}{" "}
+            {endDate.toLocaleDateString("en-US")}{" "}
           </Text>
         </Flex>
         <Text mb={2}>

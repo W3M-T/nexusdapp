@@ -28,6 +28,7 @@ import SelectDark, {
   OptionSelectDark,
 } from "../../../../shared/components/ui/SelectDark";
 import useNumerizePools from "../../../../shared/hooks/tools/useNumerizePools";
+import { IExistingPool } from "../../../../shared/redux/types/pools.interface";
 import { scCall } from "../../../../shared/services/sc/calls";
 const validationSchema = yup.object({
   pool: yup.number().required(),
@@ -130,10 +131,10 @@ const ClaimUnsentRewards = () => {
 
 export default ClaimUnsentRewards;
 
-const validatePoolByDate = (p) => {
+const validatePoolByDate = (p: IExistingPool) => {
   const date = new Date(p.timestam * 1000);
 
-  const dateInAMonth = addDays(date, 30);
+  const dateInAMonth = addDays(date, p.poolDuration);
   const today = new Date();
 
   let validClaim = false;

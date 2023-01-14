@@ -10,3 +10,11 @@ export function preventExponetialNotation(x: any) {
     }
   );
 }
+
+export function isValidImageUrl(url: string): boolean {
+  // Create a regular expression to match URLs that start with "/" or "https"
+  const urlRegex = /^(\/|https:\/\/)/i;
+
+  // Check if the URL is a valid URL
+  return urlRegex.test(url);
+}

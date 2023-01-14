@@ -234,7 +234,7 @@ export const poolsSlice = createSlice({
           state.existingPools.data3 = action.payload.filter((p) => {
             const date = new Date(p.timestam * 1000);
 
-            const dateInAMonth = addDays(date, 30);
+            const dateInAMonth = addDays(date, p.poolDuration);
             const today = new Date();
 
             if (dateInAMonth < today || p.collection === "") {
@@ -246,7 +246,7 @@ export const poolsSlice = createSlice({
           state.existingPools.data4 = action.payload.filter((p) => {
             const date = new Date(p.timestam * 1000);
 
-            const dateInAMonth = addDays(date, 30);
+            const dateInAMonth = addDays(date, p.poolDuration);
             const today = new Date();
 
             if (dateInAMonth < today || p.collection === "") {

@@ -35,6 +35,12 @@ import { getTokenDetails } from "../../../../shared/utils/getTokenDetails";
 const validationSchema = yup.object({
   nftsNumber: yup.number().required(),
   dayliRewards: yup.number().required(),
+  duration: yup
+    .number()
+
+    .integer("This field must be a integer")
+    .moreThan(0, "This field must be a integer number more than 0")
+    .required(),
   token: yup.string().required(),
   name: yup.string().required(),
 });
@@ -53,6 +59,7 @@ const FormTab = ({ activeFeeTab }: IProps) => {
       nftsNumber: "",
       token: "",
       dayliRewards: "",
+      duration: "",
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -75,6 +82,7 @@ const FormTab = ({ activeFeeTab }: IProps) => {
           new BigUIntValue(
             new BigNumber(dayliRewards).multipliedBy(Math.pow(10, 18))
           ),
+          new BigUIntValue(new BigNumber(values.duration)),
           BytesValue.fromUTF8(values.name),
           BytesValue.fromUTF8(imgageUrl || ""),
         ];
@@ -88,6 +96,7 @@ const FormTab = ({ activeFeeTab }: IProps) => {
           new BigUIntValue(
             new BigNumber(dayliRewards).multipliedBy(Math.pow(10, 18))
           ),
+          new BigUIntValue(new BigNumber(values.duration)),
           BytesValue.fromUTF8(values.name),
           BytesValue.fromUTF8(imgageUrl || ""),
         ];
@@ -95,7 +104,7 @@ const FormTab = ({ activeFeeTab }: IProps) => {
 
       const amountToSend = new BigNumber(nftsNumber)
         .multipliedBy(dayliRewards)
-        .multipliedBy(30)
+        .multipliedBy(values.duration)
         .toNumber();
 
       if (token === "EGLD") {
@@ -239,16 +248,39 @@ const FormTab = ({ activeFeeTab }: IProps) => {
                   }
                 />
               </FormControl>
+              <FormControl>
+                <FormLabel fontWeight="bold" fontSize="xs">
+                  Duration (days)
+                </FormLabel>
+                <Input
+                  color="gray.400"
+                  bg="#0F1535"
+                  border="0.5px solid"
+                  borderColor="#E2E8F04D"
+                  borderRadius="15px"
+                  placeholder="eg. 30"
+                  fontSize="xs"
+                  name="duration"
+                  onChange={formik.handleChange}
+                  isInvalid={
+                    formik.touched.duration && Boolean(formik.errors.duration)
+                  }
+                />
+                <Text mt={2} fontSize="xs" color="tomato">
+                  {formik.errors.duration}
+                </Text>
+              </FormControl>
             </Stack>
 
             <Box mt={8} mb={4}>
               <Heading fontSize={"md"}>
                 Amount to be paid :{" "}
                 {Number(formik.values.nftsNumber) &&
-                Number(formik.values.dayliRewards)
+                Number(formik.values.dayliRewards) &&
+                formik.values.duration
                   ? new BigNumber(formik.values.nftsNumber)
                       .multipliedBy(formik.values.dayliRewards)
-                      .multipliedBy(30)
+                      .multipliedBy(formik.values.duration)
                       .toNumber()
                   : 0}
               </Heading>
