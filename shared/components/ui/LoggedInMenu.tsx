@@ -1,4 +1,4 @@
-import { Box, Flex, Text, VStack } from "@chakra-ui/react";
+import { Box, Flex, Link as ChkLink, Text, VStack } from "@chakra-ui/react";
 import { logout } from "@elrondnetwork/dapp-core";
 import Link from "next/link";
 import { customColors } from "../../../config/chakraTheme";
@@ -69,6 +69,20 @@ const LoggedInMenu = () => {
                 NFT Creator Dashboard
               </Text>
             )}
+          </Flex>
+          <Flex
+            py={1}
+            cursor="pointer"
+            px={8}
+            w="full"
+            _hover={{
+              textShadow: "0 0 10px " + customColors.color2.base,
+            }}
+            onClick={() => logout()}
+          >
+            <ChkLink href={"https://Web3Mermaids.com"} isExternal>
+              Web3Mermaids
+            </ChkLink>
           </Flex>
         </VStack>
       </CardWrapper>
