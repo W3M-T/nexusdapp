@@ -25,31 +25,33 @@ const StakingSection = () => {
   const stakedNfts = useAppSelector(selectUserStaked);
   const dispatch = useAppDispatch();
   const { data: userHasSeenWarning } = useAppSelector(selectHasSeenWarning);
-  const [selectedNft, setSelectedNft] = useState(null);
   const [isMultipleUnstake] = useState(true);
   const [selectedNftsToUnstake, setSelectedNftsToUnstake] = useState<
-    IStakedWithTokenDetails[]
+    { nft: IStakedWithTokenDetails; reward: number }[]
   >([]);
-  const handleViwNft = (nft: IStakedWithTokenDetails) => {
-    if (isMultipleUnstake) {
-      const indexNft = selectedNftsToUnstake.findIndex(
-        (snft) =>
-          createIndentifierByCollectionAndNonce(snft.token, snft.nonce) ===
-          createIndentifierByCollectionAndNonce(nft.token, nft.nonce)
+  const handleViwNft = (nft: IStakedWithTokenDetails, reward: number) => {
+    const indexNft = selectedNftsToUnstake.findIndex(
+      (snft) =>
+        createIndentifierByCollectionAndNonce(
+          snft.nft.token,
+          snft.nft.nonce
+        ) === createIndentifierByCollectionAndNonce(nft.token, nft.nonce)
+    );
+    if (indexNft >= 0) {
+      const newStakedArray = selectedNftsToUnstake.filter(
+        (n, i) => i !== indexNft
       );
-      if (indexNft >= 0) {
-        const newStakedArray = selectedNftsToUnstake.filter(
-          (n, i) => i !== indexNft
-        );
-        setSelectedNftsToUnstake(newStakedArray);
-      } else {
-        if (selectedNftsToUnstake.length < 10) {
-          setSelectedNftsToUnstake([...selectedNftsToUnstake, nft]);
-        }
-      }
+      setSelectedNftsToUnstake(newStakedArray);
     } else {
-      setSelectedNft(nft);
-      // onOpen();
+      if (selectedNftsToUnstake.length < 10) {
+        setSelectedNftsToUnstake([
+          ...selectedNftsToUnstake,
+          {
+            nft: nft,
+            reward: reward,
+          },
+        ]);
+      }
     }
   };
 
@@ -62,11 +64,32 @@ const StakingSection = () => {
   //   setIsMultipleUnstake((s) => !s);
   // };
   const handleUnstake = () => {
-    unstakeNfts(selectedNftsToUnstake);
+    // sum all rewards from nfts rewards
+    const totalRewards = selectedNftsToUnstake.reduce(
+      (acc, nft) => acc + nft.reward,
+      0
+    );
+    if (totalRewards > 0) {
+      Swal.fire({
+        title: "Make sure to claim rewards first.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#032545",
+        cancelButtonColor: "#ad0303",
+        confirmButtonText: "Unstake",
+        cancelButtonText: "Cancel",
+        background: "#04101b",
+        color: "#fff",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          unstakeNfts(selectedNftsToUnstake.map((info) => info.nft));
+        }
+      });
+    }
   };
   const handleClaimRewards = () => {
     if (userHasSeenWarning) {
-      claimUserRewards(selectedNftsToUnstake);
+      claimUserRewards(selectedNftsToUnstake.map((info) => info.nft));
     } else {
       Swal.fire({
         title: "Are you sure that you want to take this action?",
@@ -81,7 +104,7 @@ const StakingSection = () => {
         color: "#fff",
       }).then((result) => {
         if (result.isConfirmed) {
-          claimUserRewards(selectedNftsToUnstake);
+          claimUserRewards(selectedNftsToUnstake.map((info) => info.nft));
         }
       });
     }
@@ -138,7 +161,7 @@ const StakingSection = () => {
       >
         <NftsList
           handleViwNft={handleViwNft}
-          selectedNfts={selectedNftsToUnstake}
+          selectedNfts={selectedNftsToUnstake.map((info) => info.nft)}
         />
 
         {stakedNfts.data.pagination && (

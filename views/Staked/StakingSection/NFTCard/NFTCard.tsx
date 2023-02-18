@@ -2,13 +2,14 @@ import { Flex, FlexProps, Text, Tooltip } from "@chakra-ui/react";
 import { addDays } from "date-fns";
 import { useEffect, useState } from "react";
 import NextImg from "../../../../shared/components/ui/NextImg";
+import useGetNftRewards from "../../../../shared/hooks/tools/useGetNftRewards";
 import { IStakedWithTokenDetails } from "../../../../shared/redux/types/pools.interface";
 import { formatBalance } from "../../../../shared/utils/formatBalance";
 import { formatTokenI } from "../../../../shared/utils/formatTokenIdentifier";
 
 interface IProps {
   nft: IStakedWithTokenDetails;
-  onClick: () => void;
+  onClick: (reward: number) => void;
   wrapperProps?: FlexProps;
   fromHome?: boolean;
   selected?: boolean;
@@ -21,6 +22,7 @@ const NFTCard = ({
   selected,
 }: IProps) => {
   const [isNew, setIsNew] = useState(true);
+  const { reward } = useGetNftRewards(nft);
   useEffect(() => {
     let isNew = true;
     const p = nft.nftPool;
@@ -49,7 +51,7 @@ const NFTCard = ({
         cursor="pointer"
         position={"relative"}
         flexDir="column"
-        onClick={onClick}
+        onClick={() => onClick(reward)}
         border={selected ? "3px solid" : "1px solid"}
         borderColor={
           selected ? "green" : isNew ? "dappTemplate.color2.base" : "red"

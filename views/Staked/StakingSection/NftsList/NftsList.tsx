@@ -8,7 +8,7 @@ import { createIndentifierByCollectionAndNonce } from "../../../../shared/utils/
 import NFTCard from "../NFTCard/NFTCard";
 
 interface IProps {
-  handleViwNft: (nft: IStakedWithTokenDetails) => void;
+  handleViwNft: (nft: IStakedWithTokenDetails, reward: number) => void;
   selectedNfts: IStakedWithTokenDetails[];
 }
 
@@ -49,7 +49,7 @@ const NftsList = ({ handleViwNft, selectedNfts }: IProps) => {
               <NFTCard
                 nft={nft}
                 key={nft.nonce}
-                onClick={() => handleViwNft(nft)}
+                onClick={(reward) => handleViwNft(nft, reward)}
                 selected={Boolean(
                   selectedNfts.find(
                     (stakedNft) =>
