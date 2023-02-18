@@ -359,6 +359,21 @@
             "outputs": []
         },
         {
+            "name": "calcEstRewardableDays",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "staking",
+                    "type": "NftStaking"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "BigUint"
+                }
+            ]
+        },
+        {
             "name": "getInfo",
             "mutability": "readonly",
             "inputs": [],

@@ -14,8 +14,12 @@ import { useRouter } from "next/router";
 import { memo, useState } from "react";
 import { ActionButton } from "../../../../shared/components/tools/ActionButton";
 import MyModal from "../../../../shared/components/ui/MyModal";
+import useGetElrondToken from "../../../../shared/hooks/tools/useGetElrondToken";
+import useGetNftRewards from "../../../../shared/hooks/tools/useGetNftRewards";
 import { IStaked } from "../../../../shared/redux/types/pools.interface";
 import { EGLDPayment } from "../../../../shared/services/sc/calls";
+import { formatBalance } from "../../../../shared/utils/formatBalance";
+import { formatTokenI } from "../../../../shared/utils/formatTokenIdentifier";
 import { route } from "../../../../shared/utils/routes";
 
 interface IProps {
@@ -26,11 +30,13 @@ interface IProps {
 
 const NftModal = ({ isOpen, onClose, nft }: IProps) => {
   const router = useRouter();
+  const { reward } = useGetNftRewards(nft);
   const [sessionId, setSessionId] = useState<string>();
+  const { token: elrondToken } = useGetElrondToken(nft.nftPool.token);
   const onSuccess = () => {
     router.push(route.view.route);
   };
-  const transactionStatus = transactionServices.useTrackTransactionStatus({
+  transactionServices.useTrackTransactionStatus({
     transactionId: sessionId,
     onSuccess: onSuccess,
   });
@@ -86,10 +92,25 @@ const NftModal = ({ isOpen, onClose, nft }: IProps) => {
             <Center
               w={"full"}
               justifyContent={{ sm: "center", lg: "flex-start" }}
+              gap={4}
             >
               <ActionButton textTransform={"uppercase"} onClick={handleUnstake}>
                 Unstake
               </ActionButton>
+              {reward && (
+                <ActionButton
+                  textTransform={"uppercase"}
+                  onClick={handleUnstake}
+                  bgColor="dappTemplate.color2.base"
+                >
+                  Claim{" "}
+                  {formatBalance({
+                    balance: reward,
+                    decimals: elrondToken.decimals,
+                  })}{" "}
+                  {formatTokenI(nft.nftPool.token)}
+                </ActionButton>
+              )}
             </Center>
           </Center>
         </Grid>

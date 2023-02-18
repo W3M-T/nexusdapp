@@ -63,6 +63,13 @@ export const getCollectionsCount = async (colectionIdentifier: string) => {
   return res.data;
 };
 
+export const getTokenPrice = async (identifier: string) => {
+  const res = axiosEldron.get<{ price: number }>(
+    `/tokens/${identifier}?fields=price`
+  );
+
+  return (await res).data.price;
+};
 // export const swrGetUserNfts = async (address, size = 1000) => {
 //   return await  axiosEldron.get(`/accounts/${address}/nfts?size=${size}`);
 // };

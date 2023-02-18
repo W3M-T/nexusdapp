@@ -42,6 +42,7 @@ interface ITokens {
   EGLD: IToken;
   WATER?: IToken;
   MERMAID?: IToken;
+  WEGLD?: IToken;
 }
 interface ISmartContracts {
   nftsStaking?: string;

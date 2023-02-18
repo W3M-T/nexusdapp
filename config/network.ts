@@ -35,6 +35,7 @@ export const networkConfig: Record<string, NetworkType> = {
     tokens: {
       EGLD: { identifier: "EGLD" },
       WATER: { identifier: "WATER-f4db53" },
+      WEGLD: { identifier: "WEGLD-bd4d79" },
     },
   },
 
