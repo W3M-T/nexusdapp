@@ -23,7 +23,6 @@ import { selectUserAddress } from "../../../shared/redux/slices/settings";
 import { route } from "../../../shared/utils/routes";
 import NFTCard from "../../Staked/StakingSection/NFTCard/NFTCard";
 import NftModal from "../../Staked/StakingSection/NftModal/NftModal";
-
 const StakedNfts = () => {
   const dispatch = useAppDispatch();
   const stakedNfts = useAppSelector(selectUserStaked);
@@ -64,7 +63,11 @@ const StakedNfts = () => {
         fontSize={"24px"}
         color="dappTemplate.color2.base"
       >
-        Staked NFTs
+        {isLargerThanLg ? (
+          "Staked NFTs"
+        ) : (
+          <Link href={route.staked.route}>Staked NFTs</Link>
+        )}
       </Heading>
 
       <SwipperS
