@@ -27,7 +27,6 @@ import {
   setCreatePoolCollection,
   setCreatePoolPahe1,
 } from "../../../../shared/redux/slices/pools";
-import { selectUserAddress } from "../../../../shared/redux/slices/settings";
 import { getCollectionDetails } from "../../../../shared/services/rest/axiosEldron";
 const validationSchema = yup.object({
   collection: yup.string().required().min(5),
@@ -39,7 +38,6 @@ interface IProps {
 
 const UserTab = ({ activeFeeTab }: IProps) => {
   const dispatch = useAppDispatch();
-  const address = useAppSelector(selectUserAddress);
   const { phase1 } = useAppSelector(selectCreatePool);
 
   const formik = useFormik({
@@ -54,7 +52,7 @@ const UserTab = ({ activeFeeTab }: IProps) => {
           const res = await getCollectionDetails(values.collection.trim());
           const collectionDetails = res.data;
 
-          if (collectionDetails.owner === address) {
+          if (collectionDetails.owner) {
             // localStorage.setItem("collection-verificacion");\
             const succesObj = {
               status: "success",
