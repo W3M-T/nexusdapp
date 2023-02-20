@@ -18,6 +18,7 @@ import useGetElrondToken from "../../../../shared/hooks/tools/useGetElrondToken"
 import useGetNftRewards from "../../../../shared/hooks/tools/useGetNftRewards";
 import { IStaked } from "../../../../shared/redux/types/pools.interface";
 import { EGLDPayment } from "../../../../shared/services/sc/calls";
+import { claimUserRewards } from "../../../../shared/services/sc/calls/multiTx/claimRewards";
 import { formatBalance } from "../../../../shared/utils/formatBalance";
 import { formatTokenI } from "../../../../shared/utils/formatTokenIdentifier";
 import { route } from "../../../../shared/utils/routes";
@@ -34,7 +35,7 @@ const NftModal = ({ isOpen, onClose, nft }: IProps) => {
   const [sessionId, setSessionId] = useState<string>();
   const { token: elrondToken } = useGetElrondToken(nft.nftPool.token);
   const onSuccess = () => {
-    router.push(route.view.route);
+    router.push(route.home.route);
   };
   transactionServices.useTrackTransactionStatus({
     transactionId: sessionId,
@@ -54,6 +55,9 @@ const NftModal = ({ isOpen, onClose, nft }: IProps) => {
     );
 
     setSessionId(res.sessionId);
+  };
+  const handleClaim = async () => {
+    claimUserRewards([nft]);
   };
 
   return (
@@ -100,7 +104,7 @@ const NftModal = ({ isOpen, onClose, nft }: IProps) => {
               {reward && (
                 <ActionButton
                   textTransform={"uppercase"}
-                  onClick={handleUnstake}
+                  onClick={handleClaim}
                   bgColor="dappTemplate.color2.base"
                 >
                   Claim{" "}

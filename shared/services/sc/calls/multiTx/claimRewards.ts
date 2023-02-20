@@ -19,10 +19,10 @@ export const claimUserRewards = async (
   const sender = store.getState().settings.userAddress;
   const senderAddress = new Address(sender);
 
-  const tokenIdentifier = selectedNetwork.tokens.MERMAID.identifier;
-  const multiplyier = Math.pow(10, selectedNetwork.tokens.MERMAID.decimals);
+  const tokenIdentifier = selectedNetwork.tokens?.MERMAID?.identifier;
+  const multiplyier = Math.pow(10, selectedNetwork.tokens?.MERMAID?.decimals);
   const finalValue = 5 * multiplyier;
-  if (selectedNetwork.tokens?.MERMAID.identifier) {
+  if (selectedNetwork.tokens?.MERMAID?.identifier) {
     nfts.forEach((nft) => {
       const payload = TransactionPayload.contractCall()
         .setFunction(new ContractFunction("ESDTTransfer"))
