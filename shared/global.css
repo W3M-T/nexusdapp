@@ -58,3 +58,8 @@
     border-radius: 12px;
 
 }
+
+
+.swal2-container{
+    z-index: 9999 !important;
+}

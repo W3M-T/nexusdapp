@@ -44,36 +44,37 @@ const NftModal = ({ isOpen, onClose, nft }: IProps) => {
   });
 
   const handleUnstake = async () => {
-    const res = await EGLDPayment(
-      "NftStakingPoolsWsp",
-      "unstakeNft",
-      0.00075,
-      [
-        BytesValue.fromUTF8(nft.token),
-        new BigUIntValue(new BigNumber(nft.nonce)),
-      ],
-      70000000
-    );
+    if (reward > 0) {
+      Swal.fire({
+        title: "Make sure to claim rewards first.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#032545",
+        cancelButtonColor: "#ad0303",
+        confirmButtonText: "Unstake",
+        cancelButtonText: "Cancel",
+        background: "#04101b",
+        color: "#fff",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const res = await EGLDPayment(
+            "NftStakingPoolsWsp",
+            "unstakeNft",
+            0.00075,
+            [
+              BytesValue.fromUTF8(nft.token),
+              new BigUIntValue(new BigNumber(nft.nonce)),
+            ],
+            70000000
+          );
 
-    setSessionId(res.sessionId);
+          setSessionId(res.sessionId);
+        }
+      });
+    }
   };
   const handleClaim = async () => {
-    Swal.fire({
-      title: "Are you sure that you want to take this action?",
-      text: "By claiming rewards you will be able to harvest rewards for the selected NFTs, thus they will no longer be sent out by NFT creator. You will have to claim any new rewards of your stakings.",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#032545",
-      cancelButtonColor: "#ad0303",
-      confirmButtonText: "Accept",
-      cancelButtonText: "Cancel",
-      background: "#04101b",
-      color: "#fff",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        claimUserRewards([nft]);
-      }
-    });
+    claimUserRewards([nft]);
   };
 
   return (
