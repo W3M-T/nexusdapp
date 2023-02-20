@@ -12,6 +12,7 @@ import BigNumber from "bignumber.js";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { memo, useState } from "react";
+import Swal from "sweetalert2";
 import { ActionButton } from "../../../../shared/components/tools/ActionButton";
 import MyModal from "../../../../shared/components/ui/MyModal";
 import useGetElrondToken from "../../../../shared/hooks/tools/useGetElrondToken";
@@ -57,7 +58,22 @@ const NftModal = ({ isOpen, onClose, nft }: IProps) => {
     setSessionId(res.sessionId);
   };
   const handleClaim = async () => {
-    claimUserRewards([nft]);
+    Swal.fire({
+      title: "Are you sure that you want to take this action?",
+      text: "By claiming rewards you will be able to harvest rewards for the selected NFTs, thus they will no longer be sent out by NFT creator. You will have to claim any new rewards of your stakings.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#032545",
+      cancelButtonColor: "#ad0303",
+      confirmButtonText: "Accept",
+      cancelButtonText: "Cancel",
+      background: "#04101b",
+      color: "#fff",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        claimUserRewards([nft]);
+      }
+    });
   };
 
   return (
