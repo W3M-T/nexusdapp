@@ -3,12 +3,7 @@ import { IStaked } from "../../redux/types/pools.interface";
 import { fetchNftRewards } from "../../services/sc/scQueries/nexusSc";
 const useGetNftRewards = (nft: IStaked) => {
   const { data, isLoading, error } = useSwr<number>(
-    [
-      "NftStakingPoolsWsp:calcEstRewardableDays",
-      nft.nftPool,
-      nft.token,
-      nft.nonce,
-    ],
+    ["NftStakingPoolsWsp:calcEstRewards", nft.nftPool, nft.token, nft.nonce],
     fetchNftRewards
   );
 

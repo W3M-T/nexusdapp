@@ -36,6 +36,7 @@ export const fetchScAdminAddress = async () => {
   return adminAddress;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const fetchNftRewards = async ([_key, pool, collection, nonce]: [
   string,
   IExistingPool,
@@ -75,7 +76,7 @@ export const fetchNftRewards = async ([_key, pool, collection, nonce]: [
     new Field(poolStruct, "nft_pool"),
   ]);
 
-  const data = await scQuery("NftStakingPoolsWsp", "calcEstRewardableDays", [
+  const data = await scQuery("NftStakingPoolsWsp", "calcEstRewards", [
     nftsStakingStruct,
   ]);
   return data.firstValue.valueOf().toNumber();

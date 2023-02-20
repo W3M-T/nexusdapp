@@ -10,7 +10,7 @@
         "contractCrate": {
             "name": "nftstakingpools",
             "version": "0.0.0",
-            "git_version": "01174cb-modified"
+            "git_version": "a99ff48-modified"
         },
         "framework": {
             "name": "elrond-wasm",
@@ -359,7 +359,7 @@
             "outputs": []
         },
         {
-            "name": "calcEstRewardableDays",
+            "name": "calcEstRewards",
             "mutability": "readonly",
             "inputs": [
                 {
