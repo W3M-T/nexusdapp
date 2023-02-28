@@ -85,6 +85,8 @@ const StakingSection = () => {
           unstakeNfts(selectedNftsToUnstake.map((info) => info.nft));
         }
       });
+    } else {
+      unstakeNfts(selectedNftsToUnstake.map((info) => info.nft));
     }
   };
   const handleClaimRewards = () => {
