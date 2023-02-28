@@ -13,9 +13,7 @@ import Image from "next/image";
 import { Fragment } from "react";
 import { breakpoints } from "../../../config/chakraTheme";
 import { SwipperS } from "../../../shared/components/ui/SwiperS";
-import { useAppSelector } from "../../../shared/hooks/core/useRedux";
 import useGetNfts from "../../../shared/hooks/tools/useGetNfts";
-import { selectUserAddress } from "../../../shared/redux/slices/settings";
 import { noShowMedia } from "../../../shared/utils/excludeNft";
 
 const NftsUserModal = dynamic(
@@ -23,7 +21,6 @@ const NftsUserModal = dynamic(
 );
 
 const MyNfts = () => {
-  const address = useAppSelector(selectUserAddress);
   const data = useGetNfts();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isLargerThanLg] = useMediaQuery(`(min-width: ${breakpoints.lg})`);

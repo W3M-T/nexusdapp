@@ -71,6 +71,19 @@ const NftModal = ({ isOpen, onClose, nft }: IProps) => {
           setSessionId(res.sessionId);
         }
       });
+    } else {
+      const res = await EGLDPayment(
+        "NftStakingPoolsWsp",
+        "unstakeNft",
+        0.00075,
+        [
+          BytesValue.fromUTF8(nft.token),
+          new BigUIntValue(new BigNumber(nft.nonce)),
+        ],
+        70000000
+      );
+
+      setSessionId(res.sessionId);
     }
   };
   const handleClaim = async () => {
