@@ -91,7 +91,7 @@ export const networkConfig = {
 export const selectedNetwork = networkConfig[chainType];
 
 //general configs
-export const walletConnectV2ProjectId = "bb4a880517d6fcc65cdb9cac0a238b4e";
+export const walletConnectV2ProjectId = "aa761d9246a74e6bebb27c8bfd6efc10";
 export const apiTimeout = 6000;
 export const TOOLS_API_URL = "https://tools.elrond.com";
 export const sampleAuthenticatedDomains = [TOOLS_API_URL];

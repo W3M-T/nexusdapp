@@ -1,11 +1,10 @@
 // Login component wraps all auth services in one place
 // You can always use only one of them if needed
-import { Box, Stack } from "@chakra-ui/react";
+import { Flex, Stack } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { useGetLoginInfo } from "@multiversx/sdk-dapp/hooks";
 import { memo } from "react";
 import { route } from "../../utils/routes";
-import { ActionButton } from "./ActionButton";
 
 import dynamic from "next/dynamic";
 
@@ -37,22 +36,53 @@ const WebWalletLoginButton: any = dynamic(
   },
   { ssr: false }
 );
-
+const LedgerLoginButton: any = dynamic(
+  async () => {
+    return (await import("@multiversx/sdk-dapp/UI/ledger/LedgerLoginButton"))
+      .LedgerLoginButton;
+  },
+  { ssr: false }
+);
 const mobileText = (
-  <ActionButton as={"div"} isFullWidth borderRadius={"7px !important"}>
+  <Flex
+    w="full"
+    align={"center"}
+    justifyContent="center"
+    borderRadius={"7px !important"}
+  >
     xPortal Mobile App
-  </ActionButton>
+  </Flex>
+);
+const legerWallet = (
+  <Flex
+    w="full"
+    align={"center"}
+    justifyContent="center"
+    borderRadius={"7px !important"}
+  >
+    Ledger
+  </Flex>
 );
 const desktopText = (
-  <Box as={"div"} py="6px" borderRadius={"7px !important"}>
+  <Flex
+    w="full"
+    align={"center"}
+    justifyContent="center"
+    borderRadius={"7px !important"}
+  >
     {" "}
     xPortal Browser Extension
-  </Box>
+  </Flex>
 );
 const webText = (
-  <ActionButton as={"div"} isFullWidth borderRadius={"7px !important"}>
+  <Flex
+    w="full"
+    align={"center"}
+    justifyContent="center"
+    borderRadius={"7px !important"}
+  >
     MultiversX Web Wallet
-  </ActionButton>
+  </Flex>
 );
 
 export const LoginComponent = memo(() => {
@@ -71,31 +101,36 @@ export const LoginComponent = memo(() => {
       >
         {!isLoggedIn && (
           <>
-            <Box
-              as={WebWalletLoginButton}
-              shouldRenderDefaultCss={false}
-              loginButtonText={webText}
-              callbackRoute={route.home.route}
-              className="DappUIButton"
-              w="100%"
-            />
-            <ActionButton w={"full"} px={0} py={0}>
-              <Box
-                as={ExtensionLoginButton}
+            <LoginMethod>
+              <WalletConnectLoginButton
+                callbackRoute={route.home.route}
                 shouldRenderDefaultCss={false}
-                loginButtonText={desktopText}
-                className="DappUIButton Extension"
-                buttonClass="buttonLogin"
-                w="100%"
+                loginButtonText={mobileText}
+                isWalletConnectV2={true}
               />
-            </ActionButton>
-            <Box
-              as={WalletConnectLoginButton}
-              shouldRenderDefaultCss={false}
-              loginButtonText={mobileText}
-              className="DappUIButton"
-              w="100%"
-            />
+            </LoginMethod>
+
+            <LoginMethod>
+              <ExtensionLoginButton
+                callbackRoute={route.home.route}
+                loginButtonText={desktopText}
+              />
+            </LoginMethod>
+            <LoginMethod>
+              <WebWalletLoginButton
+                callbackRoute={route.home.route}
+                shouldRenderDefaultCss={false}
+                loginButtonText={webText}
+              />
+            </LoginMethod>
+            <LoginMethod>
+              {" "}
+              <LedgerLoginButton
+                callbackRoute={route.home.route}
+                shouldRenderDefaultCss={false}
+                loginButtonText={legerWallet}
+              />
+            </LoginMethod>
           </>
         )}
       </LoginWrapperS>
@@ -112,3 +147,45 @@ const LoginWrapperS = styled(Stack)`
     background-color: red !important;
   }
 `;
+
+const LoginMethod = ({ children, onClick = undefined }) => {
+  return (
+    <Flex
+      fontSize="18px"
+      w="full"
+      alignItems={"center"}
+      justifyContent="space-between"
+      cursor={"pointer"}
+      onClick={onClick}
+      fontWeight="400"
+      position={"relative"}
+      sx={{
+        "& button": {
+          width: "100%",
+          bg: "#202020",
+          border: "none",
+          px: "12px !important",
+          mx: 0,
+          my: 0,
+          py: "10px",
+          borderRadius: "10px",
+        },
+        "& a": {
+          width: "100%",
+          bg: "#151515",
+          border: "none",
+          px: "12px !important",
+          mx: 0,
+          my: 0,
+          py: "10px",
+          borderRadius: "10px",
+          _hover: {
+            bg: "#0c0b0b",
+          },
+        },
+      }}
+    >
+      {children}
+    </Flex>
+  );
+};

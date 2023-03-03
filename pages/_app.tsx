@@ -54,6 +54,9 @@ const NextJSDappTemplate = ({ Component, pageProps }: AppProps) => {
             name: "nexusConfig",
             walletConnectV2ProjectId: "cf388e978587b4cba673b4080fb9d89b",
           }}
+          dappConfig={{
+            logoutRoute: "/",
+          }}
         >
           <Provider store={store}>
             <AxiosInterceptorContext.Listener />

@@ -1,63 +1,13 @@
 
-.DappUIButton_noExtensionButtonContent{
-    color: #fff;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-}
-.DappUIButton_noExtensionButtonTitle{
-    margin-right: 10px;
-}
-.DappUIButton_loginText:focus-visible{
-  outline: none;
-}
-.dapp-core-ui-component{
-    color: #000;
-}
-.dapp-core-ui-component button{
-    color: #fff;
-}
 
-.DappUIButton_wrapper:focus-visible {
-    outline: none;
-}
-.DappUIButton_wrapper {
-    width: 100%;
-}
-.DappUIButton_wrapper p{
-    margin-bottom: 0;
-}
-.modal-backdrop.show{
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1040;
-    width: 100vw;
-    height: 100vh;
-    background-color: #000;
-    opacity: 0.7;
-}
-.dapp-core-ui-component.modal{
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 9999;
-    display: none;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    outline: 0px;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-
-.dapp-core-ui-component.dapp-core-ui-component .modal-content{
-    border-radius: 12px;
-}
-.dapp-core-ui-component.modal .modal-card.card{
-    border-radius: 12px;
-
-}
+#dapp-modal{
+    color: black;
+    z-index: 9999
+  }
+  .dapp-core-component__transactionsToastList-styles__toasts{
+    color: black
+  
+  }
 
 
 .swal2-container{
