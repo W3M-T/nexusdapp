@@ -16,7 +16,7 @@ import {
   U32Value,
   U64Type,
   U64Value,
-} from "@elrondnetwork/erdjs/out";
+} from "@multiversx/sdk-core/out";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AxiosResponse } from "axios";
 import BigNumber from "bignumber.js";

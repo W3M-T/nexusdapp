@@ -44,8 +44,8 @@ const MainStats = () => {
                     <Box borderRadius={"full"} boxSize={4}>
                       <Image
                         layout="intrinsic"
-                        width="30px"
-                        height="30px"
+                        width={30}
+                        height={30}
                         src={
                           fees.tokenDetials.assets.svgUrl ||
                           fees.tokenDetials.assets.staticSrc ||

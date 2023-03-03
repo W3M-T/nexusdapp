@@ -6,8 +6,8 @@ import {
   ModalCloseButton,
   Text,
 } from "@chakra-ui/react";
-import { transactionServices } from "@elrondnetwork/dapp-core";
-import { BigUIntValue, BytesValue } from "@elrondnetwork/erdjs/out";
+import { BigUIntValue, BytesValue } from "@multiversx/sdk-core/out";
+import { useTrackTransactionStatus } from "@multiversx/sdk-dapp/hooks";
 import BigNumber from "bignumber.js";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -38,7 +38,7 @@ const NftModal = ({ isOpen, onClose, nft }: IProps) => {
   const onSuccess = () => {
     router.push(route.home.route);
   };
-  transactionServices.useTrackTransactionStatus({
+  useTrackTransactionStatus({
     transactionId: sessionId,
     onSuccess: onSuccess,
   });
@@ -107,8 +107,8 @@ const NftModal = ({ isOpen, onClose, nft }: IProps) => {
                 src={nft.url}
                 alt="nft"
                 layout="intrinsic"
-                width={"350px"}
-                height="400px"
+                width={350}
+                height={400}
               />
             </Box>
           </Center>

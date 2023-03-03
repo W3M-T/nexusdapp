@@ -165,11 +165,9 @@ const StakedNfts = () => {
         display={{ sm: "none", md: "flex" }}
       >
         <Link href={route.staked.route}>
-          <a>
-            <Box cursor="pointer" _hover={{ fontWeight: "bold" }}>
-              View all
-            </Box>
-          </a>
+          <Box cursor="pointer" _hover={{ fontWeight: "bold" }}>
+            View all
+          </Box>
         </Link>
       </Flex>
       {isOpen && (

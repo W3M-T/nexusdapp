@@ -1,5 +1,5 @@
-import { ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
-import { Address, IAddress } from "@elrondnetwork/erdjs/out";
+import { Address, IAddress } from "@multiversx/sdk-core/out";
+import { ProxyNetworkProvider } from "@multiversx/sdk-network-providers";
 import { chainType, networkConfig } from "../../../config/network";
 
 export const abiPath = "/abi";

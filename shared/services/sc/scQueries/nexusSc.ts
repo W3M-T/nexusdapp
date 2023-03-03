@@ -16,7 +16,7 @@ import {
   U32Value,
   U64Type,
   U64Value,
-} from "@elrondnetwork/erdjs/out";
+} from "@multiversx/sdk-core/out";
 import BigNumber from "bignumber.js";
 import { selectedNetwork } from "../../../../config/network";
 import { store } from "../../../redux/store";

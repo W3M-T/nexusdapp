@@ -1,4 +1,4 @@
-import { useGetLoginInfo } from "@elrondnetwork/dapp-core";
+import { useGetLoginInfo } from "@multiversx/sdk-dapp/hooks";
 import { FC, PropsWithChildren, ReactElement } from "react";
 
 interface AuthenticatedProps {
@@ -10,8 +10,6 @@ interface AuthenticatedProps {
 export const Authenticated: FC<PropsWithChildren<AuthenticatedProps>> = ({
   children,
   fallback = null,
-  noSpinner = false,
-  spinnerCentered = false,
 }) => {
   const { isLoggedIn } = useGetLoginInfo();
 

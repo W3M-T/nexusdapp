@@ -1,4 +1,4 @@
-import { BigUIntValue, BytesValue } from "@elrondnetwork/erdjs/out";
+import { BigUIntValue, BytesValue } from "@multiversx/sdk-core/out";
 import { useCallback } from "react";
 import { scCall } from "../../../../shared/services/sc/calls";
 import { formatErdAmount } from "../../../../shared/utils/erdAmount";

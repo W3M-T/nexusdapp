@@ -1,5 +1,5 @@
 import { Box, Flex, Link as ChkLink, Text, VStack } from "@chakra-ui/react";
-import { logout } from "@elrondnetwork/dapp-core";
+import { logout } from "@multiversx/sdk-dapp/utils";
 import Link from "next/link";
 import { customColors } from "../../../config/chakraTheme";
 import { useAppSelector } from "../../hooks/core/useRedux";
@@ -45,9 +45,7 @@ const LoggedInMenu = () => {
                 textShadow: "0 0 10px " + customColors.color2.base,
               }}
             >
-              <Link href={route.scOwner.route}>
-                <a>Owner Dashboard</a>
-              </Link>
+              <Link href={route.scOwner.route}>Owner Dashboard</Link>
             </Flex>
           )}
 
@@ -62,7 +60,7 @@ const LoggedInMenu = () => {
           >
             {isNftCreator ? (
               <Link href={route.nftCollectionOwner.route}>
-                <a> NFT Creator Dashboard</a>
+                NFT Creator Dashboard
               </Link>
             ) : (
               <Text color="gray.400" cursor={"not-allowed"}>

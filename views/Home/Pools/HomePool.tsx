@@ -1,5 +1,4 @@
 import { Center, Flex, Text, useDisclosure } from "@chakra-ui/react";
-import { transactionServices } from "@elrondnetwork/dapp-core";
 import {
   Address,
   AddressType,
@@ -18,7 +17,8 @@ import {
   U32Value,
   U64Type,
   U64Value,
-} from "@elrondnetwork/erdjs/out";
+} from "@multiversx/sdk-core/out";
+import { useTrackTransactionStatus } from "@multiversx/sdk-dapp/hooks";
 import BigNumber from "bignumber.js";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
@@ -48,7 +48,7 @@ const HomePool = ({ pool, small }: IProps) => {
   const onSuccess = () => {
     router.push(route.staked.route);
   };
-  const transactionStatus = transactionServices.useTrackTransactionStatus({
+  useTrackTransactionStatus({
     transactionId: sessionId,
     onSuccess: onSuccess,
   });

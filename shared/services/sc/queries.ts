@@ -5,7 +5,7 @@ import {
   ResultsParser,
   SmartContract,
   SmartContractAbi,
-} from "@elrondnetwork/erdjs/out";
+} from "@multiversx/sdk-core/out";
 import axios from "axios";
 import { getInterface, provider, WORKSPACES } from ".";
 

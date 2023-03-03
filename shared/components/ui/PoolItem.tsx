@@ -6,7 +6,6 @@ import {
   Tooltip,
   useDisclosure,
 } from "@chakra-ui/react";
-import { transactionServices } from "@elrondnetwork/dapp-core";
 import {
   Address,
   AddressType,
@@ -25,7 +24,8 @@ import {
   U32Value,
   U64Type,
   U64Value,
-} from "@elrondnetwork/erdjs/out";
+} from "@multiversx/sdk-core/out";
+import { useTrackTransactionStatus } from "@multiversx/sdk-dapp/hooks";
 import BigNumber from "bignumber.js";
 import { addDays } from "date-fns";
 import dynamic from "next/dynamic";
@@ -61,7 +61,7 @@ const PoolItem = ({ pool }: IProps) => {
   const onSuccess = () => {
     window.location.reload();
   };
-  const transactionStatus = transactionServices.useTrackTransactionStatus({
+  useTrackTransactionStatus({
     transactionId: sessionId,
     onSuccess: onSuccess,
   });

@@ -1,5 +1,3 @@
-import { NetworkType } from "../shared/types/network";
-
 // Default Elrond network configuration (constants).
 // Change if you need, but by default, you shouldn't have to do that.
 
@@ -10,7 +8,7 @@ export const DAPP_INIT_ROUTE = "/dapp/init";
 
 export const chainType = process.env.NEXT_PUBLIC_ELROND_CHAIN || "devnet";
 
-export const networkConfig: Record<string, NetworkType> = {
+export const networkConfig = {
   devnet: {
     id: "devnet",
     shortId: "D",
@@ -91,3 +89,9 @@ export const networkConfig: Record<string, NetworkType> = {
 };
 
 export const selectedNetwork = networkConfig[chainType];
+
+//general configs
+export const walletConnectV2ProjectId = "bb4a880517d6fcc65cdb9cac0a238b4e";
+export const apiTimeout = 6000;
+export const TOOLS_API_URL = "https://tools.elrond.com";
+export const sampleAuthenticatedDomains = [TOOLS_API_URL];

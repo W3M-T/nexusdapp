@@ -1,5 +1,5 @@
-/** @type {import('next').NextConfig} */
-
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const withTM = require("next-transpile-modules")(["@multiversx/sdk-dapp"]);
 const nextConfig = {
   images: {
     domains: [
@@ -8,17 +8,6 @@ const nextConfig = {
       "devnet-media.elrond.com",
       "arweave.net",
     ],
-  },
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    config.resolve.fallback = {
-      fs: false,
-      buffer: require.resolve("buffer"),
-      crypto: require.resolve("crypto-browserify"),
-      path: require.resolve("path-browserify"),
-      stream: require.resolve("stream-browserify"),
-      process: require.resolve("process/browser"),
-    };
-    return config;
   },
   reactStrictMode: false,
   async rewrites() {
@@ -34,4 +23,18 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+module.exports = (phase, defaultConfig) => {
+  const plugins = [withTM, (config) => config];
+
+  const config = plugins.reduce(
+    (acc, plugin) => {
+      const update = plugin(acc);
+      return typeof update === "function"
+        ? update(phase, defaultConfig)
+        : update;
+    },
+    { ...nextConfig }
+  );
+
+  return config;
+};

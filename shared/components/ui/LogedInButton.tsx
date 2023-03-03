@@ -6,7 +6,7 @@ import {
   useDisclosure,
   useOutsideClick,
 } from "@chakra-ui/react";
-import { useGetAccountInfo } from "@elrondnetwork/dapp-core";
+import { useGetAccountInfo } from "@multiversx/sdk-dapp/hooks";
 import dynamic from "next/dynamic";
 import { useRef } from "react";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";

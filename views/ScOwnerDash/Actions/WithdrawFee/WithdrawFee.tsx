@@ -1,5 +1,5 @@
 import { Center, Flex } from "@chakra-ui/react";
-import { BytesValue } from "@elrondnetwork/erdjs/out";
+import { BytesValue } from "@multiversx/sdk-core/out";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { ActionButton } from "../../../../shared/components/tools/ActionButton";

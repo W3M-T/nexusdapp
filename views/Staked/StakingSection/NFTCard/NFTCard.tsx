@@ -94,8 +94,8 @@ const NFTCard = ({
           }}
           src={nft.url}
           nextProps={{
-            height: "600px",
-            width: "600px",
+            height: 600,
+            width: 600,
           }}
         />
       </Flex>

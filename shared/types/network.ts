@@ -1,12 +1,3 @@
-import { ExtensionProvider } from "@elrondnetwork/erdjs-extension-provider";
-import { HWProvider } from "@elrondnetwork/erdjs-hw-provider";
-import {
-  ApiNetworkProvider,
-  ProxyNetworkProvider,
-} from "@elrondnetwork/erdjs-network-providers";
-import { WalletConnectProvider } from "@elrondnetwork/erdjs-wallet-connect-provider";
-import { WalletProvider } from "@elrondnetwork/erdjs-web-wallet-provider";
-
 export interface IToken {
   identifier: string;
   decimals?: number;
@@ -69,11 +60,3 @@ export interface NetworkType extends BaseNetworkType {
   contractAddr: ISmartContracts;
   tokens: ITokens;
 }
-
-export type DappProvider =
-  | ExtensionProvider
-  | WalletConnectProvider
-  | WalletProvider
-  | HWProvider;
-
-export type NetworkProvider = ApiNetworkProvider | ProxyNetworkProvider;

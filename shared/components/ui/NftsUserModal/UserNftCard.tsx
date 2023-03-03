@@ -23,8 +23,8 @@ const UserNftCard = ({ nft }: IProps) => {
             <Image
               src={nft.media[0].thumbnailUrl}
               alt={nft.identifier}
-              width="600px"
-              height="600px"
+              width={600}
+              height={600}
               layout="responsive"
             />
           )}

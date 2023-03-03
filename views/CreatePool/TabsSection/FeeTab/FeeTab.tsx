@@ -10,7 +10,7 @@ import {
   Flex,
   Text,
 } from "@chakra-ui/react";
-import { BytesValue } from "@elrondnetwork/erdjs/out";
+import { BytesValue } from "@multiversx/sdk-core/out";
 import { ActionButton } from "../../../../shared/components/tools/ActionButton";
 
 // Custom components

@@ -1,11 +1,42 @@
 // Login component wraps all auth services in one place
 // You can always use only one of them if needed
 import { Box, Stack } from "@chakra-ui/react";
-import { DappUI, useGetLoginInfo } from "@elrondnetwork/dapp-core";
 import styled from "@emotion/styled";
+import { useGetLoginInfo } from "@multiversx/sdk-dapp/hooks";
 import { memo } from "react";
 import { route } from "../../utils/routes";
 import { ActionButton } from "./ActionButton";
+
+import dynamic from "next/dynamic";
+
+const ExtensionLoginButton: any = dynamic(
+  async () => {
+    return (
+      await import("@multiversx/sdk-dapp/UI/extension/ExtensionLoginButton")
+    ).ExtensionLoginButton;
+  },
+  { ssr: false }
+);
+
+const WalletConnectLoginButton: any = dynamic(
+  async () => {
+    return (
+      await import(
+        "@multiversx/sdk-dapp/UI/walletConnect/WalletConnectLoginButton"
+      )
+    ).WalletConnectLoginButton;
+  },
+  { ssr: false }
+);
+
+const WebWalletLoginButton: any = dynamic(
+  async () => {
+    return (
+      await import("@multiversx/sdk-dapp/UI/webWallet/WebWalletLoginButton")
+    ).WebWalletLoginButton;
+  },
+  { ssr: false }
+);
 
 const mobileText = (
   <ActionButton as={"div"} isFullWidth borderRadius={"7px !important"}>
@@ -41,7 +72,7 @@ export const LoginComponent = memo(() => {
         {!isLoggedIn && (
           <>
             <Box
-              as={DappUI.WebWalletLoginButton}
+              as={WebWalletLoginButton}
               shouldRenderDefaultCss={false}
               loginButtonText={webText}
               callbackRoute={route.home.route}
@@ -50,7 +81,7 @@ export const LoginComponent = memo(() => {
             />
             <ActionButton w={"full"} px={0} py={0}>
               <Box
-                as={DappUI.ExtensionLoginButton}
+                as={ExtensionLoginButton}
                 shouldRenderDefaultCss={false}
                 loginButtonText={desktopText}
                 className="DappUIButton Extension"
@@ -59,7 +90,7 @@ export const LoginComponent = memo(() => {
               />
             </ActionButton>
             <Box
-              as={DappUI.WalletConnectLoginButton}
+              as={WalletConnectLoginButton}
               shouldRenderDefaultCss={false}
               loginButtonText={mobileText}
               className="DappUIButton"
@@ -75,30 +106,9 @@ export const LoginComponent = memo(() => {
 LoginComponent.displayName = "LoginComponent";
 
 const LoginWrapperS = styled(Stack)`
-  .dapp-core-ui-component {
-    display: block;
-    width: 100%;
-    border-radius: 10px;
-  }
-  .DappUIButton {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .dapp-core-ui-component a {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white !important;
-    padding: 6px 0;
-  }
-  .dapp-core-ui-component a div div {
-    width: auto;
-  }
-  .dapp-core-ui-component a svg {
-    width: auto;
-    margin-left: 10px;
+  button : {
+    width: "100%";
+    border: "none";
+    background-color: red !important;
   }
 `;

@@ -105,8 +105,8 @@ const MyNfts = () => {
                             src={nft.media[0].thumbnailUrl}
                             alt={nft.name}
                             layout="responsive"
-                            width={"600px"}
-                            height="600px"
+                            width={600}
+                            height={600}
                           />
                         )}
                       </Box>

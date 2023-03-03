@@ -1,5 +1,5 @@
 import { Box, Container } from "@chakra-ui/react";
-import { useGetAccountInfo, useGetLoginInfo } from "@elrondnetwork/dapp-core";
+import { useGetAccountInfo, useGetLoginInfo } from "@multiversx/sdk-dapp/hooks";
 import { PropsWithChildren, useEffect } from "react";
 import withElronDapp from "../../hoc/withElronDapp";
 import { useAppDispatch, useAppSelector } from "../../hooks/core/useRedux";

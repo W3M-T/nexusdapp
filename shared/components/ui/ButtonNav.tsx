@@ -1,5 +1,5 @@
 import { Box, Flex, Icon, Text } from "@chakra-ui/react";
-import { useGetLoginInfo } from "@elrondnetwork/dapp-core";
+import { useGetLoginInfo } from "@multiversx/sdk-dapp/hooks";
 import Link from "next/link";
 import { customColors } from "../../../config/chakraTheme";
 import { routes } from "../../utils/routes";
@@ -27,22 +27,20 @@ const ButtonNav = () => {
         }
         return (
           <Link href={route.route} key={route.route}>
-            <a>
-              <Flex
-                fontWeight={"bold"}
-                _hover={{
-                  textShadow: "0 0 10px " + customColors.color2.base,
-                }}
-                flexDir="column"
-                justifyContent={"center"}
-                alignItems="center"
-              >
-                <Box>
-                  <Icon as={route.icon} fontSize="25px" />
-                </Box>
-                <Text fontSize="10px">{route.name}</Text>
-              </Flex>
-            </a>
+            <Flex
+              fontWeight={"bold"}
+              _hover={{
+                textShadow: "0 0 10px " + customColors.color2.base,
+              }}
+              flexDir="column"
+              justifyContent={"center"}
+              alignItems="center"
+            >
+              <Box>
+                <Icon as={route.icon} fontSize="25px" />
+              </Box>
+              <Text fontSize="10px">{route.name}</Text>
+            </Flex>
           </Link>
         );
       })}

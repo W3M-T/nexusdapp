@@ -1,8 +1,5 @@
-import {
-  refreshAccount,
-  sendTransactions,
-  transactionServices,
-} from "@elrondnetwork/dapp-core";
+import { sendTransactions } from "@multiversx/sdk-dapp/services";
+
 import {
   Address,
   AddressValue,
@@ -11,7 +8,7 @@ import {
   ContractFunction,
   Transaction,
   TransactionPayload,
-} from "@elrondnetwork/erdjs/out";
+} from "@multiversx/sdk-core/out";
 import BigNumber from "bignumber.js";
 import { getInterface, WORKSPACES } from "..";
 import { selectedNetwork } from "../../../../config/network";
@@ -40,8 +37,6 @@ export const sendTransaction = async ({
     chainID: selectedNetwork.shortId,
   });
 
-  await refreshAccount();
-
   const res = await sendTransactions({
     transactions: tx,
     transactionsDisplayInfo: {
@@ -67,10 +62,6 @@ export const sendMultipleTransactions = async ({
   successMessage?: any;
   transactionDuration?: any;
 }) => {
-  await refreshAccount();
-
-  const { sendTransactions } = transactionServices;
-
   const res = await sendTransactions({
     transactions: txs,
     transactionsDisplayInfo: {

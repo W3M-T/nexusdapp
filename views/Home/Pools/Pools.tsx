@@ -47,17 +47,15 @@ const Pools = () => {
     <Flex flexDir={"column"}>
       <Flex display={{ sm: "flex", md: "none" }}>
         <Link href={route.view.route}>
-          <a>
-            <Heading
-              mb={4}
-              fontWeight="600"
-              as="h2"
-              fontSize={"24px"}
-              color="dappTemplate.color2.base"
-            >
-              Pools
-            </Heading>
-          </a>
+          <Heading
+            mb={4}
+            fontWeight="600"
+            as="h2"
+            fontSize={"24px"}
+            color="dappTemplate.color2.base"
+          >
+            Pools
+          </Heading>
         </Link>
       </Flex>
       <Flex display={{ sm: "none", md: "flex" }}>
@@ -92,11 +90,9 @@ const Pools = () => {
         mt={2}
       >
         <Link href={route.view.route}>
-          <a>
-            <Box cursor="pointer" _hover={{ fontWeight: "bold" }}>
-              View all
-            </Box>
-          </a>
+          <Box cursor="pointer" _hover={{ fontWeight: "bold" }}>
+            View all
+          </Box>
         </Link>
       </Flex>
     </Flex>

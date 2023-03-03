@@ -12,7 +12,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { BigUIntValue, BytesValue, U32Value } from "@elrondnetwork/erdjs/out";
+import { BigUIntValue, BytesValue, U32Value } from "@multiversx/sdk-core/out";
 import BigNumber from "bignumber.js";
 
 // Custom components
