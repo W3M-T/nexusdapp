@@ -1,5 +1,5 @@
 import { Box, BoxProps } from "@chakra-ui/react";
-import Image, { StaticImageData } from "next/image";
+import Image, { StaticImageData } from "next/legacy/image";
 import { isValidImageUrl } from "../../utils/functions";
 
 interface IProps extends BoxProps {
