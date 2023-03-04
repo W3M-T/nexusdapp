@@ -71,7 +71,7 @@ const desktopText = (
     borderRadius={"7px !important"}
   >
     {" "}
-    xPortal Browser Extension
+    DeFi Extension
   </Flex>
 );
 const webText = (
