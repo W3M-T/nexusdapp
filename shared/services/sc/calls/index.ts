@@ -135,7 +135,7 @@ export const ESDTTransfer = async ({
   contractAddr: string;
   args: any[];
   gasL?: number;
-  realValue?: number;
+  realValue?: number | string;
 }) => {
   const tokenIdentifier = token.identifier;
   const multiplyier = Math.pow(10, token.decimals || 18);

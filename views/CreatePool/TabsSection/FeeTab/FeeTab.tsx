@@ -17,6 +17,7 @@ import { ActionButton } from "../../../../shared/components/tools/ActionButton";
 
 // Icons
 import { useEffect } from "react";
+import { selectedNetwork } from "../../../../config/network";
 import { CardWrapper } from "../../../../shared/components/ui/CardWrapper";
 import {
   useAppDispatch,
@@ -25,7 +26,10 @@ import {
 import { fetchRegistrationInfo } from "../../../../shared/redux/reduxAsyncFuncs/poolsFuncs";
 import { selectCreatePool } from "../../../../shared/redux/slices/pools";
 import { selectUserAddress } from "../../../../shared/redux/slices/settings";
-import { EGLDPayment } from "../../../../shared/services/sc/calls";
+import {
+  EGLDPayment,
+  ESDTTransfer,
+} from "../../../../shared/services/sc/calls";
 import { formatBalance } from "../../../../shared/utils/formatBalance";
 import { formatTokenI } from "../../../../shared/utils/formatTokenIdentifier";
 
@@ -40,7 +44,6 @@ const FeeTab = ({ activeVerifyTab, activeFormTab }: IProps) => {
   const { collection } = useAppSelector(selectCreatePool);
   const dispatch = useAppDispatch();
   const address = useAppSelector(selectUserAddress);
-
   useEffect(() => {
     localStorage.setItem("poolcreationPhase", "2");
   }, []);
@@ -57,13 +60,28 @@ const FeeTab = ({ activeVerifyTab, activeFormTab }: IProps) => {
 
   const handlePayNow = () => {
     if (phase2.data.tokenAmount && collection) {
-      EGLDPayment(
-        "NftStakingPoolsWsp",
-        "payFee",
-        formatBalance({ balance: phase2.data.tokenAmount }, true),
-        [BytesValue.fromUTF8(collection.collection)],
-        80000000
-      );
+      if (phase2?.data?.tokenI === "EGLD") {
+        EGLDPayment(
+          "NftStakingPoolsWsp",
+          "payFee",
+          formatBalance({ balance: phase2.data.tokenAmount }, true),
+          [BytesValue.fromUTF8(collection.collection)],
+          80000000
+        );
+      } else {
+        ESDTTransfer({
+          funcName: "payFee",
+          args: [BytesValue.fromUTF8(collection.collection)],
+          token: {
+            identifier: phase2.data.tokenI,
+            decimals: 18,
+          },
+          realValue: phase2.data.tokenAmount,
+          contractAddr: selectedNetwork.contractAddr.nftsStaking,
+          val: 0,
+          gasL: 80000000,
+        });
+      }
     }
   };
   return (
