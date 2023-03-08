@@ -1,4 +1,5 @@
 import { Center, Flex, Heading } from "@chakra-ui/react";
+import { orderBy } from "lodash";
 import { useEffect, useState } from "react";
 import { MainLayout } from "../../shared/components/ui/MainLayout";
 import PoolItem from "../../shared/components/ui/PoolItem";
@@ -77,7 +78,15 @@ const ViewPools = () => {
         flexWrap="wrap"
         mt={10}
       >
-        {poolData.map((pool, i) => {
+        {orderBy(
+          poolData,
+          [
+            function (pool) {
+              return pool.nftPool.timestam;
+            },
+          ],
+          "desc"
+        ).map((pool, i) => {
           return <PoolItem key={i} pool={pool} />;
         })}
       </Flex>
