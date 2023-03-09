@@ -82,7 +82,7 @@ const ViewPools = () => {
           poolData,
           [
             function (pool) {
-              return pool.nftPool.timestam;
+              return pool.timestam;
             },
           ],
           "desc"
