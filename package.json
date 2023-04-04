@@ -24,7 +24,7 @@
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
     "@fontsource/poppins": "^4.5.8",
-    "@multiversx/sdk-dapp": "^2.10.3",
+    "@multiversx/sdk-dapp": "2.10.3",
     "@reduxjs/toolkit": "^1.8.5",
     "axios": "^0.27.2",
     "bignumber.js": "9.0.2",

@@ -20,12 +20,12 @@ export const networkConfig = {
     walletConnectDeepLink:
       "https://maiar.page.link/?apn=com.elrond.maiar.wallet&isi=1519405832&ibi=com.elrond.maiar.wallet&link=https://maiar.com/",
     walletConnectBridgeAddresses: ["https://bridge.walletconnect.org"],
-    walletAddress: "https://devnet-wallet.elrond.com",
+    walletAddress: "https://devnet-wallet.multiversx.com",
     apiAddress:
-      process.env.NEXT_PUBLIC_ELROND_API || "https://devnet-api.elrond.com",
-    explorerAddress: "https://devnet-explorer.elrond.com",
+      process.env.NEXT_PUBLIC_ELROND_API || "https://devnet-api.multiversx.com",
+    explorerAddress: "https://devnet-explorer.multiversx.com",
     apiTimeout: "40000",
-    gatewayAddress: "https://devnet-gateway.elrond.com",
+    gatewayAddress: "https://devnet-gateway.multiversx.com",
     contractAddr: {
       nftsStaking:
         "erd1qqqqqqqqqqqqqpgqz4vuknaw4yw38zv4wqze4a5hrg3ft5tz8pgq36nxy4",
@@ -48,12 +48,13 @@ export const networkConfig = {
     walletConnectDeepLink:
       "https://maiar.page.link/?apn=com.elrond.maiar.wallet&isi=1519405832&ibi=com.elrond.maiar.wallet&link=https://maiar.com/",
     walletConnectBridgeAddresses: ["https://bridge.walletconnect.org"],
-    walletAddress: "https://testnet-wallet.elrond.com",
+    walletAddress: "https://testnet-wallet.multiversx.com",
     apiAddress:
-      process.env.NEXT_PUBLIC_ELROND_API || "https://testnet-api.elrond.com",
-    explorerAddress: "https://testnet-explorer.elrond.com",
+      process.env.NEXT_PUBLIC_ELROND_API ||
+      "https://testnet-api.multiversx.com",
+    explorerAddress: "https://testnet-explorer.multiversx.com",
     apiTimeout: "40000",
-    gatewayAddress: "https://testnet-gateway.elrond.com",
+    gatewayAddress: "https://testnet-gateway.multiversx.com",
     contractAddr: {},
     tokens: {
       EGLD: { identifier: "EGLD" },
@@ -71,11 +72,12 @@ export const networkConfig = {
     walletConnectDeepLink:
       "https://maiar.page.link/?apn=com.elrond.maiar.wallet&isi=1519405832&ibi=com.elrond.maiar.wallet&link=https://maiar.com/",
     walletConnectBridgeAddresses: ["https://bridge.walletconnect.org"],
-    walletAddress: "https://wallet.elrond.com",
-    apiAddress: process.env.NEXT_PUBLIC_ELROND_API || "https://api.elrond.com",
-    explorerAddress: "https://explorer.elrond.com",
+    walletAddress: "https://wallet.multiversx.com",
+    apiAddress:
+      process.env.NEXT_PUBLIC_ELROND_API || "https://api.multiversx.com",
+    explorerAddress: "https://explorer.multiversx.com",
     apiTimeout: "40000",
-    gatewayAddress: "https://gateway.elrond.com",
+    gatewayAddress: "https://gateway.multiversx.com",
     contractAddr: {
       nftsStaking:
         "erd1qqqqqqqqqqqqqpgq8tn6u8l2vytjhv6pcv0vu5tug52acutm8pgqnle42n",
@@ -93,5 +95,5 @@ export const selectedNetwork = networkConfig[chainType];
 //general configs
 export const walletConnectV2ProjectId = "aa761d9246a74e6bebb27c8bfd6efc10";
 export const apiTimeout = 6000;
-export const TOOLS_API_URL = "https://tools.elrond.com";
+export const TOOLS_API_URL = "https://tools.multiversx.com";
 export const sampleAuthenticatedDomains = [TOOLS_API_URL];

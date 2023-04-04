@@ -15,7 +15,11 @@ import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
 import { Provider } from "react-redux";
 import { theme } from "../config/chakraTheme";
-import { chainType, sampleAuthenticatedDomains } from "../config/network";
+import {
+  chainType,
+  sampleAuthenticatedDomains,
+  selectedNetwork,
+} from "../config/network";
 import { MetaHead } from "../shared/components/ui/MetaHead";
 import "../shared/global.css";
 import { store } from "../shared/redux/store";
@@ -53,6 +57,7 @@ const NextJSDappTemplate = ({ Component, pageProps }: AppProps) => {
           customNetworkConfig={{
             name: "nexusConfig",
             walletConnectV2ProjectId: "cf388e978587b4cba673b4080fb9d89b",
+            ...selectedNetwork,
           }}
           dappConfig={{
             logoutRoute: "/",
