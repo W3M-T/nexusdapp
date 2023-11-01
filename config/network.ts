@@ -93,7 +93,7 @@ export const networkConfig = {
 export const selectedNetwork = networkConfig[chainType];
 
 //general configs
-export const walletConnectV2ProjectId = "aa761d9246a74e6bebb27c8bfd6efc10";
+export const walletConnectV2ProjectId = "d57456f79cf0f38f6e941f057a90307c";
 export const apiTimeout = 6000;
 export const TOOLS_API_URL = "https://tools.multiversx.com";
 export const sampleAuthenticatedDomains = [TOOLS_API_URL];

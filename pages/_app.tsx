@@ -65,7 +65,7 @@ const NextJSDappTemplate = ({ Component, pageProps }: AppProps) => {
           environment={chainType}
           customNetworkConfig={{
             name: "nexusConfig",
-            walletConnectV2ProjectId: "aa761d9246a74e6bebb27c8bfd6efc10",
+            walletConnectV2ProjectId: "d57456f79cf0f38f6e941f057a90307c",
             ...selectedNetwork,
           }}
           dappConfig={{
