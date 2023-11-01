@@ -10,14 +10,14 @@ const nextConfig = {
     ],
   },
   reactStrictMode: false,
-  async rewrites() {
-    return [
-      {
-        source: `${process.env.NEXT_PUBLIC_ELROND_API}/:path*`,
-        destination: `${process.env.ELROND_CUSTOM_API}/:path*`,
-      },
-    ];
-  },
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: `${process.env.NEXT_PUBLIC_ELROND_API}/:path*`,
+  //       destination: `${process.env.ELROND_CUSTOM_API}/:path*`,
+  //     },
+  //   ];
+  // },
   eslint: {
     dirs: ["components", "config", "hooks", "pages", "store", "types", "utils"],
   },
@@ -33,7 +33,7 @@ module.exports = (phase, defaultConfig) => {
         ? update(phase, defaultConfig)
         : update;
     },
-    { ...nextConfig }
+    { ...nextConfig },
   );
 
   return config;
