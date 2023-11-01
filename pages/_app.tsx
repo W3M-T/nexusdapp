@@ -10,7 +10,6 @@ import "@fontsource/poppins/900.css";
 
 import { Box, ChakraProvider } from "@chakra-ui/react";
 import { AxiosInterceptorContext } from "@multiversx/sdk-dapp/wrappers/AxiosInterceptorContext";
-import { DappProvider } from "@multiversx/sdk-dapp/wrappers/DappProvider";
 import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
 import { Provider } from "react-redux";
@@ -24,26 +23,36 @@ import { MetaHead } from "../shared/components/ui/MetaHead";
 import "../shared/global.css";
 import { store } from "../shared/redux/store";
 
-const SignTransactionsModals: any = dynamic(
+export const DappProvider = dynamic(
+  async () => {
+    return (await import("@multiversx/sdk-dapp/wrappers/DappProvider"))
+      .DappProvider;
+  },
+  { ssr: false },
+);
+
+const SignTransactionsModals = dynamic(
   async () => {
     return (await import("@multiversx/sdk-dapp/UI/SignTransactionsModals"))
       .SignTransactionsModals;
   },
-  { ssr: false }
+  { ssr: false },
 );
-const NotificationModal: any = dynamic(
+
+const NotificationModal = dynamic(
   async () => {
     return (await import("@multiversx/sdk-dapp/UI/NotificationModal"))
       .NotificationModal;
   },
-  { ssr: false }
+  { ssr: false },
 );
-const TransactionsToastList: any = dynamic(
+
+const TransactionsToastList = dynamic(
   async () => {
     return (await import("@multiversx/sdk-dapp/UI/TransactionsToastList"))
       .TransactionsToastList;
   },
-  { ssr: false }
+  { ssr: false },
 );
 
 const NextJSDappTemplate = ({ Component, pageProps }: AppProps) => {
@@ -56,11 +65,12 @@ const NextJSDappTemplate = ({ Component, pageProps }: AppProps) => {
           environment={chainType}
           customNetworkConfig={{
             name: "nexusConfig",
-            walletConnectV2ProjectId: "cf388e978587b4cba673b4080fb9d89b",
+            walletConnectV2ProjectId: "aa761d9246a74e6bebb27c8bfd6efc10",
             ...selectedNetwork,
           }}
           dappConfig={{
             logoutRoute: "/",
+            shouldUseWebViewProvider: true,
           }}
         >
           <Provider store={store}>
