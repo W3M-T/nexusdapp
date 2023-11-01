@@ -6,7 +6,7 @@ export const DEFAULT_MIN_GAS_LIMIT = 50_000;
 export const DAPP_CONFIG_ENDPOINT = "/dapp/config";
 export const DAPP_INIT_ROUTE = "/dapp/init";
 
-export const chainType = process.env.NEXT_PUBLIC_ELROND_CHAIN || "devnet";
+export const chainType = process.env.NEXT_PUBLIC_ELROND_CHAIN || "mainnet";
 
 export const networkConfig = {
   devnet: {
@@ -18,7 +18,7 @@ export const networkConfig = {
     decimals: "4",
     gasPerDataByte: "1500",
     walletConnectDeepLink:
-      "https://maiar.page.link/?apn=com.elrond.maiar.wallet&isi=1519405832&ibi=com.elrond.maiar.wallet&link=https://maiar.com/",
+      "https://maiar.page.link/?apn=com.multiversx.maiar.wallet&isi=1519405832&ibi=com.multiversx.maiar.wallet&link=https://maiar.com/",
     walletConnectBridgeAddresses: ["https://bridge.walletconnect.org"],
     walletAddress: "https://devnet-wallet.multiversx.com",
     apiAddress:
@@ -46,7 +46,7 @@ export const networkConfig = {
     decimals: "4",
     gasPerDataByte: "1500",
     walletConnectDeepLink:
-      "https://maiar.page.link/?apn=com.elrond.maiar.wallet&isi=1519405832&ibi=com.elrond.maiar.wallet&link=https://maiar.com/",
+      "https://maiar.page.link/?apn=com.multiversx.maiar.wallet&isi=1519405832&ibi=com.multiversx.maiar.wallet&link=https://maiar.com/",
     walletConnectBridgeAddresses: ["https://bridge.walletconnect.org"],
     walletAddress: "https://testnet-wallet.multiversx.com",
     apiAddress:
@@ -70,7 +70,7 @@ export const networkConfig = {
     decimals: "4",
     gasPerDataByte: "1500",
     walletConnectDeepLink:
-      "https://maiar.page.link/?apn=com.elrond.maiar.wallet&isi=1519405832&ibi=com.elrond.maiar.wallet&link=https://maiar.com/",
+      "https://maiar.page.link/?apn=com.multiversx.maiar.wallet&isi=1519405832&ibi=com.multiversx.maiar.wallet&link=https://maiar.com/",
     walletConnectBridgeAddresses: ["https://bridge.walletconnect.org"],
     walletAddress: "https://wallet.multiversx.com",
     apiAddress:
