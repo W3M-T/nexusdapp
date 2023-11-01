@@ -2,22 +2,22 @@
 // You can always use only one of them if needed
 import { Flex, Stack } from "@chakra-ui/react";
 import styled from "@emotion/styled";
-import { useGetLoginInfo } from "@multiversx/sdk-dapp/hooks";
+import { useGetLoginInfo } from "@multiversx/sdk-dapp/hooks/account/useGetLoginInfo";
 import { memo } from "react";
 import { route } from "../../utils/routes";
-
 import dynamic from "next/dynamic";
+// import { WebWalletLoginButtonPropsType } from "@multiversx/sdk-dapp/UI/webWallet/WebWalletLoginButton";
 
-const ExtensionLoginButton: any = dynamic(
+const ExtensionLoginButton = dynamic(
   async () => {
     return (
       await import("@multiversx/sdk-dapp/UI/extension/ExtensionLoginButton")
     ).ExtensionLoginButton;
   },
-  { ssr: false }
+  { ssr: false },
 );
 
-const WalletConnectLoginButton: any = dynamic(
+const WalletConnectLoginButton = dynamic(
   async () => {
     return (
       await import(
@@ -25,65 +25,46 @@ const WalletConnectLoginButton: any = dynamic(
       )
     ).WalletConnectLoginButton;
   },
-  { ssr: false }
+  { ssr: false },
 );
 
-const WebWalletLoginButton: any = dynamic(
+const LedgerLoginButton = dynamic(
+  async () => {
+    return (await import("@multiversx/sdk-dapp/UI/ledger/LedgerLoginButton"))
+      .LedgerLoginButton;
+  },
+  { ssr: false },
+);
+
+const WebWalletLoginButton = dynamic(
   async () => {
     return (
       await import("@multiversx/sdk-dapp/UI/webWallet/WebWalletLoginButton")
     ).WebWalletLoginButton;
   },
-  { ssr: false }
+  { ssr: false },
 );
-const LedgerLoginButton: any = dynamic(
+
+const XaliasLoginButton = dynamic(
   async () => {
-    return (await import("@multiversx/sdk-dapp/UI/ledger/LedgerLoginButton"))
-      .LedgerLoginButton;
+    return (
+      await import(
+        "@multiversx/sdk-dapp/UI/webWallet/XaliasLoginButton/XaliasLoginButton"
+      )
+    ).XaliasLoginButton;
   },
-  { ssr: false }
+  { ssr: false },
 );
-const mobileText = (
-  <Flex
-    w="full"
-    align={"center"}
-    justifyContent="center"
-    borderRadius={"7px !important"}
-  >
-    xPortal Mobile App
-  </Flex>
-);
-const legerWallet = (
-  <Flex
-    w="full"
-    align={"center"}
-    justifyContent="center"
-    borderRadius={"7px !important"}
-  >
-    Ledger
-  </Flex>
-);
-const desktopText = (
-  <Flex
-    w="full"
-    align={"center"}
-    justifyContent="center"
-    borderRadius={"7px !important"}
-  >
-    {" "}
-    DeFi Extension
-  </Flex>
-);
-const webText = (
-  <Flex
-    w="full"
-    align={"center"}
-    justifyContent="center"
-    borderRadius={"7px !important"}
-  >
-    MultiversX Web Wallet
-  </Flex>
-);
+
+// button
+// <Flex
+//   w="full"
+//   align={"center"}
+//   justifyContent="center"
+//   borderRadius={"7px !important"}
+// >
+//   Text
+// </Flex>
 
 export const LoginComponent = memo(() => {
   const { isLoggedIn } = useGetLoginInfo();
@@ -104,8 +85,8 @@ export const LoginComponent = memo(() => {
             <LoginMethod>
               <WalletConnectLoginButton
                 callbackRoute={route.home.route}
-                shouldRenderDefaultCss={false}
-                loginButtonText={mobileText}
+                // shouldRenderDefaultCss={false}
+                loginButtonText={"xPortal Mobile App"}
                 isWalletConnectV2={true}
               />
             </LoginMethod>
@@ -113,22 +94,31 @@ export const LoginComponent = memo(() => {
             <LoginMethod>
               <ExtensionLoginButton
                 callbackRoute={route.home.route}
-                loginButtonText={desktopText}
+                loginButtonText={"DeFi Extension"}
               />
             </LoginMethod>
             <LoginMethod>
               <WebWalletLoginButton
                 callbackRoute={route.home.route}
-                shouldRenderDefaultCss={false}
-                loginButtonText={webText}
+                // shouldRenderDefaultCss={false}
+                loginButtonText={"MultiversX Web Wallet"}
+                nativeAuth
+              />
+            </LoginMethod>
+            <LoginMethod>
+              <XaliasLoginButton
+                callbackRoute={route.home.route}
+                // shouldRenderDefaultCss={false}
+                loginButtonText={"xAlias Wallet"}
+                nativeAuth
               />
             </LoginMethod>
             <LoginMethod>
               {" "}
               <LedgerLoginButton
                 callbackRoute={route.home.route}
-                shouldRenderDefaultCss={false}
-                loginButtonText={legerWallet}
+                // shouldRenderDefaultCss={false}
+                loginButtonText={"Ledger"}
               />
             </LoginMethod>
           </>

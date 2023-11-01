@@ -47,7 +47,7 @@ export const fetchStats = createAsyncThunk("pools/fetchStats", async () => {
   const data: IPoolStats = {
     feesCollected: firstValue.valueOf().field2.map((fee) => {
       const index = tokensDetails.findIndex(
-        (token) => token.identifier === fee.field0
+        (token) => token.identifier === fee.field0,
       );
       if (index !== -1) {
         return {
@@ -87,7 +87,7 @@ export const fetchExistringPools = createAsyncThunk(
     });
 
     return data;
-  }
+  },
 );
 export const fetchUserStaked = createAsyncThunk(
   "pools/fetchUserStaked",
@@ -131,7 +131,7 @@ export const fetchUserStaked = createAsyncThunk(
 
     const finalData: IStakedWithTokenDetails[] = data.map((stakedInfo) => {
       const details: IElrondToken = tokensDetails.find(
-        (token) => token.identifier === stakedInfo.nftPool.token
+        (token) => token.identifier === stakedInfo.nftPool.token,
       );
 
       const stakedWithInfo: IStakedWithTokenDetails = {
@@ -147,7 +147,7 @@ export const fetchUserStaked = createAsyncThunk(
         pageCount: firstValue.valueOf().field0.toNumber(),
       },
     };
-  }
+  },
 );
 export const fetchIsNftCreator = createAsyncThunk(
   "pools/fetchIsNftCreator",
@@ -155,7 +155,7 @@ export const fetchIsNftCreator = createAsyncThunk(
     const res = await scQuery(
       "NftStakingPoolsWsp",
       "getIsNftCreatorAndScOwner",
-      [new AddressValue(new Address(address))]
+      [new AddressValue(new Address(address))],
     );
     const { firstValue } = res;
     const forceAdmin = process.env.NEXT_PUBLIC_IS_ADMIN === "true";
@@ -174,21 +174,21 @@ export const fetchIsNftCreator = createAsyncThunk(
       isNftCreator: data.isAdmin || data.isNftCreator,
       isAdmin: data.isAdmin,
     };
-  }
+  },
 );
 export const fetchNonWithdrawnCollections = createAsyncThunk(
   "pools/fetchNonWithdrawnCollections",
   async () => {
     const res = await scQuery(
       "NftStakingPoolsWsp",
-      "getNonWithdrawnCollections"
+      "getNonWithdrawnCollections",
     );
     const { firstValue } = res;
 
     const data = firstValue.valueOf();
 
     return data;
-  }
+  },
 );
 export const fetchRegistrationInfo = createAsyncThunk(
   "pools/fetchRegistrationInfo",
@@ -206,21 +206,21 @@ export const fetchRegistrationInfo = createAsyncThunk(
       tokenAmount: data.field1.toNumber(),
       payed: data.field2,
     };
-  }
+  },
 );
 export const fetchAllowedRegistrationTokens = createAsyncThunk(
   "pools/fetchAllowedRegistrationTokens",
   async () => {
     const res = await scQuery(
       "NftStakingPoolsWsp",
-      "allowedRegistrationTokens"
+      "allowedRegistrationTokens",
     );
     const { firstValue } = res;
 
     const data = firstValue.valueOf();
 
     return data;
-  }
+  },
 );
 export const fetchAllowedRewardTokens = createAsyncThunk(
   "pools/fetchAllowedRewardTokens",
@@ -231,7 +231,7 @@ export const fetchAllowedRewardTokens = createAsyncThunk(
     const data = firstValue.valueOf();
 
     return data;
-  }
+  },
 );
 export const fetcHhasStakedForAEN = createAsyncThunk(
   "pools/fetcHhasStakedForAEN",
@@ -244,7 +244,7 @@ export const fetcHhasStakedForAEN = createAsyncThunk(
     const data = firstValue.valueOf();
 
     return data;
-  }
+  },
 );
 export const fetchNeedsToUnstake = createAsyncThunk(
   "pools/fetchNeedsToUnstake",
@@ -257,7 +257,7 @@ export const fetchNeedsToUnstake = createAsyncThunk(
     const data = firstValue.valueOf();
 
     return data;
-  }
+  },
 );
 export const fetchHasReadWarning = createAsyncThunk(
   "pools/fetchHasReadWarning",
@@ -270,7 +270,7 @@ export const fetchHasReadWarning = createAsyncThunk(
     const data = firstValue.valueOf();
 
     return data;
-  }
+  },
 );
 export const fetchAllScNfts = createAsyncThunk(
   "pools/fetchAllScNfts",
@@ -287,7 +287,7 @@ export const fetchAllScNfts = createAsyncThunk(
     const poolStruct = new Struct(poolType, [
       new Field(
         new U64Value(new BigNumber(pool.timestam)),
-        "creation_timestamp"
+        "creation_timestamp",
       ),
       new Field(new AddressValue(new Address(pool.creator)), "creator"),
       new Field(new TokenIdentifierValue(pool.collection), "collection"),
@@ -304,5 +304,5 @@ export const fetchAllScNfts = createAsyncThunk(
     const data = firstValue.valueOf();
 
     return data;
-  }
+  },
 );

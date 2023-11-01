@@ -7,7 +7,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { BigUIntValue, BytesValue } from "@multiversx/sdk-core/out";
-import { useTrackTransactionStatus } from "@multiversx/sdk-dapp/hooks";
+import { useTrackTransactionStatus } from "@multiversx/sdk-dapp/hooks/transactions/useTrackTransactionStatus";
 import BigNumber from "bignumber.js";
 import Image from "next/image";
 import { useRouter } from "next/router";

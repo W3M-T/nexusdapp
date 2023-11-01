@@ -1,6 +1,6 @@
 import { useDisclosure } from "@chakra-ui/react";
-import { useGetAccountInfo, useGetLoginInfo } from "@multiversx/sdk-dapp/hooks";
-
+import { useGetAccountInfo } from "@multiversx/sdk-dapp/hooks/account/useGetAccountInfo";
+import { useGetLoginInfo } from "@multiversx/sdk-dapp/hooks/account/useGetLoginInfo";
 import dynamic from "next/dynamic";
 import { useEffectOnlyOnUpdate } from "../../hooks/tools/useEffectOnlyOnUpdate";
 import LogedInButton from "../ui/LogedInButton";

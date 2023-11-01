@@ -1,8 +1,12 @@
 import {
+  Account,
   Address,
   BigUIntValue,
   BytesValue,
   ContractFunction,
+  Interaction,
+  SmartContract,
+  TokenTransfer,
   Transaction,
   TransactionPayload,
 } from "@multiversx/sdk-core/out";
@@ -24,29 +28,26 @@ export const claimUserRewards = async (
   const finalValue = 5 * multiplyier;
   if (selectedNetwork.tokens?.MERMAID?.identifier) {
     nfts.forEach((nft) => {
-      const payload = TransactionPayload.contractCall()
-        .setFunction(new ContractFunction("ESDTTransfer"))
-        .setArgs([
-          BytesValue.fromUTF8(tokenIdentifier),
-          new BigUIntValue(new BigNumber(finalValue)),
-          BytesValue.fromUTF8("claimRewards"),
-          BytesValue.fromUTF8(nft.token),
-          new BigUIntValue(new BigNumber(nft.nonce)),
-        ])
-        .build();
-
       const receiverAddress = new Address(
         selectedNetwork.contractAddr.nftsStaking
       );
 
-      const tx = new Transaction({
-        sender: senderAddress,
-        value: 0,
-        receiver: receiverAddress,
-        data: payload,
-        gasLimit: 70000000,
-        chainID: selectedNetwork.shortId,
-      });
+      const contract = new SmartContract({ address: new Address(receiverAddress)});
+      let interaction = new Interaction(contract, new ContractFunction("claimRewards"),
+        [
+          BytesValue.fromUTF8(nft.token),
+          new BigUIntValue(new BigNumber(nft.nonce)),
+        ]
+      );
+  
+      let tx = interaction
+        .withSender(senderAddress)
+        .useThenIncrementNonceOf(new Account(senderAddress))
+        .withSingleESDTTransfer(TokenTransfer.fungibleFromBigInteger(tokenIdentifier, finalValue, selectedNetwork.tokens?.MERMAID?.decimals))
+        .withGasLimit(70000000)
+        .withChainID(selectedNetwork.shortId)
+        .buildTransaction();
+
       transactions.push(tx);
     });
   }

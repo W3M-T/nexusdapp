@@ -41,7 +41,7 @@ export const fetchNftRewards = async ([_key, pool, collection, nonce]: [
   string,
   IExistingPool,
   string,
-  number
+  number,
 ]) => {
   const userAdress = store.getState().settings.userAddress;
   const poolType = new StructType("pool", [

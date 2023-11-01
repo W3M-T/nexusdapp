@@ -1,5 +1,6 @@
 import { Box, Container } from "@chakra-ui/react";
-import { useGetAccountInfo, useGetLoginInfo } from "@multiversx/sdk-dapp/hooks";
+import { useGetAccountInfo } from "@multiversx/sdk-dapp/hooks/account/useGetAccountInfo";
+import { useGetLoginInfo } from "@multiversx/sdk-dapp/hooks/account/useGetLoginInfo";
 import { PropsWithChildren, useEffect } from "react";
 import withElronDapp from "../../hoc/withElronDapp";
 import { useAppDispatch, useAppSelector } from "../../hooks/core/useRedux";
@@ -22,7 +23,7 @@ export const MainLayout = withElronDapp(
     const dispatch = useAppDispatch();
     const { isLoggedIn } = useGetLoginInfo();
     useEffect(() => {
-      const forceAddress = process.env.NEXT_PUBLIC_ADDRESS;
+      const forceAddress = process.env.NEXT_PUBLIC_ADDRESS || null;
       dispatch(setAddress(forceAddress || account.address));
     }, [account.address, dispatch]);
 

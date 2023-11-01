@@ -60,7 +60,7 @@ const RetriveAllSfts = () => {
       const poolStruct = new Struct(poolType, [
         new Field(
           new U64Value(new BigNumber(pool.timestam)),
-          "creation_timestamp"
+          "creation_timestamp",
         ),
         new Field(new AddressValue(new Address(pool.creator)), "creator"),
         new Field(new TokenIdentifierValue(pool.collection), "collection"),
@@ -68,7 +68,7 @@ const RetriveAllSfts = () => {
         new Field(BytesValue.fromUTF8(pool.token), "reward_token"),
         new Field(
           new BigUIntValue(new BigNumber(pool.rewards)),
-          "reward_amount"
+          "reward_amount",
         ),
       ]);
 
@@ -80,8 +80,8 @@ const RetriveAllSfts = () => {
       const nftsIndetifiersArr: string[] = scNfts.map((scNft) =>
         createIndentifierByCollectionAndNonce(
           scNft.nft_token,
-          scNft.nft_nonce.toNumber()
-        )
+          scNft.nft_nonce.toNumber(),
+        ),
       );
 
       const newArrOfNftsArr = [];
@@ -127,8 +127,8 @@ const RetriveAllSfts = () => {
           (n) =>
             createIndentifierByCollectionAndNonce(
               n.nft_token,
-              n.nft_nonce.toNumber()
-            ) === nft.identifier
+              n.nft_nonce.toNumber(),
+            ) === nft.identifier,
         );
         return {
           ...nft,
@@ -137,7 +137,7 @@ const RetriveAllSfts = () => {
       });
 
       const filterNfts = elrondNftsDataAndScData.filter(
-        (nft) => nft.type === "SemiFungibleESDT"
+        (nft) => nft.type === "SemiFungibleESDT",
       );
 
       const prepareNftsToSend = filterNfts.map((nft) => {
@@ -155,7 +155,7 @@ const RetriveAllSfts = () => {
         const poolStruct = new Struct(poolType, [
           new Field(
             new U64Value(new BigNumber(data.timestam)),
-            "creation_timestamp"
+            "creation_timestamp",
           ),
           new Field(new AddressValue(new Address(data.creator)), "creator"),
           new Field(new TokenIdentifierValue(data.collection), "collection"),
@@ -163,7 +163,7 @@ const RetriveAllSfts = () => {
           new Field(BytesValue.fromUTF8(data.token), "reward_token"),
           new Field(
             new BigUIntValue(new BigNumber(data.rewards)),
-            "reward_amount"
+            "reward_amount",
           ),
         ]);
 
@@ -181,19 +181,19 @@ const RetriveAllSfts = () => {
               new FieldDefinition("nr_of_nfts", "", new U32Type()),
               new FieldDefinition("reward_token", "", new BytesType()),
               new FieldDefinition("reward_amount", "", new BigUIntType()),
-            ])
+            ]),
           ),
         ]);
 
         const nftToSendStruct = new Struct(nftToSendType, [
           new Field(
             new AddressValue(new Address(nft.address.bech32())),
-            "address"
+            "address",
           ),
           new Field(new TokenIdentifierValue(nft.nft_token), "nft_token"),
           new Field(
             new U64Value(new BigNumber(nft.nft_nonce.toNumber())),
-            "nft_nonce"
+            "nft_nonce",
           ),
           new Field(poolStruct, "nft_pool"),
         ]);

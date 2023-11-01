@@ -1,5 +1,5 @@
 import { Box, Flex, Icon, Text } from "@chakra-ui/react";
-import { useGetLoginInfo } from "@multiversx/sdk-dapp/hooks";
+import { useGetLoginInfo } from "@multiversx/sdk-dapp/hooks/account/useGetLoginInfo";
 import Link from "next/link";
 import { customColors } from "../../../config/chakraTheme";
 import { routes } from "../../utils/routes";

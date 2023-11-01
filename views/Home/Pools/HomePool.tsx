@@ -18,7 +18,7 @@ import {
   U64Type,
   U64Value,
 } from "@multiversx/sdk-core/out";
-import { useTrackTransactionStatus } from "@multiversx/sdk-dapp/hooks";
+import { useTrackTransactionStatus } from "@multiversx/sdk-dapp/hooks/transactions/useTrackTransactionStatus";
 import BigNumber from "bignumber.js";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";

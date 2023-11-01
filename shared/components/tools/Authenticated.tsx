@@ -1,4 +1,4 @@
-import { useGetLoginInfo } from "@multiversx/sdk-dapp/hooks";
+import { useGetLoginInfo } from "@multiversx/sdk-dapp/hooks/account/useGetLoginInfo";
 import { FC, PropsWithChildren, ReactElement } from "react";
 
 interface AuthenticatedProps {
