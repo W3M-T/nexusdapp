@@ -37,3 +37,7 @@ yarn-error.log*
 *.tsbuildinfo
 .env2.local
 .env copy.local
+
+# lock files
+yarn.lock
+package-lock.json
