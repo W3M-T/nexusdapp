@@ -31,6 +31,7 @@ const Search = () => {
     <SearchBar
       wrapperProps={{ w: "full", maxWidth: "400px" }}
       onChange={handleSearch}
+      placeholder="Search for a pool"
     />
   );
 };
