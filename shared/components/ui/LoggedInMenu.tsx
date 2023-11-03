@@ -22,6 +22,7 @@ const LoggedInMenu = () => {
     >
       <CardWrapper w={{ sm: "250px", lg: "auto" }} px={0} zIndex={99}>
         <VStack gap={2}>
+          {!isNftCreator ? 
           <Flex
             py={1}
             cursor="pointer"
@@ -30,11 +31,22 @@ const LoggedInMenu = () => {
             _hover={{
               textShadow: "0 0 10px " + customColors.color2.base,
             }}
-            onClick={() => logout()}
           >
-            Disconnect
-          </Flex>
-
+            <Link href={route.create.route}>Create a Pool</Link>
+          </Flex> :
+          <Flex
+            py={1}
+            cursor="pointer"
+            px={8}
+            w="full"
+            _hover={{
+              textShadow: "0 0 10px " + customColors.color2.base,
+            }}
+          >
+            <Link href={route.nftCollectionOwner.route}>
+                NFT Creator Dashboard
+            </Link>
+          </Flex>}
           {isAdmin && (
             <Flex
               py={1}
@@ -48,26 +60,6 @@ const LoggedInMenu = () => {
               <Link href={route.scOwner.route}>Owner Dashboard</Link>
             </Flex>
           )}
-
-          <Flex
-            py={1}
-            cursor="pointer"
-            px={8}
-            w="full"
-            _hover={{
-              textShadow: "0 0 10px " + customColors.color2.base,
-            }}
-          >
-            {isNftCreator ? (
-              <Link href={route.nftCollectionOwner.route}>
-                NFT Creator Dashboard
-              </Link>
-            ) : (
-              <Text color="gray.400" cursor={"not-allowed"}>
-                NFT Creator Dashboard
-              </Text>
-            )}
-          </Flex>
           <Flex
             py={1}
             cursor="pointer"
@@ -81,6 +73,18 @@ const LoggedInMenu = () => {
             <ChkLink href={"https://Web3Mermaids.com"} isExternal>
               Web3Mermaids
             </ChkLink>
+          </Flex>
+          <Flex
+            py={1}
+            cursor="pointer"
+            px={8}
+            w="full"
+            _hover={{
+              textShadow: "0 0 10px " + customColors.color2.base,
+            }}
+            onClick={() => logout()}
+          >
+            Disconnect
           </Flex>
         </VStack>
       </CardWrapper>

@@ -41,12 +41,6 @@ export const MainLayout = withElronDapp(
 
     return (
       <>
-        <Banner
-          bg="dappTemplate.dark.darker"
-          display={{ sm: "none", md: "block" }}
-        >
-          A 💧 $WATER Community Project
-        </Banner>
         <Box minHeight="100vh" pb="24">
           <Container maxW="container.xl">
             <HeaderMenu>

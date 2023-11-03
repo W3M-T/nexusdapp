@@ -25,6 +25,11 @@ export const customColors = {
     base: "#FA824C",
     darker: "#f9611c",
   },
+  myCustomColor: {
+    lighter: "#1c0f3a",
+    base: "#090225",
+    darker: "#00000a",
+  },
 };
 
 export const theme = extendTheme({

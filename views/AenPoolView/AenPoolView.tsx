@@ -1,4 +1,4 @@
-import { Flex, Heading } from "@chakra-ui/react";
+import { Box, Flex, Heading } from "@chakra-ui/react";
 import { addDays } from "date-fns";
 import orderBy from "lodash/orderBy";
 import { useEffect, useState } from "react";
@@ -19,6 +19,7 @@ import { selectExistingPools } from "../../shared/redux/slices/pools";
 import { selectUserAddress } from "../../shared/redux/slices/settings";
 import { IExistingPool } from "../../shared/redux/types/pools.interface";
 import { route } from "../../shared/utils/routes";
+import { CardWrapper } from "../../shared/components/ui/CardWrapper";
 
 const AenPoolView = () => {
   const { data: pools } = useAppSelector(selectExistingPools);
@@ -73,8 +74,8 @@ const AenPoolView = () => {
   }, [poolsGroupedByCollection]);
 
   return (
-    <MainLayout metaTitle={route.aenPools.name}>
-      <Heading as={"h1"} w="full" textAlign={"center"} mt={10} mb={4}>
+    <CardWrapper mt={10}>
+      <Heading as={"h1"} w="full" textAlign={"center"} mb={4}>
         AEN Pools
       </Heading>
 
@@ -102,7 +103,7 @@ const AenPoolView = () => {
             return <PoolItem key={i} pool={pool} />;
           })}
       </Flex>
-    </MainLayout>
+    </CardWrapper>
   );
 };
 

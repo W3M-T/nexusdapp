@@ -33,6 +33,7 @@ export const route = {
   create: {
     route: "/create-pool",
     name: "Create Pool",
+    outNav: true,
     icon: TbPyramid,
   },
   view: {
@@ -41,12 +42,12 @@ export const route = {
     public: true,
     icon: TbWorld,
   },
-  aenPools: {
-    route: "/aen-pools",
-    name: "AEN Pools",
-    public: true,
-    icon: CgCloseR,
-  },
+  // aenPools: {
+  //   route: "/aen-pools",
+  //   name: "AEN Pools",
+  //   public: true,
+  //   icon: CgCloseR,
+  // },
   scOwner: {
     route: "/sc-owner-dashboard",
     name: "SC Owner",
