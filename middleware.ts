@@ -12,7 +12,7 @@ interface CustomNextRequest extends NextRequest {
   headers: CustomHeaders;
 }
 
-export const api = process.env.API_ALLOWED_DAPP_HOST || "/api/multiversx";
+export const api = process.env.NEXT_PUBLIC_ELROND_API || "/api/multiversx";
 
 export function middleware(req: CustomNextRequest) {
   const res = NextResponse.next();
