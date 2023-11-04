@@ -8,5 +8,5 @@ export const defaultMetaTags = {
   title: "The NFTs Nexus porject",
   description:
     "The Nexus staking service. NFT creators will be alble to create pools for their collection so their community can stake their NFTs.",
-  image: `${dappHostname}/logo.png`,
+  image: `${dappHostname}/logoNexus.png`,
 };

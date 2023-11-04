@@ -66,7 +66,7 @@ const ViewPools = () => {
   }, [poolsGroupedByCollection]);
 
   return (
-    <CardWrapper mt={10}>
+    <CardWrapper>
       <Heading as={"h1"} w="full" textAlign={"center"} mb={4}>
         Pools
       </Heading>

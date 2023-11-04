@@ -22,8 +22,9 @@ export const MainLayout = withElronDapp(
     const account = useGetAccountInfo();
     const dispatch = useAppDispatch();
     const { isLoggedIn } = useGetLoginInfo();
+
     useEffect(() => {
-      const forceAddress = process.env.NEXT_PUBLIC_ADDRESS || null;
+      const forceAddress = process.env.NEXT_PUBLIC_FORCED_ADDRESS != "" ? process.env.NEXT_PUBLIC_FORCED_ADDRESS : null;
       dispatch(setAddress(forceAddress || account.address));
     }, [account.address, dispatch]);
 

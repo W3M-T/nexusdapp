@@ -1,6 +1,7 @@
 import {
   Box,
   Flex,
+  HStack,
   Heading,
   Skeleton,
   useDisclosure,
@@ -23,6 +24,9 @@ import { selectUserAddress } from "../../../shared/redux/slices/settings";
 import { route } from "../../../shared/utils/routes";
 import NFTCard from "../../Staked/StakingSection/NFTCard/NFTCard";
 import NftModal from "../../Staked/StakingSection/NftModal/NftModal";
+import { CardWrapper } from "../../../shared/components/ui/CardWrapper";
+import { ViewButton } from "../../../shared/components/tools/ViewButton";
+
 const StakedNfts = () => {
   const dispatch = useAppDispatch();
   const stakedNfts = useAppSelector(selectUserStaked);
@@ -32,6 +36,7 @@ const StakedNfts = () => {
   const [selectedNft, setSelectedNft] = useState(null);
   const [isLargerThanLg] = useMediaQuery(`(min-width: ${breakpoints.lg})`);
   const [isLargerThanTablet] = useMediaQuery(`(min-width: ${breakpoints.lsm})`);
+
   const handleViwNft = (nft) => {
     setSelectedNft(nft);
     onOpen();
@@ -55,125 +60,123 @@ const StakedNfts = () => {
   }
 
   return (
-    <Flex flexDir={"column"}>
-      <Heading
-        mb={4}
-        fontWeight="600"
-        as="h2"
-        fontSize={"24px"}
-        color="dappTemplate.color2.base"
-      >
-        {isLargerThanLg ? (
-          "Staked NFTs"
-        ) : (
-          <Link href={route.staked.route}>Staked NFTs</Link>
-        )}
-      </Heading>
+    <CardWrapper>
+      <Flex flexDir={"column"}>
+        <HStack justifyContent="center" alignContent={"center"} mb={8}>
+          <Heading
+            // color="dappTemplate.color2.base"
+            fontWeight="700"
+            as="h2"
+            fontSize={"24px"}
+            w="full"
+          >
+            {isLargerThanLg ? (
+              "Staked NFTs"
+            ) : (
+              <Link href={route.staked.route}>Staked NFTs</Link>
+            )}
+          </Heading>
+          <ViewButton w={"160px"} fontSize={"14px"} cursor="pointer" _hover={{ fontWeight: "bold" }} >
+            <Link href={route.staked.route}>
+              View all
+            </Link>
+          </ViewButton>
+        </HStack>
 
-      <SwipperS
-        slidesPerView={poolItems}
-        // spaceBetween={"auto"}
-      >
-        {stakedNfts.status === "loading" ? (
-          <Fragment>
-            <SwiperSlide>
-              <Box w="80%">
-                <Skeleton
-                  w="100%"
-                  h={"clamp(80px, 12vw, 200px)"}
-                  borderRadius={{ sm: "15px", md: "35px" }}
-                />
-              </Box>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Box w="80%">
-                <Skeleton
-                  w="100%"
-                  h={"clamp(80px, 12vw, 200px)"}
-                  borderRadius={{ sm: "15px", md: "35px" }}
-                />
-              </Box>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Box w="80%">
-                <Skeleton
-                  w="100%"
-                  h={"clamp(80px, 12vw, 200px)"}
-                  borderRadius={{ sm: "15px", md: "35px" }}
-                />
-              </Box>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Box w="80%">
-                <Skeleton
-                  w="100%"
-                  h={"clamp(80px, 12vw, 200px)"}
-                  borderRadius={{ sm: "15px", md: "35px" }}
-                />
-              </Box>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Box w="80%">
-                <Skeleton
-                  w="100%"
-                  h={"clamp(80px, 12vw, 200px)"}
-                  borderRadius={{ sm: "15px", md: "35px" }}
-                />
-              </Box>
-            </SwiperSlide>
-          </Fragment>
-        ) : (
-          <Fragment>
-            {orderBy(
-              stakedNfts.data.nfts,
-              [
-                function (pool) {
-                  return addDays(
-                    new Date(pool.nftPool.timestam * 1000),
-                    pool.nftPool.poolDuration
-                  ).getTime();
-                },
-              ],
-              "asc"
-            ).map((nft, i) => {
-              return (
-                <SwiperSlide key={i}>
-                  <Box width="80%">
-                    <NFTCard
-                      nft={nft}
-                      onClick={() => handleViwNft(nft)}
-                      wrapperProps={{
-                        borderRadius: { sm: "15px", md: "30px" },
-                        p: {
-                          sm: "5px",
-                          md: "15px",
-                        },
-                      }}
-                      fromHome
-                    />
-                  </Box>
-                </SwiperSlide>
-              );
-            })}
-          </Fragment>
+        {isOpen && (
+          <NftModal isOpen={isOpen} onClose={onClose} nft={selectedNft} />
         )}
-      </SwipperS>
-      <Flex
-        w="full"
-        mt={4}
-        justifyContent={"flex-end"}
-        display={{ sm: "none", md: "flex" }}
-      >
-        <Link href={route.staked.route}>
-          <Box cursor="pointer" _hover={{ fontWeight: "bold" }}>
-            View all
-          </Box>
-        </Link>
+
+        <SwipperS
+          slidesPerView={poolItems}
+          // spaceBetween={"auto"}
+        >
+          {stakedNfts.status === "loading" ? (
+            <Fragment>
+              <SwiperSlide>
+                <Box w="80%">
+                  <Skeleton
+                    w="100%"
+                    h={"clamp(80px, 12vw, 200px)"}
+                    borderRadius={{ sm: "15px", md: "35px" }}
+                  />
+                </Box>
+              </SwiperSlide>
+              <SwiperSlide>
+                <Box w="80%">
+                  <Skeleton
+                    w="100%"
+                    h={"clamp(80px, 12vw, 200px)"}
+                    borderRadius={{ sm: "15px", md: "35px" }}
+                  />
+                </Box>
+              </SwiperSlide>
+              <SwiperSlide>
+                <Box w="80%">
+                  <Skeleton
+                    w="100%"
+                    h={"clamp(80px, 12vw, 200px)"}
+                    borderRadius={{ sm: "15px", md: "35px" }}
+                  />
+                </Box>
+              </SwiperSlide>
+              <SwiperSlide>
+                <Box w="80%">
+                  <Skeleton
+                    w="100%"
+                    h={"clamp(80px, 12vw, 200px)"}
+                    borderRadius={{ sm: "15px", md: "35px" }}
+                  />
+                </Box>
+              </SwiperSlide>
+              <SwiperSlide>
+                <Box w="80%">
+                  <Skeleton
+                    w="100%"
+                    h={"clamp(80px, 12vw, 200px)"}
+                    borderRadius={{ sm: "15px", md: "35px" }}
+                  />
+                </Box>
+              </SwiperSlide>
+            </Fragment>
+          ) : (
+            <Fragment>
+              {orderBy(
+                stakedNfts.data.nfts,
+                [
+                  function (pool) {
+                    return addDays(
+                      new Date(pool.nftPool.timestam * 1000),
+                      pool.nftPool.poolDuration
+                    ).getTime();
+                  },
+                ],
+                "asc"
+              ).map((nft, i) => {
+                return (
+                  <SwiperSlide key={i}>
+                    <Box width="80%">
+                      <NFTCard
+                        nft={nft}
+                        onClick={() => handleViwNft(nft)}
+                        wrapperProps={{
+                          borderRadius: { sm: "15px", md: "30px" },
+                          p: {
+                            sm: "5px",
+                            md: "15px",
+                          },
+                        }}
+                        fromHome
+                      />
+                    </Box>
+                  </SwiperSlide>
+                );
+              })}
+            </Fragment>
+          )}
+        </SwipperS>
       </Flex>
-      {isOpen && (
-        <NftModal isOpen={isOpen} onClose={onClose} nft={selectedNft} />
-      )}
-    </Flex>
+    </CardWrapper>
   );
 };
 

@@ -158,16 +158,17 @@ export const fetchIsNftCreator = createAsyncThunk(
       [new AddressValue(new Address(address))],
     );
     const { firstValue } = res;
-    const forceAdmin = process.env.NEXT_PUBLIC_IS_ADMIN === "true";
+    
+    const forceAdmin = process.env.NEXT_PUBLIC_IS_ADMIN || "false";
+    const forceNftCreator = process.env.NEXT_PUBLIC_IS_CREATOR || "false";
 
-    const forceNftCreator = process.env.NEXT_PUBLIC_IS_CREATOR === "true";
     const data: { isNftCreator: boolean; isAdmin: boolean } = {
       isNftCreator:
         adminAddresses.includes(address) ||
-        (forceNftCreator ? forceNftCreator : firstValue.valueOf().field0),
+        (forceNftCreator ? forceNftCreator === "true" : firstValue.valueOf().field0),
       isAdmin:
         adminAddresses.includes(address) ||
-        (forceAdmin ? forceAdmin : firstValue.valueOf().field1),
+        (forceAdmin ? forceAdmin === "true" : firstValue.valueOf().field1),
     };
 
     return {

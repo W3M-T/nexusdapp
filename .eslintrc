@@ -12,7 +12,7 @@
   ],
   "plugins": ["react", "unused-imports", "jsx-a11y","@typescript-eslint"],
   "rules": {
-    "valtio/state-snapshot-rule": "off",
+    // "valtio/state-snapshot-rule": "off",
     "jsx-a11y/anchor-is-valid": "off",
     "@typescript-eslint/no-explicit-any": "off",
   }

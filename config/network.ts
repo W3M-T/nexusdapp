@@ -6,7 +6,7 @@ export const DEFAULT_MIN_GAS_LIMIT = 50_000;
 export const DAPP_CONFIG_ENDPOINT = "/dapp/config";
 export const DAPP_INIT_ROUTE = "/dapp/init";
 
-export const chainType = process.env.NEXT_PUBLIC_ELROND_CHAIN || "mainnet";
+export const chainType = process.env.NEXT_PUBLIC_CHAIN || "devnet";
 
 export const networkConfig = {
   devnet: {
@@ -21,8 +21,7 @@ export const networkConfig = {
       "https://maiar.page.link/?apn=com.multiversx.maiar.wallet&isi=1519405832&ibi=com.multiversx.maiar.wallet&link=https://maiar.com/",
     walletConnectBridgeAddresses: ["https://bridge.walletconnect.org"],
     walletAddress: "https://devnet-wallet.multiversx.com",
-    apiAddress:
-      process.env.NEXT_PUBLIC_ELROND_API || "https://devnet-api.multiversx.com",
+    apiAddress: "https://devnet-api.multiversx.com",
     explorerAddress: "https://devnet-explorer.multiversx.com",
     apiTimeout: "40000",
     gatewayAddress: "https://devnet-gateway.multiversx.com",
@@ -49,9 +48,7 @@ export const networkConfig = {
       "https://maiar.page.link/?apn=com.multiversx.maiar.wallet&isi=1519405832&ibi=com.multiversx.maiar.wallet&link=https://maiar.com/",
     walletConnectBridgeAddresses: ["https://bridge.walletconnect.org"],
     walletAddress: "https://testnet-wallet.multiversx.com",
-    apiAddress:
-      process.env.NEXT_PUBLIC_ELROND_API ||
-      "https://testnet-api.multiversx.com",
+    apiAddress: "https://testnet-api.multiversx.com",
     explorerAddress: "https://testnet-explorer.multiversx.com",
     apiTimeout: "40000",
     gatewayAddress: "https://testnet-gateway.multiversx.com",
@@ -73,8 +70,7 @@ export const networkConfig = {
       "https://maiar.page.link/?apn=com.multiversx.maiar.wallet&isi=1519405832&ibi=com.multiversx.maiar.wallet&link=https://maiar.com/",
     walletConnectBridgeAddresses: ["https://bridge.walletconnect.org"],
     walletAddress: "https://wallet.multiversx.com",
-    apiAddress:
-      process.env.NEXT_PUBLIC_ELROND_API || "https://api.multiversx.com",
+    apiAddress: "https://api.multiversx.com",
     explorerAddress: "https://explorer.multiversx.com",
     apiTimeout: "40000",
     gatewayAddress: "https://gateway.multiversx.com",

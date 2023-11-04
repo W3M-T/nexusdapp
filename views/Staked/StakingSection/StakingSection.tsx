@@ -113,7 +113,7 @@ const StakingSection = () => {
     }
   };
   return (
-    <CardWrapper mt={10}>
+    <CardWrapper>
       <Flex flexWrap="wrap" rowGap={8}>
         <Heading as={"h1"} w="full" justifyContent="center" textAlign={"center"} mb={4}>
           Staked NFTs

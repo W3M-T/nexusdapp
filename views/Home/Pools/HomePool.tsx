@@ -33,6 +33,7 @@ import { IExistingPool } from "../../../shared/redux/types/pools.interface";
 import { INft } from "../../../shared/redux/types/tokens.interface";
 import { stakeNfts } from "../../../shared/services/sc/calls/multiTx/stake";
 import { route } from "../../../shared/utils/routes";
+import { customColors } from "../../../config/chakraTheme";
 const HomePoolModal = dynamic(() => import("./SelectNftModal"));
 
 interface IProps {
@@ -90,8 +91,9 @@ const HomePool = ({ pool, small }: IProps) => {
 
   return (
     <Flex
-      border="1px solid white"
-      borderRadius={"lg"}
+      // border="1px solid white"
+      backgroundColor={customColors.myCustomColor.base}
+      borderRadius={"2xl"}
       p={{ sm: 2, md: 5 }}
       h="full"
       gap={8}

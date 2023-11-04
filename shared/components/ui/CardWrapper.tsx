@@ -30,6 +30,7 @@ export const CardWrapper: FC<PropsWithChildren<BoxProps>> = ({
     <Box
       backgroundColor={customColors.myCustomColor.lighter}
       padding={6}
+      mt={6}
       borderRadius="2xl"
       {...props}
     >

@@ -37,7 +37,7 @@ const LogedInButton = () => {
     username !== "" ? "@" + username : shortenHash(account?.address, 7);
 
   return (
-    <Box position={"relative"} w={{ sm: "full", lg: customSizes.loginButton.lg }} ref={ref}>
+    <Box position={"relative"} w={{ sm: "full", lg: customSizes.loginButton.lg }} ref={ref} display="flex" justifyContent="flex-end">
       <ActionButton
         onClick={onToggle}
         w={customSizes.loginButton}

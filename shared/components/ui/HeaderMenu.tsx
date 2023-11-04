@@ -7,10 +7,10 @@ export const HeaderMenu = ({ children }: PropsWithChildren) => {
     <Box
       display="flex"
       alignItems="center"
-      justifyContent={{ sm: "center", xl: "space-between" }}
-      gap="2"
-      pt={9}
-      flexDirection={{ sm: "column", xl: "row" }}
+      justifyContent={"space-between"}
+      gap="4"
+      pt={4}
+      flexDirection={"row"}
       textAlign={"center"}
     >
       <Logo />

@@ -14,9 +14,9 @@ const LoggedInMenu = () => {
   return (
     <Box
       right={{ sm: "auto", lg: "0" }}
-      mt={1}
+      mt={5}
       position={"absolute"}
-      width={{ sm: "full", lg: customSizes.loginButton.lg }}
+      width={ customSizes.loginButton }
       display="flex"
       justifyContent={"center"}
     >

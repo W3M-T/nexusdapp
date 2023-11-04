@@ -34,9 +34,13 @@ export const customColors = {
 
 export const customSizes = {
   loginButton: {
-    sm: "200px",
-    lg: "220px"
-  }
+    sm: "220px",
+    lg: "230px"
+  },
+  logoIcon: {
+    sm: "40px",
+    lg: "55px"
+  },
 };
 
 export const theme = extendTheme({

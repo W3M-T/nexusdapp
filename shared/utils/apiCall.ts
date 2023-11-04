@@ -1,9 +1,9 @@
 // Usefull for the api calls on the backend side, but not only. It is also used as fetcher in hooks
 
-import { networkConfig } from "../../config/network";
+import { selectedNetwork } from "../../config/network";
 
 export const apiCall = {
-  baseEndpoint: `${process.env.NEXT_PUBLIC_ELROND_API || networkConfig[process.env.NEXT_PUBLIC_ELROND_CHAIN || "mainnet"].apiAddress}`,
+  baseEndpoint: selectedNetwork.apiAddress,
 
   async get(endpoint: string, options?: Record<string, unknown>) {
     if (typeof fetch !== "undefined") {
