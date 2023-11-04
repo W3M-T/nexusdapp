@@ -87,7 +87,7 @@ NEXT_PUBLIC_ELROND_CHAIN = mainnet
 
 # This is the masked/proxied public API endpoint
 # only current instance of the Dapp can use it if only API_ALLOWED_DAPP_HOST is set
-NEXT_PUBLIC_ELROND_API = /api/elrond
+NEXT_PUBLIC_ELROND_API = /api/multiversx
 
 # This is basically the main domain of your dapp
 NEXT_PUBLIC_DAPP_HOST = http://localhost:3000

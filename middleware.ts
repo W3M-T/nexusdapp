@@ -3,6 +3,7 @@
 
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { networkConfig } from "./config/network";
 
 interface CustomHeaders extends Headers {
   referer?: string[];
@@ -12,7 +13,7 @@ interface CustomNextRequest extends NextRequest {
   headers: CustomHeaders;
 }
 
-export const api = process.env.NEXT_PUBLIC_ELROND_API || "/api/multiversx";
+export const api = process.env.NEXT_PUBLIC_ELROND_API || networkConfig[process.env.NEXT_PUBLIC_ELROND_CHAIN || "mainnet"].apiAddress;
 
 export function middleware(req: CustomNextRequest) {
   const res = NextResponse.next();
