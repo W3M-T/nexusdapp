@@ -1,7 +1,7 @@
 import { Box, Flex, Link as ChkLink, Text, VStack } from "@chakra-ui/react";
 import { logout } from "@multiversx/sdk-dapp/utils";
 import Link from "next/link";
-import { customColors } from "../../../config/chakraTheme";
+import { customColors, customSizes } from "../../../config/chakraTheme";
 import { useAppSelector } from "../../hooks/core/useRedux";
 import { selectisNftCreator, selectisScOwner } from "../../redux/slices/pools";
 import { route } from "../../utils/routes";
@@ -14,13 +14,13 @@ const LoggedInMenu = () => {
   return (
     <Box
       right={{ sm: "auto", lg: "0" }}
-      mt={2}
+      mt={1}
       position={"absolute"}
-      width={{ sm: "full", lg: "250px" }}
+      width={{ sm: "full", lg: customSizes.loginButton.lg }}
       display="flex"
       justifyContent={"center"}
     >
-      <CardWrapper w={{ sm: "250px", lg: "auto" }} px={0} zIndex={99}>
+      <CardWrapper w={"full"} px={0} zIndex={99} bgColor={customColors.myCustomColor.darker} border={"2px solid"} borderColor={customColors.myCustomColor.lighter}>
         <VStack gap={2}>
           {!isNftCreator ? 
           <Flex
@@ -44,7 +44,7 @@ const LoggedInMenu = () => {
             }}
           >
             <Link href={route.nftCollectionOwner.route}>
-                NFT Creator Dashboard
+                Creator Dashboard
             </Link>
           </Flex>}
           {isAdmin && (

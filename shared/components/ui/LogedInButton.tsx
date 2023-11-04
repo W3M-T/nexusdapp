@@ -12,6 +12,7 @@ import { useRef } from "react";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import { shortenHash } from "../../utils/shortenHash";
 import { ActionButton } from "../tools/ActionButton";
+import { customSizes } from "../../../config/chakraTheme";
 
 const LoggedInMenu = dynamic(() => import("./LoggedInMenu"));
 
@@ -33,12 +34,13 @@ const LogedInButton = () => {
     : "";
 
   const userDisplay =
-    username !== "" ? "@" + username : shortenHash(account?.address);
+    username !== "" ? "@" + username : shortenHash(account?.address, 7);
 
   return (
-    <Box position={"relative"} w={{ sm: "full", lg: "auto" }} ref={ref}>
+    <Box position={"relative"} w={{ sm: "full", lg: customSizes.loginButton.lg }} ref={ref}>
       <ActionButton
         onClick={onToggle}
+        w={customSizes.loginButton}
         alignItems={"center"}
         bgColor="dappTemplate.color2.base"
         borderColor={"dappTemplate.color2.base"}
@@ -50,7 +52,7 @@ const LogedInButton = () => {
       >
         <Center>
           <Text fontSize={"xs"}>{userDisplay}</Text>
-          <Icon as={isOpen ? FaAngleUp : FaAngleDown} fontSize="20px" ml={2} />
+          <Icon as={isOpen ? FaAngleUp : FaAngleDown} fontSize="22px" ml={3} />
         </Center>
       </ActionButton>
       {isOpen && <LoggedInMenu />}

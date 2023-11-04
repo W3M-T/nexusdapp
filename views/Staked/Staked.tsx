@@ -25,9 +25,7 @@ const Staked = () => {
   }, [address, dispatch, page]);
   return (
     <MainLayout metaTitle="Staked NFTs">
-      <Box mt={10}>
-        <StakingSection />
-      </Box>
+      <StakingSection />
     </MainLayout>
   );
 };

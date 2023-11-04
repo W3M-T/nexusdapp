@@ -32,6 +32,13 @@ export const customColors = {
   },
 };
 
+export const customSizes = {
+  loginButton: {
+    sm: "200px",
+    lg: "220px"
+  }
+};
+
 export const theme = extendTheme({
   breakpoints,
   styles: {

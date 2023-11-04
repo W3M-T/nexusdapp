@@ -7,6 +7,7 @@ import {
   InputProps,
 } from "@chakra-ui/react";
 import { BsSearch } from "react-icons/bs";
+import { customColors } from "../../../config/chakraTheme";
 
 interface IProps extends InputProps {
   wrapperProps: FlexProps;
@@ -15,11 +16,12 @@ const SearchBar = ({ wrapperProps, ...props }: IProps) => {
   return (
     <Flex
       justifyContent={"space-between"}
-      border="1px solid white"
-      borderRadius={"xl"}
+      borderRadius={"2xl"}
+      backgroundColor={customColors.myCustomColor.base}
       {...wrapperProps}
     >
       <Input
+        borderRadius={"2xl"}
         border="none"
         _focus={{
           border: "none",
