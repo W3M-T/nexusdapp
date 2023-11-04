@@ -42,12 +42,12 @@ export const route = {
     public: true,
     icon: TbWorld,
   },
-  // aenPools: {
-  //   route: "/aen-pools",
-  //   name: "AEN Pools",
-  //   public: true,
-  //   icon: CgCloseR,
-  // },
+  faucets: {
+    route: "/faucets",
+    name: "Faucets",
+    public: true,
+    icon: CgCloseR,
+  },
   scOwner: {
     route: "/sc-owner-dashboard",
     name: "SC Owner",
