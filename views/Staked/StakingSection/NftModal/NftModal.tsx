@@ -23,6 +23,7 @@ import { claimUserRewards } from "../../../../shared/services/sc/calls/multiTx/c
 import { formatBalance } from "../../../../shared/utils/formatBalance";
 import { formatTokenI } from "../../../../shared/utils/formatTokenIdentifier";
 import { route } from "../../../../shared/utils/routes";
+import { customColors } from "../../../../config/chakraTheme";
 
 interface IProps {
   nft: IStaked;
@@ -91,7 +92,7 @@ const NftModal = ({ isOpen, onClose, nft }: IProps) => {
   };
 
   return (
-    <MyModal isOpen={isOpen} onClose={onClose} size="4xl" p={{ sm: 4, md: 8 }}>
+      <MyModal isOpen={isOpen} onClose={onClose} size="4xl" p={{ sm: 4, md: 8 }} background={customColors.myCustomColor.lighter}>
       <ModalBody>
         <ModalCloseButton
           border="none"
