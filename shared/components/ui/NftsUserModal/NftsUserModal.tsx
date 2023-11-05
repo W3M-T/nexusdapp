@@ -1,4 +1,5 @@
 import {
+  Box,
   Grid,
   ModalBody,
   ModalCloseButton,
@@ -10,6 +11,7 @@ import dynamic from "next/dynamic";
 import useGetNfts from "../../../hooks/tools/useGetNfts";
 import { noShowMedia } from "../../../utils/excludeNft";
 import MyModal from "../MyModal";
+import { customColors } from "../../../../config/chakraTheme";
 
 const UserNftCard = dynamic(() => import("./UserNftCard"));
 
@@ -21,7 +23,7 @@ const NftsUserModal = ({ onClose, isOpen }: IProps) => {
   const nfts = useGetNfts();
   return (
     <MyModal isOpen={isOpen} onClose={onClose} size={"6xl"}>
-      <ModalContent background={"dappTemplate.dark.darker"}>
+      <ModalContent background={customColors.myCustomColor.base}>
         <ModalCloseButton
           border="none"
           outline={"none"}
@@ -33,17 +35,19 @@ const NftsUserModal = ({ onClose, isOpen }: IProps) => {
         <ModalBody>
           <Grid
             templateColumns={{
-              sm: "1fr ",
+              sm: "1fr 1fr",
               lsm: "1fr 1fr",
               md: "1fr 1fr 1fr",
               lg: "1fr 1fr 1fr 1fr",
             }}
-            gap={5}
+            gap={10}
           >
             {nfts
               .filter((nft) => !noShowMedia(nft))
               .map((nft) => {
-                return <UserNftCard key={nft.identifier} nft={nft} />;
+                return <Box key={nft.identifier} width={{sm: "170px", lg: "240px"}}>
+                  <UserNftCard key={nft.identifier} nft={nft}/>
+                </Box>;
               })}
           </Grid>
         </ModalBody>

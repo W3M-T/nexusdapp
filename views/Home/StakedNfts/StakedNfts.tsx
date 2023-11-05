@@ -76,7 +76,7 @@ const StakedNfts = () => {
               <Link href={route.staked.route}>Staked NFTs</Link>
             )}
           </Heading>
-          <ViewButton w={"160px"} fontSize={"14px"} cursor="pointer" _hover={{ fontWeight: "bold" }} >
+          <ViewButton w={"100px"} fontSize={"12px"} cursor="pointer" _hover={{ fontWeight: "bold" }} >
             <Link href={route.staked.route}>
               View all
             </Link>

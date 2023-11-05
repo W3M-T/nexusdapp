@@ -79,7 +79,7 @@ const Pools = () => {
             display={{ sm: "none", md: "flex" }}
             mt={2}
           > */}
-          <ViewButton w={"160px"} fontSize={"14px"} cursor="pointer" _hover={{ fontWeight: "bold" }}>
+          <ViewButton w={"100px"} fontSize={"12px"} cursor="pointer" _hover={{ fontWeight: "bold" }}>
             <Link href={route.view.route}>
               View all
             </Link>

@@ -1,5 +1,8 @@
-import { Box, BoxProps } from "@chakra-ui/react";
+import { ArrowRightIcon } from "@chakra-ui/icons";
+import { Box, BoxProps, HStack, Icon } from "@chakra-ui/react";
 import { PropsWithChildren, useCallback } from "react";
+import { BsArrowBarDown } from "react-icons/bs";
+import { CgArrowRight } from "react-icons/cg";
 
 interface ActionButtonProps extends BoxProps {
   onClick?: () => void;
@@ -23,14 +26,14 @@ export const ViewButton = ({
   }, [disabled, onClick]);
 
   return (
-    <Box
+    <HStack
       as="button"
-      borderColor="dappTemplate.color2.darker"
-      borderWidth={1}
+      // borderColor="dappTemplate.color2.darker"
+      // borderWidth={1}
       bgColor="transparent"
       py={1.5}
-      px={5}
-      rounded="2xl"
+      // px={0}
+      // rounded="2xl"
       fontWeight="normal"
       cursor={disabled ? "not-allowed" : "pointer"}
       color="dappTemplate.white"
@@ -39,11 +42,12 @@ export const ViewButton = ({
       transition="background-color .3s"
       width={isFullWidth ? "100%" : "auto"}
       onClick={handleClick}
-      opacity={!disabled ? 1 : 0.5}
+      opacity={!disabled ? 0.7 : 0.2}
       type={type}
       {...props}
     >
       {children}
-    </Box>
+      <CgArrowRight size={"16px"}/>
+    </HStack>
   );
 };

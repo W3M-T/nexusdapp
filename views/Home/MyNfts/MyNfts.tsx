@@ -4,6 +4,7 @@ import {
   HStack,
   Heading,
   SkeletonCircle,
+  Text,
   useDisclosure,
   useMediaQuery,
 } from "@chakra-ui/react";
@@ -53,8 +54,8 @@ const MyNfts = () => {
               My NFTs
             </Heading>
             {poolItems < data?.length && (
-              <ViewButton w={"160px"} fontSize={"14px"} cursor="pointer" _hover={{ fontWeight: "bold" }} onClick={onOpen}>
-                View all
+              <ViewButton w={"100px"} fontSize={"12px"} cursor="pointer" _hover={{ fontWeight: "bold" }} onClick={onOpen}>
+                <Text>View all</Text>
               </ViewButton>
             )}
           </HStack>
@@ -121,7 +122,7 @@ const MyNfts = () => {
                             />
                           )}
                         </Box>
-                        <Box fontSize={{ sm: "10px", md: "11px" }}>
+                        <Box fontSize={{ sm: "10px", md: "11px" }} px={3}>
                           {nft.name}
                         </Box>
                       </Flex>
