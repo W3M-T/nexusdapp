@@ -24,6 +24,7 @@ import { formatBalance } from "../../../../shared/utils/formatBalance";
 import { formatTokenI } from "../../../../shared/utils/formatTokenIdentifier";
 import { route } from "../../../../shared/utils/routes";
 import { customColors } from "../../../../config/chakraTheme";
+import { egldFee } from "../../../../config/network";
 
 interface IProps {
   nft: IStaked;
@@ -61,7 +62,7 @@ const NftModal = ({ isOpen, onClose, nft }: IProps) => {
           const res = await EGLDPayment(
             "NftStakingPoolsWsp",
             "unstakeNft",
-            0.00075,
+            egldFee,
             [
               BytesValue.fromUTF8(nft.token),
               new BigUIntValue(new BigNumber(nft.nonce)),
@@ -76,7 +77,7 @@ const NftModal = ({ isOpen, onClose, nft }: IProps) => {
       const res = await EGLDPayment(
         "NftStakingPoolsWsp",
         "unstakeNft",
-        0.00075,
+        egldFee,
         [
           BytesValue.fromUTF8(nft.token),
           new BigUIntValue(new BigNumber(nft.nonce)),

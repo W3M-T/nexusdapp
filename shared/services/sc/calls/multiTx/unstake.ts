@@ -11,7 +11,7 @@ import {
 } from "@multiversx/sdk-core/out";
 import BigNumber from "bignumber.js";
 import { sendMultipleTransactions } from "..";
-import { selectedNetwork } from "../../../../../config/network";
+import { egldFee, selectedNetwork } from "../../../../../config/network";
 import { store } from "../../../../redux/store";
 
 export const unstakeNfts = async (nfts: { token: string; nonce: number }[]) => {
@@ -36,7 +36,7 @@ export const unstakeNfts = async (nfts: { token: string; nonce: number }[]) => {
       .withSender(senderAddress)
       .useThenIncrementNonceOf(new Account(senderAddress))
       .withGasLimit(70000000)
-      .withValue(0.00075 * Math.pow(10, 18))
+      .withValue(egldFee * Math.pow(10, 18))
       .withChainID(selectedNetwork.shortId)
       .buildTransaction();
 

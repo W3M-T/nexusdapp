@@ -94,4 +94,4 @@ export const apiTimeout = 6000;
 export const TOOLS_API_URL = "https://tools.multiversx.com";
 export const sampleAuthenticatedDomains = [TOOLS_API_URL];
 
-export const egldFee = Number(process.env.NEXT_PUBLIC_EGLD_FEE || "0.0025") * 10**Number(selectedNetwork.egldDenomination);
+export const egldFee = Number(process.env.NEXT_PUBLIC_EGLD_FEE || "0.0025");
