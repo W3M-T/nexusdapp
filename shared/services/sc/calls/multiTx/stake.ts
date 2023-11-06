@@ -22,11 +22,11 @@ export const stakeNfts = async (
   poolStruct,
   amountNftsStaked: number
 ) => {
-  let payment = 0;
+  // let payment = 0;
 
-  if (nfts.length > 1) {
-    payment = nfts.length * 5;
-  }
+  // if (nfts.length > 1) {
+  //   payment = nfts.length * 5;
+  // }
 
   // if (amountNftsStaked >= 10) {
   //   payment = nfts.length * 0.001;
@@ -49,7 +49,6 @@ export const stakeNfts = async (
     let tx = interaction
       .withSender(senderAddress)
       .useThenIncrementNonceOf(new Account(senderAddress))
-      .withValue(egldFee * Math.pow(10, 18))
       .withSingleESDTNFTTransfer(TokenTransfer.semiFungible(nft.collection, nft.nonce, 1))
       .withExplicitReceiver(senderAddress)
       .withGasLimit(70000000)
@@ -59,30 +58,21 @@ export const stakeNfts = async (
     transactions.push(tx);
   }
 
-  // if (selectedNetwork.tokens?.MERMAID.identifier && payment > 0) {
-  //   const tokenIdentifier = selectedNetwork.tokens.MERMAID.identifier;
-  //   const multiplyier = Math.pow(10, selectedNetwork.tokens.MERMAID.decimals);
-  //   const finalValue = Number(payment) * multiplyier;
+  const multiplyier = Math.pow(10, 18);
+  const finalValue = egldFee * multiplyier;
 
-  //   const receiverAddress = new Address("erd10fq6af9vkr6usqc4wf9adsqhdvfz7d0d57pkag5ecmac7486zncsunge5m");
+  const receiverAddress = new Address("erd10fq6af9vkr6usqc4wf9adsqhdvfz7d0d57pkag5ecmac7486zncsunge5m");
+  
+  let tx = new Transaction({
+    sender: senderAddress,
+    receiver: receiverAddress,
+    gasLimit: 5000000,
+    chainID: selectedNetwork.shortId,
+    value: finalValue,
+    data: new TransactionPayload("Gas for operational costs"),
+  });
 
-  //   const contract = new SmartContract({ address: new Address(receiverAddress)});
-  //   let interaction = new Interaction(contract, new ContractFunction("fee"),
-  //     [
-  //       BytesValue.fromUTF8(tokenIdentifier),
-  //       new BigUIntValue(new BigNumber(finalValue)),
-  //     ]
-  //   );
+  transactions.push(tx);
 
-  //   let tx = interaction
-  //     .withSender(senderAddress)
-  //     .useThenIncrementNonceOf(new Account(senderAddress))
-  //     .withSingleESDTTransfer(TokenTransfer.fungibleFromBigInteger(tokenIdentifier, finalValue, selectedNetwork.tokens?.MERMAID?.decimals))
-  //     .withGasLimit(70000000)
-  //     .withChainID(selectedNetwork.shortId)
-  //     .buildTransaction();
-
-  //   transactions.push(tx);
-  // }
   return await sendMultipleTransactions({ txs: transactions });
 };
