@@ -91,7 +91,7 @@ const HomePoolModal = ({
         right={5}
         top={4}
       />
-      <ModalContent background={"dappTemplate.dark.darker"}>
+      <ModalContent>
         <ModalHeader borderRadius="1.5rem 1.5rem 0 0">
           {pool.collection}
         </ModalHeader>

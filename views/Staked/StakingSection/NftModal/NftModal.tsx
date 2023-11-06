@@ -93,7 +93,7 @@ const NftModal = ({ isOpen, onClose, nft }: IProps) => {
   };
 
   return (
-      <MyModal isOpen={isOpen} onClose={onClose} size="4xl" p={{ sm: 4, md: 8 }} background={customColors.myCustomColor.lighter}>
+      <MyModal isOpen={isOpen} onClose={onClose} size="4xl" p={{ sm: 4, md: 8 }}>
       <ModalBody>
         <ModalCloseButton
           border="none"
@@ -133,7 +133,7 @@ const NftModal = ({ isOpen, onClose, nft }: IProps) => {
               <ActionButton textTransform={"uppercase"} onClick={handleUnstake}>
                 Unstake
               </ActionButton>
-              {reward && (
+              {reward > 0 && (
                 <ActionButton
                   textTransform={"uppercase"}
                   onClick={handleClaim}
