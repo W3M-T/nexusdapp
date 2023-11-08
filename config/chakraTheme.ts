@@ -27,8 +27,8 @@ export const customColors = {
   },
   myCustomColor: {
     lighter: "#1c0f3a",
-    base: "#090225",
-    darker: "#00000a",
+    base: "#110a2b",
+    darker: "#090225",
   },
 };
 

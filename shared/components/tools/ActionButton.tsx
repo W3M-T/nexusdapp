@@ -6,6 +6,7 @@ interface ActionButtonProps extends BoxProps {
   isFullWidth?: boolean;
   disabled?: boolean;
   type?: string;
+  isFilled?: boolean;
 }
 
 export const ActionButton = ({
@@ -14,6 +15,7 @@ export const ActionButton = ({
   isFullWidth = false,
   disabled = false,
   type,
+  isFilled = false,
   ...props
 }: PropsWithChildren<ActionButtonProps>) => {
   const handleClick = useCallback(() => {
@@ -27,7 +29,7 @@ export const ActionButton = ({
       as="button"
       borderColor="dappTemplate.color2.darker"
       borderWidth={1.6}
-      bgColor="transparent"
+      bgColor={isFilled ? "dappTemplate.color2.darker" : "transparent"}
       py={1.5}
       px={5}
       rounded="2xl"
