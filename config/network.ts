@@ -26,13 +26,14 @@ export const networkConfig = {
     apiTimeout: "40000",
     gatewayAddress: "https://devnet-gateway.multiversx.com",
     contractAddr: {
-      nftsStaking:
-        "erd1qqqqqqqqqqqqqpgqz4vuknaw4yw38zv4wqze4a5hrg3ft5tz8pgq36nxy4",
+      nftsStaking: "",
+      faucetNexus: "erd1qqqqqqqqqqqqqpgq4ugdm608g6umtq0zd8dzd8f5czhuhv8m8pgqv85aeh",
+      faucetMermaid: "erd1qqqqqqqqqqqqqpgqjxsyl920u5mgn4fpvz0erw78wdpu7vyw8pgqs5ektw",
     },
     tokens: {
       EGLD: { identifier: "EGLD" },
-      WATER: { identifier: "WATER-f4db53" },
-      WEGLD: { identifier: "WEGLD-bd4d79" },
+      WEGLD: { identifier: "WEGLD-a28c59", decimals: 18 },
+      USDC: { identifier: "USDC-350c4e", decimals: 6 },
     },
   },
 
@@ -82,6 +83,7 @@ export const networkConfig = {
       EGLD: { identifier: "EGLD" },
       WATER: { identifier: "WATER-9ed400" },
       MERMAID: { identifier: "MERMAID-9c388a", decimals: 18 },
+      NEXUS: { identifier: "NEXUS-71d1d6", decimals: 18 },
     },
   },
 };
