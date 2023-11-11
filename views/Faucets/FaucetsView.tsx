@@ -33,13 +33,14 @@ const FaucetsView = () => {
 
     
     useEffect(() => {
-        if (nexusFaucetInfo && !faucets.some(faucet => faucet.token === nexusFaucetInfo.token)) {
-            setFaucets(faucets => [...faucets, nexusFaucetInfo]);
-        }
-        if (mermaidFaucetInfo && !faucets.some(faucet => faucet.token === mermaidFaucetInfo.token)) {
-            setFaucets(faucets => [...faucets, mermaidFaucetInfo]);
-        }
-    }, [nexusFaucetInfo, mermaidFaucetInfo, faucets]);
+        // if (nexusFaucetInfo && !faucets.some(faucet => faucet.token === nexusFaucetInfo.token)) {
+        //     setFaucets(faucets => [...faucets, nexusFaucetInfo]);
+        // }
+        // if (mermaidFaucetInfo && !faucets.some(faucet => faucet.token === mermaidFaucetInfo.token)) {
+        //     setFaucets(faucets => [...faucets, mermaidFaucetInfo]);
+        // }
+        setFaucets([nexusFaucetInfo, mermaidFaucetInfo]);
+    }, [nexusFaucetInfo, mermaidFaucetInfo]);
 
     const handleClickedClaim = (token: string) => async () => {
         claimFromFaucet(token);
