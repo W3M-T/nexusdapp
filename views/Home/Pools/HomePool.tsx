@@ -126,7 +126,7 @@ const HomePool = ({ pool, small }: IProps) => {
             mb={2}
             fontWeight="bold"
             textAlign={"center"}
-            fontSize={"xs"}
+            fontSize={{sm: "xs", md: "md"}}
             w="full"
           >
             {pool.poolName}
@@ -134,7 +134,7 @@ const HomePool = ({ pool, small }: IProps) => {
         </Center>
       )}
       {isOpen && (
-        <HomePoolModal
+          <HomePoolModal
           isOpenModal={isOpen}
           onCloseModal={onClose}
           onConfirm={handleStake}

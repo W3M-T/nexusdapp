@@ -9,6 +9,7 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
+  ModalOverlay,
   Text,
   Tooltip,
 } from "@chakra-ui/react";
@@ -26,6 +27,7 @@ import { INft } from "../../../shared/redux/types/tokens.interface";
 import { formatBalance } from "../../../shared/utils/formatBalance";
 import { formatTokenI } from "../../../shared/utils/formatTokenIdentifier";
 import StakeNftItem from "./StakeNftItem";
+import MyModal from "../../../shared/components/ui/MyModal";
 interface IProps {
   isOpenModal: boolean;
   onCloseModal: () => void;
@@ -83,15 +85,15 @@ const HomePoolModal = ({
   const createdDate = new Date(pool.timestam * 1000);
   const endDate = addDays(createdDate, pool.poolDuration);
   return (
-    <Modal isOpen={isOpenModal} onClose={onCloseModal}>
+    <MyModal isOpen={isOpenModal} onClose={onCloseModal} size="3xl">
       <ModalCloseButton
         border="none"
         outline={"none"}
         _focus={{ boxShadow: "none" }}
         right={5}
-        top={4}
+        top={6}
       />
-      <ModalContent>
+      <ModalContent zIndex={1000}>
         <ModalHeader borderRadius="1.5rem 1.5rem 0 0">
           {pool.collection}
         </ModalHeader>
@@ -184,7 +186,7 @@ const HomePoolModal = ({
           </Center>
         </ModalFooter>
       </ModalContent>
-    </Modal>
+    </MyModal>
   );
 };
 

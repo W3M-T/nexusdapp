@@ -210,7 +210,7 @@ const FaucetsView = () => {
                                     !faucet.canUserClaim ?
                                         // "fwvw" :
                                         <>
-                                            You need to stake at least one Explorer NFT &nbsp;
+                                            You must stake an Explorer NFT &nbsp;
                                             <Link href={"/view-pools"} color={"blue.400"} textDecoration={"underline"}>here</Link>.
                                         </> :
                                         faucet.currentEpoch - faucet.userLastClaimEpoch === 0 ? 

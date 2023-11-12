@@ -93,7 +93,7 @@ const NftModal = ({ isOpen, onClose, nft }: IProps) => {
   };
 
   return (
-      <MyModal isOpen={isOpen} onClose={onClose} size="4xl" p={{ sm: 4, md: 8 }}>
+    <MyModal isOpen={isOpen} onClose={onClose} size="4xl" p={{ sm: 4, md: 8 }}>
       <ModalBody>
         <ModalCloseButton
           border="none"

@@ -19,7 +19,7 @@ const Home = () => {
           </Center>
         }
       >
-        <Flex mt={6} flexDir="column" gap="20px">
+        <Flex mt={6} flexDir="column" gap={{sm: 0, md: 2}}>
           <MyNfts />
           <StakedNfts />
           <Pools />
