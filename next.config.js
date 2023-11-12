@@ -7,6 +7,8 @@ const nextConfig = {
       "gateway.pinata.cloud",
       "devnet-media.elrond.com",
       "arweave.net",
+      "media.multiversx.com",
+      "devnet-media.multiversx.com",
     ],
   },
   reactStrictMode: false,
