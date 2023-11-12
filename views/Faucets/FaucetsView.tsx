@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Center, Grid, Heading, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from "@chakra-ui/react";
+import { Center, Grid, Heading, Link, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from "@chakra-ui/react";
 import { CardWrapper } from "../../shared/components/ui/CardWrapper";
 import { customColors } from "../../config/chakraTheme";
 import { ActionButton } from "../../shared/components/tools/ActionButton";
@@ -21,25 +21,21 @@ const FaucetsView = () => {
     const [selectedTab, setSelectedTab] = useState(0);
 
     const [faucets, setFaucets] = useState<IFaucetInfo[]>([]);
+    console.log("⚠️ ~ file: FaucetsView.tsx:24 ~ FaucetsView ~ faucets::::", faucets)
 
     const handleTabChange = (index: number) => {
         setSelectedTab(index);
     };
 
     const {nexusFaucetInfo, isLoadingNexusFaucetInfo, errorNexusFaucetInfo} = useGetNexusFaucetInfo(connectedAddress);
-    console.log("⚠️ ~ file: FaucetsView.tsx:25 ~ FaucetsView ~ nexusFaucetInfo::::", nexusFaucetInfo)
+    // console.log("⚠️ ~ file: FaucetsView.tsx:31 ~ nexusFaucetInfo::::", nexusFaucetInfo)
     const {mermaidFaucetInfo, isLoadingMermaidFaucetInfo, errorMermaidFaucetInfo} = useGetMermaidFaucetInfo(connectedAddress);
-    console.log("⚠️ ~ file: FaucetsView.tsx:27 ~ FaucetsView ~ mermaidFaucetInfo::::", mermaidFaucetInfo)
-
+    // console.log("⚠️ ~ file: FaucetsView.tsx:33 ~ mermaidFaucetInfo::::", mermaidFaucetInfo)
     
     useEffect(() => {
-        // if (nexusFaucetInfo && !faucets.some(faucet => faucet.token === nexusFaucetInfo.token)) {
-        //     setFaucets(faucets => [...faucets, nexusFaucetInfo]);
-        // }
-        // if (mermaidFaucetInfo && !faucets.some(faucet => faucet.token === mermaidFaucetInfo.token)) {
-        //     setFaucets(faucets => [...faucets, mermaidFaucetInfo]);
-        // }
-        setFaucets([nexusFaucetInfo, mermaidFaucetInfo]);
+        if (nexusFaucetInfo && mermaidFaucetInfo) {
+            setFaucets([nexusFaucetInfo, mermaidFaucetInfo]);
+        }
     }, [nexusFaucetInfo, mermaidFaucetInfo]);
 
     const handleClickedClaim = (token: string) => async () => {
@@ -72,24 +68,40 @@ const FaucetsView = () => {
                         p={2}
                         border={"none"}
                     >
-                        {faucets.map((faucet, index) => (
+                        {!isLoadingNexusFaucetInfo && !isLoadingMermaidFaucetInfo ?
+                            faucets.map((faucet, index) => {
+                                return (
+                                    <Tab
+                                        key={index}
+                                        px={10}
+                                        textAlign="center"
+                                        borderRadius={"xl"}
+                                        fontWeight={"medium"}
+                                        border={"none"}
+                                        bg={selectedTab === index ? customColors.myCustomColor.lighter : ""}
+                                        textColor={selectedTab === index ? customColors.color2.base : "gray.600"}
+                                        whiteSpace={"nowrap"}
+                                    >
+                                        {formatTokenI(faucet.token)}
+                                    </Tab>
+                                )}
+                            ) :
                             <Tab
-                                key={index}
                                 px={10}
                                 textAlign="center"
                                 borderRadius={"xl"}
                                 fontWeight={"medium"}
                                 border={"none"}
-                                bg={selectedTab === index ? customColors.myCustomColor.lighter : ""}
-                                textColor={selectedTab === index ? customColors.color2.base : "gray.600"}
+                                bg={customColors.myCustomColor.lighter}
+                                textColor={"gray.600"}
                                 whiteSpace={"nowrap"}
                             >
-                                {formatTokenI(faucet.token)}
+                                Loading...
                             </Tab>
-                        ))}
+                        }
                     </TabList>
                     <TabPanels fontSize={{sm: "md", md: "xl"}}>
-                        {faucets.map((faucet, index) => (
+                        {faucets.length > 0 && faucets.map((faucet, index) => (
                             <>
                             <TabPanel bg={customColors.myCustomColor.base} borderRadius={"2xl"} mt={{sm: 5, md: 10}} w={{sm: "100%", md: "80%"}}>
                                 <Grid
@@ -116,7 +128,7 @@ const FaucetsView = () => {
                                             Ever claimed
                                         </Text>
                                         <Text>
-                                            {faucet.totalClaimed}
+                                            {formatBalance({ balance: faucet.totalClaimed, decimals: selectedNetwork.tokens[formatTokenI(faucet.token)].decimals })}
                                         </Text>
                                     </Center>
                                     <Center
@@ -163,7 +175,7 @@ const FaucetsView = () => {
                                         My claimed
                                     </Text>
                                     <Text>
-                                        {faucet.userClaimed}
+                                        {formatBalance({ balance: faucet.userClaimed, decimals: selectedNetwork.tokens[formatTokenI(faucet.token)].decimals })}
                                     </Text>
                                 </Center>
                                 <Center
@@ -184,15 +196,30 @@ const FaucetsView = () => {
                                 </Center>
                             </Grid>
                             <Center mt={{sm: 8, md: 10}} mb={5} fontSize={"xl"} fontWeight={"medium"}>
-                                <ActionButton px={10} isFilled={true} disabled={false} onClick={handleClickedClaim(formatTokenI(faucet.token))}>
-                                    Claim {formatTokenI(faucet.token)}
+                                <ActionButton
+                                    px={10}
+                                    isFilled={true}
+                                    disabled={faucet.currentEpoch - faucet.userLastClaimEpoch === 0 || !faucet.canUserClaim}
+                                    onClick={handleClickedClaim(formatTokenI(faucet.token))}
+                                >
+                                     Claim {formatTokenI(faucet.token)}
                                 </ActionButton>
                             </Center>
-                            <Center fontSize={"sm"} color={"whiteAlpha.600"}>
-                                <InfoIcon mx={1}/> Previous claim: {
-                                    faucet.userLastClaimEpoch === 0 ? "Never" : faucet.currentEpoch - faucet.userLastClaimEpoch + " days ago"
-                                }
-                            </Center>
+                            {faucet.userLastClaimEpoch > 0 &&
+                                <Center fontSize={"sm"} color={"whiteAlpha.600"}>
+                                    <InfoIcon mx={1}/> {
+                                        !faucet.canUserClaim ?
+                                            <>
+                                                You need to stake at least one Explorer NFT {" "}
+                                                <Link href={"/view-pools"} color={"blue.400"} textDecoration={"underline"}>here</Link>.
+                                            </> :
+                                            faucet.currentEpoch - faucet.userLastClaimEpoch === 0 ? 
+                                                "You can claim on the next epoch." : 
+                                                faucet.currentEpoch - faucet.userLastClaimEpoch === 1 ?
+                                                    "Previous claim: 1 day ago"
+                                                    : "Previous claim: " + Number(faucet.currentEpoch - faucet.userLastClaimEpoch) + " days ago"
+                                    }
+                                </Center>}
                             </TabPanel>
                             </>
                         ))}

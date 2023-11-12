@@ -34,6 +34,22 @@
             {
                 "name": "cost",
                 "type": "BigUint"
+            },
+            {
+                "name": "burn_token",
+                "type": "TokenIdentifier"
+            },
+            {
+                "name": "burn_amount",
+                "type": "BigUint"
+            },
+            {
+                "name": "nexus_staking_sc",
+                "type": "Address"
+            },
+            {
+                "name": "explorer_nft_identifier",
+                "type": "TokenIdentifier"
             }
         ],
         "outputs": []
@@ -49,6 +65,21 @@
             "outputs": [
                 {
                     "type": "EsdtTokenPayment"
+                }
+            ]
+        },
+        {
+            "name": "check",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "amount",
+                    "type": "BigUint"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "bool"
                 }
             ]
         },
@@ -89,6 +120,61 @@
                 {
                     "name": "cost",
                     "type": "BigUint"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "setBurnedToken",
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "token",
+                    "type": "TokenIdentifier"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "setBurnedAmount",
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "amount",
+                    "type": "BigUint"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "setNexusStakingSC",
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "address",
+                    "type": "Address"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "setNexusStakingRequirement",
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "requirement",
+                    "type": "bool"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "setExplorerNftIdentifier",
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "identifier",
+                    "type": "TokenIdentifier"
                 }
             ],
             "outputs": []
@@ -160,6 +246,25 @@
             "outputs": [
                 {
                     "type": "FaucetInfo"
+                }
+            ]
+        },
+        {
+            "name": "hasStakedNft",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "address",
+                    "type": "Address"
+                },
+                {
+                    "name": "nft_token",
+                    "type": "TokenIdentifier"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "bool"
                 }
             ]
         },
@@ -249,6 +354,72 @@
             "outputs": [
                 {
                     "type": "BigUint"
+                }
+            ]
+        },
+        {
+            "name": "burnedToken",
+            "mutability": "readonly",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "TokenIdentifier"
+                }
+            ]
+        },
+        {
+            "name": "burnedAmount",
+            "mutability": "readonly",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "BigUint"
+                }
+            ]
+        },
+        {
+            "name": "nexusStakingRequirement",
+            "mutability": "readonly",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "explorerNftIdentifier",
+            "mutability": "readonly",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "TokenIdentifier"
+                }
+            ]
+        },
+        {
+            "name": "nexusStakingSC",
+            "mutability": "readonly",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "Address"
+                }
+            ]
+        },
+        {
+            "name": "allUserStakings",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "address",
+                    "type": "Address"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "variadic<NftStaking>",
+                    "multi_result": true
                 }
             ]
         },
@@ -399,12 +570,66 @@
                     "type": "BigUint"
                 },
                 {
+                    "name": "can_user_claim",
+                    "type": "bool"
+                },
+                {
                     "name": "user_claimed",
                     "type": "BigUint"
                 },
                 {
                     "name": "total_claimed",
                     "type": "BigUint"
+                }
+            ]
+        },
+        "NftPool": {
+            "type": "struct",
+            "fields": [
+                {
+                    "name": "creation_timestamp",
+                    "type": "u64"
+                },
+                {
+                    "name": "creator",
+                    "type": "Address"
+                },
+                {
+                    "name": "collection",
+                    "type": "TokenIdentifier"
+                },
+                {
+                    "name": "nr_of_nfts",
+                    "type": "u32"
+                },
+                {
+                    "name": "reward_token",
+                    "type": "EgldOrEsdtTokenIdentifier"
+                },
+                {
+                    "name": "reward_amount",
+                    "type": "BigUint"
+                }
+            ]
+        },
+        "NftStaking": {
+            "type": "struct",
+            "fields": [
+                {
+                    "name": "address",
+                    "type": "Address"
+                },
+                {
+                    "name": "nft_token",
+                    "type": "TokenIdentifier"
+                },
+                {
+                    "name": "nft_nonce",
+                    "type": "u64"
+                },
+                {
+                    "name": "nft_pool",
+                    "type": "NftPool"
                 }
             ]
         }

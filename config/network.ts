@@ -27,13 +27,14 @@ export const networkConfig = {
     gatewayAddress: "https://devnet-gateway.multiversx.com",
     contractAddr: {
       nftsStaking: "",
-      faucetNexus: "erd1qqqqqqqqqqqqqpgq4ugdm608g6umtq0zd8dzd8f5czhuhv8m8pgqv85aeh",
+      faucetNexus: "erd1qqqqqqqqqqqqqpgq22l29szm8xgupwvh44fpxhlwjtuhwvw98pgqcwmh48",
       faucetMermaid: "erd1qqqqqqqqqqqqqpgqjxsyl920u5mgn4fpvz0erw78wdpu7vyw8pgqs5ektw",
     },
     tokens: {
       EGLD: { identifier: "EGLD" },
-      WEGLD: { identifier: "WEGLD-a28c59", decimals: 18 },
+      WEGLD: { identifier: "WEGLD-a28c59", decimals: 18, faucet: "faucetMermaid"},
       USDC: { identifier: "USDC-350c4e", decimals: 6 },
+      NXS: { identifier: "NXS-7f88a4", decimals: 18, faucet: "faucetNexus" },
     },
   },
 

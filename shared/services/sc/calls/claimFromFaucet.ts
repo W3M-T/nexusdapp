@@ -14,13 +14,11 @@ import { sendMultipleTransactions, sendTransaction } from ".";
 import { egldFee, selectedNetwork } from "../../../../config/network";
 import { store } from "../../../redux/store";
 
-export const claimFromFaucet = async (faucet: string) => {
+export const claimFromFaucet = async (token: string) => {
   const sender = store.getState().settings.userAddress;
   const senderAddress = new Address(sender);
   
-  const receiverAddress = new Address(
-    faucet == "USDC" ? selectedNetwork.contractAddr.faucetNexus : selectedNetwork.contractAddr.faucetMermaid
-  );
+  const receiverAddress = new Address(selectedNetwork.contractAddr[selectedNetwork.tokens[token].faucet]);
 
   const contract = new SmartContract({ address: new Address(receiverAddress)});
   let interaction = new Interaction(contract, new ContractFunction("claim"), []);

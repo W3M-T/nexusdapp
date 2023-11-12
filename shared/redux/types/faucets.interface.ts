@@ -8,6 +8,7 @@ export interface IFaucetInfo {
   currentEpoch: number;
   userLastClaimEpoch: number;
   userClaimable: number;
+  canUserClaim: boolean;
   userClaimed: number;
   totalClaimed: number;
 }
