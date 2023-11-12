@@ -205,21 +205,21 @@ const FaucetsView = () => {
                                      Claim {formatTokenI(faucet.token)}
                                 </ActionButton>
                             </Center>
-                            {faucet.userLastClaimEpoch > 0 &&
-                                <Center fontSize={"sm"} color={"whiteAlpha.600"}>
-                                    <InfoIcon mx={1}/> {
-                                        !faucet.canUserClaim ?
-                                            <>
-                                                You need to stake at least one Explorer NFT {" "}
-                                                <Link href={"/view-pools"} color={"blue.400"} textDecoration={"underline"}>here</Link>.
-                                            </> :
-                                            faucet.currentEpoch - faucet.userLastClaimEpoch === 0 ? 
-                                                "You can claim on the next epoch." : 
-                                                faucet.currentEpoch - faucet.userLastClaimEpoch === 1 ?
-                                                    "Previous claim: 1 day ago"
-                                                    : "Previous claim: " + Number(faucet.currentEpoch - faucet.userLastClaimEpoch) + " days ago"
-                                    }
-                                </Center>}
+                            <Center fontSize={"sm"} color={"whiteAlpha.600"}>
+                                <InfoIcon mx={1}/> {
+                                    !faucet.canUserClaim ?
+                                        // "fwvw" :
+                                        <>
+                                            You need to stake at least one Explorer NFT &nbsp;
+                                            <Link href={"/view-pools"} color={"blue.400"} textDecoration={"underline"}>here</Link>.
+                                        </> :
+                                        faucet.currentEpoch - faucet.userLastClaimEpoch === 0 ? 
+                                            "You can claim on the next epoch." : 
+                                            faucet.currentEpoch - faucet.userLastClaimEpoch === 1 ?
+                                                "Previous claim: 1 day ago"
+                                                : "Previous claim: " + Number(faucet.currentEpoch - faucet.userLastClaimEpoch) + " days ago"
+                                }
+                            </Center>
                             </TabPanel>
                             </>
                         ))}

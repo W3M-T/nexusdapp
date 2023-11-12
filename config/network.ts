@@ -34,7 +34,7 @@ export const networkConfig = {
       EGLD: { identifier: "EGLD" },
       WEGLD: { identifier: "WEGLD-a28c59", decimals: 18, faucet: "faucetMermaid"},
       USDC: { identifier: "USDC-350c4e", decimals: 6 },
-      NXS: { identifier: "NXS-7f88a4", decimals: 18, faucet: "faucetNexus" },
+      NXS: { identifier: "NXS-7f88a4", decimals: 18, faucet: "faucetNexus"},
     },
   },
 
@@ -77,14 +77,15 @@ export const networkConfig = {
     apiTimeout: "40000",
     gatewayAddress: "https://gateway.multiversx.com",
     contractAddr: {
-      nftsStaking:
-        "erd1qqqqqqqqqqqqqpgq8tn6u8l2vytjhv6pcv0vu5tug52acutm8pgqnle42n",
+      nftsStaking: "erd1qqqqqqqqqqqqqpgq8tn6u8l2vytjhv6pcv0vu5tug52acutm8pgqnle42n",
+      faucetNexus: "erd1qqqqqqqqqqqqqpgqjz2ux62ynvyphz6a8cqpmu5k9fw242ef8pgq3x5mvx",
+      faucetMermaid: "erd1qqqqqqqqqqqqqpgqkdkjcexnkx3ety05494ylgrhtg9p6d648pgq7pucfa",
     },
     tokens: {
       EGLD: { identifier: "EGLD" },
       WATER: { identifier: "WATER-9ed400" },
-      MERMAID: { identifier: "MERMAID-9c388a", decimals: 18 },
-      NEXUS: { identifier: "NEXUS-71d1d6", decimals: 18 },
+      MERMAID: { identifier: "MERMAID-9c388a", decimals: 18, faucet: "faucetMermaid"},
+      NEXUS: { identifier: "NEXUS-71d1d6", decimals: 18, faucet: "faucetNexus" },
     },
   },
 };
