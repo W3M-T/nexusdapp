@@ -215,9 +215,11 @@ const FaucetsView = () => {
                                         </> :
                                         faucet.currentEpoch - faucet.userLastClaimEpoch === 0 ? 
                                             "You can claim on the next epoch." : 
-                                            faucet.currentEpoch - faucet.userLastClaimEpoch === 1 ?
-                                                "Previous claim: 1 day ago"
-                                                : "Previous claim: " + Number(faucet.currentEpoch - faucet.userLastClaimEpoch) + " days ago"
+                                            faucet.userLastClaimEpoch === 0 ?
+                                                "Previous claim: Never" :
+                                                faucet.currentEpoch - faucet.userLastClaimEpoch === 1 ?
+                                                    "Previous claim: 1 day ago" :
+                                                    "Previous claim: " + Number(faucet.currentEpoch - faucet.userLastClaimEpoch) + " days ago"
                                 }
                             </Center>
                             </TabPanel>
