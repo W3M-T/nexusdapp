@@ -59,8 +59,8 @@ export const networkConfig = {
       faucetMermaid: "erd1qqqqqqqqqqqqqpgqkdkjcexnkx3ety05494ylgrhtg9p6d648pgq7pucfa",
     },
     tokens: {
-      EGLD: { identifier: "EGLD" },
-      WATER: { identifier: "WATER-9ed400" },
+      EGLD: { identifier: "EGLD", decimals: 18 },
+      WATER: { identifier: "WATER-9ed400", decimals: 18},
       MERMAID: { identifier: "MERMAID-9c388a", decimals: 18, faucet: "faucetMermaid"},
       NEXUS: { identifier: "NEXUS-71d1d6", decimals: 18, faucet: "faucetNexus" },
     },
