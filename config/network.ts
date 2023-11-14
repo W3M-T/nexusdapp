@@ -37,7 +37,6 @@ export const networkConfig = {
       NXS: { identifier: "NXS-7f88a4", decimals: 18, faucet: "faucetNexus"},
     },
   },
-<<<<<<< HEAD
 
   testnet: {
     id: "testnet",
@@ -61,8 +60,6 @@ export const networkConfig = {
     },
   },
 
-=======
->>>>>>> development
   mainnet: {
     id: "mainnet",
     shortId: "1",
