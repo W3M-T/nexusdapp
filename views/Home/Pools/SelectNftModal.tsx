@@ -28,6 +28,7 @@ import { formatBalance } from "../../../shared/utils/formatBalance";
 import { formatTokenI } from "../../../shared/utils/formatTokenIdentifier";
 import StakeNftItem from "./StakeNftItem";
 import MyModal from "../../../shared/components/ui/MyModal";
+import { customColors } from "../../../config/chakraTheme";
 interface IProps {
   isOpenModal: boolean;
   onCloseModal: () => void;
@@ -93,7 +94,7 @@ const HomePoolModal = ({
         right={5}
         top={6}
       />
-      <ModalContent zIndex={1000}>
+      <ModalContent bgColor={customColors.myCustomColor.base} zIndex={1000}>
         <ModalHeader borderRadius="1.5rem 1.5rem 0 0">
           {pool.collection}
         </ModalHeader>
