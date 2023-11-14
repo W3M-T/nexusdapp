@@ -1,10 +1,12 @@
-import { useDisclosure } from "@chakra-ui/react";
+import { Box, useDisclosure } from "@chakra-ui/react";
 import { useGetAccountInfo } from "@multiversx/sdk-dapp/hooks/account/useGetAccountInfo";
 import { useGetLoginInfo } from "@multiversx/sdk-dapp/hooks/account/useGetLoginInfo";
 import dynamic from "next/dynamic";
 import { useEffectOnlyOnUpdate } from "../../hooks/tools/useEffectOnlyOnUpdate";
 import LogedInButton from "../ui/LogedInButton";
 import { ActionButton } from "./ActionButton";
+import { ref } from "valtio";
+import { customSizes } from "../../../config/chakraTheme";
 
 const LoginModal = dynamic(() => import("../ui/LoginModal"));
 interface LoginModalButtonProps {
@@ -31,11 +33,12 @@ export const LoginModalButton = ({
   }, [isLoggedIn]);
 
   return (
-    <>
+    <Box position={"relative"} w={{ sm: "full", lg: customSizes.loginButton.lg }}>
       {isLoggedIn ? (
         <LogedInButton />
       ) : (
         <ActionButton
+          w={customSizes.loginButton}
           onClick={open}
           bgColor="dappTemplate.color2.base"
           borderColor={"dappTemplate.color2.base"}
@@ -51,6 +54,6 @@ export const LoginModalButton = ({
       {opened && (
         <LoginModal opened={opened} close={close} isLoggingIn={isLoggingIn} />
       )}
-    </>
+    </Box>
   );
 };

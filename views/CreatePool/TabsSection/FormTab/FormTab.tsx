@@ -88,7 +88,7 @@ const FormTab = ({ activeFeeTab }: IProps) => {
         ];
       } else {
         scFunc = "createAenPool";
-        imgageUrl = "/TheNFTNEXUSLOGO.png";
+        imgageUrl = "/logoNexus.png";
 
         args = [
           new U32Value(new BigNumber(nftsNumber)),

@@ -6,7 +6,7 @@ export const DEFAULT_MIN_GAS_LIMIT = 50_000;
 export const DAPP_CONFIG_ENDPOINT = "/dapp/config";
 export const DAPP_INIT_ROUTE = "/dapp/init";
 
-export const chainType = process.env.NEXT_PUBLIC_ELROND_CHAIN || "mainnet";
+export const chainType = process.env.NEXT_PUBLIC_CHAIN || "devnet";
 
 export const networkConfig = {
   devnet: {
@@ -26,15 +26,18 @@ export const networkConfig = {
     apiTimeout: "40000",
     gatewayAddress: "https://devnet-gateway.multiversx.com",
     contractAddr: {
-      nftsStaking:
-        "erd1qqqqqqqqqqqqqpgqz4vuknaw4yw38zv4wqze4a5hrg3ft5tz8pgq36nxy4",
+      nftsStaking: "",
+      faucetNexus: "erd1qqqqqqqqqqqqqpgq22l29szm8xgupwvh44fpxhlwjtuhwvw98pgqcwmh48",
+      faucetMermaid: "erd1qqqqqqqqqqqqqpgqjxsyl920u5mgn4fpvz0erw78wdpu7vyw8pgqs5ektw",
     },
     tokens: {
       EGLD: { identifier: "EGLD" },
-      WATER: { identifier: "WATER-f4db53" },
-      WEGLD: { identifier: "WEGLD-bd4d79" },
+      WEGLD: { identifier: "WEGLD-a28c59", decimals: 18, faucet: "faucetMermaid"},
+      USDC: { identifier: "USDC-350c4e", decimals: 6 },
+      NXS: { identifier: "NXS-7f88a4", decimals: 18, faucet: "faucetNexus"},
     },
   },
+<<<<<<< HEAD
 
   testnet: {
     id: "testnet",
@@ -58,6 +61,8 @@ export const networkConfig = {
     },
   },
 
+=======
+>>>>>>> development
   mainnet: {
     id: "mainnet",
     shortId: "1",
@@ -75,13 +80,15 @@ export const networkConfig = {
     apiTimeout: "40000",
     gatewayAddress: "https://gateway.multiversx.com",
     contractAddr: {
-      nftsStaking:
-        "erd1qqqqqqqqqqqqqpgq8tn6u8l2vytjhv6pcv0vu5tug52acutm8pgqnle42n",
+      nftsStaking: "erd1qqqqqqqqqqqqqpgq8tn6u8l2vytjhv6pcv0vu5tug52acutm8pgqnle42n",
+      faucetNexus: "erd1qqqqqqqqqqqqqpgqjz2ux62ynvyphz6a8cqpmu5k9fw242ef8pgq3x5mvx",
+      faucetMermaid: "erd1qqqqqqqqqqqqqpgqkdkjcexnkx3ety05494ylgrhtg9p6d648pgq7pucfa",
     },
     tokens: {
-      EGLD: { identifier: "EGLD" },
-      WATER: { identifier: "WATER-9ed400" },
-      MERMAID: { identifier: "MERMAID-9c388a", decimals: 18 },
+      EGLD: { identifier: "EGLD", decimals: 18 },
+      WATER: { identifier: "WATER-9ed400", decimals: 18},
+      MERMAID: { identifier: "MERMAID-9c388a", decimals: 18, faucet: "faucetMermaid"},
+      NEXUS: { identifier: "NEXUS-71d1d6", decimals: 18, faucet: "faucetNexus" },
     },
   },
 };
@@ -93,3 +100,5 @@ export const walletConnectV2ProjectId = "d57456f79cf0f38f6e941f057a90307c";
 export const apiTimeout = 6000;
 export const TOOLS_API_URL = "https://tools.multiversx.com";
 export const sampleAuthenticatedDomains = [TOOLS_API_URL];
+
+export const egldFee = Number(process.env.NEXT_PUBLIC_EGLD_FEE || "0.0025");

@@ -25,6 +25,22 @@ export const customColors = {
     base: "#FA824C",
     darker: "#f9611c",
   },
+  myCustomColor: {
+    lighter: "#1c0f3a",
+    base: "#110a2b",
+    darker: "#090225",
+  },
+};
+
+export const customSizes = {
+  loginButton: {
+    sm: "220px",
+    lg: "230px"
+  },
+  logoIcon: {
+    sm: "40px",
+    lg: "55px"
+  },
 };
 
 export const theme = extendTheme({

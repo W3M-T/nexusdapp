@@ -30,15 +30,14 @@ const UserNftCard = ({ nft }: IProps) => {
           )}
         </Box>
         <Box px={3} mt={4}>
-          <Text fontSize={"smaller"} mb={1}>
+          <Text fontSize={"smaller"} mb={2}>
             {nft.identifier}
           </Text>
           <Flex justifyContent={"space-between"} alignItems="center" mb={1}>
             {" "}
             <Text fontSize={"xl"} mr={2}>
-              {" "}
               {nft.name}
-            </Text>{" "}
+            </Text>
             {/* <IconNext
             src={twitterImg}
             width="24px"

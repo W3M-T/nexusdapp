@@ -13,7 +13,7 @@ const ButtonNav = () => {
       bottom={0}
       left={0}
       right={0}
-      bg={customColors.color2.darker}
+      bg={customColors.myCustomColor.darker}
       px={{ sm: 5, lsm: 7 }}
       py={3}
       justifyContent="space-around"

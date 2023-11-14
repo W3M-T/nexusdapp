@@ -52,7 +52,7 @@ const NFTCard = ({
         position={"relative"}
         flexDir="column"
         onClick={() => onClick(reward)}
-        border={selected ? "3px solid" : "1px solid"}
+        border={selected ? "3px solid" : "0px solid"}
         borderColor={
           selected ? "green" : isNew ? "dappTemplate.color2.base" : "red"
         }

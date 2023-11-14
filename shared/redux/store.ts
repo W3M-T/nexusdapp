@@ -13,7 +13,7 @@ export const store = configureStore({
     pools: poolsReducer,
     tokens: tokensReducer,
   },
-  devTools: process.env.NODE_ENV === "production" ? false : true,
+  devTools: false,
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

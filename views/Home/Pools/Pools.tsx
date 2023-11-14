@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, Heading } from "@chakra-ui/react";
+import { Box, Flex, Grid, HStack, Heading } from "@chakra-ui/react";
 import { addDays } from "date-fns";
 import Link from "next/link";
 import { useEffect } from "react";
@@ -15,6 +15,8 @@ import { selectExistingPools } from "../../../shared/redux/slices/pools";
 import { selectUserAddress } from "../../../shared/redux/slices/settings";
 import { route } from "../../../shared/utils/routes";
 import HomePool from "./HomePool";
+import { CardWrapper } from "../../../shared/components/ui/CardWrapper";
+import { ViewButton } from "../../../shared/components/tools/ViewButton";
 
 const Pools = () => {
   const { data: pools } = useAppSelector(selectExistingPools);
@@ -44,58 +46,62 @@ const Pools = () => {
   });
 
   return (
-    <Flex flexDir={"column"}>
-      <Flex display={{ sm: "flex", md: "none" }}>
-        <Link href={route.view.route}>
-          <Heading
-            mb={4}
-            fontWeight="600"
-            as="h2"
-            fontSize={"24px"}
-            color="dappTemplate.color2.base"
-          >
-            Pools
-          </Heading>
-        </Link>
-      </Flex>
-      <Flex display={{ sm: "none", md: "flex" }}>
-        <Heading
-          mb={4}
-          fontWeight="600"
-          as="h2"
-          fontSize={"24px"}
-          color="dappTemplate.color2.base"
-        >
-          Pools
-        </Heading>
-      </Flex>
-      {data.length > 0 && (
-        <Grid templateColumns={"1fr 1.5fr"} gap={{ sm: 3, md: 8 }}>
-          <Box>{data[0] && <HomePool pool={data[0]} />}</Box>
+    <CardWrapper>
+      <Flex flexDir={"column"}>
+        <HStack justifyContent="center" alignContent={"center"} mb={8}>
+          <Flex display={{ sm: "flex", md: "none" }} w="full">
+            <Link href={route.view.route}>
+              <Heading
+                fontWeight="700"
+                as="h2"
+                fontSize={"24px"}
+                w="full"
+                // color="dappTemplate.color2.base"
+              >
+                Pools
+              </Heading>
+            </Link>
+          </Flex>
+          <Flex display={{ sm: "none", md: "flex" }} w="full">
+            <Heading
+              fontWeight="700"
+              as="h2"
+              fontSize={"24px"}
+              w="full"
+              // color="dappTemplate.color2.base"
+            >
+              Pools
+            </Heading>
+          </Flex>
+          {/* <Flex
+            w="full"
+            justifyContent={"flex-end"}
+            display={{ sm: "none", md: "flex" }}
+            mt={2}
+          > */}
+          <ViewButton w={"100px"} fontSize={"12px"} cursor="pointer" _hover={{ fontWeight: "bold" }}>
+            <Link href={route.view.route}>
+              View all
+            </Link>
+          </ViewButton>
+          {/* </Flex> */}
+        </HStack>
+        {data.length > 0 && (
+          <Grid templateColumns={"1fr 1.5fr"} gap={{ sm: 3, md: 8 }}>
+            <Box>{data[0] && <HomePool pool={data[0]} />}</Box>
 
-          <Grid templateColumns={"1fr 1fr"} gap={{ sm: 3, md: 8 }}>
-            {data[1] ? <HomePool pool={data[1]} small /> : <Box></Box>}
+            <Grid templateColumns={"1fr 1fr"} gap={{ sm: 3, md: 8 }}>
+              {data[1] ? <HomePool pool={data[1]} small /> : <Box></Box>}
 
-            {data[2] ? <HomePool pool={data[2]} small /> : <Box></Box>}
+              {data[2] ? <HomePool pool={data[2]} small /> : <Box></Box>}
 
-            {data[3] ? <HomePool pool={data[3]} small /> : <Box></Box>}
-            {data[4] ? <HomePool pool={data[4]} small /> : <Box></Box>}
+              {data[3] ? <HomePool pool={data[3]} small /> : <Box></Box>}
+              {data[4] ? <HomePool pool={data[4]} small /> : <Box></Box>}
+            </Grid>
           </Grid>
-        </Grid>
-      )}
-      <Flex
-        w="full"
-        justifyContent={"flex-end"}
-        display={{ sm: "none", md: "flex" }}
-        mt={2}
-      >
-        <Link href={route.view.route}>
-          <Box cursor="pointer" _hover={{ fontWeight: "bold" }}>
-            View all
-          </Box>
-        </Link>
+        )}
       </Flex>
-    </Flex>
+    </CardWrapper>
   );
 };
 

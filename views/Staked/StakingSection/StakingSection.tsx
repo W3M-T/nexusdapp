@@ -1,5 +1,5 @@
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
-import { Box, Flex, Heading, Text } from "@chakra-ui/react";
+import { Box, Flex, FormLabel, Heading, Switch, Text } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { useState } from "react";
 import ReactPaginate from "react-paginate";
@@ -20,6 +20,7 @@ import { claimUserRewards } from "../../../shared/services/sc/calls/multiTx/clai
 import { unstakeNfts } from "../../../shared/services/sc/calls/multiTx/unstake";
 import { createIndentifierByCollectionAndNonce } from "../../../shared/utils/formatTokenIdentifier";
 import NftsList from "./NftsList/NftsList";
+import { CardWrapper } from "../../../shared/components/ui/CardWrapper";
 
 const StakingSection = () => {
   const stakedNfts = useAppSelector(selectUserStaked);
@@ -112,27 +113,25 @@ const StakingSection = () => {
     }
   };
   return (
-    <Box>
-      <Flex justifyContent={"space-between"} flexWrap="wrap" rowGap={8}>
-        <Heading
-          fontSize={"3xl"}
-          borderBottom="3px solid white"
-          w="fit-content"
-        >
+    <CardWrapper>
+      <Flex flexWrap="wrap" rowGap={8}>
+        <Heading as={"h1"} w="full" justifyContent="center" textAlign={"center"} mb={4}>
           Staked NFTs
         </Heading>
-        <Flex gap={4}>
+        <Flex justifyContent="center" textAlign={"center"}  w="full" gap={4}>
           {isMultipleUnstake && (
             <>
               <ActionButton
                 onClick={handleClaimRewards}
                 disabled={selectedNftsToUnstake.length === 0}
+                width={"150px"}
               >
                 Claim Rewards
               </ActionButton>
               <ActionButton
                 onClick={handleUnstake}
                 disabled={selectedNftsToUnstake.length === 0}
+                width={"150px"}
               >
                 Unstake
               </ActionButton>
@@ -142,7 +141,7 @@ const StakingSection = () => {
             <Switch
               id="multipleUnstake"
               size="md"
-              onChange={handleChangeMultiUnstake}
+              onChange={() => {}} //handleChangeMultiUnstake}
             />
             <FormLabel htmlFor="multipleUnstake" fontSize={"sm"} m={0}>
               Allow multiple unstake
@@ -186,9 +185,10 @@ const StakingSection = () => {
           </Text>
         )}
       </Authenticated>
-    </Box>
+    </CardWrapper>
   );
 };
+
 const ReactPaginateS = styled(ReactPaginate)`
   display: flex;
   justify-content: center;

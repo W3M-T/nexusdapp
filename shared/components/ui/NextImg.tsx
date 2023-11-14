@@ -17,7 +17,7 @@ const NextImg = ({ src, alt = "", nextProps, ...props }: IProps) => {
           typeof src === "string"
             ? isValidImageUrl(src)
               ? src
-              : "/TheNFTNEXUSLOGO.png"
+              : "/logoNexus.png"
             : src
         }
         alt={alt}

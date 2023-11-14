@@ -3,6 +3,7 @@
 
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { selectedNetwork } from "./config/network";
 
 interface CustomHeaders extends Headers {
   referer?: string[];
@@ -12,13 +13,15 @@ interface CustomNextRequest extends NextRequest {
   headers: CustomHeaders;
 }
 
+export const api = selectedNetwork.apiAddress;
+
 export function middleware(req: CustomNextRequest) {
   const res = NextResponse.next();
 
-  if (!process.env.NEXT_PUBLIC_ELROND_API) return res;
+  if (!api) return res;
 
-  if (req.nextUrl.pathname.startsWith(process.env.NEXT_PUBLIC_ELROND_API)) {
-    const definedHost = process.env.API_ALLOWED_DAPP_HOST;
+  if (req.nextUrl.pathname.startsWith(api)) {
+    const definedHost = process.env.API_ALLOWED_DAPP_HOST || "https://thenftnexus.app";
 
     if (!definedHost) return res;
 

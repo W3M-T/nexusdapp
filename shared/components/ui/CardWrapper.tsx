@@ -1,5 +1,6 @@
 import { Box, BoxProps, chakra, Flex, FlexProps } from "@chakra-ui/react";
 import { FC, PropsWithChildren } from "react";
+import { customColors } from "../../../config/chakraTheme";
 
 export const FlexCardWrapper = ({
   children,
@@ -27,10 +28,10 @@ export const CardWrapper: FC<PropsWithChildren<BoxProps>> = ({
 }) => {
   return (
     <Box
-      backgroundImage={
-        "linear-gradient(127.09deg, rgba(6, 11, 40, 0.94) 19.41%, rgba(10, 14, 35, 0.49) 76.65%)"
-      }
-      padding={8}
+      backgroundColor={customColors.myCustomColor.lighter}
+      py={8}
+      px={4}
+      mt={6}
       borderRadius="2xl"
       {...props}
     >

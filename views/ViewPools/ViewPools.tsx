@@ -1,4 +1,4 @@
-import { Center, Flex, Heading } from "@chakra-ui/react";
+import { Box, Center, Flex, Heading } from "@chakra-ui/react";
 import { orderBy } from "lodash";
 import { useEffect, useState } from "react";
 import { MainLayout } from "../../shared/components/ui/MainLayout";
@@ -18,6 +18,8 @@ import { selectExistingPools } from "../../shared/redux/slices/pools";
 import { selectUserAddress } from "../../shared/redux/slices/settings";
 import { IExistingPool } from "../../shared/redux/types/pools.interface";
 import Search from "./Search/Search";
+import { CardWrapper } from "../../shared/components/ui/CardWrapper";
+
 const ViewPools = () => {
   const { data4: pools } = useAppSelector(selectExistingPools);
   const connectedAddress = useAppSelector(selectUserAddress);
@@ -64,8 +66,8 @@ const ViewPools = () => {
   }, [poolsGroupedByCollection]);
 
   return (
-    <MainLayout metaTitle="View Pools">
-      <Heading as={"h1"} w="full" textAlign={"center"} mt={10} mb={4}>
+    <CardWrapper>
+      <Heading as={"h1"} w="full" textAlign={"center"} mb={4}>
         Pools
       </Heading>
       <Center>
@@ -73,8 +75,7 @@ const ViewPools = () => {
       </Center>
       <Flex
         justifyContent={"center"}
-        columnGap={5}
-        rowGap="10"
+        gap={5}
         flexWrap="wrap"
         mt={10}
       >
@@ -90,7 +91,7 @@ const ViewPools = () => {
           return <PoolItem key={i} pool={pool} />;
         })}
       </Flex>
-    </MainLayout>
+    </CardWrapper>
   );
 };
 

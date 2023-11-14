@@ -10,8 +10,8 @@ const NavMenu = () => {
   return (
     <Flex
       alignItems={"center"}
-      gap={5}
-      mr={{ sm: 0, lg: "24" }}
+      gap={7}
+      mr={{ sm: 0, lg: "12" }}
       display={{ sm: "none", md: "flex" }}
     >
       {routes.map((route) => {
@@ -23,6 +23,7 @@ const NavMenu = () => {
         return (
           <Link href={route.route} key={route.route}>
             <Box
+              fontSize={"md"}
               fontWeight={"bold"}
               _hover={{
                 textShadow: "0 0 10px " + customColors.color2.base,

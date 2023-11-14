@@ -1,7 +1,7 @@
 import { Box, Flex, Link as ChkLink, Text, VStack } from "@chakra-ui/react";
 import { logout } from "@multiversx/sdk-dapp/utils";
 import Link from "next/link";
-import { customColors } from "../../../config/chakraTheme";
+import { customColors, customSizes } from "../../../config/chakraTheme";
 import { useAppSelector } from "../../hooks/core/useRedux";
 import { selectisNftCreator, selectisScOwner } from "../../redux/slices/pools";
 import { route } from "../../utils/routes";
@@ -14,14 +14,15 @@ const LoggedInMenu = () => {
   return (
     <Box
       right={{ sm: "auto", lg: "0" }}
-      mt={2}
+      mt={5}
       position={"absolute"}
-      width={{ sm: "full", lg: "250px" }}
+      width={ customSizes.loginButton }
       display="flex"
       justifyContent={"center"}
     >
-      <CardWrapper w={{ sm: "250px", lg: "auto" }} px={0} zIndex={99}>
+      <CardWrapper w={"full"} px={0} zIndex={99} bgColor={customColors.myCustomColor.darker} border={"2px solid"} borderColor={customColors.myCustomColor.lighter}>
         <VStack gap={2}>
+          {!isNftCreator ? 
           <Flex
             py={1}
             cursor="pointer"
@@ -30,11 +31,22 @@ const LoggedInMenu = () => {
             _hover={{
               textShadow: "0 0 10px " + customColors.color2.base,
             }}
-            onClick={() => logout()}
           >
-            Disconnect
-          </Flex>
-
+            <Link href={route.create.route}>Create a Pool</Link>
+          </Flex> :
+          <Flex
+            py={1}
+            cursor="pointer"
+            px={8}
+            w="full"
+            _hover={{
+              textShadow: "0 0 10px " + customColors.color2.base,
+            }}
+          >
+            <Link href={route.nftCollectionOwner.route}>
+                Creator Dashboard
+            </Link>
+          </Flex>}
           {isAdmin && (
             <Flex
               py={1}
@@ -48,26 +60,6 @@ const LoggedInMenu = () => {
               <Link href={route.scOwner.route}>Owner Dashboard</Link>
             </Flex>
           )}
-
-          <Flex
-            py={1}
-            cursor="pointer"
-            px={8}
-            w="full"
-            _hover={{
-              textShadow: "0 0 10px " + customColors.color2.base,
-            }}
-          >
-            {isNftCreator ? (
-              <Link href={route.nftCollectionOwner.route}>
-                NFT Creator Dashboard
-              </Link>
-            ) : (
-              <Text color="gray.400" cursor={"not-allowed"}>
-                NFT Creator Dashboard
-              </Text>
-            )}
-          </Flex>
           <Flex
             py={1}
             cursor="pointer"
@@ -81,6 +73,18 @@ const LoggedInMenu = () => {
             <ChkLink href={"https://Web3Mermaids.com"} isExternal>
               Web3Mermaids
             </ChkLink>
+          </Flex>
+          <Flex
+            py={1}
+            cursor="pointer"
+            px={8}
+            w="full"
+            _hover={{
+              textShadow: "0 0 10px " + customColors.color2.base,
+            }}
+            onClick={() => logout()}
+          >
+            Disconnect
           </Flex>
         </VStack>
       </CardWrapper>

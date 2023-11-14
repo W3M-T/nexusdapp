@@ -6,8 +6,10 @@ import { columns } from "./columns";
 
 const ExistingPools = () => {
   const { poolsByAddress: pools } = useNumerizePools();
-
+  
+  
   return (
+
     <CardWrapper>
       <Heading fontSize={"2xl"}>Existing Pools</Heading>
       {pools.length !== 0 ? (

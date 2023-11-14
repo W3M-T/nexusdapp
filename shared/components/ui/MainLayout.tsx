@@ -22,8 +22,9 @@ export const MainLayout = withElronDapp(
     const account = useGetAccountInfo();
     const dispatch = useAppDispatch();
     const { isLoggedIn } = useGetLoginInfo();
+
     useEffect(() => {
-      const forceAddress = process.env.NEXT_PUBLIC_ADDRESS || null;
+      const forceAddress = process.env.NEXT_PUBLIC_FORCED_ADDRESS != "" ? process.env.NEXT_PUBLIC_FORCED_ADDRESS : null;
       dispatch(setAddress(forceAddress || account.address));
     }, [account.address, dispatch]);
 
@@ -41,12 +42,6 @@ export const MainLayout = withElronDapp(
 
     return (
       <>
-        <Banner
-          bg="dappTemplate.dark.darker"
-          display={{ sm: "none", md: "block" }}
-        >
-          A 💧 $WATER Community Project
-        </Banner>
         <Box minHeight="100vh" pb="24">
           <Container maxW="container.xl">
             <HeaderMenu>

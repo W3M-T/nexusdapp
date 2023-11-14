@@ -44,6 +44,7 @@ import { formatTokenI } from "../../utils/formatTokenIdentifier";
 import { ActionButton } from "../tools/ActionButton";
 import { Authenticated } from "../tools/Authenticated";
 import NextImg from "./NextImg";
+import { customColors } from "../../../config/chakraTheme";
 const SelectNftModal = dynamic(
   () => import("../../../views/ViewPools/SelectNftModal/SelectNftModal")
 );
@@ -106,8 +107,9 @@ const PoolItem = ({ pool }: IProps) => {
   const endDate = addDays(createdDate, pool.poolDuration);
   return (
     <Flex
-      border="1px solid white"
-      borderRadius={"lg"}
+      // border="1px solid white"
+      backgroundColor={customColors.myCustomColor.base}
+      borderRadius={"2xl"}
       p={5}
       gap={8}
       minW="300px"

@@ -1,8 +1,10 @@
 import {
   Box,
   Flex,
+  HStack,
   Heading,
   SkeletonCircle,
+  Text,
   useDisclosure,
   useMediaQuery,
 } from "@chakra-ui/react";
@@ -15,6 +17,9 @@ import { breakpoints } from "../../../config/chakraTheme";
 import { SwipperS } from "../../../shared/components/ui/SwiperS";
 import useGetNfts from "../../../shared/hooks/tools/useGetNfts";
 import { noShowMedia } from "../../../shared/utils/excludeNft";
+import { CardWrapper } from "../../../shared/components/ui/CardWrapper";
+import { ActionButton } from "../../../shared/components/tools/ActionButton";
+import { ViewButton } from "../../../shared/components/tools/ViewButton";
 
 const NftsUserModal = dynamic(
   () => import("../../../shared/components/ui/NftsUserModal/NftsUserModal")
@@ -34,107 +39,102 @@ const MyNfts = () => {
     return null;
   }
   return (
-    <Flex flexDir={"column"}>
-      {" "}
-      <Heading
-        mb={4}
-        fontWeight="600"
-        as="h2"
-        fontSize={"24px"}
-        color="dappTemplate.color2.base"
-        cursor={!isLargerThanLg && "pointer"}
-        onClick={!isLargerThanLg && onOpen}
-      >
-        My NFTs
-      </Heading>
-      <SwipperS slidesPerView={poolItems}>
-        {!data ? (
-          <Fragment>
-            <SwiperSlide>
-              <SkeletonCircle boxSize={{ sm: "65px", md: "100px" }} />
-            </SwiperSlide>
+    <CardWrapper>
+      <Flex flexDir={"column"}>
+          <HStack justifyContent="center" alignContent={"center"} mb={8}>
+            <Heading
+              fontWeight="700"
+              as="h2"
+              fontSize={"24px"}
+              w="full"
+              // color="dappTemplate.color2.base"
+              cursor={!isLargerThanLg && "pointer"}
+              onClick={!isLargerThanLg && onOpen}
+            >
+              My NFTs
+            </Heading>
+            {poolItems < data?.length && (
+              <ViewButton w={"100px"} fontSize={"12px"} cursor="pointer" _hover={{ fontWeight: "bold" }} onClick={onOpen}>
+                <Text>View all</Text>
+              </ViewButton>
+            )}
+          </HStack>
+        <SwipperS slidesPerView={poolItems}>
+          {!data ? (
+            <Fragment>
+              <SwiperSlide>
+                <SkeletonCircle boxSize={{ sm: "65px", md: "100px" }} />
+              </SwiperSlide>
 
-            <SwiperSlide>
-              <SkeletonCircle boxSize={{ sm: "65px", md: "100px" }} />
-            </SwiperSlide>
+              <SwiperSlide>
+                <SkeletonCircle boxSize={{ sm: "65px", md: "100px" }} />
+              </SwiperSlide>
 
-            <SwiperSlide>
-              <SkeletonCircle boxSize={{ sm: "65px", md: "100px" }} />
-            </SwiperSlide>
+              <SwiperSlide>
+                <SkeletonCircle boxSize={{ sm: "65px", md: "100px" }} />
+              </SwiperSlide>
 
-            <SwiperSlide>
-              <SkeletonCircle boxSize={{ sm: "65px", md: "100px" }} />
-            </SwiperSlide>
-            <SwiperSlide>
-              <SkeletonCircle boxSize={{ sm: "65px", md: "100px" }} />
-            </SwiperSlide>
-            <SwiperSlide>
-              <SkeletonCircle boxSize={{ sm: "65px", md: "100px" }} />
-            </SwiperSlide>
-            <SwiperSlide>
-              <SkeletonCircle boxSize={{ sm: "65px", md: "100px" }} />
-            </SwiperSlide>
-            <SwiperSlide>
-              <SkeletonCircle boxSize={{ sm: "65px", md: "100px" }} />
-            </SwiperSlide>
-          </Fragment>
-        ) : (
-          <Fragment>
-            {data
-              .filter((nft) => !noShowMedia(nft))
-              .map((nft) => {
-                return (
-                  <SwiperSlide key={nft.identifier}>
-                    <Flex
-                      w="full"
-                      justifyContent={"center"}
-                      alignItems="center"
-                      flexDir={"column"}
-                      cursor="pointer"
-                    >
-                      <Box
-                        boxSize={{ sm: "65px", md: "100px" }}
-                        borderRadius={"full"}
-                        position="relative"
-                        overflow={"hidden"}
-                        mb={3}
-                        bg="#ffffff21"
+              <SwiperSlide>
+                <SkeletonCircle boxSize={{ sm: "65px", md: "100px" }} />
+              </SwiperSlide>
+              <SwiperSlide>
+                <SkeletonCircle boxSize={{ sm: "65px", md: "100px" }} />
+              </SwiperSlide>
+              <SwiperSlide>
+                <SkeletonCircle boxSize={{ sm: "65px", md: "100px" }} />
+              </SwiperSlide>
+              <SwiperSlide>
+                <SkeletonCircle boxSize={{ sm: "65px", md: "100px" }} />
+              </SwiperSlide>
+              <SwiperSlide>
+                <SkeletonCircle boxSize={{ sm: "65px", md: "100px" }} />
+              </SwiperSlide>
+            </Fragment>
+          ) : (
+            <Fragment>
+              {data
+                .filter((nft) => !noShowMedia(nft))
+                .map((nft) => {
+                  return (
+                    <SwiperSlide key={nft.identifier}>
+                      <Flex
+                        w="full"
+                        justifyContent={"center"}
+                        alignItems="center"
+                        flexDir={"column"}
+                        cursor="pointer"
                       >
-                        {nft.media && (
-                          <Image
-                            src={nft.media[0].thumbnailUrl}
-                            alt={nft.name}
-                            layout="responsive"
-                            width={600}
-                            height={600}
-                          />
-                        )}
-                      </Box>
-                      <Box fontSize={{ sm: "10px", md: "11px" }}>
-                        {nft.name}
-                      </Box>
-                    </Flex>
-                  </SwiperSlide>
-                );
-              })}
-          </Fragment>
-        )}
-      </SwipperS>
-      {poolItems < data?.length && (
-        <Flex
-          w="full"
-          justifyContent={"flex-end"}
-          display={{ sm: "none", md: "flex" }}
-          mt={2}
-          onClick={onOpen}
-        >
-          <Box cursor="pointer" _hover={{ fontWeight: "bold" }}>
-            View all
-          </Box>
-        </Flex>
-      )}
-      {isOpen && <NftsUserModal onClose={onClose} isOpen={isOpen} />}
-    </Flex>
+                        <Box
+                          boxSize={{ sm: "65px", md: "100px" }}
+                          borderRadius={"full"}
+                          position="relative"
+                          overflow={"hidden"}
+                          mb={3}
+                          bg="#ffffff21"
+                        >
+                          {nft.media && (
+                            <Image
+                              src={nft.media[0].thumbnailUrl}
+                              alt={nft.name}
+                              layout="responsive"
+                              width={600}
+                              height={600}
+                            />
+                          )}
+                        </Box>
+                        <Box fontSize={{ sm: "10px", md: "11px" }} px={3}>
+                          {nft.name}
+                        </Box>
+                      </Flex>
+                    </SwiperSlide>
+                  );
+                })}
+            </Fragment>
+          )}
+        </SwipperS>
+        {isOpen && <NftsUserModal onClose={onClose} isOpen={isOpen} />}
+      </Flex>
+    </CardWrapper>
   );
 };
 

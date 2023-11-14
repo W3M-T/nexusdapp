@@ -1,4 +1,5 @@
 import { Modal, ModalContent, ModalOverlay } from "@chakra-ui/react";
+import { customColors } from "../../../config/chakraTheme";
 
 const MyModal = ({
   isOpen,
@@ -16,9 +17,13 @@ const MyModal = ({
         motionPreset="slideInBottom"
         size={size}
       >
-        <ModalOverlay background={"rgba(0,0,0,0.7)"} {...overlayProps} />
+        <ModalOverlay
+          background={"rgba(0,0,0,0.8)"}
+          backdropFilter={"blur(5px)"}
+          {...overlayProps}
+        />
         <ModalContent
-          background={"dappTemplate.dark.darker"}
+          background={customColors.myCustomColor.base}
           borderRadius="15px"
           width={"90%"}
           {...props}
