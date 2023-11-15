@@ -70,8 +70,8 @@ const LoggedInMenu = () => {
             }}
             onClick={() => logout()}
           >
-            <ChkLink href={"https://Web3Mermaids.com"} isExternal>
-              Web3Mermaids
+            <ChkLink href={"https://discord.com/channels/1069173229425541140/1069173230142758975"} isExternal>
+              Community
             </ChkLink>
           </Flex>
           <Flex
