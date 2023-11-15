@@ -3,14 +3,15 @@ import {
   AiOutlineUpCircle,
   AiOutlineUser,
 } from "react-icons/ai";
-import { CgCloseR } from "react-icons/cg";
-import { FaFaucet } from "react-icons/fa";
-import { TbPyramid, TbWorld } from "react-icons/tb";
+// import { CgCloseR } from "react-icons/cg";
+// import { FaFaucet } from "react-icons/fa";
+import { TbPyramid } from "react-icons/tb";
 import { IconType } from "react-icons/lib";
-import { RiGalleryLine } from "react-icons/ri";
+// import { RiGalleryLine } from "react-icons/ri";
 import { RiNftFill } from 'react-icons/ri';
 import { GiReceiveMoney } from 'react-icons/gi';
-import { GrStackOverflow } from 'react-icons/gr';
+// import { GrStackOverflow } from 'react-icons/gr';
+import { PiStackDuotone } from "react-icons/pi";
 
 interface IRoute {
   route: string;
@@ -42,7 +43,7 @@ export const route = {
     route: "/view-pools",
     name: "Pools",
     public: true,
-    icon: GrStackOverflow,
+    icon: PiStackDuotone,
   },
   faucets: {
     route: "/faucets",
