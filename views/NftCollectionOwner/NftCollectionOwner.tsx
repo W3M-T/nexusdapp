@@ -1,4 +1,4 @@
-import { Button, Center, Flex, Heading } from "@chakra-ui/react";
+import { Button, Center, Divider, Flex, Heading } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { MainLayout } from "../../shared/components/ui/MainLayout";
 import { useAppDispatch, useAppSelector } from "../../shared/hooks/core/useRedux";
@@ -12,6 +12,7 @@ import { CardWrapper } from "../../shared/components/ui/CardWrapper";
 import SearchTable1 from "../../shared/components/ui/SearchTable1";
 import { columns } from "./components/ExistingPools/columns";
 import { ActionButton } from "../../shared/components/tools/ActionButton";
+import Link from "next/link";
 
 const NftCollectionOwnerView = () => {
   const dispatch = useAppDispatch();
@@ -30,7 +31,7 @@ const NftCollectionOwnerView = () => {
             <Heading fontSize={"2xl"}>Pool Creation</Heading>
             <Flex justifyContent="center" my={"20px"}>
               <ActionButton>
-                <a href={route.create.route}>Create a Pool</a>
+                <Link href={route.create.route}>Create a Pool</Link>
               </ActionButton>
             </Flex>
           </CardWrapper>
@@ -39,6 +40,7 @@ const NftCollectionOwnerView = () => {
         <CardWrapper>
           <Heading fontSize={"2xl"} mb={"30px"}>Management</Heading>
           <SendAirdrop />
+          <Divider my={8}/>
           <ClaimUnsentRewards />
         </CardWrapper>
       </Flex>
