@@ -21,7 +21,7 @@ const FaucetsView = () => {
     const [selectedTab, setSelectedTab] = useState(0);
 
     const [faucets, setFaucets] = useState<IFaucetInfo[]>([]);
-    console.log("⚠️ ~ file: FaucetsView.tsx:24 ~ FaucetsView ~ faucets::::", faucets)
+    // console.log("⚠️ ~ file: FaucetsView.tsx:24 ~ FaucetsView ~ faucets::::", faucets)
 
     const handleTabChange = (index: number) => {
         setSelectedTab(index);

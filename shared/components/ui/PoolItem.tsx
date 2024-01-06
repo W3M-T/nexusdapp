@@ -45,6 +45,9 @@ import { ActionButton } from "../tools/ActionButton";
 import { Authenticated } from "../tools/Authenticated";
 import NextImg from "./NextImg";
 import { customColors } from "../../../config/chakraTheme";
+import { egldFee } from "../../../config/network";
+import { selectUserAddress } from "../../redux/slices/settings";
+import getEgldBalance from "../../services/sc/scQueries/getEgldBalance";
 const SelectNftModal = dynamic(
   () => import("../../../views/ViewPools/SelectNftModal/SelectNftModal")
 );
@@ -105,6 +108,18 @@ const PoolItem = ({ pool }: IProps) => {
   const createdDate = new Date(pool.timestam * 1000);
 
   const endDate = addDays(createdDate, pool.poolDuration);
+
+  const connectedAddress = useAppSelector(selectUserAddress);
+  const [userHasEgldForFee, setUserHasEgldForFee] = useState<boolean>(false);
+  getEgldBalance(connectedAddress)
+    .then(userEgldBalance => {
+      setUserHasEgldForFee(Number(userEgldBalance.balance) / 10**18 >= egldFee)
+    })
+    .catch(error => {
+      console.error("Error fetching EGLD balance:", error);
+      setUserHasEgldForFee(false)
+    });
+
   return (
     <Flex
       // border="1px solid white"
@@ -166,8 +181,9 @@ const PoolItem = ({ pool }: IProps) => {
           <Tooltip
             label={
               needToUnstake.data
-                ? "You must first unstake your NFTs from completed pools (marked red)."
-                : "Make sure you have staked at least one NFT of PARROT, EXPLORER, or TEDDY1 collections."
+                    ? "You must first unstake your NFTs from completed pools (marked red)." :
+                    !userHasEgldForFee ? "You need " + egldFee + " EGLD for covering the fee." :
+                    "Make sure you have staked at least one NFT of PARROT, EXPLORER, or TEDDY1 collections."
             }
             borderRadius={"5px"}
             isDisabled={
@@ -182,8 +198,9 @@ const PoolItem = ({ pool }: IProps) => {
                   fontSize="xs"
                   py={1}
                   disabled={
-                    (pool.collection === "" && !hasStakenForAEN.data) ||
-                    needToUnstake.data
+                    (pool.collection === "" && !hasStakenForAEN) ||
+                    needToUnstake.data ||
+                    !userHasEgldForFee
                   }
                   onClick={onOpen}
                 >

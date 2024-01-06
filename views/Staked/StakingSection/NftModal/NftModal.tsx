@@ -25,6 +25,9 @@ import { formatTokenI } from "../../../../shared/utils/formatTokenIdentifier";
 import { route } from "../../../../shared/utils/routes";
 import { customColors } from "../../../../config/chakraTheme";
 import { egldFee } from "../../../../config/network";
+import getEgldBalance from "../../../../shared/services/sc/scQueries/getEgldBalance";
+import { useAppSelector } from "../../../../shared/hooks/core/useRedux";
+import { selectUserAddress } from "../../../../shared/redux/slices/settings";
 
 interface IProps {
   nft: IStaked;
@@ -37,6 +40,7 @@ const NftModal = ({ isOpen, onClose, nft }: IProps) => {
   const { reward } = useGetNftRewards(nft);
   const [sessionId, setSessionId] = useState<string>();
   const { token: elrondToken } = useGetElrondToken(nft.nftPool.token);
+
   const onSuccess = () => {
     router.push(route.home.route);
   };

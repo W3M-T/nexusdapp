@@ -29,6 +29,9 @@ import { formatTokenI } from "../../../shared/utils/formatTokenIdentifier";
 import StakeNftItem from "./StakeNftItem";
 import MyModal from "../../../shared/components/ui/MyModal";
 import { customColors } from "../../../config/chakraTheme";
+import { egldFee } from "../../../config/network";
+import { selectUserAddress } from "../../../shared/redux/slices/settings";
+import getEgldBalance from "../../../shared/services/sc/scQueries/getEgldBalance";
 interface IProps {
   isOpenModal: boolean;
   onCloseModal: () => void;
@@ -85,6 +88,18 @@ const HomePoolModal = ({
   }, [nfts]);
   const createdDate = new Date(pool.timestam * 1000);
   const endDate = addDays(createdDate, pool.poolDuration);
+
+  const connectedAddress = useAppSelector(selectUserAddress);
+  const [userHasEgldForFee, setUserHasEgldForFee] = useState<boolean>(false);
+  getEgldBalance(connectedAddress)
+    .then(userEgldBalance => {
+      setUserHasEgldForFee(Number(userEgldBalance.balance) / 10**18 >= egldFee)
+    })
+    .catch(error => {
+      console.error("Error fetching EGLD balance");
+      setUserHasEgldForFee(false)
+    });
+
   return (
     <MyModal isOpen={isOpenModal} onClose={onCloseModal} size="3xl">
       <ModalCloseButton
@@ -159,8 +174,9 @@ const HomePoolModal = ({
               <Tooltip
                 label={
                   needToUnstake.data
-                    ? "You must first unstake your NFTs from completed pools (marked red)."
-                    : "Make sure you have staked at least one NFT of PARROT, EXPLORER, or TEDDY1 collections."
+                    ? "You must first unstake your NFTs from completed pools (marked red)." :
+                    !userHasEgldForFee ? "You need " + egldFee + " EGLD for covering the fee." :
+                    "Make sure you have staked at least one NFT of PARROT, EXPLORER, or TEDDY1 collections."
                 }
                 borderRadius={"5px"}
                 isDisabled={
@@ -174,7 +190,8 @@ const HomePoolModal = ({
                       w="100px"
                       disabled={
                         (pool.collection === "" && !hasStakenForAEN) ||
-                        needToUnstake.data
+                        needToUnstake.data ||
+                        !userHasEgldForFee
                       }
                       onClick={handleStake}
                     >
