@@ -110,7 +110,7 @@ const PoolItem = ({ pool }: IProps) => {
   const endDate = addDays(createdDate, pool.poolDuration);
 
   const connectedAddress = useAppSelector(selectUserAddress);
-  const [userHasEgldForFee, setUserHasEgldForFee] = useState<boolean | null>(null);
+  const [userHasEgldForFee, setUserHasEgldForFee] = useState<boolean | null>(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -195,7 +195,7 @@ const PoolItem = ({ pool }: IProps) => {
             borderRadius={"5px"}
             isDisabled={
               !(pool.collection === "" && !hasStakenForAEN.data) &&
-              !needToUnstake.data
+              !needToUnstake.data && userHasEgldForFee
             }
           >
             <Box>

@@ -25,33 +25,27 @@ const SelectNftModal = ({
   onConfirm,
   colelction,
 }: IProps) => {
-  const [selectedNFTs, setSelectedNFTs] = useState<INft[]>([]);
-  const handleSelectNFT = (NFT) => {
-    if (selectedNFTs.length <= 10) {
-      setSelectedNFTs([...selectedNFTs, NFT]);
-    }
-  };
-
   function filterResponse(nfts: INft[]): INft[] {
     return nfts.filter((nft) => nft.type !== "SemiFungibleESDT");
   }
-
   const nfts: INft[] = useGetNfts(
     {
       filter: { key: "collection", value: colelction },
     },
     filterResponse
   );
+  
+  const [selectedNFTs, setSelectedNFTs] = useState<INft[]>([nfts?.[0]] || []);
+  const handleSelectNFT = (NFT) => {
+    if (selectedNFTs.length <= 10) {
+      setSelectedNFTs([...selectedNFTs, NFT]);
+    }
+  };
 
   const handleStake = () => {
     onCloseModal();
     onConfirm(selectedNFTs);
   };
-  useEffect(() => {
-    if (nfts.length === 1) {
-      setSelectedNFTs([nfts[0]]);
-    }
-  }, [nfts]);
 
   return (
     <MyModal

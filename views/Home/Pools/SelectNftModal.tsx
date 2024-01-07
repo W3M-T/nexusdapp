@@ -47,11 +47,25 @@ const HomePoolModal = ({
   pool,
   hasStakenForAEN,
 }: IProps) => {
+  const connectedAddress = useAppSelector(selectUserAddress);
+
   const needToUnstake = useAppSelector(selectCanUserStake);
 
   const nftsStaked = useAppSelector(selectUserStaked);
 
-  const [selectedNFTs, setSelectedNFT] = useState<INft[]>([]);
+  function filterResponse(nfts: INft[]): INft[] {
+    return nfts.filter((nft) => nft.type === "NonFungibleESDT");
+  }
+
+  const nfts = useGetNfts(
+    {
+      filter: { key: "collection", value: pool.collection },
+    },
+    filterResponse
+  );
+  
+  const [selectedNFTs, setSelectedNFT] = useState<INft[]>([nfts?.[0]] || []);
+  
   const handleSelectNFT = (NFT: INft) => {
     const indexNft = selectedNFTs.findIndex(
       (nft) => nft.identifier === NFT.identifier
@@ -66,30 +80,14 @@ const HomePoolModal = ({
     }
   };
 
-  function filterResponse(nfts: INft[]): INft[] {
-    return nfts.filter((nft) => nft.type === "NonFungibleESDT");
-  }
-
-  const nfts = useGetNfts(
-    {
-      filter: { key: "collection", value: pool.collection },
-    },
-    filterResponse
-  );
-
   const handleStake = () => {
     onCloseModal();
     onConfirm(selectedNFTs);
   };
-  useEffect(() => {
-    if (nfts.length === 1) {
-      setSelectedNFT([nfts[0]]);
-    }
-  }, [nfts]);
+
   const createdDate = new Date(pool.timestam * 1000);
   const endDate = addDays(createdDate, pool.poolDuration);
 
-  const connectedAddress = useAppSelector(selectUserAddress);
   const [userHasEgldForFee, setUserHasEgldForFee] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -188,7 +186,7 @@ const HomePoolModal = ({
                 borderRadius={"5px"}
                 isDisabled={
                   !(pool.collection === "" && !hasStakenForAEN) &&
-                  !needToUnstake.data
+                  !needToUnstake.data && userHasEgldForFee
                 }
               >
                 <Box>
