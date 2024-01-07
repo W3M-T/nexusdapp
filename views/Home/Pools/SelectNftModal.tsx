@@ -90,16 +90,23 @@ const HomePoolModal = ({
   const endDate = addDays(createdDate, pool.poolDuration);
 
   const connectedAddress = useAppSelector(selectUserAddress);
-  const [userHasEgldForFee, setUserHasEgldForFee] = useState<boolean>(false);
-  getEgldBalance(connectedAddress)
-    .then(userEgldBalance => {
-      setUserHasEgldForFee(Number(userEgldBalance.balance) / 10**18 >= egldFee)
-    })
-    .catch(error => {
-      console.error("Error fetching EGLD balance");
-      setUserHasEgldForFee(false)
-    });
+  const [userHasEgldForFee, setUserHasEgldForFee] = useState<boolean | null>(null);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userEgldBalance = await getEgldBalance(connectedAddress);
+        const hasEgldForFee = Number(userEgldBalance.balance) / 10**18 >= egldFee;
+        setUserHasEgldForFee(hasEgldForFee);
+      } catch (error) {
+        console.error("Error fetching EGLD balance:", error);
+        setUserHasEgldForFee(false);
+      }
+    };
+
+    fetchData();
+  }, [connectedAddress]);
+  
   return (
     <MyModal isOpen={isOpenModal} onClose={onCloseModal} size="3xl">
       <ModalCloseButton

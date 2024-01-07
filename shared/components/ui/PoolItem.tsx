@@ -29,7 +29,7 @@ import { useTrackTransactionStatus } from "@multiversx/sdk-dapp/hooks/transactio
 import BigNumber from "bignumber.js";
 import { addDays } from "date-fns";
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppSelector } from "../../hooks/core/useRedux";
 import {
   selectCanUserStake,
@@ -110,15 +110,22 @@ const PoolItem = ({ pool }: IProps) => {
   const endDate = addDays(createdDate, pool.poolDuration);
 
   const connectedAddress = useAppSelector(selectUserAddress);
-  const [userHasEgldForFee, setUserHasEgldForFee] = useState<boolean>(false);
-  getEgldBalance(connectedAddress)
-    .then(userEgldBalance => {
-      setUserHasEgldForFee(Number(userEgldBalance.balance) / 10**18 >= egldFee)
-    })
-    .catch(error => {
-      console.error("Error fetching EGLD balance:", error);
-      setUserHasEgldForFee(false)
-    });
+  const [userHasEgldForFee, setUserHasEgldForFee] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userEgldBalance = await getEgldBalance(connectedAddress);
+        const hasEgldForFee = Number(userEgldBalance.balance) / 10**18 >= egldFee;
+        setUserHasEgldForFee(hasEgldForFee);
+      } catch (error) {
+        console.error("Error fetching EGLD balance:", error);
+        setUserHasEgldForFee(false);
+      }
+    };
+
+    fetchData();
+  }, [connectedAddress]);
 
   return (
     <Flex
