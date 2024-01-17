@@ -45,7 +45,7 @@ export const claimUserRewards = async (
       .withSender(senderAddress)
       .useThenIncrementNonceOf(new Account(senderAddress))
       // .withSingleESDTTransfer(TokenTransfer.fungibleFromBigInteger(tokenIdentifier, finalValue, selectedNetwork.tokens?.MERMAID?.decimals))
-      .withGasLimit(70000000)
+      .withGasLimit(90000000)
       .withValue(egldFee * Math.pow(10, 18))
       .withChainID(selectedNetwork.shortId)
       .buildTransaction();

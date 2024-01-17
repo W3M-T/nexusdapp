@@ -76,7 +76,7 @@ const ClaimUnsentRewards = () => {
           "NftStakingPoolsWsp",
           "claimUnsentRewards",
           [poolStruct],
-          50000000
+          80000000
         );
       }
     },

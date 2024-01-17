@@ -51,7 +51,7 @@ export const stakeNfts = async (
       .useThenIncrementNonceOf(new Account(senderAddress))
       .withSingleESDTNFTTransfer(TokenTransfer.semiFungible(nft.collection, nft.nonce, 1))
       .withExplicitReceiver(senderAddress)
-      .withGasLimit(70000000)
+      .withGasLimit(90000000)
       .withChainID(selectedNetwork.shortId)
       .buildTransaction();
     

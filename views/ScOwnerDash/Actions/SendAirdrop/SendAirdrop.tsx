@@ -101,7 +101,7 @@ const SendAirdrop = () => {
               decimals: tokenD.decimals,
             },
             val: Number(values.amount),
-            gasL: 400000000,
+            gasL: 600000000,
           });
         }
       }

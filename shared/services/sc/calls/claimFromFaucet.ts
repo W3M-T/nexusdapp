@@ -26,7 +26,7 @@ export const claimFromFaucet = async (token: string) => {
   let tx = interaction
     .withSender(senderAddress)
     .useThenIncrementNonceOf(new Account(senderAddress))
-    .withGasLimit(20000000)
+    .withGasLimit(40000000)
     .withValue(egldFee * Math.pow(10, 18))
     .withChainID(selectedNetwork.shortId)
     .buildTransaction();

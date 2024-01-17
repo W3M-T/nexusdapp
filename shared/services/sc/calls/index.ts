@@ -173,7 +173,7 @@ export const scCall = async (
   workspace: WORKSPACES,
   funcName: string,
   args: any = [],
-  gasLimit: number = 60000000,
+  gasLimit: number = 80000000,
   processingMessage: string = defaultProcessingMessage,
   successMessage: string = defaultSuccessMessage,
   errorMessage: string = defaultPerrorMessage,
