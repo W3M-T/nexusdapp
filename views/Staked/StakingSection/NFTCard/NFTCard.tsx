@@ -22,6 +22,7 @@ const NFTCard = ({
   selected,
 }: IProps) => {
   const [isNew, setIsNew] = useState(true);
+  console.log("⚠️ ~ isNew:", isNew)
   const { reward } = useGetNftRewards(nft);
   useEffect(() => {
     let isNew = true;
@@ -52,9 +53,9 @@ const NFTCard = ({
         position={"relative"}
         flexDir="column"
         onClick={() => onClick(reward)}
-        border={selected ? "3px solid" : "0px solid"}
+        border={"3px solid"}
         borderColor={
-          selected ? "green" : isNew ? "dappTemplate.color2.base" : "red"
+          selected ? "dappTemplate.color2.base" : isNew ? "dappTemplate.dark.darker" : "red"
         }
         borderRadius="0.7rem"
         padding={"4"}
