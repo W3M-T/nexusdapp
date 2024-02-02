@@ -22,7 +22,6 @@ const NFTCard = ({
   selected,
 }: IProps) => {
   const [isNew, setIsNew] = useState(true);
-  console.log("⚠️ ~ isNew:", isNew)
   const { reward } = useGetNftRewards(nft);
   useEffect(() => {
     let isNew = true;
