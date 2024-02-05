@@ -18,6 +18,7 @@ const ButtonNav = () => {
       py={3}
       justifyContent="space-around"
       display={{ sm: "flex", md: "none" }}
+      zIndex={1000}
     >
       {routes.map((route) => {
         if ((!isLoggedIn && !route.public) || route.outNav) {

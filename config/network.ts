@@ -37,29 +37,6 @@ export const networkConfig = {
       NXS: { identifier: "NXS-7f88a4", decimals: 18, faucet: "faucetNexus"},
     },
   },
-
-  testnet: {
-    id: "testnet",
-    shortId: "T",
-    name: "Testnet",
-    egldLabel: "xEGLD",
-    egldDenomination: "18",
-    decimals: "4",
-    gasPerDataByte: "1500",
-    walletConnectDeepLink:
-      "https://maiar.page.link/?apn=com.multiversx.maiar.wallet&isi=1519405832&ibi=com.multiversx.maiar.wallet&link=https://maiar.com/",
-    walletConnectBridgeAddresses: ["https://bridge.walletconnect.org"],
-    walletAddress: "https://testnet-wallet.multiversx.com",
-    apiAddress: "https://testnet-api.multiversx.com",
-    explorerAddress: "https://testnet-explorer.multiversx.com",
-    apiTimeout: "40000",
-    gatewayAddress: "https://testnet-gateway.multiversx.com",
-    contractAddr: {},
-    tokens: {
-      EGLD: { identifier: "EGLD" },
-    },
-  },
-
   mainnet: {
     id: "mainnet",
     shortId: "1",
@@ -86,6 +63,7 @@ export const networkConfig = {
       WATER: { identifier: "WATER-9ed400", decimals: 18},
       MERMAID: { identifier: "MERMAID-9c388a", decimals: 18, faucet: "faucetMermaid"},
       NEXUS: { identifier: "NEXUS-71d1d6", decimals: 18, faucet: "faucetNexus" },
+      WEGLD: { identifier: "WEGLD-bd4d79", decimals: 18},
     },
   },
 };

@@ -12,6 +12,7 @@ import { RiNftFill } from 'react-icons/ri';
 import { GiReceiveMoney } from 'react-icons/gi';
 // import { GrStackOverflow } from 'react-icons/gr';
 import { PiStackDuotone } from "react-icons/pi";
+import { PiWalletBold } from "react-icons/pi";
 
 interface IRoute {
   route: string;

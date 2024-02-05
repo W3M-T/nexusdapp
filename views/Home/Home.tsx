@@ -5,11 +5,12 @@ import { MainLayout } from "../../shared/components/ui/MainLayout";
 import MyNfts from "./MyNfts/MyNfts";
 import Pools from "./Pools/Pools";
 import StakedNfts from "./StakedNfts/StakedNfts";
+import SwapView from "./SwapView/SwapView";
 
 const Home = () => {
   return (
     <MainLayout metaTitle="Home">
-      <Authenticated
+      {/* <Authenticated
         fallback={
           <Center mt="120px">
             {" "}
@@ -18,13 +19,14 @@ const Home = () => {
             </Heading>
           </Center>
         }
-      >
+      > */}
         <Flex mt={6} flexDir="column" gap={{sm: 0, md: 2}}>
+          <SwapView/>
           <MyNfts />
           <StakedNfts />
           <Pools />
         </Flex>
-      </Authenticated>
+      {/* </Authenticated> */}
     </MainLayout>
   );
 };
