@@ -20,8 +20,6 @@ interface IProps {
 }
 
 const SwapView = () => {
-  const dispatch = useAppDispatch();
-  const address = useAppSelector(selectUserAddress);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [isLargerThanLg] = useMediaQuery(`(min-width: ${breakpoints.lg})`);

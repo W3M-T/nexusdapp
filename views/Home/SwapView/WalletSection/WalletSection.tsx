@@ -41,6 +41,7 @@ const DashboardSection = ({coinsHeight = "440px", ...props}) => {
             pt={0}
             pb={3}
             px={2}
+            alignSelf={"flex-start"}
             {...props}
         >
             <Authenticated

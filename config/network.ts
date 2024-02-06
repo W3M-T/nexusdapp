@@ -29,6 +29,7 @@ export const networkConfig = {
       nftsStaking: "",
       faucetNexus: "erd1qqqqqqqqqqqqqpgq22l29szm8xgupwvh44fpxhlwjtuhwvw98pgqcwmh48",
       faucetMermaid: "erd1qqqqqqqqqqqqqpgqjxsyl920u5mgn4fpvz0erw78wdpu7vyw8pgqs5ektw",
+      nexusSwap: "erd1qqqqqqqqqqqqqpgqcpk6snmakxshkg348kcy042f3qastl368pgqjxqnwc"
     },
     tokens: {
       EGLD: { identifier: "EGLD" },
@@ -57,6 +58,7 @@ export const networkConfig = {
       nftsStaking: "erd1qqqqqqqqqqqqqpgq8tn6u8l2vytjhv6pcv0vu5tug52acutm8pgqnle42n",
       faucetNexus: "erd1qqqqqqqqqqqqqpgqjz2ux62ynvyphz6a8cqpmu5k9fw242ef8pgq3x5mvx",
       faucetMermaid: "erd1qqqqqqqqqqqqqpgqkdkjcexnkx3ety05494ylgrhtg9p6d648pgq7pucfa",
+      nexusSwap: ""
     },
     tokens: {
       EGLD: { identifier: "EGLD", decimals: 18 },
