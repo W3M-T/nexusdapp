@@ -48,6 +48,7 @@ import { customColors } from "../../../config/chakraTheme";
 import { egldFee } from "../../../config/network";
 import { selectUserAddress } from "../../redux/slices/settings";
 import getEgldBalance from "../../services/sc/scQueries/getEgldBalance";
+
 const SelectNftModal = dynamic(
   () => import("../../../views/ViewPools/SelectNftModal/SelectNftModal")
 );

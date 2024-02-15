@@ -3,6 +3,7 @@ import { ProxyNetworkProvider } from "@multiversx/sdk-network-providers";
 import { chainType, networkConfig } from "../../../config/network";
 import nftstakingpoolsAbi from "../../../public/abi/nftstakingpools.abi.json";
 import faucetAbi from "../../../public/abi/faucet.abi.json";
+import nexusSwapAbi from "../../../public/abi/nexusswap.abi.json";
 export const abiPath = "/abi";
 
 const { gatewayAddress, contractAddr } = networkConfig[chainType];
@@ -11,7 +12,11 @@ export const provider = new ProxyNetworkProvider(gatewayAddress, {
   timeout: 30000,
 });
 
-export type WORKSPACES = "NftStakingPoolsWsp" | "FaucetNexusWsp" | "FaucetMermaidWsp";
+export type WORKSPACES = 
+  "NftStakingPoolsWsp" | 
+  "FaucetNexusWsp" | 
+  "FaucetMermaidWsp" |
+  "NexusSwapWsp";
 
 export const getInterface = (workspace: WORKSPACES) => {
   let address: IAddress = null;
@@ -39,6 +44,13 @@ export const getInterface = (workspace: WORKSPACES) => {
       address = new Address(simpleAddress);
       abiUrl = faucetAbi;
       implementsInterfaces = "FaucetMermaid";
+      break;
+    }
+    case "NexusSwapWsp": {
+      simpleAddress = contractAddr.nexusSwap;
+      address = new Address(simpleAddress);
+      abiUrl = nexusSwapAbi;
+      implementsInterfaces = "NexusSwap";
       break;
     }
     default:

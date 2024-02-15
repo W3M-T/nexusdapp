@@ -13,6 +13,7 @@ import { GiReceiveMoney } from 'react-icons/gi';
 // import { GrStackOverflow } from 'react-icons/gr';
 import { PiStackDuotone } from "react-icons/pi";
 import { PiWalletBold } from "react-icons/pi";
+import { LuBadgeHelp } from "react-icons/lu";
 
 interface IRoute {
   route: string;
@@ -20,6 +21,7 @@ interface IRoute {
   outNav?: boolean;
   public?: boolean;
   icon?: IconType;
+  hideFromMobile?: boolean;
 }
 export const route = {
   home: {
@@ -33,11 +35,12 @@ export const route = {
     name: "Staked NFTs",
     public: true,
     icon: RiNftFill,
+    hideFromMobile: true,
   },
   create: {
     route: "/create-pool",
     name: "Create Pool",
-    outNav: true,
+    public: false,
     icon: TbPyramid,
   },
   view: {
@@ -45,12 +48,19 @@ export const route = {
     name: "Pools",
     public: true,
     icon: PiStackDuotone,
+    hideFromMobile: true,
   },
   faucets: {
     route: "/faucets",
     name: "Faucets",
     public: true,
     icon: GiReceiveMoney,
+  },
+  support: {
+    route: "https://nexusdapp.pensyai.com",
+    name: "Support",
+    public: true,
+    icon: LuBadgeHelp,
   },
   scOwner: {
     route: "/sc-owner-dashboard",

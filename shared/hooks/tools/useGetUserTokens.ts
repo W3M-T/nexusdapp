@@ -10,7 +10,7 @@ const useGetUserTokens = (): any => {
   const address = useAppSelector(selectUserAddress);
 
   const { data: userTokens, isLoading: isLoadingUserTokens, error: errorUserTokens } = useSWR<any>(
-    address && `/accounts/${address}/tokens?size=100`,
+    address && `/accounts/${address}/tokens?size=1000`,
     swrFetcher
   );
 

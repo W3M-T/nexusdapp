@@ -21,7 +21,7 @@ const ButtonNav = () => {
       zIndex={1000}
     >
       {routes.map((route) => {
-        if ((!isLoggedIn && !route.public) || route.outNav) {
+        if ((!isLoggedIn && !route.public) || route.outNav || route.hideFromMobile) {
           // if (route.route !== "/") {
           return null;
           // }

@@ -27,6 +27,11 @@ export interface IElrondToken extends IToken {
   canPause: boolean;
   canFreeze: boolean;
   canWipe: boolean;
+  type: string,
+  price: number,
+  marketCap: number,
+  supply: number,
+  circulatingSupply: number
 }
 
 interface ITokens {

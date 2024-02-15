@@ -15,7 +15,7 @@ const getTokenDollarValue = (token: any) => {
     return Number(token.balance) / (Math.pow(10, token.decimals)) * token.price;
 }
 
-const DashboardSection = ({coinsHeight = "440px", ...props}) => {
+const DashboardSection = ({coinsHeight = "284px", ...props}) => {
     const { userTokens, isLoadingUserTokens, errorUserTokens } = useGetUserTokens();
     const { userEgld, isLoadingUserEgld, errorUserEgld } = useGetUserEgld();
     const isSmallDevice = isMobile();
@@ -36,22 +36,33 @@ const DashboardSection = ({coinsHeight = "440px", ...props}) => {
     
     return (
         <CardWrapper
-            width={"full"}
-            maxW={"600px"}
-            pt={0}
-            pb={3}
-            px={2}
+            w={"full"}
+            // maxW={"600px"}
+            py={0}
+            // px={2}
+            // p={0}
+            // m={0}
             alignSelf={"flex-start"}
             {...props}
+            h={"full"}
         >
             <Authenticated
                 spinnerCentered
                 fallback={
-                    <>
-                    <Text fontWeight="bold" fontSize="2xl" textAlign="center" m={10}>
-                        Connect to view your wallet balance.
-                    </Text>
-                    </>
+                    <Center
+                        w={"full"}
+                        h={"35vh"}
+                        px={20}
+                        justifySelf={"center"}
+                        alignSelf={"center"}
+                    >
+                        <Center fontWeight="bold" fontSize="2xl" textAlign="center"
+                            alignSelf={"center"}
+                            w={"full"}
+                        >
+                            Connect your wallet to swap tokens and view your staked NFTs!
+                        </Center>
+                    </Center>
                 }
             >
                 <Flex flexWrap="wrap" rowGap={8}>
@@ -81,13 +92,14 @@ const DashboardSection = ({coinsHeight = "440px", ...props}) => {
                     // maxWidth={"700px"}
                     minWidth={{sm: "200px", md: "550px"}}
                     width={"full"}
+                    // height={"full"}
                     // bg={customColors.myCustomColor.darker}
                     backgroundColor={customColors.myCustomColor.base}
                     borderRadius={"2xl"}
                     p={{sm: 3, md: 5}}
                 >
                     <Center gap={4} px={4} py={6}>
-                        <Center opacity={0.7} fontSize={"md"}>
+                        <Center opacity={0.7} fontSize={"md"} fontWeight="bold">
                             Total value:
                         </Center>
                         <Center fontWeight={"bold"} fontSize={"xl"}>

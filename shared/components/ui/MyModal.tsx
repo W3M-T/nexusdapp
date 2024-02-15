@@ -14,8 +14,9 @@ const MyModal = ({
       <Modal
         onClose={onClose}
         isOpen={isOpen}
-        motionPreset="slideInBottom"
+        motionPreset="scale"
         size={size}
+        isCentered
       >
         <ModalOverlay
           background={"rgba(0,0,0,0.8)"}
