@@ -25,15 +25,15 @@ const SwapView = () => {
   const { isLoggedIn } = useGetLoginInfo();
   const [isLargerThanLg] = useMediaQuery(`(min-width: ${breakpoints.lg})`);
   
-  let showNewSection = false;
-  const address = useAppSelector(selectUserAddress);
+  let showNewSection = true;
+  // const address = useAppSelector(selectUserAddress);
 
-  if (address == "erd13j00d82gs7ec665z202lh25l7tjw6lpaxwe7th4e6uwlsk3r8pgq555qzg" ||
-    address == "erd1lnmfa5p9j6qy40kjtrf0wfq6cl056car6hyvrq5uxdcalc2gu7zsrwalel" ||
-    address == "erd10fq6af9vkr6usqc4wf9adsqhdvfz7d0d57pkag5ecmac7486zncsunge5m"
-  ) {
-    showNewSection = true;
-  }
+  // if (address == "erd13j00d82gs7ec665z202lh25l7tjw6lpaxwe7th4e6uwlsk3r8pgq555qzg" ||
+  //   address == "erd1lnmfa5p9j6qy40kjtrf0wfq6cl056car6hyvrq5uxdcalc2gu7zsrwalel" ||
+  //   address == "erd10fq6af9vkr6usqc4wf9adsqhdvfz7d0d57pkag5ecmac7486zncsunge5m"
+  // ) {
+  //   showNewSection = true;
+  // }
 
   return (
     showNewSection ?
