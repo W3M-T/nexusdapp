@@ -16,6 +16,7 @@ export const MetaHead = memo(
         <title key="titleTag">
           {"Nexus dApp | " + metaTitle || defaultMetaTags.title}
         </title>
+        <link rel="shortcut icon" type="image/x-icon" href="/logoNexus.png" />
         <meta
           key="description"
           name="description"

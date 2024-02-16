@@ -16,7 +16,7 @@ export const Logo = () => {
         position="relative"
         userSelect="none"
       >
-        <NextImg src={newLogo} alt="The NFT Nexus Logo" width={customSizes.logoIcon} />
+        <NextImg src={newLogo} alt="The Nexus dApp Logo" width={customSizes.logoIcon} />
         {/* <Text
           as="span"
           cursor="pointer"
