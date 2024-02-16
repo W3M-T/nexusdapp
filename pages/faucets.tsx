@@ -8,7 +8,7 @@ import FaucetsView from "../views/Faucets/FaucetsView";
 const Faucets: NextPage = () => {
   return (
     <>
-      <MetaHead metaTitle={route.view.name} />
+      <MetaHead metaTitle={route.faucets.name} />
       <MainLayout metaTitle="Faucets" gap={"50px"}>
           <FaucetsView/>
       </MainLayout>

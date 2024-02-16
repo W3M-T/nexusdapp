@@ -14,14 +14,13 @@ export const MetaHead = memo(
     return (
       <Head>
         <title key="titleTag">
-          {"The NFT Nexus | " + metaTitle || defaultMetaTags.title}
+          {"Nexus dApp | " + metaTitle || defaultMetaTags.title}
         </title>
         <meta
           key="description"
           name="description"
           content={metaDescription || defaultMetaTags.description}
         />
-        <meta key="author" name="author" content="Armando Martin"></meta>
         <meta key="og:type" property="og:type" content="website" />
         <meta
           key="og:title"
