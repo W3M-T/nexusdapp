@@ -83,7 +83,7 @@ const SwapSection = ({titleLeft = false}) => {
     const userAddress = useAppSelector(selectUserAddress);
 
     const chainId = getAshChainId();
-    const slipapge = 0.2;
+    const slipapge = 0.1;
     const { fee } = useGetAshSwapFee();
   
     const ashSwapAggregator = useMemo(() => {
