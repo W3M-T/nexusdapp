@@ -77,12 +77,12 @@ const NextJSDappTemplate = ({ Component, pageProps }: AppProps) => {
             <AxiosInterceptorContext.Listener />
 
             <ChakraProvider theme={theme}>
-              <MetaHead />
-              <Box color="black">
-                <TransactionsToastList />
+              {/* <MetaHead /> */}
+              {/* <Box color="black"> */}
+                <TransactionsToastList successfulToastLifetime={6000} />
                 <NotificationModal />
-                <SignTransactionsModals className="custom-class-for-modals" />
-              </Box>
+                <SignTransactionsModals />
+              {/* </Box> */}
               <Component {...pageProps} />
             </ChakraProvider>
           </Provider>
