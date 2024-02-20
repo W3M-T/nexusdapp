@@ -36,11 +36,22 @@ const SelectNftModal = ({
   );
   
   const [selectedNFTs, setSelectedNFTs] = useState<INft[]>([nfts?.[0]] || []);
+
   const handleSelectNFT = (NFT) => {
     if (selectedNFTs.length <= 10) {
-      setSelectedNFTs([...selectedNFTs, NFT]);
+      // Check if the NFT is already selected
+      const isAlreadySelected = selectedNFTs.some((selectedNFT) => selectedNFT.identifier === NFT.identifier && selectedNFT.nonce == NFT.nonce);
+  
+      // If the NFT is not already selected, add it to the selectedNFTs array
+      if (!isAlreadySelected) {
+        setSelectedNFTs([...selectedNFTs, NFT]);
+      } else {
+        // If the NFT is already selected, remove it from the selectedNFTs array
+        setSelectedNFTs(selectedNFTs.filter((selectedNFT) => !(selectedNFT.identifier === NFT.identifier && selectedNFT.nonce == NFT.nonce)));
+      }
     }
   };
+  
 
   const handleStake = () => {
     onCloseModal();
