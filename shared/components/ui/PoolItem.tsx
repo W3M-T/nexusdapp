@@ -191,12 +191,13 @@ const PoolItem = ({ pool }: IProps) => {
               needToUnstake.data
                     ? "You must first unstake your NFTs from completed pools (marked red)." :
                     !userHasEgldForFee ? "You need " + egldFee + " EGLD for covering the fee." :
+                    pool.nftsNow == pool.nfts ? "Pool is already full." :
                     "Make sure you have staked at least one NFT of PARROT, EXPLORER, or TEDDY1 collections."
             }
             borderRadius={"5px"}
             isDisabled={
               !(pool.collection === "" && !hasStakenForAEN.data) &&
-              !needToUnstake.data && userHasEgldForFee
+              !needToUnstake.data && userHasEgldForFee && pool.nftsNow != pool.nfts
             }
           >
             <Box>
@@ -208,7 +209,7 @@ const PoolItem = ({ pool }: IProps) => {
                   disabled={
                     (pool.collection === "" && !hasStakenForAEN) ||
                     needToUnstake.data ||
-                    !userHasEgldForFee
+                    !userHasEgldForFee || pool.nftsNow == pool.nfts
                   }
                   onClick={onOpen}
                 >
