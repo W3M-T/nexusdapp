@@ -21,7 +21,7 @@ const useGetNfts = (
   );
 
   const filteredNfts = (nfts || []).filter((nft) => {
-    return !options.filter || nft[options.filter.key] === options.filter.value;
+    return !options.filter || nft[options.filter.key] === options.filter.value || !options.filter.value;
   });
 
   return transformResponse ? transformResponse(filteredNfts) : filteredNfts;
