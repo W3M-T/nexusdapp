@@ -22,10 +22,17 @@ import {
 } from "../../../shared/redux/slices/pools";
 import TabsList from "./TabsList/TabsList";
 import UserTab from "./VerifyTab/VerifyTab";
+import useGetIsCreator from "../../../shared/hooks/tools/useGetIsCreator";
+import { selectUserAddress } from "../../../shared/redux/slices/settings";
 
 const TabsSection = () => {
   const dispatch = useAppDispatch();
   const isAdmin = useAppSelector(selectisScOwner);
+
+  const connectedAddress = useAppSelector(selectUserAddress);
+  const {isCreator, isLoadingIsCreator, errorIsCreator} = useGetIsCreator(connectedAddress);
+  const isUserCreator = !isLoadingIsCreator && !errorIsCreator ? isCreator : false;
+
   // Set active bullets based on current state
   const [activeBullets, setActiveBullets] = useState({
     about: true,
@@ -167,7 +174,7 @@ const TabsSection = () => {
           </TabPanel>
         </TabPanels>
       </Tabs>
-      {isAdmin && !activeBullets.address && (
+      {(isAdmin || isUserCreator) && !activeBullets.address && (
         <ActionButton
           bg="dappTemplate.color2.base"
           mt={8}

@@ -81,3 +81,17 @@ export const fetchNftRewards = async ([_key, pool, collection, nonce]: [
   ]);
   return data.firstValue.valueOf().toNumber();
 };
+
+
+export const fetchIsCreator = async (address: string) => {
+  let isCreator = false;
+
+  try {
+    const data = await scQuery("NftStakingPoolsWsp", "getIsUserCreator", [new AddressValue(new Address(address))]);
+    isCreator = data.firstValue.valueOf();
+  } catch (error) {
+    console.log(error);
+  }
+
+  return isCreator;
+};

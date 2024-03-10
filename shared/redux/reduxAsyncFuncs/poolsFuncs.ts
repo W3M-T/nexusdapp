@@ -211,6 +211,23 @@ export const fetchRegistrationInfo = createAsyncThunk(
     };
   },
 );
+
+// export const fetchIsUserCreator = createAsyncThunk(
+//   "pools/fetchRegistrationInfo",
+//   async ({ address }: { address: string; }) => {
+//     const res = await scQuery("NftStakingPoolsWsp", "getIsUserCreator", [
+//       new AddressValue(new Address(address)),
+//     ]);
+//     const { firstValue } = res;
+
+//     const data = firstValue.valueOf();
+
+//     return {
+//       isUserCreator: data.field0,
+//     };
+//   },
+// );
+
 export const fetchAllowedRegistrationTokens = createAsyncThunk(
   "pools/fetchAllowedRegistrationTokens",
   async () => {
