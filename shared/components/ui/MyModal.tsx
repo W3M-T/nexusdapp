@@ -25,7 +25,7 @@ const MyModal = ({
         />
         <ModalContent
           background={customColors.myCustomColor.base}
-          borderRadius="15px"
+          borderRadius="20px"
           width={"95%"}
           {...props}
         >

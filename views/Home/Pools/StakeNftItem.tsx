@@ -20,9 +20,10 @@ const StakeNftItem = ({ nft, onClick, selected }: IProps) => {
       flexDir="column"
       onClick={onClick}
       boxShadow={selected && "0px 0px 5px white"}
-      px={2}
+      px={1}
       borderRadius="10px"
       py={2}
+      w={{sm: "110px", md: "130px"}}
     >
       {" "}
       <NextImg
@@ -44,6 +45,8 @@ const StakeNftItem = ({ nft, onClick, selected }: IProps) => {
         fontSize={"small"}
         fontWeight="bold"
         marginTop={"20px"}
+        whiteSpace={"normal"}
+        maxW={{sm: "110px", md: "130px"}}
       >
         {nft.name}
       </Text>

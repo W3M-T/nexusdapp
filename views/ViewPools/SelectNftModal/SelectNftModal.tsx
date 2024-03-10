@@ -12,6 +12,7 @@ import MyModal from "../../../shared/components/ui/MyModal";
 import useGetNfts from "../../../shared/hooks/tools/useGetNfts";
 import { INft } from "../../../shared/redux/types/tokens.interface";
 import StakeNftItem from "./StakeNftItem";
+import { customColors } from "../../../config/chakraTheme";
 interface IProps {
   isOpenModal: boolean;
   onCloseModal: () => void;
@@ -64,7 +65,8 @@ const SelectNftModal = ({
       onClose={onCloseModal}
       size="4xl"
       px="3"
-      py={5}
+      background={customColors.myCustomColor.base}
+      borderRadius="20px"
     >
       <ModalCloseButton
         border="none"
@@ -74,13 +76,15 @@ const SelectNftModal = ({
         top={4}
       />
       <ModalHeader borderRadius="1.5rem 1.5rem 0 0"> My NFTs</ModalHeader>
-      <ModalBody>
+      <ModalBody borderRadius={"20px"} background={customColors.myCustomColor.lighter}>
         <Flex
-          justifyContent={"center"}
+          justifyContent={"space-evenly"}
           columnGap={5}
           rowGap="10"
           flexWrap="wrap"
-          mt={10}
+          my={6}
+          maxH={"60vh"}
+          overflowY={"auto"}
         >
           {nfts.map((nft) => {
             return (

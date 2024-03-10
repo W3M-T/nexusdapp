@@ -109,18 +109,11 @@ const HomePoolModal = ({
 
   return (
     <MyModal isOpen={isOpenModal} onClose={onCloseModal} size="3xl">
-      <ModalCloseButton
-        border="none"
-        outline={"none"}
-        _focus={{ boxShadow: "none" }}
-        right={5}
-        top={6}
-      />
-      <ModalContent bgColor={customColors.myCustomColor.base} zIndex={1000}>
+      <ModalContent bgColor={customColors.myCustomColor.base} borderRadius="20px" zIndex={1000} px={4}>
         <ModalHeader borderRadius="1.5rem 1.5rem 0 0">
           {pool.collection}
         </ModalHeader>
-        <ModalBody>
+        <ModalBody borderRadius={"20px"} background={customColors.myCustomColor.lighter}>
           <Flex flexDir={"column"} gap={1}>
             <Text>
               <Box as="span" fontWeight={"bold"}>
@@ -148,11 +141,12 @@ const HomePoolModal = ({
 
           <Divider mt={4} />
           <Flex
-            justifyContent={"center"}
-            columnGap={5}
-            rowGap="10"
+            justifyContent={"space-evenly"}
             flexWrap="wrap"
-            mt={4}
+            pt={4}
+            maxH={"65vh"}
+            overflowY={"auto"}
+            gap={5}
           >
             {nfts.map((nft) => {
               return (
@@ -167,7 +161,7 @@ const HomePoolModal = ({
               );
             })}
             {nfts.length === 0 && (
-              <Center>You don’t have any NFTs for this collection</Center>
+              <Center py={6}>You don’t have any NFTs for this collection</Center>
             )}
           </Flex>
         </ModalBody>

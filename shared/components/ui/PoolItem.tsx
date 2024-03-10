@@ -212,7 +212,7 @@ const PoolItem = ({ pool }: IProps) => {
                     isStakingDisabled ||
                     (pool.collection === "" && !hasStakenForAEN) ||
                     needToUnstake.data ||
-                    !userHasEgldForFee || pool.nftsNow != pool.nfts
+                    !userHasEgldForFee || pool.nftsNow == pool.nfts
                   }
                   onClick={onOpen}
                 >

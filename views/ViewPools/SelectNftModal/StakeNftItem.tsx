@@ -23,6 +23,7 @@ const StakeNftItem = ({ nft, onClick, selected }: IProps) => {
       px={2}
       borderRadius="10px"
       py={2}
+      w={{sm: "110px", md: "130px"}}
     >
       {" "}
       <NextImg
@@ -44,6 +45,8 @@ const StakeNftItem = ({ nft, onClick, selected }: IProps) => {
         fontSize={"small"}
         fontWeight="bold"
         marginTop={"20px"}
+        whiteSpace={"normal"}
+        maxW={{sm: "110px", md: "130px"}}
       >
         {nft.name}
       </Text>
