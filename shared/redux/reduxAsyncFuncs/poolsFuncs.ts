@@ -92,11 +92,11 @@ export const fetchExistringPools = createAsyncThunk(
 );
 export const fetchUserStaked = createAsyncThunk(
   "pools/fetchUserStaked",
-  async ({ address, page }: { address: string; page: number }) => {
+  async ({ address, page, maxNftsPerPage }: { address: string; page: number, maxNftsPerPage?: number }) => {
     const res = await scQuery("NftStakingPoolsWsp", "getUserStaked", [
       new AddressValue(new Address(address)),
       new BigUIntValue(new BigNumber(page)),
-      new BigUIntValue(new BigNumber(10)),
+      new BigUIntValue(new BigNumber(maxNftsPerPage ? maxNftsPerPage : 8)),
     ]);
 
     const { firstValue } = res;
@@ -113,6 +113,7 @@ export const fetchUserStaked = createAsyncThunk(
           poolDuration: nft.field1.toNumber(),
           token: nft.field0.nft_pool.reward_token,
           rewards: nft.field0.nft_pool.reward_amount.toNumber(),
+          isStakingDisabled: nft.field0.nft_pool.isStakingDisabled
         },
         token: nft.field0.nft_token,
         name: nft.field2.toString(),

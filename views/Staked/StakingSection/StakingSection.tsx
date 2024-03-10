@@ -30,6 +30,7 @@ const StakingSection = () => {
   const [selectedNftsToUnstake, setSelectedNftsToUnstake] = useState<
     { nft: IStakedWithTokenDetails; reward: number }[]
   >([]);
+
   const handleViwNft = (nft: IStakedWithTokenDetails, reward: number) => {
     const indexNft = selectedNftsToUnstake.findIndex(
       (snft) =>
@@ -112,6 +113,9 @@ const StakingSection = () => {
       });
     }
   };
+  
+  const pageCount = stakedNfts.data.pagination.pageCount;
+
   return (
     <CardWrapper>
       <Flex flexWrap="wrap" rowGap={8}>
@@ -167,15 +171,17 @@ const StakingSection = () => {
 
         {stakedNfts.data.pagination && (
           <ReactPaginateS
-            breakLabel="..."
-            nextLabel={<ArrowRightIcon />}
+            breakLabel=" . . . "
+            nextLabel={<ArrowRightIcon mx={2}/>}
             onPageChange={handleOnPageChange}
-            pageRangeDisplayed={5}
-            marginPagesDisplayed={30}
-            pageCount={stakedNfts.data.pagination.pageCount}
-            previousLabel={<ArrowLeftIcon />}
-            renderOnZeroPageCount={null}
-            pageClassName="item page"
+            pageCount={pageCount}
+            previousLabel={<ArrowLeftIcon mx={2}/>}
+            pageClassName="item"
+            pageLinkClassName="page"
+            containerClassName="pagination"
+            activeClassName="selected"
+            disabledClassName="disabled"
+            marginPagesDisplayed={2}
           />
         )}
 
@@ -195,24 +201,29 @@ const ReactPaginateS = styled(ReactPaginate)`
   list-style: none;
   margin-top: 25px;
 
-  .item a {
-    height: 25px;
-    width: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #1c7bda;
-    border-radius: 5px;
-    margin: 0 10px;
-  }
+  .item {
+    a {
+      height: 25px;
+      width: 25px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #012f5d;
+      border-radius: 5px;
+      margin: 0 5px;
+      cursor: pointer;
+      color: black; /* Set default text color to black */
+    }
 
-  .selected a {
-    background-color: #012f5d;
-  }
+    &.selected a { /* Target the link inside the selected class */
+      background-color: #1c7bda; /* Set background color for selected page */
+      color: black; /* Set text color for selected page */
+    }
 
-  .disabled a {
-    color: #8d8d8d;
-    cursor: not-allowed;
+    &.disabled a {
+      color: #8d8d8d;
+      cursor: not-allowed;
+    }
   }
 `;
 

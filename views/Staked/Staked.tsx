@@ -20,7 +20,7 @@ const Staked = () => {
   useEffect(() => {
     if (address) {
       dispatch(fetchHasReadWarning(address));
-      dispatch(fetchUserStaked({ address: address, page: page }));
+      dispatch(fetchUserStaked({ address: address, page: page, maxNftsPerPage: 1 }));
     }
   }, [address, dispatch, page]);
   return (
