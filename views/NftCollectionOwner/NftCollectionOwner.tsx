@@ -13,6 +13,7 @@ import SearchTable1 from "../../shared/components/ui/SearchTable1";
 import { columns } from "./components/ExistingPools/columns";
 import { ActionButton } from "../../shared/components/tools/ActionButton";
 import Link from "next/link";
+import DisableStaking from "./components/DisableStaking/DisableStaking";
 
 const NftCollectionOwnerView = () => {
   const dispatch = useAppDispatch();
@@ -42,6 +43,8 @@ const NftCollectionOwnerView = () => {
           <SendAirdrop />
           <Divider my={8}/>
           <ClaimUnsentRewards />
+          <Divider my={8}/>
+          <DisableStaking/>
         </CardWrapper>
       </Flex>
     </MainLayout>

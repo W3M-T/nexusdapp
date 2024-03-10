@@ -1,4 +1,4 @@
-import { Center, Flex } from "@chakra-ui/react";
+import { Center, Flex, HStack } from "@chakra-ui/react";
 import {
   Address,
   AddressType,
@@ -27,12 +27,13 @@ import SelectDark, {
 } from "../../../../shared/components/ui/SelectDark";
 import useNumerizePools from "../../../../shared/hooks/tools/useNumerizePools";
 import { scCall } from "../../../../shared/services/sc/calls";
+import { useState } from "react";
 
 const validationSchema = yup.object({
   pool: yup.number().required(),
 });
 
-const SendAirdrop = () => {
+const DisableStaking = () => {
   const { poolsByAddress: existingPools } = useNumerizePools();
 
   const formik = useFormik({
@@ -68,12 +69,14 @@ const SendAirdrop = () => {
         ),
       ]);
 
-      scCall("NftStakingPoolsWsp", "sendRewards", [poolStruct], 400000000);
+      scCall("NftStakingPoolsWsp", funcName, [poolStruct], 40000000);
     },
   });
 
-  const selectedPool = formik.values.pool ? existingPools[formik.values.pool] : null;
+  const [funcName, setFuncName] = useState<string>("");
 
+  const selectedPool = formik.values.pool ? existingPools[formik.values.pool] : null;
+  
   return (
     <form onSubmit={formik.handleSubmit}>
       <Center flexDir={"column"}>
@@ -96,10 +99,17 @@ const SendAirdrop = () => {
             </>
           </SelectDark>
         </Flex>
-        <ActionButton type="submit" disabled={!selectedPool}>Send Rewards</ActionButton>
+        <HStack>
+          <Flex onClick={() => setFuncName("enableStaking")}>
+            <ActionButton type="submit" disabled={!selectedPool || !selectedPool.isStakingDisabled}>Enable Staking</ActionButton>
+          </Flex>
+          <Flex onClick={() => setFuncName("disableStaking")}>
+            <ActionButton type="submit" disabled={!selectedPool || selectedPool.isStakingDisabled}>Disable Staking</ActionButton>
+          </Flex>
+        </HStack>
       </Center>
     </form>
   );
 };
 
-export default SendAirdrop;
+export default DisableStaking;

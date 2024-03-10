@@ -82,6 +82,8 @@ export const fetchExistringPools = createAsyncThunk(
         nftsNow: pool.field2.toNumber(),
         poolDuration: pool.field3.toNumber(),
         url: pool.field4.toString(),
+        isStakingDisabled: true
+        // isStakingDisabled: pool.field5
       };
       return data;
     });

@@ -92,6 +92,8 @@ const ClaimUnsentRewards = () => {
     }
   }, [existingPools, formik.values.pool]);
 
+  const selectedPool = formik.values.pool ? existingPools[formik.values.pool] : null;
+
   return (
     <form onSubmit={formik.handleSubmit}>
       <Center flexDir={"column"}>
@@ -119,7 +121,7 @@ const ClaimUnsentRewards = () => {
           isDisabled={validateClaim}
         >
           <Box>
-            <ActionButton type="submit" disabled={!validateClaim}>
+            <ActionButton type="submit" disabled={!validateClaim || !selectedPool}>
               Claim unsent Rewards
             </ActionButton>
           </Box>

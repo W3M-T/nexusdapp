@@ -24,7 +24,7 @@ export interface IExistingPool {
   nfts: number;
   token: string;
   rewards: string;
-
+  isStakingDisabled: boolean;
   poolDuration?: number;
   poolName?: string;
   nftsNow?: number;
