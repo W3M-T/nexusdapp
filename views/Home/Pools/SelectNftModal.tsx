@@ -105,6 +105,8 @@ const HomePoolModal = ({
     fetchData();
   }, [connectedAddress]);
   
+  const isStakingDisabled = pool ? pool.isStakingDisabled : true;
+
   return (
     <MyModal isOpen={isOpenModal} onClose={onCloseModal} size="3xl">
       <ModalCloseButton
@@ -178,14 +180,14 @@ const HomePoolModal = ({
             {nfts.length > 0 && (
               <Tooltip
                 label={
-                  needToUnstake.data
-                    ? "You must first unstake your NFTs from completed pools (marked red)." :
-                    !userHasEgldForFee ? "You need " + egldFee + " EGLD for covering the fee." :
-                    "Make sure you have staked at least one NFT of PARROT, EXPLORER, or TEDDY1 collections."
+                  isStakingDisabled ? "Staking in this pool is disabled by the Pool Creator." : 
+                  needToUnstake.data ? "You must first unstake your NFTs from completed pools (marked red)." :
+                  !userHasEgldForFee ? "You need " + egldFee + " EGLD for covering the fee." :
+                  "Make sure you have staked at least one NFT of PARROT, EXPLORER, or TEDDY1 collections."
                 }
                 borderRadius={"5px"}
                 isDisabled={
-                  !(pool.collection === "" && !hasStakenForAEN) &&
+                  !isStakingDisabled && !(pool.collection === "" && !hasStakenForAEN) &&
                   !needToUnstake.data && userHasEgldForFee
                 }
               >
@@ -194,6 +196,7 @@ const HomePoolModal = ({
                     <ActionButton
                       w="100px"
                       disabled={
+                        isStakingDisabled ||
                         (pool.collection === "" && !hasStakenForAEN) ||
                         needToUnstake.data ||
                         !userHasEgldForFee
