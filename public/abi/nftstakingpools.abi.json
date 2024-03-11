@@ -1,37 +1,33 @@
 {
     "buildInfo": {
         "rustc": {
-            "version": "1.72.0-nightly",
-            "commitHash": "04075b32021932e3e8f6ab55d519b3b3494b6ef9",
-            "commitDate": "2023-06-22",
+            "version": "1.76.0-nightly",
+            "commitHash": "d86d65bbc19b928387f68427fcc3a0da498d8a19",
+            "commitDate": "2023-12-10",
             "channel": "Nightly",
-            "short": "rustc 1.72.0-nightly (04075b320 2023-06-22)"
+            "short": "rustc 1.76.0-nightly (d86d65bbc 2023-12-10)"
         },
         "contractCrate": {
             "name": "nftstakingpools",
-            "version": "0.0.0",
-            "git_version": "a837919-modified"
+            "version": "0.0.0"
         },
         "framework": {
-            "name": "elrond-wasm",
-            "version": "0.35.0"
+            "name": "multiversx-sc",
+            "version": "0.47.5"
         }
     },
     "name": "NftStakingPools",
     "constructor": {
-        "inputs": [
-            {
-                "name": "burn_token",
-                "type": "TokenIdentifier"
-            },
-            {
-                "name": "burn_amount",
-                "type": "BigUint"
-            }
-        ],
+        "inputs": [],
         "outputs": []
     },
     "endpoints": [
+        {
+            "name": "upgrade",
+            "mutability": "mutable",
+            "inputs": [],
+            "outputs": []
+        },
         {
             "name": "stakeNft",
             "mutability": "mutable",
@@ -180,6 +176,62 @@
             "outputs": []
         },
         {
+            "name": "createAenPool",
+            "mutability": "mutable",
+            "payableInTokens": [
+                "*"
+            ],
+            "inputs": [
+                {
+                    "name": "nr_of_nfts",
+                    "type": "u32"
+                },
+                {
+                    "name": "reward_token",
+                    "type": "EgldOrEsdtTokenIdentifier"
+                },
+                {
+                    "name": "daily_reward",
+                    "type": "BigUint"
+                },
+                {
+                    "name": "duration",
+                    "type": "u64"
+                },
+                {
+                    "name": "pool_name",
+                    "type": "bytes"
+                },
+                {
+                    "name": "collection_image",
+                    "type": "bytes"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "disableStaking",
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "nft_pool",
+                    "type": "NftPool"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "enableStaking",
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "nft_pool",
+                    "type": "NftPool"
+                }
+            ],
+            "outputs": []
+        },
+        {
             "name": "setEgldFeeAmount",
             "mutability": "mutable",
             "inputs": [
@@ -248,40 +300,6 @@
                 {
                     "name": "token",
                     "type": "EgldOrEsdtTokenIdentifier"
-                }
-            ],
-            "outputs": []
-        },
-        {
-            "name": "createAenPool",
-            "mutability": "mutable",
-            "payableInTokens": [
-                "*"
-            ],
-            "inputs": [
-                {
-                    "name": "nr_of_nfts",
-                    "type": "u32"
-                },
-                {
-                    "name": "reward_token",
-                    "type": "EgldOrEsdtTokenIdentifier"
-                },
-                {
-                    "name": "daily_reward",
-                    "type": "BigUint"
-                },
-                {
-                    "name": "duration",
-                    "type": "u64"
-                },
-                {
-                    "name": "pool_name",
-                    "type": "bytes"
-                },
-                {
-                    "name": "collection_image",
-                    "type": "bytes"
                 }
             ],
             "outputs": []
@@ -421,7 +439,14 @@
             "inputs": [],
             "outputs": [
                 {
-                    "type": "tuple<u32,u32,List<tuple<EgldOrEsdtTokenIdentifier,BigUint>>>"
+                    "type": "u32"
+                },
+                {
+                    "type": "u32"
+                },
+                {
+                    "type": "variadic<multi<EgldOrEsdtTokenIdentifier,BigUint>>",
+                    "multi_result": true
                 }
             ]
         },
@@ -431,7 +456,8 @@
             "inputs": [],
             "outputs": [
                 {
-                    "type": "List<TokenIdentifier>"
+                    "type": "variadic<TokenIdentifier>",
+                    "multi_result": true
                 }
             ]
         },
@@ -441,7 +467,8 @@
             "inputs": [],
             "outputs": [
                 {
-                    "type": "List<tuple<NftPool,bytes,u32,u64,bytes>>"
+                    "type": "variadic<multi<NftPool,bytes,u32,u64,bytes,bool>>",
+                    "multi_result": true
                 }
             ]
         },
@@ -464,7 +491,11 @@
             ],
             "outputs": [
                 {
-                    "type": "tuple<u32,List<tuple<NftStaking,u64,bytes,bytes,BigUint>>>"
+                    "type": "u32"
+                },
+                {
+                    "type": "variadic<multi<NftStaking,u64,bytes,bytes,BigUint>>",
+                    "multi_result": true
                 }
             ]
         },
@@ -587,10 +618,19 @@
             ]
         },
         {
-            "name": "fixAfterScan",
-            "mutability": "mutable",
-            "inputs": [],
-            "outputs": []
+            "name": "getIsUserCreator",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "address",
+                    "type": "Address"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "bool"
+                }
+            ]
         },
         {
             "name": "stakedIn",
@@ -643,6 +683,25 @@
                 {
                     "type": "variadic<NftStaking>",
                     "multi_result": true
+                }
+            ]
+        },
+        {
+            "name": "userNrOfPoolStakings",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "address",
+                    "type": "Address"
+                },
+                {
+                    "name": "pool",
+                    "type": "NftPool"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "u32"
                 }
             ]
         },
@@ -864,6 +923,21 @@
             "outputs": [
                 {
                     "type": "u64"
+                }
+            ]
+        },
+        {
+            "name": "poolStakingDisabled",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "pool",
+                    "type": "NftPool"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "bool"
                 }
             ]
         },
@@ -1115,6 +1189,21 @@
             ]
         },
         {
+            "name": "getHasOwnerRights",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "address",
+                    "type": "Address"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "bool"
+                }
+            ]
+        },
+        {
             "name": "getUseEvents",
             "mutability": "readonly",
             "inputs": [],
@@ -1172,6 +1261,7 @@
             ]
         }
     ],
+    "esdtAttributes": [],
     "hasCallback": false,
     "types": {
         "NftPool": {

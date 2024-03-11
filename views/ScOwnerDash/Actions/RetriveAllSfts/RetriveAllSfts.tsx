@@ -150,6 +150,7 @@ const RetriveAllSfts = () => {
           nfts: pool.nr_of_nfts.toNumber(),
           token: pool.reward_token,
           rewards: pool.reward_amount.toNumber(),
+          isStakingDisabled: pool.isStakingDisabled,
         };
 
         const poolStruct = new Struct(poolType, [

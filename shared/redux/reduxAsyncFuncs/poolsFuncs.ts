@@ -151,6 +151,7 @@ export const fetchUserStaked = createAsyncThunk(
     };
   },
 );
+
 export const fetchIsNftCreator = createAsyncThunk(
   "pools/fetchIsNftCreator",
   async (address: string) => {
