@@ -72,17 +72,17 @@ export const fetchExistringPools = createAsyncThunk(
 
     const data: IExistingPool[] = firstValue.valueOf().map((pool) => {
       const data: IExistingPool = {
-        timestam: pool.field0.creation_timestamp.toNumber(),
-        creator: pool.field0.creator.bech32(),
-        collection: pool.field0.collection,
-        nfts: pool.field0.nr_of_nfts.toNumber(),
-        token: pool.field0.reward_token,
-        rewards: pool.field0.reward_amount.toNumber(),
-        poolName: pool.field1.toString(),
-        nftsNow: pool.field2.toNumber(),
-        poolDuration: pool.field3.toNumber(),
-        url: pool.field4.toString(),
-        isStakingDisabled: pool.field5
+        timestam: pool[0].creation_timestamp.toNumber(),
+        creator: pool[0].creator.bech32(),
+        collection: pool[0].collection,
+        nfts: pool[0].nr_of_nfts.toNumber(),
+        token: pool[0].reward_token,
+        rewards: pool[0].reward_amount.toNumber(),
+        poolName: pool[1].toString(),
+        nftsNow: pool[2].toNumber(),
+        poolDuration: pool[3].toNumber(),
+        url: pool[4].toString(),
+        isStakingDisabled: pool[5]
       };
       return data;
     });
@@ -90,6 +90,7 @@ export const fetchExistringPools = createAsyncThunk(
     return data;
   },
 );
+
 export const fetchUserStaked = createAsyncThunk(
   "pools/fetchUserStaked",
   async ({ address, page, maxNftsPerPage }: { address: string; page: number, maxNftsPerPage?: number }) => {
