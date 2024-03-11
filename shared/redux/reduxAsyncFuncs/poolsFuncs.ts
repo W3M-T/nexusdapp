@@ -101,26 +101,26 @@ export const fetchUserStaked = createAsyncThunk(
       new BigUIntValue(new BigNumber(maxNftsPerPage ? maxNftsPerPage : 8)),
     ]);
 
-    const { firstValue } = res;
+    const { firstValue, secondValue } = res;
 
-    const data: IStaked[] = firstValue.valueOf().field1.map((nft) => {
+    const data: IStaked[] = secondValue.valueOf().map((nft) => {
       const nftData: IStaked = {
-        address: nft.field0.address.bech32(),
-        nonce: nft.field0.nft_nonce.toNumber(),
+        address: nft[0].address.bech32(),
+        nonce: nft[0].nft_nonce.toNumber(),
         nftPool: {
-          timestam: nft.field0.nft_pool.creation_timestamp.toNumber(),
-          creator: nft.field0.nft_pool.creator.bech32(),
-          collection: nft.field0.nft_pool.collection,
-          nfts: nft.field0.nft_pool.nr_of_nfts.toNumber(),
-          poolDuration: nft.field1.toNumber(),
-          token: nft.field0.nft_pool.reward_token,
-          rewards: nft.field0.nft_pool.reward_amount.toNumber(),
-          isStakingDisabled: nft.field0.nft_pool.isStakingDisabled
+          timestam: nft[0].nft_pool.creation_timestamp.toNumber(),
+          creator: nft[0].nft_pool.creator.bech32(),
+          collection: nft[0].nft_pool.collection,
+          nfts: nft[0].nft_pool.nr_of_nfts.toNumber(),
+          poolDuration: nft[1].toNumber(),
+          token: nft[0].nft_pool.reward_token,
+          rewards: nft[0].nft_pool.reward_amount.toNumber(),
+          isStakingDisabled: nft[0].nft_pool.isStakingDisabled
         },
-        token: nft.field0.nft_token,
-        name: nft.field2.toString(),
-        url: nft.field3.toString(),
-        estimatedRewards: nft.field4.toNumber(),
+        token: nft[0].nft_token,
+        name: nft[2].toString(),
+        url: nft[3].toString(),
+        estimatedRewards: nft[4].toNumber(),
       };
 
       return nftData;
@@ -145,10 +145,11 @@ export const fetchUserStaked = createAsyncThunk(
 
       return stakedWithInfo;
     });
+      
     return {
       nfts: finalData,
       pagination: {
-        pageCount: firstValue.valueOf().field0.toNumber(),
+        pageCount: firstValue.valueOf().toNumber(),
       },
     };
   },
