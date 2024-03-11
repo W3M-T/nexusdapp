@@ -31,12 +31,13 @@ import {
   IStaked,
   IStakedWithTokenDetails,
 } from "../types/pools.interface";
+
 export const fetchStats = createAsyncThunk("pools/fetchStats", async () => {
   const res = await scQuery("NftStakingPoolsWsp", "getInfo");
-  const { firstValue } = res;
+  const firstValue = res.values;
 
-  const tokens = firstValue.valueOf().field2.map((fee) => {
-    return fee.field0;
+  const tokens = firstValue.valueOf()[2].valueOf().map((fee) => {
+    return fee[0];
   });
 
   const resapitokens = await getFromAllTokens({
@@ -45,20 +46,20 @@ export const fetchStats = createAsyncThunk("pools/fetchStats", async () => {
   const tokensDetails = [...resapitokens.data, EgldToken];
 
   const data: IPoolStats = {
-    feesCollected: firstValue.valueOf().field2.map((fee) => {
+    feesCollected: firstValue.valueOf()[2].valueOf().map((fee) => {
       const index = tokensDetails.findIndex(
-        (token) => token.identifier === fee.field0,
+        (token) => token.identifier === fee[0],
       );
       if (index !== -1) {
         return {
-          token: fee.field0,
-          amount: fee.field1.toNumber(),
+          token: fee[0],
+          amount: fee[1].toNumber(),
           tokenDetials: tokensDetails[index],
         };
       }
     }),
-    poolsCreated: firstValue.valueOf().field0.toNumber(),
-    nftStaked: firstValue.valueOf().field1.toNumber(),
+    poolsCreated: firstValue.valueOf()[0].valueOf().toNumber(),
+    nftStaked: firstValue.valueOf()[1].valueOf().toNumber(),
   };
 
   return { ...data, feesCollected: data.feesCollected };
