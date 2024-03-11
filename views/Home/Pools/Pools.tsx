@@ -45,6 +45,8 @@ const Pools = () => {
     }
   });
 
+  data = data.reverse();
+
   return (
     <CardWrapper>
       <Flex flexDir={"column"}>
