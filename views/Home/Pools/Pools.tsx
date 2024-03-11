@@ -20,7 +20,6 @@ import { ViewButton } from "../../../shared/components/tools/ViewButton";
 
 const Pools = () => {
   const { data: pools } = useAppSelector(selectExistingPools);
-  console.log("⚠️ ~ pools:", pools)
 
   const connectedAddress = useAppSelector(selectUserAddress);
   const dispatch = useAppDispatch();

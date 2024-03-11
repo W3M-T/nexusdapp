@@ -143,7 +143,7 @@ const HomePoolModal = ({
           <Flex
             justifyContent={"space-evenly"}
             flexWrap="wrap"
-            pt={4}
+            py={5}
             maxH={"65vh"}
             overflowY={"auto"}
             gap={5}

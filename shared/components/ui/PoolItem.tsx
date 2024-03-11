@@ -138,6 +138,7 @@ const PoolItem = ({ pool }: IProps) => {
       p={5}
       gap={8}
       minW="300px"
+      maxW={"800px"}
       justifyContent={{ sm: "center", md: "space-between" }}
       alignItems={{ sm: "center", md: "flex-start" }}
       flexDir={{ sm: "column", md: "row" }}
@@ -160,7 +161,7 @@ const PoolItem = ({ pool }: IProps) => {
         />
       </Center>
       <Center flexDir={"column"} alignItems="flex-start" flex={1}>
-        <Text mb={2} fontWeight="bold" fontSize={"2xl"}>
+        <Text mb={2} fontWeight="bold" fontSize={"2xl"} whiteSpace={"normal"}>
           {pool.poolName}
         </Text>
         <Flex flexDir={"column"} gap={1}>
