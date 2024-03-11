@@ -32,13 +32,13 @@ const Pools = () => {
     }
   }, [connectedAddress, dispatch]);
 
-  const data = pools.filter((p) => {
+  let data = pools.filter((p) => {
     const date = new Date(p.timestam * 1000);
 
     const dateInAMonth = addDays(date, p.poolDuration || 30);
     const today = new Date();
 
-    if (dateInAMonth < today) {
+    if (dateInAMonth < today || p.collection == "") {
       return false;
     } else {
       return true;

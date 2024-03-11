@@ -83,7 +83,7 @@ export const fetchNftRewards = async ([_key, pool, collection, nonce]: [
 };
 
 
-export const fetchIsCreator = async (address: string) => {
+export const fetchIsCreator = async ([_key, address]: [string, string]) => {
   let isCreator = false;
 
   try {

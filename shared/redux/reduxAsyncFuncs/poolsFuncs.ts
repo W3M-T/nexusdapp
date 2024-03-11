@@ -171,10 +171,10 @@ export const fetchIsNftCreator = createAsyncThunk(
     const data: { isNftCreator: boolean; isAdmin: boolean } = {
       isNftCreator:
         adminAddresses.includes(address) ||
-        (forceNftCreator ? forceNftCreator === "true" : firstValue.valueOf().field0),
+        (forceNftCreator == "true" ? forceNftCreator === "true" : firstValue.valueOf().field0),
       isAdmin:
         adminAddresses.includes(address) ||
-        (forceAdmin ? forceAdmin === "true" : firstValue.valueOf().field1),
+        (forceAdmin == "true"  ? forceAdmin === "true" : firstValue.valueOf().field1),
     };
 
     return {
@@ -183,6 +183,7 @@ export const fetchIsNftCreator = createAsyncThunk(
     };
   },
 );
+
 export const fetchNonWithdrawnCollections = createAsyncThunk(
   "pools/fetchNonWithdrawnCollections",
   async () => {
@@ -204,6 +205,7 @@ export const fetchRegistrationInfo = createAsyncThunk(
       new AddressValue(new Address(address)),
       BytesValue.fromUTF8(collection),
     ]);
+
     const { firstValue } = res;
 
     const data = firstValue.valueOf();
@@ -270,6 +272,7 @@ export const fetcHhasStakedForAEN = createAsyncThunk(
     return data;
   },
 );
+
 export const fetchNeedsToUnstake = createAsyncThunk(
   "pools/fetchNeedsToUnstake",
   async (address: string) => {

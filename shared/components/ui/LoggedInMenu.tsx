@@ -6,10 +6,14 @@ import { useAppSelector } from "../../hooks/core/useRedux";
 import { selectisNftCreator, selectisScOwner } from "../../redux/slices/pools";
 import { route } from "../../utils/routes";
 import { CardWrapper } from "./CardWrapper";
+import useGetIsCreator from "../../hooks/tools/useGetIsCreator";
+import { selectUserAddress } from "../../redux/slices/settings";
 
 const LoggedInMenu = () => {
   const isAdmin = useAppSelector(selectisScOwner);
-  const isNftCreator = useAppSelector(selectisNftCreator);
+  const connectedAddress = useAppSelector(selectUserAddress);
+
+  const { isCreator: isNftCreator } = useGetIsCreator(connectedAddress);
 
   return (
     <Box
