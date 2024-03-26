@@ -83,7 +83,7 @@ const SwapSection = ({titleLeft = false}) => {
     const userAddress = useAppSelector(selectUserAddress);
 
     const chainId = getAshChainId();
-    const slipapge = 0.1;
+    const slippage = 1;
     const { fee } = useGetAshSwapFee();
   
     const ashSwapAggregator = useMemo(() => {
@@ -326,7 +326,7 @@ const SwapSection = ({titleLeft = false}) => {
     useEffect(() => {
     const handleCreateInteractionFromSwapData = () => {
         try {
-        ashSwapAggregator.aggregateFromPaths(swapPaths, slipapge*100, resolveWarning).then((i) => {
+        ashSwapAggregator.aggregateFromPaths(swapPaths, slippage*1000, resolveWarning).then((i) => {
             setInteraction(
             i.withSender(
                 new Address(userAddress)
@@ -342,7 +342,7 @@ const SwapSection = ({titleLeft = false}) => {
         handleCreateInteractionFromSwapData();
     }
     }
-    , [ashSwapAggregator, fromToken?.value, slipapge, swapPaths, userAddress]);
+    , [ashSwapAggregator, fromToken?.value, slippage, swapPaths, userAddress]);
 
     //
     // RESET
