@@ -13,7 +13,7 @@ import { customColors } from "../../../../../../../../config/chakraTheme";
 import { ActionButton } from "../../../../../../../../shared/components/tools/ActionButton";
 import { selectUserAddress } from "../../../../../../../../shared/redux/slices/settings";
 import { useAppSelector } from "../../../../../../../../shared/hooks/core/useRedux";
-import { networkConfig } from "../../../../../../../../config/network";
+import { chainType, networkConfig } from "../../../../../../../../config/network";
 import { EgldLogoIcon } from "../../../../../../../../shared/components/icons/ui";
 
 const CurrencyModal: any = dynamic(() =>
@@ -26,6 +26,8 @@ const SelectCurrency = ({ token, handleClickToken, field, disable, swapTokens })
     onClose();
     handleClickToken(data);
   };
+
+  const nexusToken = networkConfig[chainType].tokens.NEXUS;
 
   return (
     <>
@@ -63,6 +65,7 @@ const SelectCurrency = ({ token, handleClickToken, field, disable, swapTokens })
                 marginRight: 2,
                 boxShadow: "rgb(255 255 255 / 8%) 0px 6px 10px",
               }}
+              bg={token.identifier == nexusToken.identifier ? "white" : null}
             >
               {token.assets?.img ? (
                 token.assets?.img
@@ -72,6 +75,7 @@ const SelectCurrency = ({ token, handleClickToken, field, disable, swapTokens })
                 <Image
                   src={token.assets?.svgUrl || token.assets?.static.src || ""}
                   alt={token.assets?.description || ""}
+                  p={0.5}
                 />
               )}
             </Box>
