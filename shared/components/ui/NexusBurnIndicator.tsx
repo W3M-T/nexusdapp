@@ -14,19 +14,23 @@ export const NexusBurnIndicator = ({ children }: PropsWithChildren) => {
   const burntPercentage = ((tokensBurnt) / nexusToken.initialSupply * 100).toFixed(5);
 
   const [isOpen, setIsOpen] = useState(false);
+  const [clickedTooltip, setClickedTooltip] = useState(false);
 
   const toogleTooltip = () => {
-    !isOpen ? setIsOpen(true) : setTimeout(() => setIsOpen(false), 5000);
+    setIsOpen(!isOpen);
   };
 
   return (
     !isLoading && !isError ? 
     <Tooltip
       hasArrow
-      // isOpen={isOpen}
-      // onClose={() => {
-      //   setTimeout(() => setIsOpen(false), 5000);
-      // }}
+      isOpen={isOpen}
+      onClose={() => {
+        if (!clickedTooltip) {
+          setTimeout(() => setIsOpen(false), 1000);
+        }
+      }}
+      onOpen={toogleTooltip}
       width={"full"}
       borderRadius={"xl"}
       bgColor={"white"}
@@ -67,8 +71,10 @@ export const NexusBurnIndicator = ({ children }: PropsWithChildren) => {
           textColor: "black",
           borderColor: "white"
         }}
-        // onClick={toogleTooltip}
-        // onPointerEnter={toogleTooltip}
+        onClick={() => {
+          toogleTooltip();
+          setClickedTooltip(true);
+        }}
       >
 
         <div className="glowing-icon">
