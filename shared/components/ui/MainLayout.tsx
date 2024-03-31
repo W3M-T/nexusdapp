@@ -16,6 +16,7 @@ import { Footer } from "./Footer";
 import { HeaderMenu } from "./HeaderMenu";
 import { HeaderMenuButtons } from "./HeaderMenuButtons";
 import { MetaHeadProps } from "./MetaHead";
+import { NexusBurnIndicator } from "./NexusBurnIndicator";
 
 export const MainLayout = withElronDapp(
   ({ children }: PropsWithChildren<MetaHeadProps>) => {
@@ -45,6 +46,7 @@ export const MainLayout = withElronDapp(
         <Box minHeight="100vh" pb="24">
           <Container maxW="container.xl">
             <HeaderMenu>
+              <NexusBurnIndicator/>
               <HeaderMenuButtons enabled={["auth"]} />
             </HeaderMenu>
             <Box>{children}</Box>

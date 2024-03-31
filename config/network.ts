@@ -64,7 +64,7 @@ export const networkConfig = {
       EGLD: { identifier: "EGLD", decimals: 18 },
       WATER: { identifier: "WATER-9ed400", decimals: 18},
       MERMAID: { identifier: "MERMAID-9c388a", decimals: 18, faucet: "faucetMermaid"},
-      NEXUS: { identifier: "NEXUS-71d1d6", decimals: 18, faucet: "faucetNexus" },
+      NEXUS: { identifier: "NEXUS-71d1d6", decimals: 18, faucet: "faucetNexus", initialSupply: 100000000000000000000000000},
       WEGLD: { identifier: "WEGLD-bd4d79", decimals: 18},
       USDC: { identifier: "USDC-c76f1f", decimals: 6},
     },

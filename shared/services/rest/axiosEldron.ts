@@ -32,6 +32,7 @@ export const getFromAllTokens = async ({
     },
   });
 };
+
 export const getFromAllNFTs = async ({
   size = 10000,
   name = undefined,

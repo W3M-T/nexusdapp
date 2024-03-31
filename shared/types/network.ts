@@ -9,6 +9,7 @@ export interface IElrondToken extends IToken {
   decimals: number;
   isPaused: false;
   assets: {
+    [x: string]: any;
     description: string;
     status: string;
     social: {

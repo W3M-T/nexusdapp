@@ -9,6 +9,7 @@ import { EgldLogoIcon, MultiversxLogo } from "../../../../shared/components/icon
 import { customColors } from "../../../../config/chakraTheme";
 import { formatBalance, formatNumber } from "../../../../shared/utils/formatBalance";
 import { isMobile } from "../../../../shared/utils/isMobile";
+import { chainType, networkConfig } from "../../../../config/network";
 
 const getTokenDollarValue = (token: any) => {
     if (!token.price || !token.balance) { return 0; }
@@ -19,6 +20,8 @@ const DashboardSection = ({coinsHeight = "284px", ...props}) => {
     const { userTokens, isLoadingUserTokens, errorUserTokens } = useGetUserTokens();
     const { userEgld, isLoadingUserEgld, errorUserEgld } = useGetUserEgld();
     const isSmallDevice = isMobile();
+
+      const nexusIdentifier = networkConfig[chainType].tokens.NEXUS.identifier;
 
     let combinedData = [];
     let totalValue = 0;
@@ -138,10 +141,9 @@ const DashboardSection = ({coinsHeight = "284px", ...props}) => {
                                             borderRadius: "1.5rem",
                                             width: "30px",
                                             height: "30px",
-                                            marginRight: 1,
                                             boxShadow: "rgb(255 255 255 / 8%) 0px 6px 10px",
                                         }}
-                                        mb={1}
+                                        bg={token.identifier == nexusIdentifier ? "white" : null}
                                     >
                                         {token.name == "EGLD" ? (
                                             <EgldLogoIcon/>
@@ -149,6 +151,7 @@ const DashboardSection = ({coinsHeight = "284px", ...props}) => {
                                             <Image
                                                 src={token.assets?.svgUrl || token.assets?.static.src || ""}
                                                 alt={token.assets?.description || ""}
+                                                p={0.5}
                                             />
                                         )}
                                     </Box>
