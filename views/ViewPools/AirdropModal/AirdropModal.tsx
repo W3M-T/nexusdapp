@@ -39,7 +39,6 @@ const AirdropModal = ({
   const { pools: existingPools } = useNumerizePools();
 
   const poolIndex = existingPools.findIndex((p) => p.timestam == pool.timestam).toString();
-  console.log("⚠️ ~ poolIndex:", poolIndex)
   
   return (
     <MyModal
