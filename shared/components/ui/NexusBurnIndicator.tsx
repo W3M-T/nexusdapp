@@ -1,5 +1,5 @@
 import { Box, Image, Text, Tooltip } from "@chakra-ui/react";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useState } from "react";
 import useGetElrondToken from "../../hooks/tools/useGetElrondToken";
 import { chainType, networkConfig } from "../../../config/network";
 import { VscFlame } from "react-icons/vsc";
@@ -10,13 +10,21 @@ import { formatNumber } from "../../utils/formatBalance";
 export const NexusBurnIndicator = ({ children }: PropsWithChildren) => {
   const nexusToken = networkConfig[chainType].tokens.NEXUS;
   const {token, isLoading, isError} = useGetElrondToken(nexusToken.identifier);
-  console.log("⚠️ ~ token:", token)
   const tokensBurnt = nexusToken.initialSupply - token.circulatingSupply;
   const burntPercentage = ((tokensBurnt) / nexusToken.initialSupply * 100).toFixed(5);
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const openTooltip = () => {
+    setIsOpen(true);
+  };
 
   return (
     !isLoading && !isError ? 
     <Tooltip
+      hasArrow
+      isOpen={isOpen}
+      onClose={() => setIsOpen(false)}
       mt={-1}
       width={"full"}
       borderRadius={"xl"}
@@ -58,6 +66,8 @@ export const NexusBurnIndicator = ({ children }: PropsWithChildren) => {
           textColor: "black",
           borderColor: "white"
         }}
+        onClick={openTooltip}
+        onPointerEnter={openTooltip}
       >
 
         <div className="glowing-icon">
