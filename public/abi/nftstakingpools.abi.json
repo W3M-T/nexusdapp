@@ -87,6 +87,20 @@
             "outputs": []
         },
         {
+            "name": "sendAirdrop",
+            "mutability": "mutable",
+            "payableInTokens": [
+                "*"
+            ],
+            "inputs": [
+                {
+                    "name": "nft_pool",
+                    "type": "NftPool"
+                }
+            ],
+            "outputs": []
+        },
+        {
             "name": "payFee",
             "mutability": "mutable",
             "payableInTokens": [
@@ -264,20 +278,6 @@
                 {
                     "name": "collection",
                     "type": "TokenIdentifier"
-                }
-            ],
-            "outputs": []
-        },
-        {
-            "name": "sendAirdrop",
-            "mutability": "mutable",
-            "payableInTokens": [
-                "*"
-            ],
-            "inputs": [
-                {
-                    "name": "nft_pool",
-                    "type": "NftPool"
                 }
             ],
             "outputs": []
@@ -468,6 +468,22 @@
             "outputs": [
                 {
                     "type": "variadic<multi<NftPool,bytes,u32,u64,bytes,bool>>",
+                    "multi_result": true
+                }
+            ]
+        },
+        {
+            "name": "getUserEarnings",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "address",
+                    "type": "Address"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "variadic<multi<EgldOrEsdtTokenIdentifier,BigUint>>",
                     "multi_result": true
                 }
             ]
@@ -759,6 +775,47 @@
             ]
         },
         {
+            "docs": [
+                "Statistic for total claims"
+            ],
+            "name": "userEarnedTokens",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "address",
+                    "type": "Address"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "variadic<EgldOrEsdtTokenIdentifier>",
+                    "multi_result": true
+                }
+            ]
+        },
+        {
+            "docs": [
+                "Statistic for total claims"
+            ],
+            "name": "userEarnedAmount",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "address",
+                    "type": "Address"
+                },
+                {
+                    "name": "token",
+                    "type": "EgldOrEsdtTokenIdentifier"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "BigUint"
+                }
+            ]
+        },
+        {
             "name": "creatorCollections",
             "mutability": "readonly",
             "inputs": [
@@ -1025,6 +1082,9 @@
             ]
         },
         {
+            "docs": [
+                "This is used only for the airdrop rewards"
+            ],
             "name": "allowedRewardTokens",
             "mutability": "readonly",
             "inputs": [],
