@@ -40,7 +40,6 @@ export const NexusBurnIndicator = ({ children }: PropsWithChildren) => {
       <Box
         display="flex"
         alignItems="center"
-        // justifyContent={"center"}
         gap={2}
         flexDirection={"row"}
         textAlign={"center"}
