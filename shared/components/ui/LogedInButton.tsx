@@ -29,18 +29,21 @@ const LogedInButton = () => {
   if (!account) {
     return null;
   }
+
   const username = account?.username
-    ? account.username.slice(0, account.username.length - 7)
+    ? account.username.split('.')[0]
     : "";
 
   const userDisplay =
-    username !== "" ? "@" + username : shortenHash(account?.address, 7);
+    username !== "" ? "@" + shortenHash(username, 4) : shortenHash(account?.address, 4);
 
   return (
-    <Box position={"relative"} w={{ sm: "full", lg: customSizes.loginButton.lg }} ref={ref} display="flex" justifyContent="flex-end">
+    <Box position={"relative"} w={{ sm: customSizes.loginButton.sm, lg: customSizes.loginButton.lg }} ref={ref} display="flex"
+      // justifyContent="flex-end"
+    >
       <ActionButton
         onClick={onToggle}
-        w={customSizes.loginButton}
+        w={"full"}
         alignItems={"center"}
         bgColor="dappTemplate.color2.base"
         borderColor={"dappTemplate.color2.base"}
@@ -50,9 +53,9 @@ const LogedInButton = () => {
           bgColor: "dappTemplate.color2.darker",
         }}
       >
-        <Center>
+        <Center mx={-2}>
           <Text fontSize={"xs"}>{userDisplay}</Text>
-          <Icon as={isOpen ? FaAngleUp : FaAngleDown} fontSize="22px" ml={3} />
+          <Icon as={isOpen ? FaAngleUp : FaAngleDown} fontSize="22px" ml={1} />
         </Center>
       </ActionButton>
       {isOpen && <LoggedInMenu />}

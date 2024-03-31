@@ -1,8 +1,12 @@
-export const shortenHash = (address: string, charsAmount: number = 6) => {
-  const firstPart = address.substring(0, 4);
-  const lastPart = address.substring(
-    address.length - charsAmount,
-    address.length
-  );
-  return `${firstPart} ... ${lastPart}`;
+export const shortenHash = (text: string, charsAmount: number = 6) => {
+  if (text.length > 2 * charsAmount) {
+    const firstPart = text.substring(0, charsAmount);
+    const lastPart = text.substring(
+      text.length - charsAmount,
+      text.length
+    );
+    return `${firstPart} ... ${lastPart}`;
+  } else {
+    return text;
+  }
 };

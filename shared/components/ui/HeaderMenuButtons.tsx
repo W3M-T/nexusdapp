@@ -10,13 +10,12 @@ export const HeaderMenuButtons = ({ enabled }: HeaderMenuButtonsProps) => {
   return (
     <Box
       display="flex"
-      gap={5}
+      gap={1}
       alignItems="center"
       flexDirection={{ sm: "column", lg: "row" }}
       width={{ sm: "100%", lg: "auto" }}
+      justifyContent={"space-between"}
     >
-      {/* <SocialMediaIcons /> */}
-
       <NavMenu />
       {enabled.includes("auth") && <LoginModalButton />}
     </Box>

@@ -34,8 +34,8 @@ export const customColors = {
 
 export const customSizes = {
   loginButton: {
-    sm: "220px",
-    lg: "230px"
+    sm: "150px",
+    lg: "160px"
   },
   logoIcon: {
     sm: "40px",

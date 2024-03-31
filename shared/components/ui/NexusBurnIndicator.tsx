@@ -27,7 +27,7 @@ export const NexusBurnIndicator = ({ children }: PropsWithChildren) => {
       isOpen={isOpen}
       onClose={() => {
         if (!clickedTooltip) {
-          setTimeout(() => setIsOpen(false), 1000);
+          setTimeout(() => setIsOpen(false), 200);
         }
       }}
       onOpen={toogleTooltip}
@@ -73,7 +73,7 @@ export const NexusBurnIndicator = ({ children }: PropsWithChildren) => {
         }}
         onClick={() => {
           toogleTooltip();
-          setClickedTooltip(true);
+          setClickedTooltip(!clickedTooltip);
         }}
       >
 

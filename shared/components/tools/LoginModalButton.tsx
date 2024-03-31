@@ -33,7 +33,9 @@ export const LoginModalButton = ({
   }, [isLoggedIn]);
 
   return (
-    <Box position={"relative"} w={{ sm: "full", lg: customSizes.loginButton.lg }}>
+    <Box position={"relative"} w={{ sm: customSizes.loginButton.sm, lg: customSizes.loginButton.lg }}
+      alignSelf={"flex-end"}
+    >
       {isLoggedIn ? (
         <LogedInButton />
       ) : (
