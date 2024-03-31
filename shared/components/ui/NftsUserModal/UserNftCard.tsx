@@ -127,8 +127,11 @@ interface IProps {
 }
 
 const NftInfoModal = ({ attributes, tags, isOpen, onClose }: IProps) => {
+
+  const hasTags = tags?.length > 0 && tags[0] != "";
+
   return (
-  <MyModal isOpen={isOpen} onClose={onClose} size="xs">
+  <MyModal isOpen={isOpen} onClose={onClose} size="sm">
     {/* <ModalOverlay background={"rgba(0,0,0,0.1)"} /> */}
     <ModalContent py={4} mx={1} background={customColors.myCustomColor.lighter}>
         <ModalCloseButton
@@ -152,7 +155,7 @@ const NftInfoModal = ({ attributes, tags, isOpen, onClose }: IProps) => {
             borderRadius={"2xl"}
             bg={customColors.myCustomColor.base}
           >
-            {attributes.map((attr) => {
+            {attributes ? attributes.map((attr) => {
               return (
                 <HStack
                   key={attr}
@@ -167,7 +170,7 @@ const NftInfoModal = ({ attributes, tags, isOpen, onClose }: IProps) => {
                   </Text>
                 </HStack>
               )
-            })}
+            }) : <Text>No attributes found.</Text>}
           </VStack>
 
           <Text fontSize={"lg"} fontWeight={"bold"}> Tags </Text>
@@ -178,16 +181,15 @@ const NftInfoModal = ({ attributes, tags, isOpen, onClose }: IProps) => {
             w={"full"}
             borderRadius={"2xl"}
             bg={customColors.myCustomColor.base}
-            templateColumns={{ sm: "1fr 1fr", md: "1fr 1fr" }}
-            
+            templateColumns={hasTags ? { sm: "1fr 1fr", md: "1fr 1fr" } : "1fr"}
           >
-            {tags.map((tag) => {
+            {hasTags ? tags.map((tag) => {
               return (
                 <Text px={2} key={tag}>
                   #{tag}
                 </Text>)
               })
-            }
+            : <Center>No tags found.</Center>}
           </Grid>
 
         </VStack>
