@@ -6,7 +6,7 @@ import { fetchExistringPools } from "../../shared/redux/reduxAsyncFuncs/poolsFun
 import { route } from "../../shared/utils/routes";
 import ClaimUnsentRewards from "./components/ClaimUnsentRewards/ClaimUnsentRewards";
 import ExistingPools from "./components/ExistingPools/ExistingPools";
-import SendAirdrop from "./components/SendRewards/SendRewards";
+import SendRewards from "./components/SendRewards/SendRewards";
 import pools, { selectisNftCreator } from "../../shared/redux/slices/pools";
 import { CardWrapper } from "../../shared/components/ui/CardWrapper";
 import SearchTable1 from "../../shared/components/ui/SearchTable1";
@@ -40,7 +40,7 @@ const NftCollectionOwnerView = () => {
         <ExistingPools />
         <CardWrapper>
           <Heading fontSize={"2xl"} mb={"30px"}>Management</Heading>
-          <SendAirdrop />
+          <SendRewards />
           <Divider my={8}/>
           <ClaimUnsentRewards />
           <Divider my={8}/>

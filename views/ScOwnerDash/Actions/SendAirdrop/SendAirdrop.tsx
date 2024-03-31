@@ -1,4 +1,4 @@
-import { Center, Flex, Input } from "@chakra-ui/react";
+import { Center, Flex, Input, useEditable } from "@chakra-ui/react";
 import {
   Address,
   AddressType,
@@ -35,6 +35,8 @@ import {
 } from "../../../../shared/services/sc/calls";
 import { formatTokenI } from "../../../../shared/utils/formatTokenIdentifier";
 import { getTokenDetails } from "../../../../shared/utils/getTokenDetails";
+import _ from 'lodash';
+import { useEffect } from "react";
 
 const validationSchema = yup.object({
   token: yup.string().required(),
@@ -42,7 +44,7 @@ const validationSchema = yup.object({
   pool: yup.number().required(),
 });
 
-const SendAirdrop = () => {
+const SendAirdrop = ({specificPool = ""}) => {
   const { pools: existingPools } = useNumerizePools();
 
   const { data: rewardsTokens } = useAppSelector(selectRewardsTokens);
@@ -51,11 +53,13 @@ const SendAirdrop = () => {
     initialValues: {
       token: "",
       amount: "",
-      pool: "",
+      pool: specificPool
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
+
       const index = Number(values.pool);
+
       const pool = existingPools[index];
 
       const poolType = new StructType("pool", [
@@ -111,14 +115,8 @@ const SendAirdrop = () => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <Center flexDir={"column"}>
-        <Flex gap={4} mb={2} flexDir="column">
-          <Flex gap={4} mb={2}>
-            <Input
-              name="amount"
-              placeholder="Amount"
-              onChange={formik.handleChange}
-              isInvalid={formik.touched.amount && Boolean(formik.errors.amount)}
-            />
+        <Flex gap={2} p={4} flexDir="column">
+          <Flex>
             <SelectDark
               onChange={formik.handleChange}
               name="token"
@@ -140,25 +138,34 @@ const SendAirdrop = () => {
             </SelectDark>
           </Flex>
 
-          <SelectDark
+          <Input
+            name="amount"
+            placeholder="Amount"
             onChange={formik.handleChange}
-            name="pool"
-            minW="250px"
-            isInvalid={formik.touched.pool && Boolean(formik.errors.pool)}
-          >
-            <>
-              <OptionSelectDark value={""}>Pool</OptionSelectDark>
-              {existingPools.map((pool, i) => {
-                return (
-                  <OptionSelectDark key={i} value={i}>
-                    {i + 1} - {pool.poolName}
-                  </OptionSelectDark>
-                );
-              })}
-            </>
-          </SelectDark>
+            isInvalid={formik.touched.amount && Boolean(formik.errors.amount)}
+          />
+          
+          {!specificPool &&
+            <SelectDark
+              onChange={formik.handleChange}
+              name="pool"
+              minW="250px"
+              isInvalid={formik.touched.pool && Boolean(formik.errors.pool)}
+            >
+              <>
+                <OptionSelectDark value={""}>Pool</OptionSelectDark>
+                {existingPools.map((pool, i) => {
+                  return (
+                    <OptionSelectDark key={i} value={i}>
+                      {i + 1} - {pool.poolName}
+                    </OptionSelectDark>
+                  );
+                })}
+              </>
+            </SelectDark>
+          }
         </Flex>
-        <ActionButton type="submit">Send Airdrop</ActionButton>
+        <ActionButton my={2} type="submit">Send Airdrop</ActionButton>
       </Center>
     </form>
   );

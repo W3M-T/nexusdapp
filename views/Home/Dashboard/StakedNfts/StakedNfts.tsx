@@ -12,20 +12,20 @@ import orderBy from "lodash/orderBy";
 import Link from "next/link";
 import { Fragment, useEffect, useState } from "react";
 import { SwiperSlide } from "swiper/react";
-import { breakpoints } from "../../../config/chakraTheme";
-import { SwipperS } from "../../../shared/components/ui/SwiperS";
+import { breakpoints } from "../../../../config/chakraTheme";
+import { SwipperS } from "../../../../shared/components/ui/SwiperS";
 import {
   useAppDispatch,
   useAppSelector,
-} from "../../../shared/hooks/core/useRedux";
-import { fetchUserStaked } from "../../../shared/redux/reduxAsyncFuncs/poolsFuncs";
-import { selectUserStaked } from "../../../shared/redux/slices/pools";
-import { selectUserAddress } from "../../../shared/redux/slices/settings";
-import { route } from "../../../shared/utils/routes";
-import NFTCard from "../../Staked/StakingSection/NFTCard/NFTCard";
-import NftModal from "../../Staked/StakingSection/NftModal/NftModal";
-import { CardWrapper } from "../../../shared/components/ui/CardWrapper";
-import { ViewButton } from "../../../shared/components/tools/ViewButton";
+} from "../../../../shared/hooks/core/useRedux";
+import { fetchUserStaked } from "../../../../shared/redux/reduxAsyncFuncs/poolsFuncs";
+import { selectUserStaked } from "../../../../shared/redux/slices/pools";
+import { selectUserAddress } from "../../../../shared/redux/slices/settings";
+import { route } from "../../../../shared/utils/routes";
+import NFTCard from "../../../Staked/StakingSection/NFTCard/NFTCard";
+import NftModal from "../../../Staked/StakingSection/NftModal/NftModal";
+import { CardWrapper } from "../../../../shared/components/ui/CardWrapper";
+import { ViewButton } from "../../../../shared/components/tools/ViewButton";
 
 const StakedNfts = () => {
   const dispatch = useAppDispatch();
@@ -60,7 +60,7 @@ const StakedNfts = () => {
   }
 
   return (
-    <CardWrapper>
+    <CardWrapper w={"full"}>
       <Flex flexDir={"column"}>
         <HStack justifyContent="center" alignContent={"center"} mb={8}>
           <Heading
@@ -155,7 +155,7 @@ const StakedNfts = () => {
               ).map((nft, i) => {
                 return (
                   <SwiperSlide key={i}>
-                    <Box width="80%">
+                    <Box width="full">
                       <NFTCard
                         nft={nft}
                         onClick={() => handleViwNft(nft)}
@@ -163,7 +163,7 @@ const StakedNfts = () => {
                           borderRadius: { sm: "15px", md: "30px" },
                           p: {
                             sm: "5px",
-                            md: "15px",
+                            md: "10px",
                           },
                         }}
                         fromHome

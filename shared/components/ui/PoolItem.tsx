@@ -2,6 +2,7 @@ import {
   Box,
   Center,
   Flex,
+  HStack,
   Text,
   Tooltip,
   useDisclosure,
@@ -34,6 +35,7 @@ import { useAppSelector } from "../../hooks/core/useRedux";
 import {
   selectCanUserStake,
   selectHasStakedForAEN,
+  selectRewardsTokens,
   selectUserStaked,
 } from "../../redux/slices/pools";
 import { IExistingPool } from "../../redux/types/pools.interface";
@@ -48,6 +50,7 @@ import { customColors } from "../../../config/chakraTheme";
 import { egldFee } from "../../../config/network";
 import { selectUserAddress } from "../../redux/slices/settings";
 import getEgldBalance from "../../services/sc/scQueries/getEgldBalance";
+import AirdropModal from "../../../views/ViewPools/AirdropModal/AirdropModal";
 
 const SelectNftModal = dynamic(
   () => import("../../../views/ViewPools/SelectNftModal/SelectNftModal")
@@ -58,6 +61,8 @@ interface IProps {
 }
 const PoolItem = ({ pool }: IProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen: isOpenAirdrop, onOpen: onOpenAirdrop, onClose: onCloseAirdrop } = useDisclosure();
+
   const hasStakenForAEN = useAppSelector(selectHasStakedForAEN);
   const needToUnstake = useAppSelector(selectCanUserStake);
 
@@ -189,6 +194,7 @@ const PoolItem = ({ pool }: IProps) => {
           {pool.nftsNow} / {pool.nfts}{" "}
         </Text>
         <Authenticated>
+          <HStack>
           <Tooltip
             label={
               isStakingDisabled ? "Staking in this pool is disabled by the Pool Creator." : 
@@ -222,6 +228,19 @@ const PoolItem = ({ pool }: IProps) => {
               )}
             </Box>
           </Tooltip>
+          <Box>
+              {nftsStaked.status === "success" && (
+                <ActionButton
+                  borderRadius={"full"}
+                  fontSize="xs"
+                  py={1}
+                  onClick={onOpenAirdrop}
+                >
+                  Airdrop
+                </ActionButton>
+              )}
+            </Box>
+            </HStack>
         </Authenticated>
       </Center>
       {isOpen && (
@@ -230,6 +249,13 @@ const PoolItem = ({ pool }: IProps) => {
           onCloseModal={onClose}
           onConfirm={handleStake}
           colelction={pool.collection}
+        />
+      )}
+      {isOpenAirdrop && (
+        <AirdropModal
+          isOpenModal={isOpenAirdrop}
+          onCloseModal={onCloseAirdrop}
+          pool={pool}
         />
       )}
     </Flex>

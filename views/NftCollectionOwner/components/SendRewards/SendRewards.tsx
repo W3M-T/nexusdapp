@@ -32,7 +32,7 @@ const validationSchema = yup.object({
   pool: yup.number().required(),
 });
 
-const SendAirdrop = () => {
+const SendRewards = () => {
   const { poolsByAddress: existingPools } = useNumerizePools();
 
   const formik = useFormik({
@@ -102,4 +102,4 @@ const SendAirdrop = () => {
   );
 };
 
-export default SendAirdrop;
+export default SendRewards;

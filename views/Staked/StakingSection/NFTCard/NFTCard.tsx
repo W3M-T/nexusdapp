@@ -1,4 +1,4 @@
-import { Flex, FlexProps, Text, Tooltip } from "@chakra-ui/react";
+import { Center, Flex, FlexProps, Text, Tooltip } from "@chakra-ui/react";
 import { addDays } from "date-fns";
 import { useEffect, useState } from "react";
 import NextImg from "../../../../shared/components/ui/NextImg";
@@ -57,7 +57,7 @@ const NFTCard = ({
           selected ? "dappTemplate.color2.base" : isNew ? "dappTemplate.dark.darker" : "red"
         }
         borderRadius="0.7rem"
-        padding={"4"}
+        padding={2}
         bg="black"
         {...wrapperProps}
       >
@@ -98,6 +98,9 @@ const NFTCard = ({
             width: 600,
           }}
         />
+        <Center fontSize={{sm: "0", md: "2xs"}} pt={1} mb={-1}>
+          {nft.name}
+        </Center>
       </Flex>
     </Tooltip>
   );

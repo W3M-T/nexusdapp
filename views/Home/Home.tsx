@@ -4,8 +4,9 @@ import { Authenticated } from "../../shared/components/tools/Authenticated";
 import { MainLayout } from "../../shared/components/ui/MainLayout";
 import MyNfts from "./MyNfts/MyNfts";
 import Pools from "./Pools/Pools";
-import StakedNfts from "./StakedNfts/StakedNfts";
+import StakedNfts from "./Dashboard/StakedNfts/StakedNfts";
 import SwapView from "./SwapView/SwapView";
+import Dashboard from "./Dashboard/Dashboard";
 
 const Home = () => {
   return (
@@ -23,7 +24,7 @@ const Home = () => {
         <Flex mt={6} flexDir="column" gap={{sm: 0, md: 2}}>
           <SwapView/>
           <MyNfts />
-          <StakedNfts />
+          <Dashboard />
           <Pools />
         </Flex>
       {/* </Authenticated> */}

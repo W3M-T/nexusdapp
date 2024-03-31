@@ -20,6 +20,7 @@ import { noShowMedia } from "../../../shared/utils/excludeNft";
 import { CardWrapper } from "../../../shared/components/ui/CardWrapper";
 import { ActionButton } from "../../../shared/components/tools/ActionButton";
 import { ViewButton } from "../../../shared/components/tools/ViewButton";
+import UserNftCard from "../../../shared/components/ui/NftsUserModal/UserNftCard";
 
 const NftsUserModal = dynamic(
   () => import("../../../shared/components/ui/NftsUserModal/NftsUserModal")
@@ -122,7 +123,7 @@ const MyNfts = () => {
                             />
                           )}
                         </Box>
-                        <Box fontSize={{ sm: "10px", md: "11px" }} px={3}>
+                        <Box fontSize={{ sm: "0px", md: "xs" }} px={1}>
                           {nft.name}
                         </Box>
                       </Flex>
