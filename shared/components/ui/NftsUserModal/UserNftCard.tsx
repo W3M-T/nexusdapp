@@ -1,66 +1,197 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Center, Flex, Grid, HStack, ModalCloseButton, ModalContent, ModalOverlay, Text, Tooltip, useDisclosure, VStack } from "@chakra-ui/react";
 import Image from "next/image";
-import useSWR from "swr";
-import { getCollectionsCount } from "../../../services/rest/axiosEldron";
-import { getNftData } from "../../../services/rest/elrondnftswap";
-interface IProps {
-  nft: {
-    media?: any[];
-    name: string;
-    identifier: string;
-    collection: string;
-  };
-}
-const UserNftCard = ({ nft }: IProps) => {
-  const { data: nftElrondSwap } = useSWR(nft && nft.identifier, getNftData);
-  const { data: count } = useSWR(nft && nft.collection, getCollectionsCount);
+import { ActionButton } from "../../tools/ActionButton";
+import { TbExternalLink } from "react-icons/tb";
+import Link from "next/link";
+import { chainType, networkConfig } from "../../../../config/network";
+import { customColors } from "../../../../config/chakraTheme";
+import { IoMdInformationCircleOutline } from "react-icons/io";
+import WalletSection from "../../../../views/Home/SwapView/WalletSection/WalletSection";
+import MyModal from "../MyModal";
+
+const UserNftCard = (nft) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  
+  const nftName = nft.nft?.name || null;
+  const nftRank = nft.nft?.rank || null;
+  const nftThumbnail = nft.nft?.media[0].thumbnailUrl || null;
+  const nftTags = nft.nft?.tags || null;
+  const nftAttributes = nft.nft?.metadata.attributes || null; 
+  const explorerLink = networkConfig[chainType].explorerAddress + "/nfts/" + nft.nft?.identifier;
 
   return (
     <Flex flexDir={"column"} bg={"black"} borderRadius="md">
-      <Box key={nft.identifier}>
+      <Box key={nft.identifier} p={2}>
+        
         <Box position="relative" borderRadius={"lg"} overflow="hidden">
-          {nft.media && (
+          {nftThumbnail && (
             <Image
-              src={nft.media[0].thumbnailUrl}
+              src={nftThumbnail}
               alt={nft.identifier}
-              width={600}
-              height={600}
+              width={200}
+              height={200}
               layout="responsive"
             />
           )}
         </Box>
-        <Box px={3} mt={4}>
-          <Text fontSize={"smaller"} mb={2}>
-            {nft.identifier}
-          </Text>
-          <Flex justifyContent={"space-between"} alignItems="center" mb={1}>
-            {" "}
-            <Text fontSize={"xl"} mr={2}>
-              {nft.name}
+
+        <Box mt={3} gap={1}>
+          
+          <HStack fontSize={{sm: "sm", md: "lg"}} fontWeight={"semibold"} justifyContent={"space-between"}>
+            <Text>
+              {nftName.split("#")?.[0]}
             </Text>
-            {/* <IconNext
-            src={twitterImg}
-            width="24px"
-            nextW="20.17px"
-            nextH="16.45px"
-          /> */}
-          </Flex>
-          <Flex justifyContent={"space-between"} mb={3}>
-            {nftElrondSwap && (
-              <Text fontSize={"smaller"} textDecoration="underline">
-                Rank {nftElrondSwap?.rank}
-              </Text>
-            )}
-            {nftElrondSwap && count && (
-              <Text fontSize={"smaller"}>
-                {nftElrondSwap?.rank} of {count}
-              </Text>
-            )}
-          </Flex>
+            <Text>
+              #{nftName.split("#")?.[1] || "-"}
+            </Text>
+          </HStack>
+
+          <HStack fontSize={{sm: "xs", md: "md"}} fontWeight={"normal"} justifyContent={"space-between"}>
+            <Text>
+              Rank
+            </Text>
+            <Text>
+              {nftRank}
+            </Text>
+          </HStack>
+
+          {/* <HStack fontSize={"xs"} fontWeight={"light"} justifyContent={"space-between"}>
+            <Text>
+              {nftTags.map((tag) => "#" + tag).join(" ")}
+            </Text>
+          </HStack> */}
+
+          <HStack pt={4} justifyContent={"space-between"}>
+
+            <Attributes attributes={nftAttributes} tags={nftTags} onOpen={onOpen} isOpen={isOpen} onClose={onClose}/>
+
+            <ViewOnExplorer link={explorerLink}/>
+
+          </HStack>
+
         </Box>
+
       </Box>
     </Flex>
   );
 };
 
 export default UserNftCard;
+
+
+const ViewOnExplorer = ({link}) => {
+  return (
+    <Link href={link}>
+      <HStack
+        border={"3px solid"}
+        borderColor={customColors.myCustomColor.lighter}
+        borderRadius={"2xl"}
+        px={2}
+        py={1}
+        _hover={{
+          bg: customColors.myCustomColor.lighter
+        }}
+      >
+        <Text fontSize={"xs"} fontWeight={"semibold"}>View </Text>
+        <TbExternalLink size={"16px"}/>
+      </HStack>
+    </Link>
+  )
+}
+
+const Attributes = ({attributes, tags, onOpen, isOpen, onClose}) => {
+  return (
+    <HStack
+      border={"3px solid"}
+      borderColor={customColors.myCustomColor.lighter}
+      borderRadius={"2xl"}
+      px={2}
+      py={1}
+      _hover={{
+        bg: customColors.myCustomColor.lighter
+      }}
+      onClick={onOpen}
+    >
+      <Text fontSize={"xs"} fontWeight={"semibold"}>Info </Text>
+      <IoMdInformationCircleOutline size={"16px"}/>
+      {isOpen && <NftInfoModal attributes={attributes} tags={tags} isOpen={isOpen} onClose={onClose}/>}
+    </HStack>
+  )
+}
+
+interface IProps {
+  attributes: any[],
+  tags: string[],
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const NftInfoModal = ({ attributes, tags, isOpen, onClose }: IProps) => {
+  return (
+  <MyModal isOpen={isOpen} onClose={onClose} size="xs">
+    {/* <ModalOverlay background={"rgba(0,0,0,0.1)"} /> */}
+    <ModalContent py={4} mx={1} background={customColors.myCustomColor.lighter}>
+        <ModalCloseButton
+          border="none"
+          outline={"none"}
+          _focus={{ boxShadow: "none" }}
+          right={0}
+          top={0}
+        />
+        <VStack
+          w={"full"}
+          px={4}
+        >
+
+          <Text fontSize={"lg"} fontWeight={"bold"}> Attributes </Text>
+
+          <VStack
+            w={"full"}
+            gap={2}
+            p={4}
+            borderRadius={"2xl"}
+            bg={customColors.myCustomColor.base}
+          >
+            {attributes.map((attr) => {
+              return (
+                <HStack
+                  key={attr}
+                  w={"full"}
+                  justifyContent={"space-between"}
+                >
+                  <Text fontSize={"sm"} fontWeight={"light"}>
+                    {attr.trait_type}:
+                  </Text>
+                  <Text fontSize={"md"} fontWeight={"medium"}>
+                    {attr.value}
+                  </Text>
+                </HStack>
+              )
+            })}
+          </VStack>
+
+          <Text fontSize={"lg"} fontWeight={"bold"}> Tags </Text>
+
+          <Grid fontSize={"sm"} fontWeight={"light"} justifyContent={"space-between"}
+            gap={2}
+            p={4}
+            w={"full"}
+            borderRadius={"2xl"}
+            bg={customColors.myCustomColor.base}
+            templateColumns={{ sm: "1fr 1fr", md: "1fr 1fr" }}
+            
+          >
+            {tags.map((tag) => {
+              return (
+                <Text px={2} key={tag}>
+                  #{tag}
+                </Text>)
+              })
+            }
+          </Grid>
+
+        </VStack>
+    </ModalContent>
+  </MyModal>
+  );
+}

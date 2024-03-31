@@ -21,6 +21,7 @@ interface IProps {
 }
 const NftsUserModal = ({ onClose, isOpen }: IProps) => {
   const nfts = useGetNfts();
+  console.log("⚠️ ~ nfts:", nfts)
   return (
     <MyModal isOpen={isOpen} onClose={onClose} size={"6xl"}>
       <ModalContent background={customColors.myCustomColor.base} borderRadius="20px">
@@ -36,20 +37,20 @@ const NftsUserModal = ({ onClose, isOpen }: IProps) => {
           <Grid
             templateColumns={{
               sm: "1fr 1fr",
-              lsm: "1fr 1fr",
+              // sm: "1fr",
               md: "1fr 1fr 1fr",
               lg: "1fr 1fr 1fr 1fr",
             }}
-            gap={10}
+            gap={{sm: 4, md: 8}}
             maxH={"80vh"}
+            maxW={"100vw"}
             overflowY={"auto"}
+            py={4}
           >
             {nfts
               .filter((nft) => !noShowMedia(nft))
               .map((nft) => {
-                return <Box key={nft.identifier} width={{sm: "170px", lg: "240px"}}>
-                  <UserNftCard key={nft.identifier} nft={nft}/>
-                </Box>;
+                return <UserNftCard key={nft.identifier} nft={nft}/>;
               })}
           </Grid>
         </ModalBody>

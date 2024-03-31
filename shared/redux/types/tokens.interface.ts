@@ -5,6 +5,7 @@ export interface INft {
   nonce: number;
   type: string;
   name: string;
+  rank: string;
   creator: string;
   isWhitelistedStorage: false;
   balance: string;
@@ -33,5 +34,6 @@ export interface INft {
   tags?: string[];
   metadata?: {
     description: string;
+    attributes: string[];
   };
 }
