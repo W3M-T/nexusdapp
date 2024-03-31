@@ -20,7 +20,8 @@ export const NexusBurnIndicator = ({ children }: PropsWithChildren) => {
       mt={-1}
       width={"full"}
       borderRadius={"xl"}
-      bgColor={customColors.myCustomColor.lighter}
+      bgColor={"white"}
+      textColor={"black"}
       label={
         <>
           <b><u>NEXUS Burn Stats</u></b>
@@ -43,7 +44,7 @@ export const NexusBurnIndicator = ({ children }: PropsWithChildren) => {
         gap={2}
         flexDirection={"row"}
         textAlign={"center"}
-        border={"1px solid"}
+        border={"2px solid"}
         borderRadius={"3xl"}
         borderColor={customColors.myCustomColor.darker}
         bgColor={customColors.myCustomColor.lighter}
@@ -51,12 +52,12 @@ export const NexusBurnIndicator = ({ children }: PropsWithChildren) => {
         _hover={{
           bgColor: "white",
           textColor: "black",
-          borderColor: "darkred"
+          borderColor: "white"
         }}
         _active={{
           bgColor: "white",
           textColor: "black",
-          borderColor: "darkred"
+          borderColor: "white"
         }}
       >
 
