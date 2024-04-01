@@ -82,7 +82,8 @@ const SelectNftModal = ({
           columnGap={5}
           rowGap="10"
           flexWrap="wrap"
-          my={6}
+          my={4}
+          py={2}
           maxH={"60vh"}
           overflowY={"auto"}
         >
