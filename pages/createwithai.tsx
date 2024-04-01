@@ -7,7 +7,7 @@ import { MetaHead } from '../shared/components/ui/MetaHead'
 function ImageGeneratorPage() {
     return (
         <>
-            <MetaHead metaTitle={"dApp"} />
+            <MetaHead metaTitle={"Generate Image"} />
             <MainLayout>
                 <div className='back-bg pt-[50px] w-full'>
                     <ImageGenerator />

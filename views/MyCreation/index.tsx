@@ -48,13 +48,13 @@ function MyCreation() {
                 <div className='flex flex-col justify-between items-center md:flex-row  sm:flex-row xl:flex-row  '>
                     <div>
                         <h1 className='flex items-center gap-4 text-white text-[25px] font-bold'>My creations <span className='text-title-primary font-bold'>Public Profile</span></h1>
-                        <button type='button' className='whitespace-nowrap flex items-center gap-x-2 mt-4 text-gray-950 bg-white px-[20px] py-[10px] rounded-[13px] text-[17px] font-semibold shadow-md'>Recent <BsCaretDown className='text-gray-950' /></button>
+                        <button type='button' className='whitespace-nowrap flex items-center gap-x-2 mt-4 text-gray-950 bg-blue-primary px-[20px] py-[10px] rounded-[13px] text-[17px] font-semibold shadow-md'>Recent <BsCaretDown className='text-gray-950' /></button>
                     </div>
                     <div>
-                        <button type='button' className='whitespace-nowrap text-gray-950 bg-white px-[20px] py-[10px] rounded-[13px] text-[17px] font-semibold shadow-md' onClick={handleOpenModal}>Mint Nft</button>
+                        <button type='button' className='whitespace-nowrap text-gray-950 bg-blue-primary px-[20px] py-[10px] rounded-[13px] text-[17px] font-semibold shadow-md' onClick={handleOpenModal}>Mint Nft</button>
                     </div>
                     <div>
-                        <button type='button' className='text-gray-950 bg-white px-[20px] py-[10px] rounded-[13px] text-[17px] font-semibold shadow-md'>Select</button>
+                        <button type='button' className='text-gray-950 bg-blue-primary px-[20px] py-[10px] rounded-[13px] text-[17px] font-semibold shadow-md'>Select</button>
                     </div>
                 </div>
             </div>

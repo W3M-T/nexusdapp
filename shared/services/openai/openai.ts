@@ -6,15 +6,18 @@ interface imageGenerateProps {
     width: string,
     height: string,
 }
+const openAIkey = process.env.NEXT_PUBLIC_OPEN_AI_KEY;
+
 
 let messages: any[] = [];
+const apiUrl = "https://pensyai.com/wp-json/mwai-ui/v1/chats/submit";
 
 export const generateResponse = async (prompt: any) => {
     try {
 
         messages.push({ role: 'user', content: prompt })
 
-        const response = await axios.post("hello", {
+        const response = await axios.post(apiUrl, {
             botId: "default",
             customId: null,
             session: "N/A",
@@ -27,7 +30,7 @@ export const generateResponse = async (prompt: any) => {
         }, {
             headers: {
                 'Content-Type': 'application/json',
-                'X-Wp-Nonce': '43dc469862',
+                'X-Wp-Nonce': '2b1de61b46',
             }
         });
 
@@ -57,7 +60,13 @@ export const generateImage = async (props: imageGenerateProps) => {
             prompt: prompt,
             n: 1,
             size: `${width}x${height}`
-        })
+        },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${openAIkey}`,
+                },
+            })
         return response.data.data[0];
     } catch (error: any) {
         Swal.fire({
