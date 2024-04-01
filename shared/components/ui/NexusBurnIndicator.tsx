@@ -37,7 +37,7 @@ export const NexusBurnIndicator = ({ children }: PropsWithChildren) => {
       textColor={"black"}
       label={
         <>
-          <b><u>NEXUS Burn Stats</u></b>
+          <b><u>NEXUS Burn Statistics</u></b>
           <br/>
           <br/>
           <b>Initial supply:</b> &nbsp;&nbsp;&nbsp; {formatNumber(BigNumber(nexusToken.initialSupply).dividedBy(Math.pow(10, 18)).toNumber())}

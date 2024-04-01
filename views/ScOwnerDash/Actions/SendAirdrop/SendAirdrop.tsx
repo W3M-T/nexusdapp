@@ -121,6 +121,7 @@ const SendAirdrop = ({specificPool = ""}) => {
               onChange={formik.handleChange}
               name="token"
               isInvalid={formik.touched.token && Boolean(formik.errors.token)}
+              border={"1px solid white"}
             >
               <>
                 <OptionSelectDark>Token</OptionSelectDark>
