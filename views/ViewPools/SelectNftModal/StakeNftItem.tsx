@@ -1,4 +1,4 @@
-import { Center, Text } from "@chakra-ui/react";
+import { Center, Img, Text } from "@chakra-ui/react";
 import NextImg from "../../../shared/components/ui/NextImg";
 import { INft } from "../../../shared/redux/types/tokens.interface";
 import { noShowMedia } from "../../../shared/utils/excludeNft";
@@ -26,7 +26,7 @@ const StakeNftItem = ({ nft, onClick, selected }: IProps) => {
       w={{sm: "110px", md: "130px"}}
     >
       {" "}
-      <NextImg
+      <Img
         alt={"nft"}
         width={["80px", "100px"]}
         sx={{
@@ -35,10 +35,10 @@ const StakeNftItem = ({ nft, onClick, selected }: IProps) => {
           },
         }}
         src={nft.media[0].url} // use normal <img> attributes as props
-        nextProps={{
-          height: 490,
-          width: 490,
-        }}
+        // nextProps={{
+        //   height: 490,
+        //   width: 490,
+        // }}
       />
       <Text
         textAlign={"center"}

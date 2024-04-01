@@ -93,11 +93,11 @@ const SelectNftModal = ({
                 nft={nft}
                 key={nft.nonce}
                 onClick={() => handleSelectNFT(nft)}
-                selected={Boolean(
+                selected={selectedNFTs ? Boolean(
                   selectedNFTs.find(
-                    (selectednft) => selectednft.identifier === nft.identifier
+                    (selectednft) => selectednft?.identifier === nft.identifier
                   )
-                )}
+                ) : false}
               />
             );
           })}
