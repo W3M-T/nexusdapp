@@ -28,8 +28,9 @@ const NavMenu = () => {
               _hover={{
                 textShadow: "0 0 10px " + customColors.color2.base,
               }}
+              className={``}
             >
-              {route.name}
+              {route.destopshow && route.name}
             </Box>
           </Link>
         );

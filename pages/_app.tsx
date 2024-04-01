@@ -7,6 +7,7 @@ import "@fontsource/poppins/600.css";
 import "@fontsource/poppins/700.css";
 import "@fontsource/poppins/800.css";
 import "@fontsource/poppins/900.css";
+import "../public/styles/global.css"
 
 import { Box, ChakraProvider } from "@chakra-ui/react";
 import { AxiosInterceptorContext } from "@multiversx/sdk-dapp/wrappers/AxiosInterceptorContext";
@@ -79,9 +80,9 @@ const NextJSDappTemplate = ({ Component, pageProps }: AppProps) => {
             <ChakraProvider theme={theme}>
               {/* <MetaHead /> */}
               {/* <Box color="black"> */}
-                <TransactionsToastList successfulToastLifetime={6000} />
-                <NotificationModal />
-                <SignTransactionsModals />
+              <TransactionsToastList successfulToastLifetime={6000} />
+              <NotificationModal />
+              <SignTransactionsModals />
               {/* </Box> */}
               <Component {...pageProps} />
             </ChakraProvider>

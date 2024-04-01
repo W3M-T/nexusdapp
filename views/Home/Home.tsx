@@ -1,5 +1,5 @@
 import { Center, Flex, Heading } from "@chakra-ui/react";
-import "swiper/css";
+// import "swiper/css";
 import { Authenticated } from "../../shared/components/tools/Authenticated";
 import { MainLayout } from "../../shared/components/ui/MainLayout";
 import MyNfts from "./MyNfts/MyNfts";
@@ -20,12 +20,12 @@ const Home = () => {
           </Center>
         }
       > */}
-        <Flex mt={6} flexDir="column" gap={{sm: 0, md: 2}}>
-          <SwapView/>
-          <MyNfts />
-          <StakedNfts />
-          <Pools />
-        </Flex>
+      <Flex mt={6} flexDir="column" gap={{ sm: 0, md: 2 }}>
+        <SwapView />
+        <MyNfts />
+        <StakedNfts />
+        <Pools />
+      </Flex>
       {/* </Authenticated> */}
     </MainLayout>
   );

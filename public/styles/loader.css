@@ -1,0 +1,236 @@
+.custom-properties {
+    --bg: hsl(var(--hue), 90%, 5%);
+    --fg: hsl(var(--hue), 90%, 95%);
+    --boxSize: 50px;
+    --boxMargin: calc(var(--boxSize) / 3);
+    --boxColor1: #CE9FFC;
+    --boxColor2: #7367F0;
+    --boxBorderRadius: 50%;
+    --delay: .1s;
+}
+
+.ip {
+    width: 16em;
+    height: 8em;
+}
+
+.ip__track {
+    stroke: #ddd;
+    transition: stroke var(--trans-dur);
+}
+
+.ip__worm1,
+.ip__worm2 {
+    animation: worm1 2s linear infinite;
+}
+
+.ip__worm2 {
+    animation-name: worm2;
+}
+
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+    .ip__track {
+        stroke: hsl(var(--hue), 90%, 15%);
+    }
+}
+
+/* Animation */
+@keyframes worm1 {
+    from {
+        stroke-dashoffset: 0;
+    }
+
+    50% {
+        animation-timing-function: steps(1);
+        stroke-dashoffset: -358;
+    }
+
+    50.01% {
+        animation-timing-function: linear;
+        stroke-dashoffset: 358;
+    }
+
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes worm2 {
+    from {
+        stroke-dashoffset: 358;
+    }
+
+    50% {
+        stroke-dashoffset: 0;
+    }
+
+    to {
+        stroke-dashoffset: -358;
+    }
+}
+
+.dot-falling {
+    position: relative;
+    left: -9999px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #9880ff;
+    color: #9880ff;
+    box-shadow: 9999px 0 0 0 #9880ff;
+    animation: dot-falling 1s infinite linear;
+    animation-delay: 0.1s;
+}
+
+.dot-falling::before,
+.dot-falling::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+}
+
+.dot-falling::before {
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #9880ff;
+    color: #9880ff;
+    animation: dot-falling-before 1s infinite linear;
+    animation-delay: 0s;
+}
+
+.dot-falling::after {
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #9880ff;
+    color: #9880ff;
+    animation: dot-falling-after 1s infinite linear;
+    animation-delay: 0.2s;
+}
+
+@keyframes dot-falling {
+    0% {
+        box-shadow: 9999px -15px 0 0 rgba(152, 128, 255, 0);
+    }
+
+    25%,
+    50%,
+    75% {
+        box-shadow: 9999px 0 0 0 #9880ff;
+    }
+
+    100% {
+        box-shadow: 9999px 15px 0 0 rgba(152, 128, 255, 0);
+    }
+}
+
+@keyframes dot-falling-before {
+    0% {
+        box-shadow: 9984px -15px 0 0 rgba(152, 128, 255, 0);
+    }
+
+    25%,
+    50%,
+    75% {
+        box-shadow: 9984px 0 0 0 #9880ff;
+    }
+
+    100% {
+        box-shadow: 9984px 15px 0 0 rgba(152, 128, 255, 0);
+    }
+}
+
+@keyframes dot-falling-after {
+    0% {
+        box-shadow: 10014px -15px 0 0 rgba(152, 128, 255, 0);
+    }
+
+    25%,
+    50%,
+    75% {
+        box-shadow: 10014px 0 0 0 #9880ff;
+    }
+
+    100% {
+        box-shadow: 10014px 15px 0 0 rgba(152, 128, 255, 0);
+    }
+}
+
+.centerFlex {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.customloader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.customloader p {
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 4em;
+    font-family: arial;
+    font-weight: 600;
+    transform: scale(.5);
+    color: #121212;
+    -webkit-text-stroke: 2px gray;
+}
+
+.customloader p:nth-child(1) {
+    animation: hover 1s linear infinite;
+}
+
+.customloader p:nth-child(2) {
+    animation: hover 1s linear infinite .125s;
+}
+
+.customloader p:nth-child(3) {
+    animation: hover 1s linear infinite .25s;
+}
+
+.customloader p:nth-child(4) {
+    animation: hover 1s linear infinite .375s;
+}
+
+.customloader p:nth-child(5) {
+    animation: hover 1s linear infinite .5s;
+}
+
+.customloader p:nth-child(6) {
+    animation: hover 1s linear infinite .675s;
+}
+
+.customloader p:nth-child(7) {
+    animation: hover 1s linear infinite .75s;
+}
+
+@keyframes hover {
+    0% {
+        transform: scale(.5);
+        color: #121212;
+        -webkit-text-stroke: 2px gray;
+    }
+
+    20% {
+        transform: scale(1);
+        color: pink;
+        -webkit-text-stroke: 3px red;
+        filter: drop-shadow(0 0 1px black) drop-shadow(0 0 1px black) drop-shadow(0 0 3px red) drop-shadow(0 0 5px red) hue-rotate(10turn);
+    }
+
+    50% {
+        transform: scale(.5);
+        color: #121212;
+        -webkit-text-stroke: 2px gray;
+    }
+}

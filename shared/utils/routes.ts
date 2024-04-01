@@ -22,6 +22,7 @@ interface IRoute {
   public?: boolean;
   icon?: IconType;
   hideFromMobile?: boolean;
+  destopshow?: boolean;
 }
 export const route = {
   home: {
@@ -29,6 +30,7 @@ export const route = {
     name: "Home",
     public: true,
     icon: AiOutlineHome,
+    destopshow: true,
   },
   staked: {
     route: "/staked",
@@ -36,12 +38,14 @@ export const route = {
     public: true,
     icon: RiNftFill,
     hideFromMobile: true,
+    destopshow: true,
   },
   create: {
     route: "/create-pool",
     name: "Create Pool",
     public: false,
     icon: TbPyramid,
+    destopshow: true,
   },
   view: {
     route: "/view-pools",
@@ -49,30 +53,43 @@ export const route = {
     public: true,
     icon: PiStackDuotone,
     hideFromMobile: true,
+    destopshow: true,
   },
   faucets: {
     route: "/faucets",
     name: "Faucets",
     public: true,
     icon: GiReceiveMoney,
+    destopshow: true,
+  },
+  dapp: {
+    route: "/dapp",
+    name: "dApp",
+    public: true,
+    icon: LuBadgeHelp,
+    hideFromMobile: true,
+    destopshow: true,
   },
   support: {
-    route: "https://nexusdapp.pensyai.com",
+    route: "/chat",
     name: "Support",
     public: true,
     icon: LuBadgeHelp,
+    destopshow: false,
   },
   scOwner: {
     route: "/sc-owner-dashboard",
     name: "SC Owner",
     outNav: true,
     icon: AiOutlineUser,
+    destopshow: true,
   },
   nftCollectionOwner: {
     route: "/nft-collection-owner",
     name: "Nft Collection Owner",
     outNav: true,
     icon: AiOutlineUpCircle,
+    destopshow: true,
   },
 };
 
