@@ -21,8 +21,8 @@ const NextImg = ({ src, alt = "", nextProps, ...props }: IProps) => {
             : src
         }
         alt={alt}
-        width={24}
-        height={24}
+        width={22}
+        height={22}
         layout="responsive"
         {...nextProps}
       />

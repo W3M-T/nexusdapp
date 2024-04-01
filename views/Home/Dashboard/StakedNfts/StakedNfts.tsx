@@ -52,7 +52,7 @@ const StakedNfts = ({stakedNfts}) => {
 
   return (
     <CardWrapper w={"full"} 
-      minH={{md: "300px"}} maxH={{md: "300px"}}
+      minH={{md: "320px"}} maxH={{md: "320px"}}
     >
       <Flex flexDir={"column"}>
         <HStack justifyContent="center" alignContent={"center"} mb={8}>
@@ -148,7 +148,7 @@ const StakedNfts = ({stakedNfts}) => {
               ).map((nft, i) => {
                 return (
                   <SwiperSlide key={i}>
-                    <Box width="full">
+                    <Box width="full" p={1}>
                       <NFTCard
                         nft={nft}
                         onClick={() => handleViwNft(nft)}

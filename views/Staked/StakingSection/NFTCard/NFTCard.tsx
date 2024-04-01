@@ -47,7 +47,9 @@ const NFTCard = ({
       isDisabled={isNew}
     >
       <Flex
-        height="full"
+        height="100%"
+        w={"100%"}
+        maxW={"180px"}
         cursor="pointer"
         position={"relative"}
         flexDir="column"
@@ -93,12 +95,12 @@ const NFTCard = ({
             },
           }}
           src={nft.url}
-          nextProps={{
-            height: 600,
-            width: 600,
-          }}
+          // nextProps={{
+          //   height: 400,
+          //   width: 400,
+          // }}
         />
-        <Center fontSize={{sm: "0", md: "2xs"}} pt={1} mb={-1}>
+        <Center fontSize={{sm: "0", md: "xs"}} pt={1} mb={-1}>
           {nft.name}
         </Center>
       </Flex>

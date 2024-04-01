@@ -21,7 +21,7 @@ const MyEarnings = ({earnedTokens}) => {
         <Authenticated spinnerCentered>
 
         <CardWrapper w={"full"} pb={4}
-            minH={{md: "300px"}} maxH={{md: "300px"}}
+            minH={{md: "320px"}} maxH={{md: "320px"}}
         >
             <Flex flexDir={"column"}>
 
@@ -61,8 +61,8 @@ const MyEarnings = ({earnedTokens}) => {
                         w={"full"}
                         bg={customColors.myCustomColor.darker}
                         borderRadius={"2xl"}
-                        maxH={"150px"}
-                        minH={"150px"}
+                        maxH={"170px"}
+                        minH={"170px"}
                         overflowY={"auto"}
                     >
 
