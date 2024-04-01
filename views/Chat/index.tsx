@@ -118,7 +118,7 @@ function Chatai() {
     }
 
     const newLocal = (
-        <Tooltip title="Reset Chat" className='cursor-pointer'>
+        <Tooltip title="Reset Chat" style={{ cursor: 'pointer' }}>
             <div>
                 <div className='reset rounded-full px-[10px] py-[10px]' onClick={resetChat}>
                     <AiOutlineArrowLeft size={19} className='text-white' />
@@ -158,8 +158,8 @@ function Chatai() {
 
     return (
         <div className='pt-[40px]   w-full flex justify-center items-center'>
-            <div className='w-full flex flex-col justify-center' >
-                <div className='flex justify-center w-full flex-col'>
+            <div className='w-full' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', width: '100%', flexDirection: 'column' }}>
                     <div
                         style={{
                             display: 'flex',
@@ -205,12 +205,21 @@ function Chatai() {
                                                             <div
                                                                 key={idx}
                                                                 style={{
+                                                                    display: 'flex',
+                                                                    justifyContent: 'space-between',
                                                                     backgroundColor: isDarkMode ? 'rgb(17, 10, 43)' : '#F1F1F1',
                                                                     border: '1px solid',
                                                                     borderColor: isDarkMode ? '#1D1E23' : '#E5E6E9',
                                                                     padding: '16px 24px',
+                                                                    borderRadius: '16px',
+                                                                    maxWidth: '230px',
+                                                                    cursor: 'pointer',
+                                                                    minWidth: "200px",
+                                                                    maxHeight: "300px",
+                                                                    minHeight: "10px",
+                                                                    height: "70px"
                                                                 }}
-                                                                className='flex justify-between max-w-[230px] min-w-[200px] min-h-[300px] cursor-pointer h-[70px] rounded-[16px]'
+                                                                // className={`flex justify-between p-x`}
                                                                 onClick={() => handleQuestionClick(ques)}
                                                             >
                                                                 <Text className='text-[13px] font-semibold text-[#FFFF]'>
@@ -236,9 +245,10 @@ function Chatai() {
                                         style={{
                                             backgroundColor: isDarkMode ? 'rgb(17, 10, 43)' : '#F1F1F1',
                                             borderRadius: "20px",
+                                            marginTop: "10px",
                                             padding: "10px 20px",
+                                            marginLeft: "3.3vw"
                                         }}
-
                                         className='rounded-[20px] mt-[10px] ml-[3.3vw] '
                                     >
                                         <div className='flex gap-x-[5px] items-center justify-center'>
@@ -254,7 +264,7 @@ function Chatai() {
                         </div>
                     </div>
 
-                    <form className='w-full' onSubmit={handleSubmit} ref={formRef}>
+                    <form style={{ width: '100%' }} onSubmit={handleSubmit} ref={formRef}>
                         <div
                             style={{
                                 backgroundColor: isDarkMode ? 'rgb(28, 15, 58)' : '#F1F1F1',
@@ -277,7 +287,7 @@ function Chatai() {
                             </button>
 
                             <button type="submit" className='pb-[7px] outline-none border-none bg-transparent'>
-                                <LazyLoadImage width={'33px'} height={'33px'} src={"/assets/webp/sendicon.webp"} alt="bg" className={`${loading ? "cursor-not-allowed" : "cursor-pointer"}`} />
+                                <LazyLoadImage width={'33px'} height={'33px'} src={"/assets/webp/sendicon.webp"} alt="bg" style={{ cursor: loading ? "not-allowed" : "pointer" }} />
                             </button>
                         </div>
 
