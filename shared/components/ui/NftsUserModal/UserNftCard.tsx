@@ -6,7 +6,6 @@ import Link from "next/link";
 import { chainType, networkConfig } from "../../../../config/network";
 import { customColors } from "../../../../config/chakraTheme";
 import { IoMdInformationCircleOutline } from "react-icons/io";
-import WalletSection from "../../../../views/Home/SwapView/WalletSection/WalletSection";
 import MyModal from "../MyModal";
 
 const UserNftCard = (nft) => {

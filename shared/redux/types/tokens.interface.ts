@@ -37,3 +37,8 @@ export interface INft {
     attributes: string[];
   };
 }
+
+export interface ITokenAmount {
+  token: string;
+  amount: number;
+}

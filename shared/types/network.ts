@@ -32,7 +32,8 @@ export interface IElrondToken extends IToken {
   price: number,
   marketCap: number,
   supply: number,
-  circulatingSupply: number
+  circulatingSupply: number,
+  earnedAmount?: string | number;
 }
 
 interface ITokens {

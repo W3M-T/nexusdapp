@@ -27,11 +27,7 @@ import NftModal from "../../../Staked/StakingSection/NftModal/NftModal";
 import { CardWrapper } from "../../../../shared/components/ui/CardWrapper";
 import { ViewButton } from "../../../../shared/components/tools/ViewButton";
 
-const StakedNfts = () => {
-  const dispatch = useAppDispatch();
-  const stakedNfts = useAppSelector(selectUserStaked);
-
-  const address = useAppSelector(selectUserAddress);
+const StakedNfts = ({stakedNfts}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedNft, setSelectedNft] = useState(null);
   const [isLargerThanLg] = useMediaQuery(`(min-width: ${breakpoints.lg})`);
@@ -49,18 +45,15 @@ const StakedNfts = () => {
     poolItems = 5;
   }
 
-  useEffect(() => {
-    if (address) {
-      dispatch(fetchUserStaked({ address: address, page: 1 }));
-    }
-  }, [address, dispatch]);
 
   if (stakedNfts.data.nfts.length === 0) {
     return null;
   }
 
   return (
-    <CardWrapper w={"full"}>
+    <CardWrapper w={"full"} 
+      minH={{md: "300px"}} maxH={{md: "300px"}}
+    >
       <Flex flexDir={"column"}>
         <HStack justifyContent="center" alignContent={"center"} mb={8}>
           <Heading

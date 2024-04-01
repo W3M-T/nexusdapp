@@ -11,7 +11,7 @@ import { formatBalance, formatNumber } from "../../../../shared/utils/formatBala
 import { isMobile } from "../../../../shared/utils/isMobile";
 import { chainType, networkConfig } from "../../../../config/network";
 
-const getTokenDollarValue = (token: any) => {
+export const getTokenDollarValue = (token: any) => {
     if (!token.price || !token.balance) { return 0; }
     return Number(token.balance) / (Math.pow(10, token.decimals)) * token.price;
 }

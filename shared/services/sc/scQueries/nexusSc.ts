@@ -22,6 +22,8 @@ import { selectedNetwork } from "../../../../config/network";
 import { store } from "../../../redux/store";
 import { IExistingPool } from "../../../redux/types/pools.interface";
 import { scQuery } from "../queries";
+import { IFaucetInfo } from "../../../redux/types/faucets.interface";
+import { ITokenAmount } from "../../../redux/types/tokens.interface";
 //fetch sc admin address from the contract or return sc address
 export const fetchScAdminAddress = async () => {
   let adminAddress = selectedNetwork.contractAddr.nftsStaking;
@@ -94,4 +96,24 @@ export const fetchIsCreator = async ([_key, address]: [string, string]) => {
   }
 
   return isCreator;
+};
+
+export const fetchUserEarnings = async ([wsp, address]: [any, string]) => {
+  try {
+    const res = await scQuery(wsp, "getUserEarnings", [new AddressValue(new Address(address))]);
+    const { firstValue } = res;
+    const data = firstValue.valueOf();
+
+    let finalData: ITokenAmount[] = data.map((earning) => {
+      return {
+        token: earning[0],
+        amount: earning[1].toNumber()
+      };
+    });
+    
+    return finalData;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 };
