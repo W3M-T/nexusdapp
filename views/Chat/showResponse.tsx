@@ -15,7 +15,7 @@ function ShowResponse({ msg, loading }: { msg: any; loading: any }) {
 
 
     return (
-        <div className="flex flex-col justify-start gap-3" style={{ width: !msg.length ? '' : '100%' }}>
+        <div className={`flex flex-col justify-start gap-3 ${!msg.length ? "" : "w-full"}`}>
             {msg.length
                 ? msg.map((item: any, index: any) => (
                     <React.Fragment key={index}>
@@ -37,7 +37,6 @@ function ShowResponse({ msg, loading }: { msg: any; loading: any }) {
                                             borderRadius={'30px'}
                                         >
                                             <ReactMarkdown children={item.msg} />
-                                            {console.log("🚀 ~ ShowResponse ~ loading && item.length - 1 === lastQuestionIndex:", loading[index]) as any}
                                         </Box>
                                     </Box>
                                 </Box>

@@ -51,7 +51,7 @@ export const generateImage = async (props: imageGenerateProps) => {
     const { height, prompt, width } = props
     try {
 
-        if (!"hello") {
+        if (!openAIkey) {
             throw new Error('Missing OpenAI API key');
         }
 

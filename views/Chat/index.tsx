@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-/* eslint-disable react/no-children-prop */
 import React, { useEffect, useRef, useState } from 'react';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { BsArrowRight } from 'react-icons/bs';
@@ -119,7 +118,7 @@ function Chatai() {
     }
 
     const newLocal = (
-        <Tooltip title="Reset Chat" style={{ cursor: 'pointer' }}>
+        <Tooltip title="Reset Chat" className='cursor-pointer'>
             <div>
                 <div className='reset rounded-full px-[10px] py-[10px]' onClick={resetChat}>
                     <AiOutlineArrowLeft size={19} className='text-white' />
@@ -151,16 +150,16 @@ function Chatai() {
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault(); // Prevent the default behavior of adding a new line
-            handleSubmit(e); // Submit the form
+            e.preventDefault();
+            handleSubmit(e);
         }
     };
 
 
     return (
         <div className='pt-[40px]   w-full flex justify-center items-center'>
-            <div className='w-full' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                <div style={{ display: 'flex', justifyContent: 'center', width: '100%', flexDirection: 'column' }}>
+            <div className='w-full flex flex-col justify-center' >
+                <div className='flex justify-center w-full flex-col'>
                     <div
                         style={{
                             display: 'flex',
@@ -206,21 +205,12 @@ function Chatai() {
                                                             <div
                                                                 key={idx}
                                                                 style={{
-                                                                    display: 'flex',
-                                                                    justifyContent: 'space-between',
                                                                     backgroundColor: isDarkMode ? 'rgb(17, 10, 43)' : '#F1F1F1',
                                                                     border: '1px solid',
                                                                     borderColor: isDarkMode ? '#1D1E23' : '#E5E6E9',
                                                                     padding: '16px 24px',
-                                                                    borderRadius: '16px',
-                                                                    maxWidth: '230px',
-                                                                    cursor: 'pointer',
-                                                                    minWidth: "200px",
-                                                                    maxHeight: "300px",
-                                                                    minHeight: "10px",
-                                                                    height: "70px"
                                                                 }}
-                                                                // className={`flex justify-between p-x`}
+                                                                className='flex justify-between max-w-[230px] min-w-[200px] min-h-[300px] cursor-pointer h-[70px] rounded-[16px]'
                                                                 onClick={() => handleQuestionClick(ques)}
                                                             >
                                                                 <Text className='text-[13px] font-semibold text-[#FFFF]'>
@@ -246,10 +236,9 @@ function Chatai() {
                                         style={{
                                             backgroundColor: isDarkMode ? 'rgb(17, 10, 43)' : '#F1F1F1',
                                             borderRadius: "20px",
-                                            marginTop: "10px",
                                             padding: "10px 20px",
-                                            marginLeft: "3.3vw"
                                         }}
+
                                         className='rounded-[20px] mt-[10px] ml-[3.3vw] '
                                     >
                                         <div className='flex gap-x-[5px] items-center justify-center'>
@@ -265,46 +254,30 @@ function Chatai() {
                         </div>
                     </div>
 
-                    <form style={{ width: '100%' }} onSubmit={handleSubmit} ref={formRef}>
+                    <form className='w-full' onSubmit={handleSubmit} ref={formRef}>
                         <div
                             style={{
-                                display: 'flex',
-                                flexWrap: 'wrap',
-                                columnGap: "14px",
-                                border: '1px solid',
                                 backgroundColor: isDarkMode ? 'rgb(28, 15, 58)' : '#F1F1F1',
-                                borderColor: '#E5E6E9',
-                                borderRadius: '164px',
-                                paddingLeft: '32px',
-                                paddingRight: '32px',
-                                paddingTop: '16px',
-                                paddingBottom: '3px',
-                                width: '100%',
-                                marginTop: '55px',
                             }}
+                            className={`flex flex-wrap border gap-x-[14px] border-[#E5E6E9] rounded-full px-[32px] pt-[16px] pb-[3px] w-full mt-[55px]`}
                         >
                             <textarea
                                 placeholder="Type Your Message..."
                                 style={{
-                                    flex: '1',
-                                    border: 'none',
-                                    outline: 0,
                                     backgroundColor: isDarkMode ? 'rgb(28, 15, 58)' : '#F1F1F1',
-                                    color: isDarkMode ? '#FFFFFF' : '#000000',
-                                    resize: "none",
-                                    wordBreak: 'break-word',
                                 }}
+                                className='flex flex-1 break-words resize-none outline-[0] border-none text-[#FFFFFF]'
                                 value={message}
                                 onChange={(e) => setMessage(e.target.value)}
                                 onKeyDown={handleKeyDown}
                             />
                             <hr className='h-[1px]' />
-                            <button type='button' className='pb-[7px]' style={{ outline: 'none', border: 'none', background: 'transparent' }}>
-                                <LazyLoadImage width={'33px'} height={'33px'} src={"/assets/webp/micicond.svg"} alt="bg" style={{ cursor: 'not-allowed' }} />
+                            <button type='button' className='pb-[7px] outline-none border-none bg-transparent'>
+                                <LazyLoadImage width={'33px'} height={'33px'} src={"/assets/webp/micicond.svg"} alt="bg" className='cursor-not-allowed' />
                             </button>
 
-                            <button type="submit" className='pb-[7px]' style={{ outline: 'none', border: 'none', background: 'transparent' }}>
-                                <LazyLoadImage width={'33px'} height={'33px'} src={"/assets/webp/sendicon.webp"} alt="bg" style={{ cursor: loading ? "not-allowed" : "pointer" }} />
+                            <button type="submit" className='pb-[7px] outline-none border-none bg-transparent'>
+                                <LazyLoadImage width={'33px'} height={'33px'} src={"/assets/webp/sendicon.webp"} alt="bg" className={`${loading ? "cursor-not-allowed" : "cursor-pointer"}`} />
                             </button>
                         </div>
 
