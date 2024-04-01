@@ -50,6 +50,7 @@ const NFTCard = ({
         height="100%"
         w={"100%"}
         maxW={"180px"}
+        minW={"120px"}
         cursor="pointer"
         position={"relative"}
         flexDir="column"
