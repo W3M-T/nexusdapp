@@ -57,7 +57,7 @@ const MyEarnings = ({earnedTokens}) => {
                         </Flex>
                     </Flex>
 
-                    <Flex flexDir={"column"} gap={1} justifyContent={"space-between"}
+                    <Flex flexDir={"column"} gap={1} 
                         w={"full"}
                         bg={customColors.myCustomColor.darker}
                         borderRadius={"2xl"}
@@ -69,7 +69,8 @@ const MyEarnings = ({earnedTokens}) => {
                         {earnedTokens.map((earnedToken, index) => {
                               return (
                                 <Flex key={index} flexDir={"row"} gap={1} 
-                                    justifyContent={"space-between"} w={"full"} 
+                                    justifyContent={"space-between"}
+                                    w={"full"} 
                                     borderBottom={"2px solid"} 
                                     borderColor={customColors.myCustomColor.base} 
                                     px={1}
