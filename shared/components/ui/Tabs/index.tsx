@@ -52,12 +52,11 @@ function Tabs({ chat }: { chat: boolean }) {
                 <div
                     style={{
                         display: 'flex',
-                        padding: '4px',
                         borderRadius: "8px",
                         backgroundColor: `${isDarkMode ? 'rgb(28, 15, 58)' : '#F2F2F2'}`,
                         justifyContent: 'space-between',
                     }}
-                    className='max-w-[355px] min-w-[300px]'
+                    className='min-w-[250px] p-[0px] md:max-w-[355px] md:min-w-[300px] md:p-[4px]'
 
                 >
                     <Link
@@ -118,12 +117,11 @@ function Tabs({ chat }: { chat: boolean }) {
                 <div
                     style={{
                         display: 'flex',
-                        padding: '4px',
                         borderRadius: "8px",
                         backgroundColor: `${isDarkMode ? 'rgb(28, 15, 58)' : '#F2F2F2'}`,
                         justifyContent: 'space-between',
                     }}
-                    className='max-w-[355px] min-w-[300px]'
+                    className='min-w-[250px] p-[0px] md:max-w-[355px] md:min-w-[300px] md:p-[4px]'
                 >
                     <Link
                         href="/"
