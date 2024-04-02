@@ -9,7 +9,7 @@ function CommunityGalleryPage() {
         <>
             <MetaHead metaTitle={"Community Gallery"} />
             <MainLayout metaTitle="Community Gallery">
-                <div className='back-bg pt-[50px] w-full'>
+                <div className='pt-[50px] w-full'>
                     <Container maxW="container.xl">
                         <CommunityGallery />
                     </Container>

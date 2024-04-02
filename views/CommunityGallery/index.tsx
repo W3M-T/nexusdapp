@@ -32,7 +32,7 @@ function CommunityGallery() {
 
     return (
         <div>
-            <div className=''>
+            <div>
                 <h1 className='flex justify-center items-center text-center text-3xl text-white font-bold mb-[2px]'>Community Gallery</h1>
                 <span className='flex  text-[20px] font-medium text-white  justify-center items-center text-center'>Discover the best AI genrated artworks made using Pensy AI<br />
                 </span>

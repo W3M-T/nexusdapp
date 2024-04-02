@@ -193,7 +193,7 @@ function ImageGenerator() {
                         minWidth={'fit-content'}
                         overflow={'scroll'}
                     >
-                        <form >
+                        <div>
                             {/* selector */}
                             <Tabs chat={false} />
                             {/* img generator */}
@@ -361,6 +361,8 @@ function ImageGenerator() {
                                                 padding: '12px 16px',
                                                 width: '100%',
                                             }}
+                                            type='button'
+
                                             className={`${!formValues.prompt || isLoading ? "bg-blue-primary cursor-not-allowed" : "bg-blue-primary"} flex relative justify-center rounded-xl`}
                                             onClick={handleSubmit}
                                             disabled={!formValues?.prompt || isLoading}
@@ -1128,7 +1130,7 @@ function ImageGenerator() {
                                     </Box>
                                 </Box>
                             </Box>
-                        </form>
+                        </div>
                     </Box>
                     {/* center */}
                     <Box width={'100%'}>

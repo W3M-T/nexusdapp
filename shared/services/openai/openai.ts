@@ -30,7 +30,7 @@ export const generateResponse = async (prompt: any) => {
         }, {
             headers: {
                 'Content-Type': 'application/json',
-                'X-Wp-Nonce': '2b1de61b46',
+                'X-Wp-Nonce': '19a7a139e8',
             }
         });
 
@@ -52,7 +52,11 @@ export const generateImage = async (props: imageGenerateProps) => {
     try {
 
         if (!openAIkey) {
-            throw new Error('Missing OpenAI API key');
+            Swal.fire({
+                title: 'Missing OpenAI API key',
+                icon: "info"
+            }
+            );
         }
 
         const response = await axios.post("https://api.openai.com/v1/images/generations", {
