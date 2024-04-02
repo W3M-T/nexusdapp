@@ -217,9 +217,10 @@ function Chatai() {
                                                                     minWidth: "200px",
                                                                     maxHeight: "300px",
                                                                     minHeight: "10px",
-                                                                    height: "70px"
+                                                                    // height: "70px"
                                                                 }}
                                                                 // className={`flex justify-between p-x`}
+                                                                className='h-[80px] max-h-[80px] small:max-h-[80px] small:h-[70px] md:h-[70px] md:max-h-[70px]'
                                                                 onClick={() => handleQuestionClick(ques)}
                                                             >
                                                                 <Text className='text-[13px] font-semibold text-[#FFFF]'>
