@@ -17,6 +17,11 @@ import Loader from '../../shared/components/ui/Loader';
 import PaintingProgress from '../../shared/components/ui/PaintingProgress';
 import Swal from "sweetalert2";
 import SliderThumbWithTooltip from '../../shared/components/ui/CustomRangePicker';
+import { useGetAccountInfo } from '@multiversx/sdk-dapp/hooks/account/useGetAccountInfo';
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from '../../shared/utils/firebaseConfig';
+import { useGetLoginInfo } from '@multiversx/sdk-dapp/hooks/account/useGetLoginInfo';
+import axios from 'axios';
 
 interface dataResponse {
     url?: string,
@@ -31,6 +36,8 @@ function ImageGenerator() {
         randomize: false,
     });
 
+    const { account } = useGetAccountInfo();
+    const { isLoggedIn } = useGetLoginInfo();
     const initFormValues = {
         prompt: '',
         negative_prompt: '',
@@ -117,22 +124,44 @@ function ImageGenerator() {
     };
 
     const handleSubmit = async () => {
+        if (!isLoggedIn) {
+            return Swal.fire({
+                title: "Please Conenct the Wallet"
+            })
+        }
         setIsLoading(true);
         try {
             const prompt = formValues?.prompt;
             setData(null);
+
             const response = await generateImage({
                 height: "1024",
                 prompt: prompt,
                 width: "1024"
             })
+
+            const response2 = await axios.post("/api/upload", {
+                url: response.url
+            })
+
+            const imageUrl = response2.data.url;
+            // Third Debug
+            const docRef = await addDoc(collection(db, "imagecollection"), {
+                imageUrl: imageUrl,
+                prompt: response.revised_prompt,
+                walletAddress: account?.address
+            });
+
+            console.log("🚀 ~ docRef ~ docRef:", docRef)
+
             setData(response);
             setIsLoading(false);
         } catch (error: any) {
+            console.log("🚀 ~ handleSubmit ~ error:", error)
             setIsLoading(false);
-            Swal.fire({
-                title: "Please Enter the correct Prompt"
-            })
+            // Swal.fire({
+            //     title: "Please Enter the correct Prompt"
+            // })
         }
     }
 

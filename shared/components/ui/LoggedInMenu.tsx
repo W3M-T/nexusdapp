@@ -8,11 +8,12 @@ import { route } from "../../utils/routes";
 import { CardWrapper } from "./CardWrapper";
 import useGetIsCreator from "../../hooks/tools/useGetIsCreator";
 import { selectUserAddress } from "../../redux/slices/settings";
+import { useRouter } from "next/router";
 
 const LoggedInMenu = () => {
   const isAdmin = useAppSelector(selectisScOwner);
   const connectedAddress = useAppSelector(selectUserAddress);
-
+  const { push } = useRouter();
   const { isCreator: isNftCreator } = useGetIsCreator(connectedAddress);
 
   return (
@@ -20,37 +21,37 @@ const LoggedInMenu = () => {
       right={{ sm: "auto", lg: "0" }}
       mt={5}
       position={"absolute"}
-      width={ customSizes.loginButton }
+      width={customSizes.loginButton}
       display="flex"
       justifyContent={"center"}
     >
       <CardWrapper w={"full"} px={0} zIndex={99} bgColor={customColors.myCustomColor.darker} border={"2px solid"} borderColor={customColors.myCustomColor.lighter}>
         <VStack gap={2}>
-          {!isNftCreator ? 
-          <Flex
-            py={1}
-            cursor="pointer"
-            px={8}
-            w="full"
-            _hover={{
-              textShadow: "0 0 10px " + customColors.color2.base,
-            }}
-          >
-            <Link href={route.create.route}>Create a Pool</Link>
-          </Flex> :
-          <Flex
-            py={1}
-            cursor="pointer"
-            px={8}
-            w="full"
-            _hover={{
-              textShadow: "0 0 10px " + customColors.color2.base,
-            }}
-          >
-            <Link href={route.nftCollectionOwner.route}>
+          {!isNftCreator ?
+            <Flex
+              py={1}
+              cursor="pointer"
+              px={8}
+              w="full"
+              _hover={{
+                textShadow: "0 0 10px " + customColors.color2.base,
+              }}
+            >
+              <Link href={route.create.route}>Create a Pool</Link>
+            </Flex> :
+            <Flex
+              py={1}
+              cursor="pointer"
+              px={8}
+              w="full"
+              _hover={{
+                textShadow: "0 0 10px " + customColors.color2.base,
+              }}
+            >
+              <Link href={route.nftCollectionOwner.route}>
                 Creator Dashboard
-            </Link>
-          </Flex>}
+              </Link>
+            </Flex>}
           {isAdmin && (
             <Flex
               py={1}
@@ -89,6 +90,46 @@ const LoggedInMenu = () => {
             onClick={() => logout()}
           >
             Disconnect
+          </Flex>
+          <Flex
+            py={1}
+            cursor="pointer"
+            px={8}
+            w="full"
+            _hover={{
+              textShadow: "0 0 10px " + customColors.color2.base,
+            }}
+            className="flex md:!hidden"
+            onClick={() => push("/profile")}
+          >
+            Profile
+            {/* Disconnect */}
+          </Flex>
+          <Flex
+            py={1}
+            cursor="pointer"
+            px={8}
+            w="full"
+            _hover={{
+              textShadow: "0 0 10px " + customColors.color2.base,
+            }}
+            className="flex md:!hidden"
+            onClick={() => push("/mycreation")}
+          >
+            My Creation
+          </Flex>
+          <Flex
+            py={1}
+            cursor="pointer"
+            px={8}
+            w="full"
+            _hover={{
+              textShadow: "0 0 10px " + customColors.color2.base,
+            }}
+            className="flex md:!hidden"
+            onClick={() => push("/gallery")}
+          >
+            Gallery
           </Flex>
         </VStack>
       </CardWrapper>

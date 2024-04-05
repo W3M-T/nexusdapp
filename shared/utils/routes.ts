@@ -13,7 +13,10 @@ import { GiReceiveMoney } from 'react-icons/gi';
 // import { GrStackOverflow } from 'react-icons/gr';
 import { PiStackDuotone } from "react-icons/pi";
 import { PiWalletBold } from "react-icons/pi";
+import { FaUser } from "react-icons/fa";
 import { LuBadgeHelp } from "react-icons/lu";
+import { GrGallery } from "react-icons/gr";
+import { MdMovieCreation } from "react-icons/md";
 
 interface IRoute {
   route: string;
@@ -23,6 +26,7 @@ interface IRoute {
   icon?: IconType;
   hideFromMobile?: boolean;
   destopshow?: boolean;
+  submenu: IRoute[];
 }
 export const route = {
   home: {
@@ -38,14 +42,14 @@ export const route = {
     public: true,
     icon: RiNftFill,
     hideFromMobile: true,
-    destopshow: true,
+    destopshow: false,
   },
   create: {
     route: "/create-pool",
     name: "Create Pool",
     public: false,
     icon: TbPyramid,
-    destopshow: true,
+    destopshow: false,
   },
   view: {
     route: "/view-pools",
@@ -53,15 +57,51 @@ export const route = {
     public: true,
     icon: PiStackDuotone,
     hideFromMobile: true,
-    destopshow: true,
+    destopshow: false,
   },
   faucets: {
     route: "/faucets",
     name: "Faucets",
     public: true,
     icon: GiReceiveMoney,
-    destopshow: true,
+    destopshow: false,
   },
+  community: {
+    route: "/gallery",
+    name: "Community",
+    public: true,
+    icon: GiReceiveMoney,
+    hideFromMobile: true,
+    destopshow: true,
+
+    submenu: [
+      {
+        route: "/profile",
+        name: "Profile",
+        public: true,
+        icon: FaUser,
+        hideFromMobile: true,
+        destopshow: true,
+      },
+      {
+        route: "/mycreation",
+        name: "My Creation",
+        public: true,
+        icon: MdMovieCreation,
+        hideFromMobile: true,
+        destopshow: true,
+      },
+      {
+        route: "/gallery",
+        name: "Gallery",
+        public: true,
+        icon: GrGallery,
+        hideFromMobile: true,
+        destopshow: true,
+      }
+    ]
+  },
+
   dapp: {
     route: "/dapp",
     name: "dApp",
@@ -69,6 +109,32 @@ export const route = {
     icon: LuBadgeHelp,
     hideFromMobile: true,
     destopshow: true,
+
+    submenu: [
+      {
+        route: "/view-pools",
+        name: "Pools",
+        public: true,
+        icon: PiStackDuotone,
+        hideFromMobile: true,
+        destopshow: true,
+      },
+      {
+        route: "/faucets",
+        name: "Faucets",
+        public: true,
+        icon: GiReceiveMoney,
+        destopshow: true,
+      },
+      {
+        route: "/staked",
+        name: "Staked NFTs",
+        public: true,
+        icon: RiNftFill,
+        hideFromMobile: true,
+        destopshow: true,
+      },
+    ]
   },
   support: {
     route: "/chat",

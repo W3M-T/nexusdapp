@@ -49,7 +49,7 @@ function CommunityGalleryTabs({ following, community }: { following?: boolean, c
                 className='max-w-[250px] min-w-[250px]'
             >
                 <Link
-                    href="/communitygallery"
+                    href="/gallery"
                     style={community ? swapbtn : swapbtn1}
                     onClick={() => setBtnswap('Image')}
                 >

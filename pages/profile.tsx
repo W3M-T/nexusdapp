@@ -7,7 +7,7 @@ import { Container } from '@chakra-ui/react'
 function UserPage() {
     return (
         <>
-            <MetaHead metaTitle='User' />
+            <MetaHead metaTitle='Profile' />
             <MainLayout>
                 <div className='pt-[70px] w-full '>
                     <Container maxW={"container.xl"}>
