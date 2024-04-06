@@ -36,7 +36,7 @@ const NavMenu = () => {
                 className={`!flex !flex-row !items-center`}
                 onClick={route.submenu ? () => setsubMenuOpen(route.route) : () => push(`${route.route}`)}
               >
-                <div className="flex flex-row items-center gap-x-[5 px]">
+                <div className="flex flex-row items-center gap-x-[5px]">
                   {route.destopshow && route.name}
                   {route.submenu && (
                     <FaSortDown
