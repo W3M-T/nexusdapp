@@ -36,7 +36,7 @@ export const unstakeNfts = async (nfts: { token: string; nonce: number }[]) => {
       .withSender(senderAddress)
       .useThenIncrementNonceOf(new Account(senderAddress))
       .withGasLimit(90000000)
-      .withValue(egldFee * Math.pow(10, 18))
+      // .withValue(egldFee * Math.pow(10, 18))
       .withChainID(selectedNetwork.shortId)
       .buildTransaction();
 

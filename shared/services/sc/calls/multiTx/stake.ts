@@ -58,21 +58,21 @@ export const stakeNfts = async (
     transactions.push(tx);
   }
 
-  const multiplyier = Math.pow(10, 18);
-  const finalValue = egldFee * multiplyier;
+  // const multiplyier = Math.pow(10, 18);
+  // const finalValue = egldFee * multiplyier;
 
-  const receiverAddress = new Address("erd10fq6af9vkr6usqc4wf9adsqhdvfz7d0d57pkag5ecmac7486zncsunge5m");
+  // const receiverAddress = new Address("erd10fq6af9vkr6usqc4wf9adsqhdvfz7d0d57pkag5ecmac7486zncsunge5m");
   
-  let tx = new Transaction({
-    sender: senderAddress,
-    receiver: receiverAddress,
-    gasLimit: 5000000,
-    chainID: selectedNetwork.shortId,
-    value: finalValue,
-    data: new TransactionPayload("Gas for operational costs"),
-  });
+  // let tx = new Transaction({
+  //   sender: senderAddress,
+  //   receiver: receiverAddress,
+  //   gasLimit: 5000000,
+  //   chainID: selectedNetwork.shortId,
+  //   value: finalValue,
+  //   data: new TransactionPayload("Gas for operational costs"),
+  // });
 
-  transactions.push(tx);
+  // transactions.push(tx);
 
   return await sendMultipleTransactions({ txs: transactions });
 };
