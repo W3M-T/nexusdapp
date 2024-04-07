@@ -1,4 +1,4 @@
-import { Center, Flex } from "@chakra-ui/react";
+import { Center, Flex, Text } from "@chakra-ui/react";
 import {
   Address,
   AddressType,
@@ -96,7 +96,9 @@ const SendRewards = () => {
             </>
           </SelectDark>
         </Flex>
-        <ActionButton type="submit" disabled={!selectedPool}>Send Rewards</ActionButton>
+        {/* <ActionButton type="submit" disabled={!selectedPool}>Send Rewards</ActionButton> */}
+        <ActionButton type="submit" disabled={true}>Send Rewards</ActionButton>
+        <Text color={"gray"}>* temporarily unavailable</Text>
       </Center>
     </form>
   );
