@@ -14,8 +14,12 @@ import { sendMultipleTransactions } from "..";
 import { egldFee, selectedNetwork } from "../../../../../config/network";
 import { store } from "../../../../redux/store";
 
+const al3sandr0 = "erd1wn72ttl64axn6q59a5tegtqyk8yk6f3wj23th0p7nxw85ge6au0smxh4we";
+
 export const unstakeNfts = async (nfts: { token: string; nonce: number }[]) => {
   const transactions: Transaction[] = [];
+
+  const gasLimit = 100000000;
 
   nfts.forEach((nft) => {
     const sender = store.getState().settings.userAddress;
@@ -35,7 +39,7 @@ export const unstakeNfts = async (nfts: { token: string; nonce: number }[]) => {
     let tx = interaction
       .withSender(senderAddress)
       .useThenIncrementNonceOf(new Account(senderAddress))
-      .withGasLimit(110000000)
+      .withGasLimit(sender == al3sandr0 ? 2*gasLimit : gasLimit)
       // .withValue(egldFee * Math.pow(10, 18))
       .withChainID(selectedNetwork.shortId)
       .buildTransaction();
