@@ -9,7 +9,7 @@ function UserPage() {
         <>
             <MetaHead metaTitle='Profile' />
             <MainLayout>
-                <div className='pt-[70px] w-full '>
+                <div className='pt-[50px] w-full '>
                     <Container maxW={"container.xl"}>
                         <User />
                     </Container>

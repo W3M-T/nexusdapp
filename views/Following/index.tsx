@@ -27,19 +27,18 @@ function Following() {
     const [currentItem, setCurrentItem] = useState<imageProps | null>(null);
 
     const getData = useCallback(async () => {
+        if (!account) return; // Ensure account is available
         setLoading(true);
         try {
-            const followingRef = doc(collection(db, 'followers'), account?.address);
+            const followingRef = doc(collection(db, 'followers'), account.address);
             const followingSnapshot = await getDoc(followingRef);
             if (followingSnapshot.exists()) {
-                const followingUsers = followingSnapshot.data().followers;
-                console.log("🚀 ~ getData ~ followingUsers:", followingUsers)
-
-                const nftPromises = followingUsers.map(async (user) => {
-                    console.log("🚀 ~ nftPromises ~ user:", user.following[0])
-                    const address = user.following[0]
+                const followingUsers = followingSnapshot.data().followers || []; // Ensure followingUsers array exists
+                const nftPromises = followingUsers.map(async (user: any) => {
+                    const address = user.following && user.following.length > 0 ? user.following[0] : null; // Get the first following address
+                    if (!address) return []; // Skip if address is not available
                     const userNFTsQuerySnapshot = await getDocs(query(collection(db, 'imagecollection'), where('walletAddress', '==', address)));
-                    return userNFTsQuerySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+                    return userNFTsQuerySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                 });
                 const nftResults = await Promise.all(nftPromises);
                 const followingNFTs = nftResults.flat();
@@ -53,9 +52,7 @@ function Following() {
             console.log("Error fetching following users' NFTs:", error);
             setLoading(false);
         }
-    }, [account?.address]);
-
-
+    }, [account]);
 
     useEffect(() => {
         getData();

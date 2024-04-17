@@ -33,7 +33,6 @@ export default function User() {
             setImagesData(imagesgallery as []);
             setLoading(false);
         } catch (error) {
-            console.log("🚀 ~ getData ~ error:", error)
             setLoading(false);
         }
     }
@@ -109,16 +108,15 @@ export default function User() {
                     </div>
                     <div>
                         <h1
-                            className='flex items-center gap-4 text-white text-[25px] font-bold'>User
-                            <span className='text-title-primary font-semibold'>
-                                #USE4002</span>
+                            className='flex  md:flex-row flex-col items-center gap-x-[15px] text-white text-[25px] font-bold'>User
+                            <span className='text-title-primary text-[14px]  font-semibold md:text-[20px]'>#USE4002</span>
                         </h1>
-                        <div className="flex flex-row gap-x-[10px] mt-[30px]">
+                        <div className="flex flex-col md:flex-row  gap-x-[10px] mt-[30px]">
                             <span className="text-white font-semibold text-lg">{following.length} Following</span>
                             <span className="text-white font-semibold text-lg">{followers.length} Followers</span>
                             <span className="text-white font-semibold text-lg">0 Likes</span>
                         </div>
-                        <button className="bg-white text-gray-950 px-[25px] py-[12px] rounded-md font-semibold mt-[20px]">Edit Profile</button>
+                        <button className="bg-white text-gray-950  px-[15px] py-[7px] md:px-[25px] md:py-[12px] rounded-md font-semibold mt-[20px] whitespace-nowrap">Edit Profile</button>
                     </div>
                 </div>
             </div>
