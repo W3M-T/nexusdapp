@@ -30,7 +30,7 @@ export const generateResponse = async (prompt: any) => {
         }, {
             headers: {
                 'Content-Type': 'application/json',
-                'X-Wp-Nonce': '10c6bee219',
+                'X-Wp-Nonce': '757458bfd1',
             }
         });
 
@@ -43,9 +43,6 @@ export const generateResponse = async (prompt: any) => {
     }
 
 };
-
-
-
 
 export const generateImage = async (props: imageGenerateProps) => {
     const { height, prompt, width } = props

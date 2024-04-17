@@ -1,42 +1,61 @@
 /* eslint-disable @next/next/no-img-element */
-import { useGetAccountInfo } from '@multiversx/sdk-dapp/hooks/account/useGetAccountInfo';
-import CommunityGalleryTabs from '../../shared/components/ui/Tabs/communityTabs'
+/* eslint-disable react/no-unescaped-entities */
 import React, { useCallback, useEffect, useState } from 'react'
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../../shared/utils/firebaseConfig';
-import { Box, Tooltip } from '@chakra-ui/react';
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
-import { CgProfile } from 'react-icons/cg';
-import { GoArrowSwitch } from "react-icons/go";
-import Link from 'next/link';
-import ViewImagePopup, { ItemProps } from '../../shared/components/ui/CreationPop';
+import data from "./data.json"
+import CommunityGalleryTabs from '../../shared/components/ui/Tabs/communityTabs'
+import NftCard from '../../shared/components/ui/NftCard'
+import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore'
+import { db } from '../../shared/utils/firebaseConfig'
+import { useGetAccountInfo } from '@multiversx/sdk-dapp/hooks/account/useGetAccountInfo'
+import Link from 'next/link'
+import { CgProfile } from 'react-icons/cg'
+import { GoArrowSwitch } from 'react-icons/go'
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
+import ViewImagePopup, { ItemProps } from '../../shared/components/ui/CreationPop'
 
 interface imageProps {
     imageUrl: string,
     walletAddress: string;
 }
 
-function CommunityGallery() {
+function Following() {
     const [loading, setLoading] = useState(false)
+    const [followingData, setFollowingData] = useState([])
     const [visible, setVisible] = useState(false)
-    const [imagesData, setImagesData] = useState<imageProps[]>([])
+    const { account } = useGetAccountInfo()
+    const [hoveredIndex, setHoveredIndex] = useState(null)
     const [currentItem, setCurrentItem] = useState<imageProps | null>(null);
-    const { account } = useGetAccountInfo();
-    console.log("🚀 ~ CommunityGallery ~ account:", account)
-    const [hoveredIndex, setHoveredIndex] = useState(null);
 
     const getData = useCallback(async () => {
         setLoading(true);
         try {
-            const querySnapshot = await getDocs(collection(db, 'imagecollection'));
-            const imagesgallery = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-            setImagesData(imagesgallery as []);
-            setLoading(false);
+            const followingRef = doc(collection(db, 'followers'), account?.address);
+            const followingSnapshot = await getDoc(followingRef);
+            if (followingSnapshot.exists()) {
+                const followingUsers = followingSnapshot.data().followers;
+                console.log("🚀 ~ getData ~ followingUsers:", followingUsers)
+
+                const nftPromises = followingUsers.map(async (user) => {
+                    console.log("🚀 ~ nftPromises ~ user:", user.following[0])
+                    const address = user.following[0]
+                    const userNFTsQuerySnapshot = await getDocs(query(collection(db, 'imagecollection'), where('walletAddress', '==', address)));
+                    return userNFTsQuerySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+                });
+                const nftResults = await Promise.all(nftPromises);
+                const followingNFTs = nftResults.flat();
+                setFollowingData(followingNFTs);
+                setLoading(false);
+            } else {
+                console.log("Following list not found for the current user");
+                setLoading(false);
+            }
         } catch (error) {
-            console.log("🚀 ~ getData ~ error:", error)
+            console.log("Error fetching following users' NFTs:", error);
             setLoading(false);
         }
-    }, []);
+    }, [account?.address]);
+
+
 
     useEffect(() => {
         getData();
@@ -54,16 +73,15 @@ function CommunityGallery() {
     return (
         <div>
             <div>
-                <h1 className='flex justify-center items-center text-center text-3xl text-white font-bold mb-[2px]'>Community Gallery</h1>
-                <span className='flex text-[20px] font-medium text-white justify-center items-center text-center'>Discover the best AI genrated artworks made using Pensy AI<br />
-                </span>
+                <h1 className='text-center text-3xl text-white font-bold mb-[2px]'>Discover Your Followed Creators' NFTs</h1>
+                <span className='flex  text-[20px] font-medium text-white  justify-center items-center text-center'>Explore a curated selection of NFTs created by the artists and creators you admire.</span>
             </div>
             <div className='flex mt-[20px]'>
-                <CommunityGalleryTabs community={true} following={false} />
+                <CommunityGalleryTabs community={false} following={true} />
             </div>
             <div className='mb-[50px]'>
                 <div className='mb-[20px] flex flex-row flex-wrap gap-10 mt-[40px]'>
-                    {imagesData.map((item, index) => (
+                    {followingData?.map((item, index) => (
                         <div
                             key={item.walletAddress}
                             className='relative overflow-hidden rounded-md cursor-pointer'
@@ -88,6 +106,7 @@ function CommunityGallery() {
                             {hoveredIndex === index && (
                                 <div className="absolute bottom-0 left-0 flex items-center space-x-2 p-2">
                                     <span style={{ display: 'flex', width: '100%' }}>
+
                                         <CgProfile size={32} color="white" />
                                     </span>
                                     <div
@@ -105,7 +124,7 @@ function CommunityGallery() {
                                             <AiFillHeart color="#FF35A5" style={{ width: '20px', height: '20px' }} />
                                         )}
                                     </div>
-                                    <ViewImagePopup item={currentItem as ItemProps} onClose={handleCloseModal} visible={visible} setImagesData={setImagesData} />
+                                    <ViewImagePopup item={currentItem as ItemProps} onClose={handleCloseModal} visible={visible} />
                                 </div>
                             )}
                         </div>
@@ -113,8 +132,7 @@ function CommunityGallery() {
                 </div>
             </div>
         </div>
-
     )
 }
 
-export default CommunityGallery
+export default Following;

@@ -148,8 +148,9 @@ function ImageGenerator() {
             // Third Debug
             const docRef = await addDoc(collection(db, "imagecollection"), {
                 imageUrl: imageUrl,
+                likes: [],
                 prompt: response.revised_prompt,
-                walletAddress: account?.address
+                walletAddress: account?.address,
             });
 
             console.log("🚀 ~ docRef ~ docRef:", docRef)
@@ -159,9 +160,9 @@ function ImageGenerator() {
         } catch (error: any) {
             console.log("🚀 ~ handleSubmit ~ error:", error)
             setIsLoading(false);
-            // Swal.fire({
-            //     title: "Please Enter the correct Prompt"
-            // })
+            Swal.fire({
+                title: "Please Enter the correct Prompt"
+            })
         }
     }
 
