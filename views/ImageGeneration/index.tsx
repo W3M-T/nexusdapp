@@ -13,7 +13,6 @@ import { isMidTierUser, remainingCredits, shouldGenerateImage } from '../../shar
 import { generateImage } from '../../shared/services/openai/openai';
 import { Box, Button, Container, Input, Text, Tooltip } from '@chakra-ui/react';
 import Tabs from '../../shared/components/ui/Tabs';
-import Loader from '../../shared/components/ui/Loader';
 import PaintingProgress from '../../shared/components/ui/PaintingProgress';
 import Swal from "sweetalert2";
 import SliderThumbWithTooltip from '../../shared/components/ui/CustomRangePicker';
@@ -22,6 +21,7 @@ import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../../shared/utils/firebaseConfig';
 import { useGetLoginInfo } from '@multiversx/sdk-dapp/hooks/account/useGetLoginInfo';
 import axios from 'axios';
+import { Loader } from '../../shared/components/ui/Loader';
 
 interface dataResponse {
     url?: string,
@@ -157,6 +157,10 @@ function ImageGenerator() {
 
             setData(response);
             setIsLoading(false);
+            Swal.fire({
+                title: "Image Generated Successfully Store in Gallery!",
+                icon: "success"
+            })
         } catch (error: any) {
             console.log("🚀 ~ handleSubmit ~ error:", error)
             setIsLoading(false);

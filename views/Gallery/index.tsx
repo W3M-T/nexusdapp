@@ -2,7 +2,7 @@
 import { useGetAccountInfo } from '@multiversx/sdk-dapp/hooks/account/useGetAccountInfo';
 import CommunityGalleryTabs from '../../shared/components/ui/Tabs/communityTabs'
 import React, { useCallback, useEffect, useState } from 'react'
-import { collection, getDocs } from 'firebase/firestore';
+import { arrayRemove, arrayUnion, collection, doc, getDocs, updateDoc } from 'firebase/firestore';
 import { db } from '../../shared/utils/firebaseConfig';
 import { Box, Tooltip } from '@chakra-ui/react';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
@@ -10,10 +10,15 @@ import { CgProfile } from 'react-icons/cg';
 import { GoArrowSwitch } from "react-icons/go";
 import Link from 'next/link';
 import ViewImagePopup, { ItemProps } from '../../shared/components/ui/CreationPop';
+import { ChildLoader } from '../../shared/components/ui/Loader';
+import Swal from 'sweetalert2';
+import { useGetLoginInfo } from '@multiversx/sdk-dapp/hooks/account/useGetLoginInfo';
 
 interface imageProps {
     imageUrl: string,
     walletAddress: string;
+    id: string,
+    likes: any[]
 }
 
 function CommunityGallery() {
@@ -22,8 +27,8 @@ function CommunityGallery() {
     const [imagesData, setImagesData] = useState<imageProps[]>([])
     const [currentItem, setCurrentItem] = useState<imageProps | null>(null);
     const { account } = useGetAccountInfo();
-    console.log("🚀 ~ CommunityGallery ~ account:", account)
     const [hoveredIndex, setHoveredIndex] = useState(null);
+    const { isLoggedIn } = useGetLoginInfo();
 
     const getData = useCallback(async () => {
         setLoading(true);
@@ -51,6 +56,88 @@ function CommunityGallery() {
         setVisible(true);
     };
 
+    const unlikehandler = async (item: imageProps) => {
+        setVisible(false)
+        if (!isLoggedIn) {
+            Swal.fire({
+                title: "Please Connect the Wallet",
+                icon: "info"
+            });
+            return;
+        }
+        try {
+            const docRef = doc(collection(db, "imagecollection"), item.id);
+            await updateDoc(docRef, {
+                likes: arrayRemove({
+                    likeAddress: account.address
+                })
+            });
+            // Update the state directly after unliking
+            setImagesData(prev => prev.map(img => {
+                if (img.id === item.id) {
+                    return {
+                        ...img,
+                        likes: img.likes.filter(like => like.likeAddress !== account.address)
+                    };
+                }
+                return img;
+            }));
+            Swal.fire({
+                title: "Unliked Successfully",
+                icon: "success"
+            });
+        } catch (error) {
+            console.log("Error in unlikehandler:", error);
+            Swal.fire({
+                title: "Something went wrong",
+                icon: "error"
+            });
+        }
+    };
+
+    const likeshandler = async (docId: string) => {
+        setVisible(false)
+        if (!isLoggedIn) {
+            Swal.fire({
+                title: "Please Connect the Wallet",
+                icon: "info"
+            });
+            return;
+        }
+        try {
+            const docRef = doc(collection(db, "imagecollection"), docId);
+            await updateDoc(docRef, {
+                likes: arrayUnion({
+                    likeAddress: account.address
+                })
+            });
+            // Update the state directly after liking
+            setImagesData(prev => prev.map(item => {
+                if (item.id === docId) {
+                    return {
+                        ...item,
+                        likes: [...item.likes, { likeAddress: account.address }]
+                    };
+                }
+                return item;
+            }));
+            Swal.fire({
+                title: "Liked Successfully",
+                icon: "success"
+            });
+        } catch (error) {
+            console.log("Error in likeshandler:", error);
+            Swal.fire({
+                title: "Something went wrong",
+                icon: "error"
+            });
+        }
+    };
+    // console.log("🚀 ~ CommunityGallery ~ imagesData:", imagesData)
+    // const countLikes = (image) => image.likes.length;
+    // const sortedData = imagesData?.slice()?.sort((a, b) => countLikes(b) - countLikes(a))
+    // console.log("🚀 ~ CommunityGallery ~ sortedData:", sortedData)
+
     return (
         <div>
             <div>
@@ -61,57 +148,60 @@ function CommunityGallery() {
             <div className='flex mt-[20px]'>
                 <CommunityGalleryTabs community={true} following={false} />
             </div>
-            <div className='mb-[50px]'>
-                <div className='mb-[20px] flex flex-row flex-wrap gap-10 mt-[40px]'>
-                    {imagesData.map((item, index) => (
-                        <div
-                            key={item.walletAddress}
-                            className='relative overflow-hidden rounded-md cursor-pointer'
-                            onMouseEnter={() => setHoveredIndex(index)}
-                            onMouseLeave={() => setHoveredIndex(null)}
-                            onClick={() => handleOpenModal(item)}
-                        >
-                            <div
-                                className='absolute inset-0'
-                                style={{
-                                    background: `linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.73) 80%), url('${item.imageUrl}') no-repeat center`,
-                                    backgroundSize: 'cover',
-                                    opacity: hoveredIndex === index ? 1 : 0,
-                                    transition: 'opacity 0.3s ease-in-out',
-                                }}
-                            />
-                            <img
-                                alt=''
-                                src={item.imageUrl}
-                                className='w-[200px] md:w-[370px] max-w-[400px] min-w-[370px] h-[370px] max-h-[400px] min-h-[370px] rounded-md'
-                            />
-                            {hoveredIndex === index && (
-                                <div className="absolute bottom-0 left-0 flex items-center space-x-2 p-2">
-                                    <span style={{ display: 'flex', width: '100%' }}>
-                                        <CgProfile size={32} color="white" />
-                                    </span>
+            {
+                loading ? <ChildLoader /> :
+                    <div className='mb-[50px]'>
+                        <div className='mb-[20px] flex flex-row flex-wrap gap-10 mt-[40px]'>
+                            {imagesData.map((item, index) => (
+                                <div
+                                    key={item.walletAddress}
+                                    className='relative overflow-hidden rounded-md cursor-pointer'
+                                    onMouseEnter={() => setHoveredIndex(index)}
+                                    onMouseLeave={() => setHoveredIndex(null)}
+                                >
                                     <div
+                                        className='absolute inset-0'
+                                        style={{
+                                            background: `linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.73) 80%), url('${item.imageUrl}') no-repeat center`,
+                                            backgroundSize: 'cover',
+                                            opacity: hoveredIndex === index ? 1 : 0,
+                                            transition: 'opacity 0.3s ease-in-out',
+                                        }}
+                                        onClick={() => handleOpenModal(item)}
+                                    />
+                                    <img
+                                        alt=''
+                                        src={item.imageUrl}
+                                        className='w-[200px] md:w-[370px] max-w-[400px] min-w-[370px] h-[370px] max-h-[400px] min-h-[370px] rounded-md'
+                                    />
+                                    {hoveredIndex === index && (
+                                        <div className="absolute bottom-0 left-0 flex items-center space-x-2 p-2">
+                                            <span style={{ display: 'flex', width: '100%' }}>
+                                                <CgProfile size={32} color="white" />
+                                            </span>
+                                            {/* <div
                                         className='bg-white rounded-full p-2 cursor-pointer hover:bg-gray-200'
                                     >
                                         <GoArrowSwitch style={{ width: '20px', height: '20px' }} color="black" />
 
-                                    </div>
-                                    <div
-                                        className='bg-white rounded-full p-2 cursor-pointer hover:bg-gray-200'
-                                    >
-                                        {true ? (
-                                            <AiOutlineHeart color="#FF35A5" style={{ width: '20px', height: '20px' }} />
-                                        ) : (
-                                            <AiFillHeart color="#FF35A5" style={{ width: '20px', height: '20px' }} />
-                                        )}
-                                    </div>
-                                    <ViewImagePopup item={currentItem as ItemProps} onClose={handleCloseModal} visible={visible} setImagesData={setImagesData} />
+                                    </div> */}
+                                            <div
+                                                className='bg-white rounded-full p-2 cursor-pointer hover:bg-gray-200'
+                                            >
+                                                {item?.likes?.find((item) => item?.likeAddress == account.address) ? (
+                                                    <AiFillHeart color="#FF35A5" style={{ width: '20px', height: '20px' }} onClick={() => unlikehandler(item)} />
+                                                ) : (
+                                                    <AiOutlineHeart color="#FF35A5" style={{ width: '20px', height: '20px' }} onClick={() => likeshandler(item.id)} />
+                                                )}
+                                            </div>
+                                            <ViewImagePopup item={currentItem as ItemProps} onClose={handleCloseModal} visible={visible} setImagesData={setImagesData} getData={getData} />
+                                        </div>
+                                    )}
                                 </div>
-                            )}
+                            ))}
                         </div>
-                    ))}
-                </div>
-            </div>
+                    </div>
+            }
         </div>
 
     )

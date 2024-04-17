@@ -1,6 +1,7 @@
+import { Spinner } from '@chakra-ui/react';
 import React, { ReactNode } from 'react';
 
-const Loader = () => {
+export const Loader = () => {
     return (
         <div className="loader-container flex  flex-col justify-center items-center h-[70vh]">
             <h1 className='text-white text-[23px] font-semibold mb-[30px]'>Please Wait Image will be Generated...</h1>
@@ -34,4 +35,17 @@ const Loader = () => {
     )
 };
 
-export default Loader;
+export const ChildLoader = () => {
+    return (
+        <div className='flex items-center justify-center h-[30vh]'>
+            <Spinner
+                thickness='4px'
+                speed='0.65s'
+                emptyColor='gray.200'
+                color='#3c91e6'
+                size='xl'
+                className='!w-20 !h-20'
+            />
+        </div>
+    )
+}

@@ -9,6 +9,7 @@ import { useGetAccountInfo } from "@multiversx/sdk-dapp/hooks/account/useGetAcco
 import { useEffect, useState } from "react"
 import { collection, doc, getDoc, getDocs, onSnapshot, query, where } from "firebase/firestore"
 import { db } from "../../shared/utils/firebaseConfig"
+import { ChildLoader } from "../../shared/components/ui/Loader"
 interface imageProps {
     imageUrl: string,
     walletAddress: string;
@@ -121,68 +122,71 @@ export default function User() {
                 </div>
             </div>
             <hr className="bg-[#4E4D55] mt-[40px]" />
-            <div className="mt-6">
-                <div className='flex flex-row flex-wrap w-full gap-10 mt-[40px] mb-[100px]'>
-                    {account.address ? (
-                        filterData.length ? (
-                            filterData?.map((item, index) => (
-                                <div
-                                    key={item.walletAddress}
-                                    className='relative overflow-hidden rounded-md cursor-pointer'
-                                    onMouseEnter={() => setHoveredIndex(index)}
-                                    onMouseLeave={() => setHoveredIndex(null)}
-                                    onClick={() => handleOpenImageModal(item)}
-                                >
-                                    <div
-                                        className='absolute inset-0'
-                                        style={{
-                                            background: `linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.73) 80%), url('${item.imageUrl}') no-repeat center`,
-                                            backgroundSize: 'cover',
-                                            opacity: hoveredIndex === index ? 1 : 0,
-                                            transition: 'opacity 0.3s ease-in-out',
-                                        }}
-                                    />
-                                    <img
-                                        alt=''
-                                        src={item.imageUrl}
-                                        className='w-[200px] md:w-[370px] max-w-[400px] min-w-[370px] h-[370px] max-h-[400px] min-h-[370px] rounded-md'
-                                    />
-                                    {hoveredIndex === index && (
-                                        <div className="absolute bottom-0 left-0 flex items-center space-x-2 p-2">
-                                            <span style={{ display: 'flex', width: '100%' }}>
-
-                                                <CgProfile size={32} color="white" />
-                                            </span>
+            {
+                loading ? <ChildLoader /> :
+                    <div className="mt-6">
+                        <div className='flex flex-row flex-wrap w-full gap-10 mt-[40px] mb-[100px]'>
+                            {account.address ? (
+                                filterData.length ? (
+                                    filterData?.map((item, index) => (
+                                        <div
+                                            key={item.walletAddress}
+                                            className='relative overflow-hidden rounded-md cursor-pointer'
+                                            onMouseEnter={() => setHoveredIndex(index)}
+                                            onMouseLeave={() => setHoveredIndex(null)}
+                                            onClick={() => handleOpenImageModal(item)}
+                                        >
                                             <div
+                                                className='absolute inset-0'
+                                                style={{
+                                                    background: `linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.73) 80%), url('${item.imageUrl}') no-repeat center`,
+                                                    backgroundSize: 'cover',
+                                                    opacity: hoveredIndex === index ? 1 : 0,
+                                                    transition: 'opacity 0.3s ease-in-out',
+                                                }}
+                                            />
+                                            <img
+                                                alt=''
+                                                src={item.imageUrl}
+                                                className='w-[200px] md:w-[370px] max-w-[400px] min-w-[370px] h-[370px] max-h-[400px] min-h-[370px] rounded-md'
+                                            />
+                                            {hoveredIndex === index && (
+                                                <div className="absolute bottom-0 left-0 flex items-center space-x-2 p-2">
+                                                    <span style={{ display: 'flex', width: '100%' }}>
+
+                                                        <CgProfile size={32} color="white" />
+                                                    </span>
+                                                    {/* <div
                                                 className='bg-white rounded-full p-2 cursor-pointer hover:bg-gray-200'
                                             >
                                                 <GoArrowSwitch style={{ width: '20px', height: '20px' }} color="black" />
 
-                                            </div>
-                                            <div
-                                                className='bg-white rounded-full p-2 cursor-pointer hover:bg-gray-200'
-                                            >
-                                                {true ? (
-                                                    <AiOutlineHeart color="#FF35A5" style={{ width: '20px', height: '20px' }} />
-                                                ) : (
-                                                    <AiFillHeart color="#FF35A5" style={{ width: '20px', height: '20px' }} />
-                                                )}
-                                            </div>
-                                            <ViewImagePopup item={currentItem as ItemProps} onClose={handleCloseImageModal} visible={imageVisible} />
+                                            </div> */}
+                                                    <div
+                                                        className='bg-white rounded-full p-2 cursor-pointer hover:bg-gray-200'
+                                                    >
+                                                        {true ? (
+                                                            <AiOutlineHeart color="#FF35A5" style={{ width: '20px', height: '20px' }} />
+                                                        ) : (
+                                                            <AiFillHeart color="#FF35A5" style={{ width: '20px', height: '20px' }} />
+                                                        )}
+                                                    </div>
+                                                    <ViewImagePopup item={currentItem as ItemProps} onClose={handleCloseImageModal} visible={imageVisible} setImagesData={setFollowers} />
+                                                </div>
+                                            )}
                                         </div>
-                                    )}
+                                    ))
+                                ) : (
+                                    <h1 className='font-medium text-white text-lg'>No Images Yet!</h1>
+                                )
+                            ) : (
+                                <div>
+                                    <h1>Please Connect the Wallet</h1>
                                 </div>
-                            ))
-                        ) : (
-                            <h1 className='font-medium text-white text-lg'>No Images Yet!</h1>
-                        )
-                    ) : (
-                        <div>
-                            <h1>Please Connect the Wallet</h1>
+                            )}
                         </div>
-                    )}
-                </div>
-            </div>
+                    </div>
+            }
         </div>
     )
 }

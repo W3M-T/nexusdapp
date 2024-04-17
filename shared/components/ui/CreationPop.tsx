@@ -23,9 +23,10 @@ interface NftModalProps {
     onClose: () => void;
     item: ItemProps,
     setImagesData?: any,
+    getData?: any
 }
 
-const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setImagesData }) => {
+const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setImagesData, getData }) => {
     console.log("🚀 ~ item:", item)
     const { isLoggedIn } = useGetLoginInfo();
     const { account } = useGetAccountInfo()
@@ -68,42 +69,38 @@ const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setIm
             Swal.fire({
                 title: "Please Connect the Wallet",
                 icon: "info"
-            })
+            });
             return;
         }
         try {
-            if (docId) {
-                const docRef = doc(collection(db, "imagecollection"), docId);
-                const docSnapshot = await getDoc(docRef);
-                console.log("🚀 ~ likeshandler ~ docSnapshot:", docSnapshot)
-
-                if (docSnapshot.exists()) {
-                    await updateDoc(docRef, {
-                        likes: arrayUnion({
-                            likeAddress: account.address
-                        })
-                    });
-                    setImagesData(prev => prev.map(item => {
-                        if (item.id === docId) {
-                            return {
-                                ...item,
-                                likes: [...item.likes, { likeAddress: account.address }]
-                            };
-                        }
-                        return item;
-                    }));
-                    Swal.fire({
-                        title: "Liked Successfully",
-                        icon: "success"
-                    });
-                } else {
-                    console.log("No image found for this document ID");
+            const docRef = doc(collection(db, "imagecollection"), docId);
+            await updateDoc(docRef, {
+                likes: arrayUnion({
+                    likeAddress: account.address
+                })
+            });
+            // Update the state directly after liking
+            setImagesData(prev => prev.map(item => {
+                if (item.id === docId) {
+                    return {
+                        ...item,
+                        likes: [...item.likes, { likeAddress: account.address }]
+                    };
                 }
-            }
-        } catch (err) {
-            console.log("Error in likeshandler:", err);
+                return item;
+            }));
+            Swal.fire({
+                title: "Liked Successfully",
+                icon: "success"
+            });
+        } catch (error) {
+            console.log("Error in likeshandler:", error);
+            Swal.fire({
+                title: "Something went wrong",
+                icon: "error"
+            });
         }
-    }
+    };
 
     const unlikehandler = async (item: ItemProps) => {
         if (!isLoggedIn) {
@@ -114,35 +111,26 @@ const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setIm
             return;
         }
         try {
-            const findhandler = item?.likes?.find((like) => like?.likeAddress === account.address);
-            if (findhandler) {
-                const docRef = doc(collection(db, "imagecollection"), item.id);
-                await updateDoc(docRef, {
-                    likes: arrayRemove({
-                        likeAddress: account.address
-                    })
-                });
-                setImagesData(prev => prev.map(img => {
-                    if (img.id === item.id) {
-                        return {
-                            ...img,
-                            likes: img.likes.filter(like => like.likeAddress !== account.address)
-                        };
-                    }
-                    return img;
-                }));
-
-                Swal.fire({
-                    title: "Unliked Successfully",
-                    icon: "success"
-                });
-
-            } else {
-                Swal.fire({
-                    title: "You haven't liked this item",
-                    icon: "error"
-                });
-            }
+            const docRef = doc(collection(db, "imagecollection"), item.id);
+            await updateDoc(docRef, {
+                likes: arrayRemove({
+                    likeAddress: account.address
+                })
+            });
+            // Update the state directly after unliking
+            setImagesData(prev => prev.map(img => {
+                if (img.id === item.id) {
+                    return {
+                        ...img,
+                        likes: img.likes.filter(like => like.likeAddress !== account.address)
+                    };
+                }
+                return img;
+            }));
+            Swal.fire({
+                title: "Unliked Successfully",
+                icon: "success"
+            });
         } catch (error) {
             console.log("Error in unlikehandler:", error);
             Swal.fire({
@@ -151,6 +139,7 @@ const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setIm
             });
         }
     };
+
 
     const followHandler = async () => {
         if (!isLoggedIn) {
@@ -227,28 +216,26 @@ const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setIm
         }
     };
 
-    const fetchFollowers = async () => {
-        try {
-            const docRef = doc(collection(db, "followers"), account.address);
-            const docSnapshot = await getDoc(docRef);
-            if (docSnapshot.exists()) {
-                const followers = docSnapshot.data().followers;
-                console.log("🚀 ~ fetchFollowers ~ followers:", followers)
-                setIsFollowing(followers.some(follower => follower.following.includes(item.walletAddress)));
-            } else {
-                setIsFollowing(false);
-            }
-        } catch (error) {
-            console.log("Error fetching followers:", error);
-        }
-    };
-
     useEffect(() => {
         if (isLoggedIn) {
+            const fetchFollowers = async () => {
+                try {
+                    const docRef = doc(collection(db, "followers"), account.address);
+                    const docSnapshot = await getDoc(docRef);
+                    if (docSnapshot.exists()) {
+                        const followers = docSnapshot.data().followers;
+                        console.log("🚀 ~ fetchFollowers ~ followers:", followers)
+                        setIsFollowing(followers.some(follower => follower.following.includes(item.walletAddress)));
+                    } else {
+                        setIsFollowing(false);
+                    }
+                } catch (error) {
+                    console.log("Error fetching followers:", error);
+                }
+            };
             fetchFollowers();
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [account.address, item?.walletAddress, isLoggedIn]);
 
     return (
         <Modal isOpen={visible} onClose={onClose} size={"5xl"} >
@@ -278,12 +265,13 @@ const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setIm
                                 <h3 className='flex items-start  h-[100px] overflow-auto text-[18px] font-medium text-white'>{item?.prompt}</h3>
                             </div>
                             <div className='mt-[30px]'>
-                                <button className='flex flex-row items-center bg-blue-primary px-[20px] tex-[20px] font-semibold gap-x-[10px] py-[10px] rounded-xl' onClick={() => copyPrompthandler(item?.prompt)}>
-                                    <FiCopy className='text-[20px] font-medium' /><span className='text-[14px] font-medium text-white'>Copy Prompt</span>
-                                </button>
+
                             </div>
                             <div className='flex flex-row mt-[30px] gap-x-[20px]'>
-                                {item?.likes?.find((item) => item?.likeAddress == account.address) ? (
+                                <button className='flex flex-row items-center bg-blue-primary px-[20px] tex-[20px] font-semibold gap-x-[10px] py-[10px] rounded-xl' onClick={() => copyPrompthandler(item?.prompt)}>
+                                    <FiCopy className='text-[20px] font-medium' /><span className='text-[14px] font-medium text-white whitespace-nowrap'>Copy Prompt</span>
+                                </button>
+                                {/* {item?.likes?.find((item) => item?.likeAddress == account.address) ? (
                                     <>
                                         <button className='text-[16px]   leading-3 flex flex-row items-center gap-x-[7px] rounded-xl font-medium bg-blue-primary px-[15px] py-[10px]' onClick={() => unlikehandler(item)} >
                                             <AiFillHeart color="#FF35A5" style={{ width: '20px', height: '20px' }} />
@@ -297,12 +285,12 @@ const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setIm
                                             Like
                                         </button>
                                     </>
-                                )}
-                                <button className='text-[16px]   leading-3 flex flex-row items-center gap-x-[7px] rounded-xl font-medium bg-blue-primary px-[15px] py-[10px]'>
+                                )} */}
+                                <button className='text-[16px]   leading-3 flex flex-row items-center gap-x-[7px] rounded-xl font-medium bg-blue-primary px-[15px] py-[10px] whitespace-nowrap'>
                                     <FiShare color="#80FF77" />
                                     Share
                                 </button>
-                                <button className='text-[16px]   leading-3 flex flex-row items-center gap-x-[7px] rounded-xl font-medium bg-blue-primary px-[15px] py-[10px]' onClick={() => copySettinghandler(item.prompt)}>
+                                <button className='text-[16px]   leading-3 flex flex-row items-center gap-x-[7px] rounded-xl font-medium bg-blue-primary px-[15px] py-[10px]  whitespace-nowrap' onClick={() => copySettinghandler(item.prompt)}>
                                     <BiCopy color="#27DCEE" />Copy Setting</button>
                             </div>
                             <div className='mt-[30px]'>
