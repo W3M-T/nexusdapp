@@ -83,14 +83,14 @@ const ProfileModal: React.FC<NftModalProps> = ({ visible, onClose, user, getUser
                                         disabled={loading}
                                     />
                                 </FormControl>
-                                <FormControl isRequired id="firstName">
-                                    <FormLabel>FirstName</FormLabel>
+                                <FormControl isRequired id="fullName">
+                                    <FormLabel>Full Name</FormLabel>
                                     <Input
                                         name="fullName"
                                         value={values.fullName}
                                         onChange={handleChange}
                                         type="text"
-                                        placeholder="Enter the first Name"
+                                        placeholder="Enter the full Name"
                                         disabled={loading}
                                     />
                                 </FormControl>
