@@ -51,7 +51,7 @@ export const theme = extendTheme({
         minHeight: "100vh",
         overflowX: "hidden",
         bgGradient:
-          "linear-gradient(180deg, rgba(9,2,38,1) 0%, rgba(5,0,14,1) 100%);",
+          "linear-gradient(180deg, rgba(9,2,38,1) 0%, rgba(9,2,38,1) 100%);",
         bgSize: "700px",
         backgroundPositionX: "150px",
         color: "gray.200",
