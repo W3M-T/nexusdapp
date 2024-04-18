@@ -73,7 +73,7 @@ const LoggedInMenu = () => {
             _hover={{
               textShadow: "0 0 10px " + customColors.color2.base,
             }}
-            onClick={() => logout()}
+          // onClick={() => logout()}
           >
             <ChkLink href={"https://discord.com/channels/1069173229425541140/1069173230142758975"} isExternal>
               Community

@@ -8,7 +8,7 @@ export const Logo = () => {
   const isSmallDevice = isMobile();
 
   return (
-    <Link href="https://nexusdapp.com" isExternal>
+    <Link href="/" isExternal>
       <Box
         display="flex"
         alignItems="center"
