@@ -29,13 +29,14 @@ export const networkConfig = {
       nftsStaking: "",
       faucetNexus: "erd1qqqqqqqqqqqqqpgq22l29szm8xgupwvh44fpxhlwjtuhwvw98pgqcwmh48",
       faucetMermaid: "erd1qqqqqqqqqqqqqpgqjxsyl920u5mgn4fpvz0erw78wdpu7vyw8pgqs5ektw",
-      nexusSwap: "erd1qqqqqqqqqqqqqpgqf6zqulgv4328k9ws8yxwqcrxezwm5n9fu7zsu40u8k"
+      nexusSwap: "erd1qqqqqqqqqqqqqpgqf6zqulgv4328k9ws8yxwqcrxezwm5n9fu7zsu40u8k",
+      nftMarketplace: "erd1qqqqqqqqqqqqqpgqpxf0unjcqnqajn589dwfwdtk6ykz5x2t8pgq73qspr"
     },
     tokens: {
       EGLD: { identifier: "EGLD" },
       WEGLD: { identifier: "WEGLD-a28c59", decimals: 18, faucet: "faucetMermaid"},
       USDC: { identifier: "USDC-350c4e", decimals: 6 },
-      NXS: { identifier: "NXS-7f88a4", decimals: 18, faucet: "faucetNexus"},
+      NEXUS: { identifier: "NXS-7f88a4", decimals: 18, faucet: "faucetNexus", initialSupply: 100000000000000000000000000},
     },
   },
   mainnet: {

@@ -26,6 +26,20 @@ const LoggedInMenu = () => {
     >
       <CardWrapper w={"full"} py={3} px={0} zIndex={99} bgColor={customColors.myCustomColor.darker} border={"2px solid"} borderColor={customColors.myCustomColor.lighter}>
         <VStack gap={2}>
+          <Flex
+            py={1}
+            cursor="pointer"
+            px={2}
+            w="full"
+            _hover={{
+              textShadow: "0 0 10px " + customColors.color2.base,
+            }}
+          >
+            <Link href={route.staked.route}>
+                Staked NFTs
+            </Link>
+          </Flex>
+
           {!isNftCreator ? 
           <Flex
             py={1}

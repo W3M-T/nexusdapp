@@ -4,6 +4,7 @@ import { chainType, networkConfig } from "../../../config/network";
 import nftstakingpoolsAbi from "../../../public/abi/nftstakingpools.abi.json";
 import faucetAbi from "../../../public/abi/faucet.abi.json";
 import nexusSwapAbi from "../../../public/abi/nexusswap.abi.json";
+import nftMarketplaceAbi from "../../../public/abi/nft_marketplace.abi.json";
 export const abiPath = "/abi";
 
 const { gatewayAddress, contractAddr } = networkConfig[chainType];
@@ -16,7 +17,8 @@ export type WORKSPACES =
   "NftStakingPoolsWsp" | 
   "FaucetNexusWsp" | 
   "FaucetMermaidWsp" |
-  "NexusSwapWsp";
+  "NexusSwapWsp" |
+  "NftMarketplaceWsp";
 
 export const getInterface = (workspace: WORKSPACES) => {
   let address: IAddress = null;
@@ -51,6 +53,13 @@ export const getInterface = (workspace: WORKSPACES) => {
       address = new Address(simpleAddress);
       abiUrl = nexusSwapAbi;
       implementsInterfaces = "NexusSwap";
+      break;
+    }
+    case "NftMarketplaceWsp": {
+      simpleAddress = contractAddr.nftMarketplace;
+      address = new Address(simpleAddress);
+      abiUrl = nftMarketplaceAbi;
+      implementsInterfaces = "NftMarketplace";
       break;
     }
     default:
