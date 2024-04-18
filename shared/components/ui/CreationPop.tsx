@@ -212,7 +212,7 @@ const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setIm
                                     account.address === item?.walletAddress ? null :
                                         <button className='px-[20px] py-[8px] text-[#1c14ff] border border-[#1c14ff] rounded-full text-[14px] font-medium hover:!bg-blue-primary hover:!text-white'
                                             onClick={isFollowing ? unfollowHandler : followHandler}>
-                                            {followingLoading ? "losding..." : isFollowing ? 'Unfollow' : 'Follow'}
+                                            {isFollowing ? 'Unfollow' : 'Follow'}
                                         </button>
                                 }
                             </div>
