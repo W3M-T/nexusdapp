@@ -11,17 +11,21 @@ function MyCreationPage() {
         <>
             <MetaHead metaTitle={"My Creation"} />
             <MainLayout metaTitle="My Creation">
-                <div className='back-bg pt-[50px] w-full'>
-                    <Container maxW={"container.xl"}>
-                        {
-                            account?.address ? <MyCreation /> :
-                                <div>
-                                    <h1 className='flex  justify-center h-[30vh] flex-col items-center gap-x-[15px] text-white text-[25px] font-bold'>Please Connect the Wallet</h1>
-                                </div>
-                        }
 
-                    </Container>
-                </div>
+                {
+                    account?.address ?
+                        <div className='back-bg pt-[50px] w-full'>
+                            <Container maxW={"container.xl"}>
+
+                                <MyCreation />
+                            </Container>
+                        </div>
+                        :
+                        <div className='pt-[50px] w-full'>
+                            <h1 className='flex  justify-center h-[30vh] flex-col items-center gap-x-[15px] text-white text-[25px] font-bold'>Please Connect the Wallet</h1>
+                        </div>
+                }
+
             </MainLayout>
         </>
     )

@@ -31,7 +31,13 @@ function MyCreation() {
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const [currentItem, setCurrentItem] = useState<imageProps | null>(null);
     const [imageVisible, setImageVisible] = useState(false)
+    const [selectedOption, setSelectedOption] = useState('');
+    const [optionsVisible, setOptionsVisible] = useState(false);
     const { isLoggedIn } = useGetLoginInfo();
+
+    const toggleOptions = () => {
+        setOptionsVisible(!optionsVisible);
+    };
 
     const { account } = useGetAccountInfo();
 
@@ -151,19 +157,22 @@ function MyCreation() {
             });
         }
     };
-
+    const handleOptionClick = (option) => {
+        setSelectedOption(option);
+        setOptionsVisible(false);
+    };
 
     return (
-        <div className='flex flex-col h-full'>
+        <div className='flex flex-col h-full  '>
             <div className='hidden md:block '>
                 <h1 className='flex items-center gap-4 mb-[10px] text-white text-[25px] font-bold'>My creations <span className='text-title-primary font-bold'>Public Profile</span></h1>
                 <div className='flex flex-col justify-between items-center md:flex-row  sm:flex-row xl:flex-row  '>
                     <div>
                         <InputGroup width="180px">
                             <Select
-                                icon={<BsCaretDown />}
+                                icon={<BsCaretDown className='!text-gray-950' color='' />}
                                 onChange={(e) => handleSelectChange(e.target.value)}
-                                className='!whitespace-nowrap !flex !items-center !text-gray-950 !bg-blue-primary !px-[20px] !py-[10px] !text-[17px] !font-semibold !shadow-md !outline-none'
+                                className='!flex !items-center !text-gray-950 !bg-blue-primary !px-[20px] !py-[10px] !text-[17px] !font-semibold !shadow-md !outline-none'
                             >
                                 {options.map((option, index) => (
                                     <option key={index} value={option} className='rounded-md py-[10px] !bg-blue-primary text-[17px] !font-semibold' >{option}</option>
@@ -179,20 +188,34 @@ function MyCreation() {
                     </div>
                 </div>
             </div>
-            {/* // Mobil  Design*/}
+            {/* // Mobile  Design*/}
             <div className='flex-col block md:hidden'>
                 <div className='mb-[10px]'>
                     <h1 className='flex items-center gap-4 text-white text-[25px] font-bold'>My creations <span className='text-title-primary font-bold'>Public Profile</span></h1>
                     <InputGroup width="200px">
-                        <Select
-                            icon={<BsCaretDown />}
-                            onChange={(e) => handleSelectChange(e.target.value)}
-                            className='!whitespace-nowrap !flex !items-center !text-gray-950 !bg-blue-primary !px-[20px] !py-[10px] !text-[17px] !font-semibold !shadow-md !outline-none'
-                        >
-                            {options.map((option, index) => (
-                                <option key={index} value={option} className='rounded-md  !bg-blue-primary'>{option}</option>
-                            ))}
-                        </Select>
+                        <div className="relative inline-block">
+                            <div
+                                className='!flex !items-center justify-between w-[200px] rounded-md !text-gray-950 !bg-blue-primary !px-[20px] !py-[10px] !text-[17px] !font-semibold !shadow-md !outline-none'
+                                onClick={toggleOptions}
+                            >
+                                {selectedOption || 'Select an option'}
+                                <BsCaretDown />
+                            </div>
+                            {optionsVisible && (
+                                <div className="options absolute  rounded-md top-full left-0 right-0 z-10 bg-blue-primary px-[20px] overflow-auto">
+                                    {options.map((option, index) => (
+                                        <div
+                                            className='rounded-md py-[10px] !bg-blue-primary !text-gray-950 text-[17px] !font-semibold hover:bg-blue-600'
+                                            key={index}
+                                            // className="option px-4 py-2 cursor-pointer hover:bg-gray-100"
+                                            onClick={() => handleOptionClick(option)}
+                                        >
+                                            {option}
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
                     </InputGroup>
                 </div>
                 <div className='mb-[10px]'>
@@ -204,7 +227,7 @@ function MyCreation() {
             </div>
             {
                 loading ? <ChildLoader /> :
-                    <div className='flex flex-row flex-wrap w-full gap-10 mt-[40px] mb-[100px]'>
+                    <div className='flex flex-row flex-wrap w-full gap-10 mt-[80px]  md:mt-[40px] mb-[100px] '>
                         {account.address ? (
                             filterData.length ? (
                                 filterData.map((item, index) => (

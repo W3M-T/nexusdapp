@@ -10,7 +10,7 @@ import Swal from "sweetalert2"
 import { arrayRemove, arrayUnion, collection, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from 'firebase/firestore';
 import { db } from '../../utils/firebaseConfig';
 import { useGetLoginInfo } from '@multiversx/sdk-dapp/hooks/account/useGetLoginInfo';
-import { useAuthentication } from '../../hooks/auth';
+import { useAllUsers } from '../../hooks/auth/user';
 
 export interface ItemProps {
     imageUrl: string,
@@ -36,9 +36,13 @@ interface User {
 
 const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setImagesData, getData }) => {
     console.log("🚀 ~ item:", item)
+    const [followingLoading, setfollowingLoading] = useState(false)
     const { isLoggedIn } = useGetLoginInfo();
     const { account } = useGetAccountInfo()
-    const [usersData, setusersData] = useState<User>()
+    const [loading, setLoading] = useState(true)
+    const users = useAllUsers();
+    console.log("🚀 ~ users:", users)
+    // console.log("🚀 ~ userData:", userData)
     // const account = {
     //     address: "12234444"
     // }
@@ -72,27 +76,6 @@ const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setIm
         })
     }, [])
 
-    useEffect(() => {
-        const getUsersData = async () => {
-            try {
-                const q = query(collection(db, 'users'), where('walletAddress', '==', item?.walletAddress));
-                const querySnapshot = await getDocs(q);
-                if (!querySnapshot.empty) {
-                    const userData = { id: querySnapshot.docs[0].id, ...querySnapshot.docs[0].data() };
-                    console.log("🚀 ~ getUsersData ~ userData:", userData);
-                    setusersData(userData as any);
-                } else {
-                    console.log("No user data found for the provided wallet address.");
-                    setusersData(null);
-                }
-            } catch (error) {
-                console.log("🚀 ~ getUsersData ~ error:", error);
-            }
-        };
-
-        getUsersData();
-    }, [item?.walletAddress])
-
     const followHandler = async () => {
         if (!isLoggedIn) {
             Swal.fire({
@@ -117,6 +100,7 @@ const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setIm
                 title: "Followed Successfully",
                 icon: "success"
             });
+            onClose();
         } catch (error) {
             console.log("Error in followHandler:", error);
             Swal.fire({
@@ -153,6 +137,7 @@ const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setIm
                     title: "Unfollowed Successfully",
                     icon: "success"
                 });
+                onClose();
             } else {
                 Swal.fire({
                     title: "You are not following this user",
@@ -171,6 +156,7 @@ const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setIm
     useEffect(() => {
         if (isLoggedIn) {
             const fetchFollowers = async () => {
+                setfollowingLoading(true)
                 try {
                     const docRef = doc(collection(db, "followers"), account.address);
                     const docSnapshot = await getDoc(docRef);
@@ -178,10 +164,13 @@ const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setIm
                         const followers = docSnapshot.data().followers;
                         console.log("🚀 ~ fetchFollowers ~ followers:", followers)
                         setIsFollowing(followers.some(follower => follower.following.includes(item?.walletAddress)));
+                        setfollowingLoading(false)
                     } else {
                         setIsFollowing(false);
+                        setfollowingLoading(false)
                     }
                 } catch (error) {
+                    setfollowingLoading(false)
                     console.log("Error fetching followers:", error);
                 }
             };
@@ -189,7 +178,13 @@ const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setIm
         }
     }, [account.address, item?.walletAddress, isLoggedIn]);
 
-
+    const findUser = users.find((i) => i.walletAddress == item?.walletAddress)
+    useEffect(() => {
+        if (users.length > 0) {
+            setLoading(false);
+        }
+    }, [users]);
+    console.log("🚀 ~ findUser:", findUser)
     return (
         <Modal isOpen={visible} onClose={onClose} size={"5xl"}  >
             <ModalContent className='!bg-bg-primary2 !p-[20px]'>
@@ -207,11 +202,18 @@ const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setIm
                             <div className="flex flex-row items-start gap-x-[20px]">
                                 <div className='flex items-center flex-row gap-x-[20px]'>
                                     <FaUserLarge className="text-[50px] rounded-full bg-gray-700 px-[10px] py-[10px]" />
-                                    <h2 className='flex gap-4 text-white text-[18px] font-medium'>{usersData?.username ?? "User"}</h2>
+                                    <h2 className='flex gap-4 text-white text-[18px] font-medium'>
+                                        {
+                                            loading ? "loading..." : findUser?.username ?? "User"
+                                        }
+                                    </h2>
                                 </div>
                                 {
                                     account.address === item?.walletAddress ? null :
-                                        <button className='px-[20px] py-[8px] text-[#1c14ff] border border-[#1c14ff] rounded-full text-[14px] font-medium hover:!bg-blue-primary hover:!text-white' onClick={isFollowing ? unfollowHandler : followHandler}> {isFollowing ? 'Unfollow' : 'Follow'}</button>
+                                        <button className='px-[20px] py-[8px] text-[#1c14ff] border border-[#1c14ff] rounded-full text-[14px] font-medium hover:!bg-blue-primary hover:!text-white'
+                                            onClick={isFollowing ? unfollowHandler : followHandler}>
+                                            {followingLoading ? "losding..." : isFollowing ? 'Unfollow' : 'Follow'}
+                                        </button>
                                 }
                             </div>
                             <div className='mt-[20px]'>

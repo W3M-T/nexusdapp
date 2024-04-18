@@ -168,7 +168,7 @@ function Following() {
                         loading ? <ChildLoader /> :
                             <div className='mb-[50px]'>
                                 <div className='mb-[20px] flex flex-row flex-wrap gap-10 mt-[40px]'>
-                                    {followingData?.map((item, index) => (
+                                    {followingData.length > 0 ? followingData?.map((item, index) => (
                                         <div
                                             key={item.walletAddress}
                                             className='relative overflow-hidden rounded-md cursor-pointer'
@@ -222,7 +222,11 @@ function Following() {
                                                 </div>
                                             )}
                                         </div>
-                                    ))}
+                                    )) :
+                                        <div className='flex justify-center items-center w-full text-center h-[10vh]'>
+                                            <h1 className='font-medium text-white text-lg text-center'>No Images Yet!</h1>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                     }

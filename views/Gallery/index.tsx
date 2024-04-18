@@ -135,7 +135,6 @@ function CommunityGallery() {
         }
     };
 
-    const filterData = imagesData.filter((item) => item.likes)
 
     return (
         <div>

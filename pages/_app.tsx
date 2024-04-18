@@ -63,7 +63,6 @@ const NextJSDappTemplate = ({ Component, pageProps }: AppProps) => {
   const { isLoggedIn } = useGetLoginInfo();
   const { account } = useGetAccountInfo();
   const { userData, userAdded } = useAuthentication(isLoggedIn, account);
-  console.log("🚀 ~ NextJSDappTemplate ~ userData:", userData)
   return (
     <AxiosInterceptorContext.Provider>
       <AxiosInterceptorContext.Interceptor
