@@ -76,18 +76,13 @@ const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setIm
         const getUsersData = async () => {
             try {
                 const q = query(collection(db, 'users'), where('walletAddress', '==', item?.walletAddress));
-                // Execute the query and get the documents
                 const querySnapshot = await getDocs(q);
-                // Check if any documents were found
                 if (!querySnapshot.empty) {
-                    // Get the first document and extract its data
                     const userData = { id: querySnapshot.docs[0].id, ...querySnapshot.docs[0].data() };
                     console.log("🚀 ~ getUsersData ~ userData:", userData);
-                    // Set the user data to state
                     setusersData(userData as any);
                 } else {
                     console.log("No user data found for the provided wallet address.");
-                    // Set user state to null if no data found
                     setusersData(null);
                 }
             } catch (error) {
@@ -196,11 +191,11 @@ const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setIm
 
 
     return (
-        <Modal isOpen={visible} onClose={onClose} size={"5xl"} >
+        <Modal isOpen={visible} onClose={onClose} size={"5xl"}  >
             <ModalContent className='!bg-bg-primary2 !p-[20px]'>
                 <ModalCloseButton />
                 <ModalBody className='!flex !flex-col !gap-y-[14px] '>
-                    <div className='gap-x-[40px] flex flex-row'>
+                    <div className='gap-x-[40px] flex flex-col md:!flex-row'>
                         <div>
                             <img
                                 src={item?.imageUrl}
