@@ -163,58 +163,72 @@ function Following() {
                 <CommunityGalleryTabs community={false} following={true} />
             </div>
             {
-                loading ? <ChildLoader /> :
-                    <div className='mb-[50px]'>
-                        <div className='mb-[20px] flex flex-row flex-wrap gap-10 mt-[40px]'>
-                            {followingData?.map((item, index) => (
-                                <div
-                                    key={item.walletAddress}
-                                    className='relative overflow-hidden rounded-md cursor-pointer'
-                                    onMouseEnter={() => setHoveredIndex(index)}
-                                    onMouseLeave={() => setHoveredIndex(null)}
-                                >
-                                    <div
-                                        className='absolute inset-0'
-                                        style={{
-                                            background: `linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.73) 80%), url('${item.imageUrl}') no-repeat center`,
-                                            backgroundSize: 'cover',
-                                            opacity: hoveredIndex === index ? 1 : 0,
-                                            transition: 'opacity 0.3s ease-in-out',
-                                        }}
-                                        onClick={() => handleOpenModal(item)}
-                                    />
-                                    <img
-                                        alt=''
-                                        src={item.imageUrl}
-                                        className='w-[200px] md:w-[370px] max-w-[400px] min-w-[370px] h-[370px] max-h-[400px] min-h-[370px] rounded-md'
-                                    />
-                                    {hoveredIndex === index && (
-                                        <div className="absolute bottom-0 left-0 flex items-center space-x-2 p-2">
-                                            <span style={{ display: 'flex', width: '100%' }}>
+                account.address ? <>
+                    {
+                        loading ? <ChildLoader /> :
+                            <div className='mb-[50px]'>
+                                <div className='mb-[20px] flex flex-row flex-wrap gap-10 mt-[40px]'>
+                                    {followingData?.map((item, index) => (
+                                        <div
+                                            key={item.walletAddress}
+                                            className='relative overflow-hidden rounded-md cursor-pointer'
+                                            onMouseEnter={() => setHoveredIndex(index)}
+                                            onMouseLeave={() => setHoveredIndex(null)}
+                                        >
+                                            <div
+                                                className='absolute inset-0'
+                                                style={{
+                                                    background: `linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.73) 80%), url('${item.imageUrl}') no-repeat center`,
+                                                    backgroundSize: 'cover',
+                                                    opacity: hoveredIndex === index ? 1 : 0,
+                                                    transition: 'opacity 0.3s ease-in-out',
+                                                }}
+                                                onClick={() => handleOpenModal(item)}
+                                            />
+                                            <img
+                                                alt=''
+                                                src={item.imageUrl}
+                                                className='w-[200px] md:w-[370px] max-w-[400px] min-w-[370px] h-[370px] max-h-[400px] min-h-[370px] rounded-md'
+                                            />
+                                            {hoveredIndex === index && (
+                                                <div className="absolute bottom-0 left-0 flex items-center space-x-2 p-2">
+                                                    <span style={{ display: 'flex', width: '100%' }}>
 
-                                                <CgProfile size={32} color="white" />
-                                            </span>
-                                            {/* <div
+                                                        <CgProfile size={32} color="white" />
+                                                    </span>
+                                                    {/* <div
                                                 className='bg-white rounded-full p-2 cursor-pointer hover:bg-gray-200'
                                             >
                                                 <GoArrowSwitch style={{ width: '20px', height: '20px' }} color="black" />
 
                                             </div> */}
-                                            <div
-                                                className='bg-white rounded-full p-2 cursor-pointer hover:bg-gray-200'
-                                            >
-                                                {item?.likes?.find((item) => item?.likeAddress == account.address) ? (
-                                                    <AiFillHeart color="#FF35A5" style={{ width: '20px', height: '20px' }} onClick={() => unlikehandler(item)} />
-                                                ) : (
-                                                    <AiOutlineHeart color="#FF35A5" style={{ width: '20px', height: '20px' }} onClick={() => likeshandler(item.id)} />
-                                                )}
-                                            </div>
-                                            <ViewImagePopup item={currentItem as ItemProps} onClose={handleCloseModal} visible={visible} setImagesData={setFollowingData} />
+
+                                                    {item?.likes?.find((item) => item?.likeAddress == account.address) ? (
+                                                        <div
+                                                            className='bg-white rounded-full p-2 cursor-pointer hover:bg-gray-200'
+                                                            onClick={() => unlikehandler(item)}
+                                                        >
+                                                            <AiFillHeart color="#FF35A5" style={{ width: '20px', height: '20px' }} />
+                                                        </div>
+                                                    ) : (
+                                                        <div
+                                                            className='bg-white rounded-full p-2 cursor-pointer hover:bg-gray-200'
+                                                            onClick={() => likeshandler(item.id)}
+                                                        >
+                                                            <AiOutlineHeart color="#FF35A5" style={{ width: '20px', height: '20px' }} />
+                                                        </div>
+                                                    )}
+                                                    <ViewImagePopup item={currentItem as ItemProps} onClose={handleCloseModal} visible={visible} setImagesData={setFollowingData} />
+                                                </div>
+                                            )}
                                         </div>
-                                    )}
+                                    ))}
                                 </div>
-                            ))}
-                        </div>
+                            </div>
+                    }
+                </> :
+                    <div>
+                        <h1 className='flex  justify-center h-[30vh] flex-col items-center gap-x-[15px] text-white text-[25px] font-bold'>Please Connect the Wallet</h1>
                     </div>
             }
         </div>

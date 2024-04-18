@@ -23,6 +23,9 @@ import {
 import { MetaHead } from "../shared/components/ui/MetaHead";
 import "../shared/global.css";
 import { store } from "../shared/redux/store";
+import { useGetLoginInfo } from "@multiversx/sdk-dapp/hooks/account/useGetLoginInfo";
+import { useAuthentication } from "../shared/hooks/auth";
+import { useGetAccountInfo } from "@multiversx/sdk-dapp/hooks/account/useGetAccountInfo";
 
 export const DappProvider = dynamic(
   async () => {
@@ -57,6 +60,10 @@ const TransactionsToastList = dynamic(
 );
 
 const NextJSDappTemplate = ({ Component, pageProps }: AppProps) => {
+  const { isLoggedIn } = useGetLoginInfo();
+  const { account } = useGetAccountInfo();
+  const { userData, userAdded } = useAuthentication(isLoggedIn, account);
+  console.log("🚀 ~ NextJSDappTemplate ~ userData:", userData)
   return (
     <AxiosInterceptorContext.Provider>
       <AxiosInterceptorContext.Interceptor

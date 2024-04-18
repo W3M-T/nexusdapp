@@ -59,6 +59,10 @@
     cursor: pointer !important;
 }
 
+.data-dob input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
 .shadow-text:hover {
     text-shadow: rgb(60, 145, 230) 0px 0px 10px !important;
 }

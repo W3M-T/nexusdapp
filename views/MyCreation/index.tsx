@@ -69,8 +69,6 @@ function MyCreation() {
     };
 
     const filterData = imagesData.filter((item) => item.walletAddress === account.address)
-    console.log("🚀 ~ MyCreation ~ filterData:", filterData)
-
     const options = ["Recent", "Upscaled", "Published", "Unpublished"]
     const handleSelectChange = useCallback((e: any) => {
         console.log("🚀 ~ handleSelectChange ~ e:", e)
@@ -242,15 +240,21 @@ function MyCreation() {
                                         >
                                             <GoArrowSwitch style={{ width: '20px', height: '20px' }} color="black" />
                                         </div> */}
-                                                <div
-                                                    className='bg-white rounded-full p-2 cursor-pointer hover:bg-gray-200'
-                                                >
-                                                    {item?.likes?.find((item) => item?.likeAddress == account.address) ? (
-                                                        <AiFillHeart color="#FF35A5" style={{ width: '20px', height: '20px' }} onClick={() => unlikehandler(item)} />
-                                                    ) : (
-                                                        <AiOutlineHeart color="#FF35A5" style={{ width: '20px', height: '20px' }} onClick={() => likeshandler(item.id)} />
-                                                    )}
-                                                </div>
+                                                {item?.likes?.find((item) => item?.likeAddress == account.address) ? (
+                                                    <div
+                                                        className='bg-white rounded-full p-2 cursor-pointer hover:bg-gray-200'
+                                                        onClick={() => unlikehandler(item)}
+                                                    >
+                                                        <AiFillHeart color="#FF35A5" style={{ width: '20px', height: '20px' }} />
+                                                    </div>
+                                                ) : (
+                                                    <div
+                                                        className='bg-white rounded-full p-2 cursor-pointer hover:bg-gray-200'
+                                                        onClick={() => likeshandler(item.id)}
+                                                    >
+                                                        <AiOutlineHeart color="#FF35A5" style={{ width: '20px', height: '20px' }} />
+                                                    </div>
+                                                )}
                                                 <ViewImagePopup item={currentItem as ItemProps} onClose={handleCloseImageModal} visible={imageVisible} setImagesData={setImagesData} />
                                             </div>
                                         )}

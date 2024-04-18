@@ -7,16 +7,27 @@ import { GoArrowSwitch } from "react-icons/go"
 import ViewImagePopup, { ItemProps } from "../../shared/components/ui/CreationPop"
 import { useGetAccountInfo } from "@multiversx/sdk-dapp/hooks/account/useGetAccountInfo"
 import { useEffect, useState } from "react"
-import { collection, doc, getDoc, getDocs, onSnapshot, query, where } from "firebase/firestore"
+import { arrayRemove, arrayUnion, collection, doc, getDoc, getDocs, onSnapshot, query, updateDoc, where } from "firebase/firestore"
 import { db } from "../../shared/utils/firebaseConfig"
 import { ChildLoader } from "../../shared/components/ui/Loader"
+import ProfileModal from "../../shared/components/ui/profilePopup"
+import Swal from "sweetalert2"
+import { useGetLoginInfo } from "@multiversx/sdk-dapp/hooks/account/useGetLoginInfo"
 interface imageProps {
     imageUrl: string,
     walletAddress: string;
+    id: string,
+    likes: any
+}
+interface User {
+    username: string,
+    dob: string,
+    fullName: string,
+    walletAddress: string,
 }
 
 export default function User() {
-    const [visible, setVisible] = useState(false)
+    const [modalVisble, setModalVisble] = useState(false)
     const [loading, setLoading] = useState(false)
     const [imagesData, setImagesData] = useState<imageProps[]>([])
     const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -25,6 +36,8 @@ export default function User() {
     const { account } = useGetAccountInfo();
     const [followers, setFollowers] = useState([])
     const [following, setfollowing] = useState([])
+    const [userData, setUserData] = useState<User>()
+    const { isLoggedIn } = useGetLoginInfo();
 
     const getData = async () => {
         setLoading(true);
@@ -38,6 +51,21 @@ export default function User() {
         }
     }
 
+    const getUsersData = async () => {
+        try {
+            const q = query(collection(db, 'users'), where('walletAddress', '==', account.address));
+            const querySnapshot = await getDocs(q);
+            if (!querySnapshot.empty) {
+                const userData = { id: querySnapshot.docs[0].id, ...querySnapshot.docs[0].data() };
+                setUserData(userData as any);
+            } else {
+                setUserData(null);
+            }
+        } catch (error) {
+            console.log("🚀 ~ getUsersData ~ error:", error);
+        }
+    };
+
     useEffect(() => {
         getData();
         const getFollowing = async () => {
@@ -46,6 +74,7 @@ export default function User() {
                 const followingSnapshot = await getDoc(followingRef);
                 if (followingSnapshot.exists()) {
                     const followingUsers = followingSnapshot.data().followers;
+                    console.log("🚀 ~ getFollowing ~ followingUsers:", followingUsers)
                     setfollowing(followingUsers);
                 }
             } catch (err) {
@@ -59,8 +88,6 @@ export default function User() {
                 const followersCollection = collection(db, 'followers');
                 const followersSnapshot = await getDocs(followersCollection);
                 const followersData = followersSnapshot.docs.map(doc => doc.data());
-                console.log("🚀 ~ getFollowers ~ followersData:", followersData);
-
                 // Flatten the array and extract all following arrays
                 const followingArrays = followersData.flatMap(item => {
                     if (item.followers) {
@@ -83,10 +110,8 @@ export default function User() {
                 console.log("Error fetching followers:", error);
             }
         };
-
         getFollowers();
-
-
+        getUsersData();
     }, [account.address])
 
     const filterData = imagesData?.filter((item) => item.walletAddress === account.address)
@@ -99,6 +124,86 @@ export default function User() {
         setCurrentItem(item);
         setImageVisible(true);
     };
+    const handleCloseModal = () => {
+        setModalVisble(false);
+    };
+
+    const unlikehandler = async (item: imageProps) => {
+        if (!isLoggedIn) {
+            Swal.fire({
+                title: "Please Connect the Wallet",
+                icon: "info"
+            });
+            return;
+        }
+        try {
+            const docRef = doc(collection(db, "imagecollection"), item.id);
+            await updateDoc(docRef, {
+                likes: arrayRemove({
+                    likeAddress: account.address
+                })
+            });
+            // Update the state directly after unliking
+            setImagesData(prev => prev.map(img => {
+                if (img.id === item.id) {
+                    return {
+                        ...img,
+                        likes: img.likes.filter(like => like.likeAddress !== account.address)
+                    };
+                }
+                return img;
+            }));
+            Swal.fire({
+                title: "Unliked Successfully",
+                icon: "success"
+            });
+        } catch (error) {
+            console.log("Error in unlikehandler:", error);
+            Swal.fire({
+                title: "Something went wrong",
+                icon: "error"
+            });
+        }
+    };
+
+    const likeshandler = async (docId: string) => {
+        if (!isLoggedIn) {
+            Swal.fire({
+                title: "Please Connect the Wallet",
+                icon: "info"
+            });
+            return;
+        }
+        try {
+            const docRef = doc(collection(db, "imagecollection"), docId);
+            await updateDoc(docRef, {
+                likes: arrayUnion({
+                    likeAddress: account.address
+                })
+            });
+            // Update the state directly after liking
+            setImagesData(prev => prev.map(item => {
+                if (item.id === docId) {
+                    return {
+                        ...item,
+                        likes: [...item.likes, { likeAddress: account.address }]
+                    };
+                }
+                return item;
+            }));
+            Swal.fire({
+                title: "Liked Successfully",
+                icon: "success"
+            });
+        } catch (error) {
+            console.log("Error in likeshandler:", error);
+            Swal.fire({
+                title: "Something went wrong",
+                icon: "error"
+            });
+        }
+    };
+
 
     return (
         <div className="h-full text-white">
@@ -109,15 +214,15 @@ export default function User() {
                     </div>
                     <div>
                         <h1
-                            className='flex  md:flex-row flex-col items-center gap-x-[15px] text-white text-[25px] font-bold'>User
-                            <span className='text-title-primary text-[14px]  font-semibold md:text-[20px]'>#USE4002</span>
+                            className='flex  md:flex-row flex-col items-center gap-x-[15px] text-white text-[25px] font-bold'>{userData?.username ?? "User"}
+                            <span className='text-title-primary text-[14px]  font-semibold md:text-[20px]'>{userData?.fullName ?? "#USE4002"}</span>
                         </h1>
                         <div className="flex flex-col md:flex-row  gap-x-[10px] mt-[30px]">
                             <span className="text-white font-semibold text-lg">{following.length} Following</span>
                             <span className="text-white font-semibold text-lg">{followers.length} Followers</span>
                             <span className="text-white font-semibold text-lg">0 Likes</span>
                         </div>
-                        <button className="bg-white text-gray-950  px-[15px] py-[7px] md:px-[25px] md:py-[12px] rounded-md font-semibold mt-[20px] whitespace-nowrap">Edit Profile</button>
+                        <button className="bg-white text-gray-950  px-[15px] py-[7px] md:px-[25px] md:py-[12px] rounded-md font-semibold mt-[20px] whitespace-nowrap" onClick={(() => setModalVisble(true))}>Edit Profile</button>
                     </div>
                 </div>
             </div>
@@ -134,7 +239,6 @@ export default function User() {
                                             className='relative overflow-hidden rounded-md cursor-pointer'
                                             onMouseEnter={() => setHoveredIndex(index)}
                                             onMouseLeave={() => setHoveredIndex(null)}
-                                            onClick={() => handleOpenImageModal(item)}
                                         >
                                             <div
                                                 className='absolute inset-0'
@@ -144,6 +248,7 @@ export default function User() {
                                                     opacity: hoveredIndex === index ? 1 : 0,
                                                     transition: 'opacity 0.3s ease-in-out',
                                                 }}
+                                                onClick={() => handleOpenImageModal(item)}
                                             />
                                             <img
                                                 alt=''
@@ -162,15 +267,21 @@ export default function User() {
                                                 <GoArrowSwitch style={{ width: '20px', height: '20px' }} color="black" />
 
                                             </div> */}
-                                                    <div
-                                                        className='bg-white rounded-full p-2 cursor-pointer hover:bg-gray-200'
-                                                    >
-                                                        {true ? (
-                                                            <AiOutlineHeart color="#FF35A5" style={{ width: '20px', height: '20px' }} />
-                                                        ) : (
+                                                    {item?.likes?.find((item) => item?.likeAddress == account.address) ? (
+                                                        <div
+                                                            className='bg-white rounded-full p-2 cursor-pointer hover:bg-gray-200'
+                                                            onClick={() => unlikehandler(item)}
+                                                        >
                                                             <AiFillHeart color="#FF35A5" style={{ width: '20px', height: '20px' }} />
-                                                        )}
-                                                    </div>
+                                                        </div>
+                                                    ) : (
+                                                        <div
+                                                            className='bg-white rounded-full p-2 cursor-pointer hover:bg-gray-200'
+                                                            onClick={() => likeshandler(item.id)}
+                                                        >
+                                                            <AiOutlineHeart color="#FF35A5" style={{ width: '20px', height: '20px' }} />
+                                                        </div>
+                                                    )}
                                                     <ViewImagePopup item={currentItem as ItemProps} onClose={handleCloseImageModal} visible={imageVisible} setImagesData={setFollowers} />
                                                 </div>
                                             )}
@@ -184,10 +295,11 @@ export default function User() {
                                     <h1>Please Connect the Wallet</h1>
                                 </div>
                             )}
+                            <ProfileModal onClose={handleCloseModal} visible={modalVisble} user={userData} getUser={getUsersData} />
                         </div>
                     </div>
             }
-        </div>
+        </div >
     )
 }
 

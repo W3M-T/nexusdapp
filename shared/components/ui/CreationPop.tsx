@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { use, useCallback, useEffect, useState } from 'react';
 import { useGetAccountInfo } from '@multiversx/sdk-dapp/hooks/account/useGetAccountInfo';
 import { Modal, ModalContent, ModalCloseButton, ModalBody, ModalFooter, } from "@chakra-ui/react";
 import { FaUserLarge } from 'react-icons/fa6';
@@ -10,6 +10,7 @@ import Swal from "sweetalert2"
 import { arrayRemove, arrayUnion, collection, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from 'firebase/firestore';
 import { db } from '../../utils/firebaseConfig';
 import { useGetLoginInfo } from '@multiversx/sdk-dapp/hooks/account/useGetLoginInfo';
+import { useAuthentication } from '../../hooks/auth';
 
 export interface ItemProps {
     imageUrl: string,
@@ -26,10 +27,18 @@ interface NftModalProps {
     getData?: any
 }
 
+interface User {
+    username: string,
+    dob: string,
+    fullName: string,
+    walletAddress: string,
+}
+
 const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setImagesData, getData }) => {
     console.log("🚀 ~ item:", item)
     const { isLoggedIn } = useGetLoginInfo();
     const { account } = useGetAccountInfo()
+    const [usersData, setusersData] = useState<User>()
     // const account = {
     //     address: "12234444"
     // }
@@ -63,83 +72,31 @@ const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setIm
         })
     }, [])
 
-
-    const likeshandler = async (docId: string) => {
-        if (!isLoggedIn) {
-            Swal.fire({
-                title: "Please Connect the Wallet",
-                icon: "info"
-            });
-            return;
-        }
-        try {
-            const docRef = doc(collection(db, "imagecollection"), docId);
-            await updateDoc(docRef, {
-                likes: arrayUnion({
-                    likeAddress: account.address
-                })
-            });
-            // Update the state directly after liking
-            setImagesData(prev => prev.map(item => {
-                if (item.id === docId) {
-                    return {
-                        ...item,
-                        likes: [...item.likes, { likeAddress: account.address }]
-                    };
+    useEffect(() => {
+        const getUsersData = async () => {
+            try {
+                const q = query(collection(db, 'users'), where('walletAddress', '==', item?.walletAddress));
+                // Execute the query and get the documents
+                const querySnapshot = await getDocs(q);
+                // Check if any documents were found
+                if (!querySnapshot.empty) {
+                    // Get the first document and extract its data
+                    const userData = { id: querySnapshot.docs[0].id, ...querySnapshot.docs[0].data() };
+                    console.log("🚀 ~ getUsersData ~ userData:", userData);
+                    // Set the user data to state
+                    setusersData(userData as any);
+                } else {
+                    console.log("No user data found for the provided wallet address.");
+                    // Set user state to null if no data found
+                    setusersData(null);
                 }
-                return item;
-            }));
-            Swal.fire({
-                title: "Liked Successfully",
-                icon: "success"
-            });
-        } catch (error) {
-            console.log("Error in likeshandler:", error);
-            Swal.fire({
-                title: "Something went wrong",
-                icon: "error"
-            });
-        }
-    };
+            } catch (error) {
+                console.log("🚀 ~ getUsersData ~ error:", error);
+            }
+        };
 
-    const unlikehandler = async (item: ItemProps) => {
-        if (!isLoggedIn) {
-            Swal.fire({
-                title: "Please Connect the Wallet",
-                icon: "info"
-            });
-            return;
-        }
-        try {
-            const docRef = doc(collection(db, "imagecollection"), item.id);
-            await updateDoc(docRef, {
-                likes: arrayRemove({
-                    likeAddress: account.address
-                })
-            });
-            // Update the state directly after unliking
-            setImagesData(prev => prev.map(img => {
-                if (img.id === item.id) {
-                    return {
-                        ...img,
-                        likes: img.likes.filter(like => like.likeAddress !== account.address)
-                    };
-                }
-                return img;
-            }));
-            Swal.fire({
-                title: "Unliked Successfully",
-                icon: "success"
-            });
-        } catch (error) {
-            console.log("Error in unlikehandler:", error);
-            Swal.fire({
-                title: "Something went wrong",
-                icon: "error"
-            });
-        }
-    };
-
+        getUsersData();
+    }, [item?.walletAddress])
 
     const followHandler = async () => {
         if (!isLoggedIn) {
@@ -154,11 +111,11 @@ const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setIm
             const docSnapshot = await getDoc(docRef);
             if (!docSnapshot.exists()) {
                 await setDoc(docRef, {
-                    followers: [{ currentUser: account.address, following: [item.walletAddress] }]
+                    followers: [{ currentUser: account.address, following: [item?.walletAddress] }]
                 });
             } else {
                 await updateDoc(docRef, {
-                    followers: arrayUnion({ currentUser: account.address, following: [item.walletAddress] })
+                    followers: arrayUnion({ currentUser: account.address, following: [item?.walletAddress] })
                 });
             }
             Swal.fire({
@@ -191,7 +148,7 @@ const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setIm
                         if (follower.currentUser === account.address) {
                             return {
                                 ...follower,
-                                following: follower.following.filter(f => f !== item.walletAddress)
+                                following: follower.following.filter(f => f !== item?.walletAddress)
                             };
                         }
                         return follower;
@@ -225,7 +182,7 @@ const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setIm
                     if (docSnapshot.exists()) {
                         const followers = docSnapshot.data().followers;
                         console.log("🚀 ~ fetchFollowers ~ followers:", followers)
-                        setIsFollowing(followers.some(follower => follower.following.includes(item.walletAddress)));
+                        setIsFollowing(followers.some(follower => follower.following.includes(item?.walletAddress)));
                     } else {
                         setIsFollowing(false);
                     }
@@ -236,6 +193,7 @@ const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setIm
             fetchFollowers();
         }
     }, [account.address, item?.walletAddress, isLoggedIn]);
+
 
     return (
         <Modal isOpen={visible} onClose={onClose} size={"5xl"} >
@@ -254,7 +212,7 @@ const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setIm
                             <div className="flex flex-row items-start gap-x-[20px]">
                                 <div className='flex items-center flex-row gap-x-[20px]'>
                                     <FaUserLarge className="text-[50px] rounded-full bg-gray-700 px-[10px] py-[10px]" />
-                                    <h2 className='flex gap-4 text-white text-[18px] font-medium'>User</h2>
+                                    <h2 className='flex gap-4 text-white text-[18px] font-medium'>{usersData?.username ?? "User"}</h2>
                                 </div>
                                 {
                                     account.address === item?.walletAddress ? null :

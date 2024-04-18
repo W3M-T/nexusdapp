@@ -35,6 +35,7 @@ function CommunityGallery() {
         try {
             const querySnapshot = await getDocs(collection(db, 'imagecollection'));
             const imagesgallery = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+            imagesgallery.sort((a: imageProps, b: imageProps) => b.likes.length - a.likes.length);
             setImagesData(imagesgallery as []);
             setLoading(false);
         } catch (error) {
@@ -133,10 +134,8 @@ function CommunityGallery() {
             });
         }
     };
-    // console.log("🚀 ~ CommunityGallery ~ imagesData:", imagesData)
-    // const countLikes = (image) => image.likes.length;
-    // const sortedData = imagesData?.slice()?.sort((a, b) => countLikes(b) - countLikes(a))
-    // console.log("🚀 ~ CommunityGallery ~ sortedData:", sortedData)
+
+    const filterData = imagesData.filter((item) => item.likes)
 
     return (
         <div>
@@ -185,15 +184,21 @@ function CommunityGallery() {
                                         <GoArrowSwitch style={{ width: '20px', height: '20px' }} color="black" />
 
                                     </div> */}
-                                            <div
-                                                className='bg-white rounded-full p-2 cursor-pointer hover:bg-gray-200'
-                                            >
-                                                {item?.likes?.find((item) => item?.likeAddress == account.address) ? (
-                                                    <AiFillHeart color="#FF35A5" style={{ width: '20px', height: '20px' }} onClick={() => unlikehandler(item)} />
-                                                ) : (
-                                                    <AiOutlineHeart color="#FF35A5" style={{ width: '20px', height: '20px' }} onClick={() => likeshandler(item.id)} />
-                                                )}
-                                            </div>
+                                            {item?.likes?.find((item) => item?.likeAddress == account.address) ? (
+                                                <div
+                                                    className='bg-white rounded-full p-2 cursor-pointer hover:bg-gray-200'
+                                                    onClick={() => unlikehandler(item)}
+                                                >
+                                                    <AiFillHeart color="#FF35A5" style={{ width: '20px', height: '20px' }} />
+                                                </div>
+                                            ) : (
+                                                <div
+                                                    className='bg-white rounded-full p-2 cursor-pointer hover:bg-gray-200'
+                                                    onClick={() => likeshandler(item.id)}
+                                                >
+                                                    <AiOutlineHeart color="#FF35A5" style={{ width: '20px', height: '20px' }} />
+                                                </div>
+                                            )}
                                             <ViewImagePopup item={currentItem as ItemProps} onClose={handleCloseModal} visible={visible} setImagesData={setImagesData} getData={getData} />
                                         </div>
                                     )}
@@ -202,7 +207,7 @@ function CommunityGallery() {
                         </div>
                     </div>
             }
-        </div>
+        </div >
 
     )
 }
