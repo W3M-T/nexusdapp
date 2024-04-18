@@ -30,7 +30,7 @@ export const generateResponse = async (prompt: any) => {
         }, {
             headers: {
                 'Content-Type': 'application/json',
-                'X-Wp-Nonce': '757458bfd1',
+                'X-Wp-Nonce': '6ea7412eea',
             }
         });
 
