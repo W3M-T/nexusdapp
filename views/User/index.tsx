@@ -222,7 +222,7 @@ export default function User() {
                             <span className="text-white font-semibold text-lg">{followers.length} Followers</span>
                             <span className="text-white font-semibold text-lg">0 Likes</span>
                         </div>
-                        <button className="bg-white text-gray-950  px-[15px] py-[7px] md:px-[25px] md:py-[12px] rounded-md font-semibold mt-[20px] whitespace-nowrap" onClick={(() => setModalVisble(true))}>Edit Profile</button>
+                        <button className="bg-blue-primary text-white  px-[15px] py-[7px] md:px-[25px] md:py-[12px] rounded-md font-semibold mt-[20px] whitespace-nowrap" onClick={(() => setModalVisble(true))}>Edit Profile</button>
                     </div>
                 </div>
             </div>
