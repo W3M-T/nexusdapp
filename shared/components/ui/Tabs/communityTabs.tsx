@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Text } from '@chakra-ui/react';
+import { useGetAccountInfo } from '@multiversx/sdk-dapp/hooks/account/useGetAccountInfo';
 
 function CommunityGalleryTabs({ following, community }: { following?: boolean, community?: any }) {
+    const { account } = useGetAccountInfo();
+
     const isDarkMode = true;
     const swapbtn = {
         color: isDarkMode ? '#FFFFFF80' : '#00000080',
@@ -55,8 +58,8 @@ function CommunityGalleryTabs({ following, community }: { following?: boolean, c
                 >
                     <Text className='text-[16px] text-[#4E4D55]' >Trending</Text>
                 </Link>
-                <Link style={following ? swapbtn : swapbtn1} href={"/followingnft"}>
-                    <Text className='text-[16px] text-[#4E4D55]'>Following</Text>
+                <Link style={following ? swapbtn : swapbtn1} href={account.address && "/followingnft"}>
+                    <Text className={`text-[16px] text-[#4E4D55] ${account.address ? "cursor-pointer" : "cursor-not-allowed"}`}  >Following</Text>
                 </Link>
             </div>
         </div >
