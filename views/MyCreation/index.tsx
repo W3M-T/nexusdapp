@@ -167,7 +167,7 @@ function MyCreation() {
             <div className='hidden md:block '>
                 <h1 className='flex items-center gap-4 mb-[10px] text-white text-[25px] font-bold'>My creations <span className='text-title-primary font-bold'>Public Profile</span></h1>
                 <div className='flex flex-col justify-between items-center md:flex-row  sm:flex-row xl:flex-row  '>
-                    <div>
+                    <div className='mt-[10px]'>
                         <InputGroup width="180px">
                             <Select
                                 icon={<BsCaretDown className='!text-gray-950' color='' />}
@@ -192,7 +192,7 @@ function MyCreation() {
             <div className='flex-col block md:hidden'>
                 <div className='mb-[10px]'>
                     <h1 className='flex items-center gap-4 text-white text-[25px] font-bold'>My creations <span className='text-title-primary font-bold'>Public Profile</span></h1>
-                    <InputGroup width="200px">
+                    <InputGroup width="200px" className='!mt-[20px]'>
                         <div className="relative inline-block">
                             <div
                                 className='!flex !items-center justify-between w-[200px] rounded-md !text-gray-950 !bg-blue-primary !px-[20px] !py-[10px] !text-[17px] !font-semibold !shadow-md !outline-none'
@@ -218,16 +218,16 @@ function MyCreation() {
                         </div>
                     </InputGroup>
                 </div>
-                <div className='mb-[10px]'>
+                <div className='mb-[10px] mt-[15px]'>
                     <button type='button' className='whitespace-nowrap text-gray-950 bg-blue-primary  w-[121px] py-[10px] rounded-[13px] text-[17px] font-semibold shadow-md' onClick={handleOpenModal}>Mint Nft</button>
                 </div>
-                <div className='mb-[10px]'>
+                <div className='mb-[10px] mt-[15px]'>
                     <button type='button' className='text-gray-950 bg-blue-primary  w-[121px] py-[10px] rounded-[13px] text-[17px] font-semibold shadow-md'>Select</button>
                 </div>
             </div>
             {
                 loading ? <ChildLoader /> :
-                    <div className='flex flex-row flex-wrap w-full gap-10 mt-[80px]  md:mt-[40px] mb-[100px] '>
+                    <div className='flex flex-row flex-wrap w-full gap-10 mt-[38px]  md:mt-[40px] mb-[100px] '>
                         {account.address ? (
                             filterData.length ? (
                                 filterData.map((item, index) => (
