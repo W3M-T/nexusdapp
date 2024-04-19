@@ -36,6 +36,7 @@ module.exports = {
         'xl': '1280px', // Extra large screens
         '2xl': '1536px', // 2x extra large screens
         "small": "400px",
+        "primary-small": "450px"
       },
 
     },

@@ -188,7 +188,7 @@ function Following() {
                                             <img
                                                 alt=''
                                                 src={item.imageUrl}
-                                                className='w-[200px] md:w-[370px] max-w-[400px] min-w-[370px] h-[370px] max-h-[400px] min-h-[370px] rounded-md'
+                                                className='w-[200px] min-w-[250px] h-[250px] min-h-[100px] md:w-[370px] max-w-[400px] primary-small:min-w-[370px]  primary-small:h-[370px] md:h-[370px] max-h-[400px] primary-small:min-h-[370px] md:min-h-[370px] rounded-md'
                                             />
                                             {hoveredIndex === index && (
                                                 <div className="absolute bottom-0 left-0 flex items-center space-x-2 p-2">
