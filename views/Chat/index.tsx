@@ -246,9 +246,9 @@ function Chatai() {
                                         style={{
                                             backgroundColor: isDarkMode ? 'rgb(17, 10, 43)' : '#F1F1F1',
                                             borderRadius: "20px",
-                                            marginTop: "10px",
+                                            marginTop: "8px",
                                             padding: "10px 20px",
-                                            marginLeft: "3.3vw"
+                                            marginLeft: "4vw"
                                         }}
                                         className='rounded-[20px] mt-[10px] ml-[3.3vw] '
                                     >

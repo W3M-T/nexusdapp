@@ -218,7 +218,7 @@ function Following() {
                                                             <AiOutlineHeart color="#FF35A5" style={{ width: '20px', height: '20px' }} />
                                                         </div>
                                                     )}
-                                                    <ViewImagePopup item={currentItem as ItemProps} onClose={handleCloseModal} visible={visible} setImagesData={setFollowingData} />
+                                                    <ViewImagePopup item={currentItem as ItemProps} onClose={handleCloseModal} visible={visible} setImagesData={setFollowingData} getData={getData} />
                                                 </div>
                                             )}
                                         </div>

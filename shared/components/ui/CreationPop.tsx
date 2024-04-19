@@ -137,6 +137,7 @@ const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setIm
                     title: "Unfollowed Successfully",
                     icon: "success"
                 });
+                getData();
                 onClose();
             } else {
                 Swal.fire({

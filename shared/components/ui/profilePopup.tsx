@@ -10,7 +10,6 @@ interface User {
     fullName: string,
     walletAddress: string,
 }
-
 interface NftModalProps {
     visible: boolean;
     onClose: () => void;

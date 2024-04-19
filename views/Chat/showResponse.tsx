@@ -21,9 +21,9 @@ function ShowResponse({ msg, loading }: { msg: any; loading: any }) {
                     <React.Fragment key={index}>
                         {item.user === 'Pensy AI' ? (
                             <Box display={'flex'} flexDirection={'column'}>
-                                <Box display={'flex'} columnGap="4px">
+                                <Box display={'flex'} columnGap="8px">
                                     <Box>
-                                        <LazyLoadImage src={'/assets/webp/pensy.png'} width={'45px'} height={'45px'} alt="logo" />
+                                        <LazyLoadImage src={'/assets/webp/pensyai.png'} width={'50px'} height={'55px'} alt="logo" className='rounded-md !mt-[10px]' />
                                     </Box>
                                     <Box display={'flex'} flexDirection={'column'} rowGap="6px">
                                         <Box
