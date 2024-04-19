@@ -60,7 +60,7 @@ function ShowResponse({ msg, loading }: { msg: any; loading: any }) {
                                                 {item.question}
                                             </h1>
                                         </div>
-                                        <h1 style={{ alignSelf: 'self-start', color: '#B6B6B6' }} className='flex justify-end mt-[5px] mr-[12px] text-[14px]'>
+                                        <h1 style={{ alignSelf: 'self-start', color: '#B6B6B6' }} className='flex justify-end mt-[5px] mr-[12px] text-[12px]'>
                                             {new Date(item.date).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true })}
                                         </h1>
                                     </div>

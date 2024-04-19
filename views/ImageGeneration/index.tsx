@@ -113,7 +113,7 @@ function ImageGenerator() {
         { name: 'Portrait (4:5)', tag: 'PRO', width: '512', height: '512' },
         { name: 'Wide (16:9)', tag: '', width: '960', height: '576' },
         { name: 'Landscape (4:3)', tag: '', width: '1024', height: '768' },
-        { name: 'Square (1:1)', tag: '', width: '512', height: '512' },
+        { name: 'Square (1:1)', tag: '', width: '1080px', height: '1080px' },
     ];
 
     const handleChange = (e: any) => {
