@@ -227,7 +227,7 @@ function MyCreation() {
             </div>
             {
                 loading ? <ChildLoader /> :
-                    <div className='flex flex-row flex-wrap w-full gap-10 mt-[38px]  md:mt-[40px] mb-[100px] '>
+                    <div className='flex flex-row flex-wrap justify-center md:justify-start  w-full gap-10 mt-[38px]  md:mt-[40px] mb-[100px] '>
                         {account.address ? (
                             filterData.length ? (
                                 filterData.map((item, index) => (

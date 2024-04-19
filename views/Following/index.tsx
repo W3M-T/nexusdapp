@@ -167,7 +167,7 @@ function Following() {
                     {
                         loading ? <ChildLoader /> :
                             <div className='mb-[50px]'>
-                                <div className='mb-[20px] flex flex-row flex-wrap gap-10 mt-[40px]'>
+                                <div className='mb-[20px] flex flex-row  justify-center md:justify-start flex-wrap gap-10 mt-[40px]'>
                                     {followingData.length > 0 ? followingData?.map((item, index) => (
                                         <div
                                             key={item.walletAddress}

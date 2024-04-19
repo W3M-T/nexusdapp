@@ -230,7 +230,7 @@ export default function User() {
             {
                 loading ? <ChildLoader /> :
                     <div className="mt-6">
-                        <div className='flex flex-row flex-wrap w-full gap-10 mt-[40px] mb-[100px]'>
+                        <div className='flex flex-row justify-center md:justify-start flex-wrap w-full gap-10 mt-[40px] mb-[100px]'>
                             {account.address ? (
                                 filterData.length ? (
                                     filterData?.map((item, index) => (

@@ -149,7 +149,7 @@ function CommunityGallery() {
             {
                 loading ? <ChildLoader /> :
                     <div className='mb-[50px]'>
-                        <div className='mb-[20px] flex flex-row flex-wrap gap-10 mt-[40px]'>
+                        <div className='mb-[20px] flex flex-row flex-wrap gap-10 justify-center md:justify-start mt-[40px]'>
                             {imagesData.map((item, index) => (
                                 <div
                                     key={item.walletAddress}
