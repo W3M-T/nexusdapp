@@ -4,7 +4,6 @@ import { Formik } from 'formik';
 import { collection, query, getDocs, updateDoc, where } from 'firebase/firestore';
 import { db } from '../../utils/firebaseConfig';
 import Swal from 'sweetalert2';
-
 interface User {
     username: string,
     dob: string,
@@ -47,8 +46,6 @@ const ProfileModal: React.FC<NftModalProps> = ({ visible, onClose, user, getUser
             setLoading(false);
         }
     };
-
-    // Function to get today's date in the required format (YYYY-MM-DD)
     const getTodayDate = () => {
         const today = new Date();
         const year = today.getFullYear();
@@ -63,7 +60,7 @@ const ProfileModal: React.FC<NftModalProps> = ({ visible, onClose, user, getUser
                 initialValues={{
                     username: user?.username || "",
                     fullName: user?.fullName || "",
-                    dob: user?.dob || getTodayDate() // Set today's date or user's dob
+                    dob: user?.dob || getTodayDate()
                 }}
                 onSubmit={(values, { setSubmitting }) => {
                     updateUser(values);
@@ -120,26 +117,19 @@ const ProfileModal: React.FC<NftModalProps> = ({ visible, onClose, user, getUser
 };
 
 const CustomDatePicker: React.FC<any> = ({ name, value, onChange, disabled }) => {
-    // Get today's date
     const today = new Date();
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0');
     const day = String(today.getDate()).padStart(2, '0');
     const maxDate = `${year}-${month}-${day}`;
-
-    // Function to handle date change
     const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const selectedDate = e.target.value;
-
-        // Validate selected date
         const [selectedYear, selectedMonth, selectedDay] = selectedDate.split('-').map(Number);
         if (selectedYear > year ||
             (selectedYear === year && selectedMonth > parseInt(month)) ||
             (selectedYear === year && selectedMonth === parseInt(month) && selectedDay > parseInt(day))) {
-            // If selected date is beyond current date, set it to current date
             onChange({ target: { name, value: maxDate } });
         } else {
-            // Otherwise, update with selected date
             onChange({ target: { name, value: selectedDate } });
         }
     };
@@ -150,7 +140,7 @@ const CustomDatePicker: React.FC<any> = ({ name, value, onChange, disabled }) =>
             type="date"
             value={value}
             onChange={handleDateChange}
-            max={maxDate} // Set max date to today's date
+            max={maxDate}
             disabled={disabled}
         />
     );
