@@ -38,7 +38,6 @@ function MyCreation() {
     const toggleOptions = () => {
         setOptionsVisible(!optionsVisible);
     };
-
     const { account } = useGetAccountInfo();
 
     const getData = async () => {
@@ -250,7 +249,7 @@ function MyCreation() {
                                         <img
                                             alt=''
                                             src={item.imageUrl}
-                                            className='w-[200px] md:w-[370px] max-w-[400px] min-w-[370px] h-[370px] max-h-[400px] min-h-[370px] rounded-md'
+                                            className='w-[200px] h-[200px] min-w-[200px] md:w-[370px] max-w-[400px] md:min-w-[370px] md:h-[370px] max-h-[400px] min-h-[370px] rounded-md'
                                         />
                                         {hoveredIndex === index && (
                                             <div className="absolute bottom-0 left-0 flex items-center space-x-2 p-2">

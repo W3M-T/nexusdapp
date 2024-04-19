@@ -102,7 +102,7 @@ function Tabs({ chat }: { chat: boolean }) {
                     </Link>
 
                     <Link
-                        href="/createwithai"
+                        href="/generateImage"
                         style={swapbtn1}
                         onClick={() => setBtnswap('Image')}
                     >
@@ -167,7 +167,7 @@ function Tabs({ chat }: { chat: boolean }) {
                     </Link>
 
                     <Link
-                        href="/createwithai"
+                        href="/generateImage"
                         style={swapbtn}
 
                         onClick={() => setBtnswap('Image')}

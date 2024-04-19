@@ -32,7 +32,7 @@ function Chatai() {
             title: 'Community  X',
             questions: [
                 'What  is  crypto?',
-                'What  is  $WATER  ?',
+                'What  is  $WATER?',
                 'What  Is  the  NEXUS  Dapp?',
                 'What  Team  Is  Behind  The  NEXUS  Dapp?',
             ],
