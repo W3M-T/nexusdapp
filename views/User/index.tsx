@@ -69,20 +69,41 @@ export default function User() {
     useEffect(() => {
         getData();
         const getFollowing = async () => {
+            if (!account) return;
+            setLoading(true);
             try {
-                const followingRef = doc(collection(db, 'followers'), account?.address);
+                const followingRef = doc(collection(db, 'followers'), account.address);
                 const followingSnapshot = await getDoc(followingRef);
                 if (followingSnapshot.exists()) {
-                    const followingUsers = followingSnapshot.data().followers;
-                    console.log("🚀 ~ getFollowing ~ followingUsers:", followingUsers)
-                    setfollowing(followingUsers);
-                }
-            } catch (err) {
-                console.log("🚀 ~ getFollowers ~ err:", err)
-            }
-        }
-        getFollowing();
+                    const followingUsers = followingSnapshot.data().followers || [];
+                    console.log("Following users:", followingUsers);
 
+                    // Calculate the length of the following array for each object in the followingUsers array
+                    const followingLengthPromises = followingUsers.map(user => {
+                        return Promise.resolve(user.following.length);
+                    });
+
+                    // Await all promises and get the total count of followers
+                    const followersCount = (await Promise.all(followingLengthPromises)).reduce((total, count) => total + count, 0);
+
+                    console.log("Total followers count:", followersCount);
+
+                    // Set the followers count in state
+                    // setFollowersCount(followersCount);
+
+                    // Set the following users in state
+                    setfollowing(followersCount);
+                } else {
+                    console.log("Following list not found for the current user");
+                    setfollowing([]); // Reset following list if not found
+                }
+            } catch (error) {
+                console.error("Error fetching following users:", error);
+            }
+            setLoading(false); // Set loading state to false after fetching is done
+        };
+
+        getFollowing();
         const getFollowers = async () => {
             try {
                 const followersCollection = collection(db, 'followers');
@@ -218,7 +239,7 @@ export default function User() {
                             <span className='text-title-primary text-[14px]  font-semibold md:text-[20px]'>{userData?.fullName ?? "#USE4002"}</span>
                         </h1>
                         <div className="flex flex-col md:flex-row  gap-x-[10px] mt-[30px]">
-                            <span className="text-white font-semibold text-lg">{following.length} Following</span>
+                            <span className="text-white font-semibold text-lg">{following} Following</span>
                             <span className="text-white font-semibold text-lg">{followers.length} Followers</span>
                             <span className="text-white font-semibold text-lg">0 Likes</span>
                         </div>

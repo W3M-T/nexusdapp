@@ -196,7 +196,7 @@ const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setIm
                             <img
                                 src={item?.imageUrl}
                                 alt={item?.prompt}
-                                className='w-[200px] md:w-[450px] max-w-[500px] min-w-[450px] h-[450px] max-h-[500px] min-h-[450px] rounded-md'
+                                className='w-[200px] min-w-[250px] h-[250px] min-h-[100px] md:w-[370px] max-w-[400px] primary-small:min-w-[370px]  primary-small:h-[370px] md:h-[370px] max-h-[400px] primary-small:min-h-[370px] md:min-h-[370px] rounded-md'
                             />
                         </div>
                         <div className='flex flex-col mt-[10px]'>
@@ -223,7 +223,7 @@ const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setIm
                             <div className='mt-[30px]'>
 
                             </div>
-                            <div className='flex flex-row mt-[30px] gap-x-[20px]'>
+                            <div className='flex flex-col primary-small:flex-row mt-[30px] gap-x-[20px]'>
                                 <button className='flex flex-row items-center bg-blue-primary px-[20px] tex-[20px] font-semibold gap-x-[10px] py-[10px] rounded-xl' onClick={() => copyPrompthandler(item?.prompt)}>
                                     <FiCopy className='text-[20px] font-medium' /><span className='text-[14px] font-medium text-white whitespace-nowrap'>Copy Prompt</span>
                                 </button>
