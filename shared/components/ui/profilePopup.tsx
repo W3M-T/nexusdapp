@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Modal, Button, FormControl, FormLabel, Input, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Spinner } from "@chakra-ui/react";
-import { collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
+import { Modal, Button, FormControl, FormLabel, Input, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter } from "@chakra-ui/react";
+import { Formik } from 'formik';
+import { collection, query, getDocs, updateDoc, where } from 'firebase/firestore';
 import { db } from '../../utils/firebaseConfig';
 import Swal from 'sweetalert2';
-import { Formik } from 'formik';
 
 interface User {
     username: string,
@@ -20,7 +20,7 @@ interface NftModalProps {
 }
 
 const ProfileModal: React.FC<NftModalProps> = ({ visible, onClose, user, getUser }) => {
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
 
     const updateUser = async (values: any) => {
         setLoading(true);
@@ -34,33 +34,36 @@ const ProfileModal: React.FC<NftModalProps> = ({ visible, onClose, user, getUser
                     username: values.username,
                     fullName: values.fullName
                 });
-                console.log("Document updated successfully");
                 setLoading(false);
                 getUser();
                 onClose();
+                Swal.fire({
+                    title: "Update Successfully",
+                    icon: "success"
+                });
             }
-            console.log("Document updated successfully");
-            setLoading(false);
-
-            Swal.fire({
-                title: "Update Sucessfully",
-                icon: "success"
-            })
-
-            onClose();
         } catch (err) {
             console.error("Error updating document:", err);
             setLoading(false);
         }
     };
 
+    // Function to get today's date in the required format (YYYY-MM-DD)
+    const getTodayDate = () => {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
     return (
-        <Modal isOpen={visible} onClose={onClose} size={"2xl"} >
+        <Modal isOpen={visible} onClose={onClose} size="2xl">
             <Formik
                 initialValues={{
-                    username: user?.username ?? "",
-                    fullName: user?.fullName ?? "",
-                    dob: user?.dob ?? ""
+                    username: user?.username || "",
+                    fullName: user?.fullName || "",
+                    dob: user?.dob || getTodayDate() // Set today's date or user's dob
                 }}
                 onSubmit={(values, { setSubmitting }) => {
                     updateUser(values);
@@ -69,10 +72,10 @@ const ProfileModal: React.FC<NftModalProps> = ({ visible, onClose, user, getUser
             >
                 {({ values, handleChange, handleSubmit }) => (
                     <form onSubmit={handleSubmit}>
-                        <ModalContent className='!bg-bg-primary2'>
-                            <ModalHeader className='flex justify-center items-center text-center'>Edit Profile</ModalHeader>
+                        <ModalContent className="!bg-bg-primary2">
+                            <ModalHeader className="flex justify-center items-center text-center">Edit Profile</ModalHeader>
                             <ModalCloseButton />
-                            <ModalBody className='!flex !flex-col !gap-y-[14px]'>
+                            <ModalBody className="!flex !flex-col !gap-y-[14px]">
                                 <FormControl isRequired id="username">
                                     <FormLabel>UserName</FormLabel>
                                     <Input
@@ -96,28 +99,63 @@ const ProfileModal: React.FC<NftModalProps> = ({ visible, onClose, user, getUser
                                 </FormControl>
                                 <FormControl isRequired id="dob">
                                     <FormLabel>Date of Birth</FormLabel>
-                                    <div className='data-dob'>
-                                        <Input
-                                            name="dob"
-                                            type="date"
-                                            value={values.dob}
-                                            onChange={handleChange}
-                                            placeholder='enter the Date of Birth'
-                                            disabled={loading}
-                                        />
-                                    </div>
+                                    <CustomDatePicker
+                                        name="dob"
+                                        value={values.dob}
+                                        onChange={handleChange}
+                                        disabled={loading}
+                                    />
                                 </FormControl>
                             </ModalBody>
                             <ModalFooter>
-                                <Button onClick={onClose} mr={3}>Cancel</Button>
+                                <Button onClick={onClose} mr={3} disabled={loading}>Cancel</Button>
                                 <Button type="submit" colorScheme="blue" variant="ghost" className="!bg-blue-primary !text-white" disabled={loading}>Submit</Button>
                             </ModalFooter>
                         </ModalContent>
                     </form>
                 )}
             </Formik>
-        </Modal >
+        </Modal>
     );
-}
+};
+
+const CustomDatePicker: React.FC<any> = ({ name, value, onChange, disabled }) => {
+    // Get today's date
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const maxDate = `${year}-${month}-${day}`;
+
+    // Function to handle date change
+    const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const selectedDate = e.target.value;
+
+        // Validate selected date
+        const [selectedYear, selectedMonth, selectedDay] = selectedDate.split('-').map(Number);
+        if (selectedYear > year ||
+            (selectedYear === year && selectedMonth > parseInt(month)) ||
+            (selectedYear === year && selectedMonth === parseInt(month) && selectedDay > parseInt(day))) {
+            // If selected date is beyond current date, set it to current date
+            onChange({ target: { name, value: maxDate } });
+        } else {
+            // Otherwise, update with selected date
+            onChange({ target: { name, value: selectedDate } });
+        }
+    };
+
+    return (
+        <Input
+            name={name}
+            type="date"
+            value={value}
+            onChange={handleDateChange}
+            max={maxDate} // Set max date to today's date
+            disabled={disabled}
+        />
+    );
+};
+
+
 
 export default ProfileModal;

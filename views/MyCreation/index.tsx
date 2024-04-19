@@ -31,7 +31,7 @@ function MyCreation() {
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const [currentItem, setCurrentItem] = useState<imageProps | null>(null);
     const [imageVisible, setImageVisible] = useState(false)
-    const [selectedOption, setSelectedOption] = useState('');
+    const [selectedOption, setSelectedOption] = useState('Recent');
     const [optionsVisible, setOptionsVisible] = useState(false);
     const { isLoggedIn } = useGetLoginInfo();
 
@@ -75,6 +75,7 @@ function MyCreation() {
 
     const filterData = imagesData.filter((item) => item.walletAddress === account.address)
     const options = ["Recent", "Upscaled", "Published", "Unpublished"]
+    const mobileOptions = ["Upscaled", "Published", "Unpublished"]
     const handleSelectChange = useCallback((e: any) => {
         console.log("🚀 ~ handleSelectChange ~ e:", e)
     }, [])
@@ -197,12 +198,12 @@ function MyCreation() {
                                 className='!flex !items-center justify-between w-[200px] rounded-md !text-gray-950 !bg-blue-primary !px-[20px] !py-[10px] !text-[17px] !font-semibold !shadow-md !outline-none'
                                 onClick={toggleOptions}
                             >
-                                {selectedOption || 'Select an option'}
+                                {selectedOption}
                                 <BsCaretDown />
                             </div>
                             {optionsVisible && (
                                 <div className="options absolute  rounded-md top-full left-0 right-0 z-10 bg-blue-primary px-[20px] overflow-auto">
-                                    {options.map((option, index) => (
+                                    {mobileOptions.map((option, index) => (
                                         <div
                                             className='rounded-md py-[10px] !bg-blue-primary !text-gray-950 text-[17px] !font-semibold hover:bg-blue-600'
                                             key={index}
@@ -249,7 +250,7 @@ function MyCreation() {
                                         <img
                                             alt=''
                                             src={item.imageUrl}
-                                            className='w-[200px] h-[200px] min-w-[200px] md:w-[370px] max-w-[400px] md:min-w-[370px] md:h-[370px] max-h-[400px] min-h-[370px] rounded-md'
+                                            className='w-[200px] md:w-[370px] max-w-[400px] min-w-[370px] h-[370px] max-h-[400px] min-h-[370px] rounded-md'
                                         />
                                         {hoveredIndex === index && (
                                             <div className="absolute bottom-0 left-0 flex items-center space-x-2 p-2">

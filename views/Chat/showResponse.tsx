@@ -23,7 +23,7 @@ function ShowResponse({ msg, loading }: { msg: any; loading: any }) {
                             <Box display={'flex'} flexDirection={'column'}>
                                 <Box display={'flex'} columnGap="4px">
                                     <Box>
-                                        <LazyLoadImage src={'/assets/webp/logo123.webp'} width={'45px'} height={'45px'} alt="logo" />
+                                        <LazyLoadImage src={'/assets/webp/pensy.png'} width={'45px'} height={'45px'} alt="logo" />
                                     </Box>
                                     <Box display={'flex'} flexDirection={'column'} rowGap="6px">
                                         <Box
