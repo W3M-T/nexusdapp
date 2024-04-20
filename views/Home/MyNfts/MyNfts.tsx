@@ -104,6 +104,7 @@ const MyNfts = () => {
                         alignItems="center"
                         flexDir={"column"}
                         cursor="pointer"
+                        onClick={onOpen}
                       >
                         <Box
                           boxSize={{ sm: "65px", md: "100px" }}
