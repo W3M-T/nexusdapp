@@ -9,9 +9,19 @@ import { IoMdInformationCircleOutline } from "react-icons/io";
 import MyModal from "../MyModal";
 import { useState } from "react";
 import { EgldLogoIcon } from "../../icons/ui";
-import { listNftForSale } from "../../../services/sc/calls/claimFromFaucet copy";
+import { listNftForSale } from "../../../services/sc/calls/listNftForSale";
+import { formatBalance, formatNumber } from "../../../utils/formatBalance";
+import { buyListedNft } from "../../../services/sc/calls/buyListedNft";
+import { BiCommentDetail } from "react-icons/bi";
+import { useAppSelector } from "../../../hooks/core/useRedux";
+import { selectUserAddress } from "../../../redux/slices/settings";
+import { cancelListing } from "../../../services/sc/calls/cancelListing";
+import { isMobile } from "../../../utils/isMobile";
 
 const UserNftCard = (nft) => {
+  const connectedAddress = useAppSelector(selectUserAddress);
+  const isSmallDevice = isMobile();
+
   const { isOpen: isOpenInfoModal, onOpen: onOpenInfoModal, onClose: onCloseInfoModal } = useDisclosure();
   const { isOpen: isOpenSellModal, onOpen: onOpenSellModal, onClose: onCloseSellModal } = useDisclosure();
   
@@ -24,8 +34,8 @@ const UserNftCard = (nft) => {
   const nftObject = nft.nft;
 
   return (
-    <Flex flexDir={"column"} bg={"black"} borderRadius="md">
-      <Box key={nft.identifier} p={{sm: 3, md: 3}}>
+    <Flex flexDir={"column"} bg={"black"} borderRadius="md" w="full" maxW={{sm:"180px", md: "260px"}}>
+      <Box key={nft.identifier} p={{sm: 2, md: 3}}>
         
         <Box position="relative" borderRadius={"lg"} overflow="hidden">
           {nftThumbnail && (
@@ -59,21 +69,22 @@ const UserNftCard = (nft) => {
             </Text>
           </HStack>
 
-          {/* <HStack fontSize={"xs"} fontWeight={"light"} justifyContent={"space-between"}>
-            <Text>
-              {nftTags.map((tag) => "#" + tag).join(" ")}
-            </Text>
-          </HStack> */}
-
           <HStack pt={3} justifyContent={"space-between"}>
 
             <HStack>
               <Attributes attributes={nftAttributes} tags={nftTags} onOpenInfoModal={onOpenInfoModal} isOpenInfoModal={isOpenInfoModal} onCloseInfoModal={onCloseInfoModal}/>
 
-              <ViewOnExplorer link={explorerLink}/>
+              {!isSmallDevice && <ViewOnExplorer link={explorerLink}/>}
+
+              <Comments attributes={nftAttributes} tags={nftTags} onOpenInfoModal={onOpenInfoModal} isOpenInfoModal={isOpenInfoModal} onCloseInfoModal={onCloseInfoModal}/>
+
             </HStack>
 
-            <ListNft onOpenSellModal={onOpenSellModal} isOpenSellModal={isOpenSellModal} onCloseSellModal={onCloseSellModal} nftObject={nftObject}/>
+            {nftObject?.listingPrice
+            ? nftObject.listingCreator == connectedAddress
+            ? <BuyNft nftObject={nftObject}/>
+            : <CancelListing nftObject={nftObject}/>
+            : <ListNft onOpenSellModal={onOpenSellModal} isOpenSellModal={isOpenSellModal} onCloseSellModal={onCloseSellModal} nftObject={nftObject}/>}
 
           </HStack>
 
@@ -91,15 +102,15 @@ const ViewOnExplorer = ({link}) => {
   return (
     <Link href={link}>
       <HStack
-      border={"1px solid"}
-      bg={customColors.myCustomColor.lighter}
-      borderColor={customColors.myCustomColor.lighter}
-      borderRadius={"2xl"}
-      px={1.5}
-      py={1.5}
+        border={"1px solid"}
+        bg={customColors.myCustomColor.lighter}
+        borderColor={customColors.myCustomColor.lighter}
+        borderRadius={"2xl"}
+        px={1}
+        py={1}
       >
         {/* <Text fontSize={"xs"} fontWeight={"semibold"}>View </Text> */}
-        <TbExternalLink size={"16px"}/>
+        <TbExternalLink/>
       </HStack>
     </Link>
   )
@@ -112,13 +123,32 @@ const Attributes = ({attributes, tags, onOpenInfoModal, isOpenInfoModal, onClose
       bg={customColors.myCustomColor.lighter}
       borderColor={customColors.myCustomColor.lighter}
       borderRadius={"2xl"}
-      px={1.5}
-      py={1.5}
+      px={1}
+      py={1}
       onClick={onOpenInfoModal}
       cursor={"pointer"}
     >
       {/* <Text fontSize={"xs"} fontWeight={"semibold"}>Info </Text> */}
-      <IoMdInformationCircleOutline size={"16px"}/>
+      <IoMdInformationCircleOutline/>
+      {isOpenInfoModal && <NftInfoModal attributes={attributes} tags={tags} isOpenInfoModal={isOpenInfoModal} onCloseInfoModal={onCloseInfoModal}/>}
+    </HStack>
+  )
+}
+
+const Comments = ({attributes, tags, onOpenInfoModal, isOpenInfoModal, onCloseInfoModal}) => {
+  return (
+    <HStack
+      border={"1px solid"}
+      bg={customColors.myCustomColor.lighter}
+      borderColor={customColors.myCustomColor.lighter}
+      borderRadius={"2xl"}
+      px={1}
+      py={1}
+      onClick={onOpenInfoModal}
+      cursor={"pointer"}
+    >
+      {/* <Text fontSize={"xs"} fontWeight={"semibold"}>Info </Text> */}
+      <BiCommentDetail/>
       {isOpenInfoModal && <NftInfoModal attributes={attributes} tags={tags} isOpenInfoModal={isOpenInfoModal} onCloseInfoModal={onCloseInfoModal}/>}
     </HStack>
   )
@@ -131,14 +161,46 @@ const ListNft = ({onOpenSellModal, isOpenSellModal, onCloseSellModal, nftObject}
       bg={customColors.myCustomColor.lighter}
       borderColor={customColors.myCustomColor.lighter}
       borderRadius={"2xl"}
-      px={8}
-      py={1.5}
+      px={{sm: 3, md: 6}} py={1.5}
       onClick={onOpenSellModal}
       cursor={"pointer"}
     >
-      <Text fontSize={"xs"} fontWeight={"semibold"}>Sell </Text>
+      <Text fontSize={{md: "md", sm: "sm"}}>Sell </Text>
       {isOpenSellModal && <NftSellModal isOpenSellModal={isOpenSellModal} onCloseSellModal={onCloseSellModal} nftObject={nftObject}/>}
     </HStack>
+  )
+}
+
+const BuyNft = ({nftObject}) => {
+  const handleBuyListedNft = () => {
+    buyListedNft(
+      nftObject.listingId,
+      nftObject.listingPrice
+    );
+  }
+
+  return (
+    <ActionButton px={{sm: 2, md: 4}} isFilled onClick={handleBuyListedNft} fontSize={{sm: 'xs', md: 'md'}}>
+      <HStack>
+        <Text pr={0.5}>Buy</Text>
+        <Box boxSize={{sm: "16px", md: "18px"}}><EgldLogoIcon size={"xs"}/></Box>
+        <Text ml={-1}>{formatBalance({balance: nftObject.listingPrice, decimals: 18}, false, 3)}</Text>
+      </HStack>
+    </ActionButton>
+  )
+}
+
+const CancelListing = ({nftObject}) => {
+  const handleCancelListing = () => {
+    cancelListing(
+      nftObject.listingId,
+    );
+  }
+
+  return (
+    <ActionButton px={{sm: 2, md: 4}} onClick={handleCancelListing} fontSize={{sm: 'xs', md: 'md'}}>
+      <Text pr={0.5}>Cancel</Text>
+    </ActionButton>
   )
 }
 
@@ -235,7 +297,7 @@ const NftSellModal = ({isOpenSellModal, onCloseSellModal, nftObject }: SellIProp
     setSellPrice(e.target.value);
   }
 
-  const listForSale = () => {
+  const handleListNftForSale = () => {
     listNftForSale(
       nftObject.collection,
       nftObject.nonce,
@@ -243,12 +305,12 @@ const NftSellModal = ({isOpenSellModal, onCloseSellModal, nftObject }: SellIProp
     )
   }
 
-  const platformFee = 0.1;
+  const platformFee = 1;
   const royalties = nftObject.royalties * sellPrice / 100;
   const fee = platformFee * sellPrice / 100
   const finalEarnings = sellPrice - royalties - fee;
 
-  const validSellPrice = Number(sellPrice) == sellPrice;
+  const validSellPrice = Number(sellPrice) == sellPrice && Number(sellPrice) >= 0.001;
 
   return (
   <MyModal isOpen={isOpenSellModal} onClose={onCloseSellModal} size="sm">
@@ -306,30 +368,30 @@ const NftSellModal = ({isOpenSellModal, onCloseSellModal, nftObject }: SellIProp
             >
               <HStack justifyContent={"space-between"}>
                 <Text>Selling Price</Text>
-                <Text>{Number(sellPrice).toFixed(4)} EGLD</Text>
+                <Text>{Number(sellPrice).toFixed(4).replace(/\.?0*$/, '')} EGLD</Text>
               </HStack>
 
               <HStack justifyContent={"space-between"}>
                 <Text>Creator Royalties ({nftObject.royalties}%)</Text>
-                <Text>{royalties.toFixed(4)} EGLD</Text>
+                <Text>{royalties.toFixed(4).replace(/\.?0*$/, '')} EGLD</Text>
               </HStack>
 
               <HStack justifyContent={"space-between"}>
                 <Text>Platform Fees ({platformFee}%)</Text>
-                <Text>{fee.toFixed(4)} EGLD</Text>
+                <Text>{fee.toFixed(4).replace(/\.?0*$/, '')} EGLD</Text>
               </HStack>
 
               <Divider/>
 
               <HStack justifyContent={"space-between"} fontWeight={"bold"}>
                 <Text>After sale you get</Text>
-                <Text>{finalEarnings.toFixed(4)} EGLD</Text>
+                <Text>{finalEarnings.toFixed(4).replace(/\.?0*$/, '')} EGLD</Text>
               </HStack>
 
             </Flex>
           </Box>}
 
-          <ActionButton px={10} isFilled onClick={listForSale} disabled={!validSellPrice}>
+          <ActionButton px={10} isFilled onClick={handleListNftForSale} disabled={!validSellPrice}>
             List for sale
           </ActionButton>
 

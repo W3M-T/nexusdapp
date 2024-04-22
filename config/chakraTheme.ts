@@ -26,9 +26,11 @@ export const customColors = {
     darker: "#f9611c",
   },
   myCustomColor: {
+    lightest: "#2d1e50",
     lighter: "#1c0f3a",
     base: "#110a2b",
     darker: "#090225",
+    darkest: "#090225"
   },
 };
 

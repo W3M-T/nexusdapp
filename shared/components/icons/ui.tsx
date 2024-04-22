@@ -20,7 +20,7 @@ export const MultiversxLogo = createIcon({
     ...props
   }) => {
     return (
-      <Box  {...wrapperProps}>
+      <Box  {...wrapperProps} boxShadow={""}>
         <Image
           as={NextImage}
           layout="responsive"
