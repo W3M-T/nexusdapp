@@ -81,7 +81,7 @@ const UserNftCard = (nft) => {
             </HStack>
 
             {nftObject?.listingPrice
-            ? nftObject.listingCreator == connectedAddress
+            ? nftObject.listingCreator != connectedAddress
             ? <BuyNft nftObject={nftObject}/>
             : <CancelListing nftObject={nftObject}/>
             : <ListNft onOpenSellModal={onOpenSellModal} isOpenSellModal={isOpenSellModal} onCloseSellModal={onCloseSellModal} nftObject={nftObject}/>}

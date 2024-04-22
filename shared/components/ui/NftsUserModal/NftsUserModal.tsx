@@ -18,9 +18,9 @@ const UserNftCard = dynamic(() => import("./UserNftCard"));
 interface IProps {
   onClose: () => void;
   isOpen: boolean;
+  nfts: any;
 }
-const NftsUserModal = ({ onClose, isOpen }: IProps) => {
-  const nfts = useGetNfts();
+const NftsUserModal = ({ onClose, isOpen, nfts }: IProps) => {
   return (
     <MyModal isOpen={isOpen} onClose={onClose} size={"6xl"}>
       <ModalContent background={customColors.myCustomColor.base} borderRadius="20px">
@@ -46,6 +46,7 @@ const NftsUserModal = ({ onClose, isOpen }: IProps) => {
             overflowY={"auto"}
             py={4}
             w={"full"}
+            justifyItems={"center"}
           >
             {nfts
               .filter((nft) => !noShowMedia(nft))

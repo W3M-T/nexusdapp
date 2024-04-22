@@ -9,7 +9,7 @@ import { chainType, networkConfig } from "../../../config/network";
 import { IListedNft } from "../../redux/types/nftMarketplace.interface";
 
 
-const useGetListedNftsFull = (sizeLimit?: number, onlyUserListings?: boolean): any => {
+const useGetListedNftsFull = ({sizeLimit, onlyUserListings}: {sizeLimit?: number, onlyUserListings?: boolean}) => {
   const userAddress = useAppSelector(selectUserAddress);
   const scAddress = networkConfig[chainType].contractAddr.nftMarketplace;
 
@@ -22,7 +22,11 @@ const useGetListedNftsFull = (sizeLimit?: number, onlyUserListings?: boolean): a
 
   if (!isLoadingListings && nftsInSc && listings) {
     const nftsFull = nftsInSc.map(nft => {
-      const correspondingListing = listings.find(listing => listing.nft_token === nft.collection && listing.nft_nonce === nft.nonce);
+
+      const correspondingListing = listings
+        .filter(listing => !onlyUserListings || listing.creator === userAddress)
+        .find(listing => listing.nft_token === nft.collection && listing.nft_nonce === nft.nonce);
+      
       if (correspondingListing) {
         return {
           ...nft,
@@ -32,11 +36,10 @@ const useGetListedNftsFull = (sizeLimit?: number, onlyUserListings?: boolean): a
           listingTimestamp: correspondingListing.timestamp
         };
       }
-      return nft;
     });
 
     return {
-      listings: nftsFull,
+      listings: nftsFull.filter(nft => nft),
       isLoadingListings: isLoadingListings,
       errorListings: errorListings,
     };

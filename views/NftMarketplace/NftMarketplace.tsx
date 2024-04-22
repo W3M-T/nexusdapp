@@ -40,7 +40,7 @@ const NftMarketplace = () => {
   const dispatch = useAppDispatch();
   const address = useAppSelector(selectUserAddress);
 
-  const { listings, isLoadingListings, errorListings } = useGetListedNftsFull();
+  const { listings, isLoadingListings, errorListings } = useGetListedNftsFull({});
   const [filteredListings, setFilteredListings] = useState(listings);
 
   const handleSearch = (query) => {
@@ -108,16 +108,19 @@ const NftMarketplace = () => {
             </Select>
           </Flex>
         </HStack>
+
         {!isLoadingListings && !errorListings && filteredListings?.length > 0 ? (
           <Grid
             w={"full"}
             // justifyItems={"normal"}
             gap={{sm: 3, md: 8}}
             // flexWrap="wrap"
-            // mt={1}
+            mt={3}
+            borderTop={"4px solid"}
+            borderColor={customColors.myCustomColor.darker}
             p={{sm: 3, md: 6}}
             bg={customColors.myCustomColor.lighter}
-            borderRadius={"2xl"}
+            borderRadius={"3xl"}
             templateColumns={{ sm: "1fr 1fr", md: "1fr 1fr 1fr 1fr" }}
             overflowY={"auto"}
             maxH={"90vh"}
