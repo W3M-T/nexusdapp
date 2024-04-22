@@ -19,7 +19,7 @@ const al3sandr0 = "erd1wn72ttl64axn6q59a5tegtqyk8yk6f3wj23th0p7nxw85ge6au0smxh4w
 export const unstakeNfts = async (nfts: { token: string; nonce: number }[]) => {
   const transactions: Transaction[] = [];
 
-  const gasLimit = 100000000;
+  const gasLimit = 120000000;
 
   nfts.forEach((nft) => {
     const sender = store.getState().settings.userAddress;
