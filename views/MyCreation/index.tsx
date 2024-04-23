@@ -180,9 +180,9 @@ function MyCreation() {
                             </Select>
                         </InputGroup>
                     </div>
-                    <div>
+                    {/* <div>
                         <button type='button' className='whitespace-nowrap text-gray-950 bg-blue-primary px-[20px] py-[10px] rounded-[13px] text-[17px] font-semibold shadow-md' onClick={handleOpenModal}>Mint Nft</button>
-                    </div>
+                    </div> */}
                     <div>
                         <button type='button' className='text-gray-950 bg-blue-primary px-[20px] py-[10px] rounded-[13px] text-[17px] font-semibold shadow-md'>Select</button>
                     </div>
@@ -218,9 +218,9 @@ function MyCreation() {
                         </div>
                     </InputGroup>
                 </div>
-                <div className='mb-[10px] mt-[15px]'>
+                {/* <div className='mb-[10px] mt-[15px]'>
                     <button type='button' className='whitespace-nowrap text-gray-950 bg-blue-primary  w-[121px] py-[10px] rounded-[13px] text-[17px] font-semibold shadow-md' onClick={handleOpenModal}>Mint Nft</button>
-                </div>
+                </div> */}
                 <div className='mb-[10px] mt-[15px]'>
                     <button type='button' className='text-gray-950 bg-blue-primary  w-[121px] py-[10px] rounded-[13px] text-[17px] font-semibold shadow-md'>Select</button>
                 </div>

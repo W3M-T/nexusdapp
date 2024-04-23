@@ -29,7 +29,7 @@ interface dataResponse {
 }
 
 function ImageGenerator() {
-    const [active, setActive] = useState<any>()
+    const [active, setActive] = useState<any>(0)
     const [open, setOpen] = useState({
         canvasSizeSelect: false,
         styleSelector: false,
@@ -43,8 +43,7 @@ function ImageGenerator() {
         negative_prompt: '',
         guidance_scale: 7.5,
         steps: '20',
-        width: '1024',
-        height: '1024',
+        width: '512', height: '512',
         model_id: 'synthwave-diffusion',
         seed: '0',
         id: 1,
@@ -62,10 +61,10 @@ function ImageGenerator() {
     //@ts-ignore
     const { balance, setBalance } = useState<any>();
     const [checked, setChecked] = useState<any>(true);
-    const [negativePromptRows, setNegativePromptRows] = useState<any>()
+    const [negativePromptRows, setNegativePromptRows] = useState<any>(0)
     const [randomSeed, setRandomSeed] = useState<any>()
     const [btnswap, setBtnswap] = useState<any>('Image');
-    const [imageStrength, setimageStrength] = useState<any>()
+    const [imageStrength, setimageStrength] = useState<any>(50)
     const [loading, setLoading] = useState<any>()
     const [newImages, setnewImages] = useState<any>([])
     const [addImageHover, setAddImageHover] = useState();
@@ -126,7 +125,7 @@ function ImageGenerator() {
     const handleSubmit = async () => {
         if (!isLoggedIn) {
             return Swal.fire({
-                title: "Please Conenct the Wallet"
+                title: "Please Connect the Wallet"
             })
         }
         setIsLoading(true);

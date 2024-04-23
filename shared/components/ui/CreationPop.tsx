@@ -196,11 +196,11 @@ const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setIm
                             <img
                                 src={item?.imageUrl}
                                 alt={item?.prompt}
-                                className='w-[200px] min-w-[250px] h-[250px] min-h-[100px] md:w-[370px] max-w-[400px] primary-small:min-w-[370px]  primary-small:h-[370px] md:h-[370px] max-h-[400px] primary-small:min-h-[370px] md:min-h-[370px] rounded-md'
+                                className='w-full max-w-[80vw] h-[250px] min-h-[100px] md:w-[370px] max-w-[400px] primary-small:min-w-[370px]  primary-small:h-[370px] md:h-[370px] max-h-[400px] primary-small:min-h-[370px] md:min-h-[370px] rounded-md'
                             />
                         </div>
                         <div className='flex flex-col mt-[10px]'>
-                            <div className="flex flex-row items-start gap-x-[20px]">
+                            <div className="flex flex-row items-center gap-x-[20px]">
                                 <div className='flex items-center flex-row gap-x-[20px]'>
                                     <FaUserLarge className="text-[50px] rounded-full bg-gray-700 px-[10px] py-[10px]" />
                                     <h2 className='flex gap-4 text-white text-[18px] font-medium'>
@@ -223,7 +223,7 @@ const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setIm
                             <div className='mt-[30px]'>
 
                             </div>
-                            <div className='flex flex-col primary-small:flex-row mt-[30px] gap-x-[20px]'>
+                            <div className='flex flex-wrap gap-y-2 gap-x-4  mt-[30px] gap-x-[20px]'>
                                 <button className='flex flex-row items-center bg-blue-primary px-[20px] tex-[20px] font-semibold gap-x-[10px] py-[10px] rounded-xl' onClick={() => copyPrompthandler(item?.prompt)}>
                                     <FiCopy className='text-[20px] font-medium' /><span className='text-[14px] font-medium text-white whitespace-nowrap'>Copy Prompt</span>
                                 </button>
@@ -251,7 +251,7 @@ const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setIm
                             </div>
                             <div className='mt-[30px]'>
                                 <hr className='w-full h-[1px] bg-white text-white mb-[20px]' />
-                                <div className='flex flex-row gap-x-[40px]'>
+                                <div className='flex flex-wrap gap-x-[40px]'>
                                     <h2 className='flex flex-col py-[10px]'>
                                         <span className='text-[18px] font-medium text-gray-600 leading-3'>METHOD</span>
                                         <span className='text-[20px] font-semibold text-white leading-4 mt-[15px]'>Image</span>

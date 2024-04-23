@@ -111,6 +111,14 @@ export const route = {
     destopshow: true,
 
     submenu: [
+    {
+        route: "/dapp",
+        name: "dApp",
+        public: true,
+        icon: PiStackDuotone,
+        hideFromMobile: true,
+        destopshow: true,
+      },
       {
         route: "/view-pools",
         name: "Pools",
