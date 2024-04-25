@@ -69,7 +69,7 @@ const UserNftCard = (nft) => {
             </Text>
           </HStack>
 
-          <HStack pt={3} justifyContent={"space-between"}>
+          <Flex pt={3} justifyContent={"space-between"} flexDirection={{sm: "row", md: "row"}} gap={{sm: 3, md: 0.5}}>
 
             <HStack>
               <Attributes attributes={nftAttributes} tags={nftTags} onOpenInfoModal={onOpenInfoModal} isOpenInfoModal={isOpenInfoModal} onCloseInfoModal={onCloseInfoModal}/>
@@ -86,7 +86,7 @@ const UserNftCard = (nft) => {
             : <CancelListing nftObject={nftObject}/>
             : <ListNft onOpenSellModal={onOpenSellModal} isOpenSellModal={isOpenSellModal} onCloseSellModal={onCloseSellModal} nftObject={nftObject}/>}
 
-          </HStack>
+          </Flex>
 
         </Box>
 
@@ -102,15 +102,17 @@ const ViewOnExplorer = ({link}) => {
   return (
     <Link href={link}>
       <HStack
-        border={"1px solid"}
+        border={"2px solid"}
         bg={customColors.myCustomColor.lighter}
         borderColor={customColors.myCustomColor.lighter}
         borderRadius={"2xl"}
-        px={1}
-        py={1}
-      >
+        p={0.5}
+        m={-0.5}
+        _hover={{borderColor: "dappTemplate.color2.darker"}}
+        title="View on Explorer"
+        >
         {/* <Text fontSize={"xs"} fontWeight={"semibold"}>View </Text> */}
-        <TbExternalLink/>
+        <TbExternalLink size={"20px"}/>
       </HStack>
     </Link>
   )
@@ -119,17 +121,19 @@ const ViewOnExplorer = ({link}) => {
 const Attributes = ({attributes, tags, onOpenInfoModal, isOpenInfoModal, onCloseInfoModal}) => {
   return (
     <HStack
-      border={"1px solid"}
+      border={"2px solid"}
       bg={customColors.myCustomColor.lighter}
       borderColor={customColors.myCustomColor.lighter}
       borderRadius={"2xl"}
-      px={1}
-      py={1}
+      p={0.5}
+      m={-0.5}
       onClick={onOpenInfoModal}
       cursor={"pointer"}
+      _hover={{borderColor: "dappTemplate.color2.darker"}}
+      title="Attributes & Tags"
     >
       {/* <Text fontSize={"xs"} fontWeight={"semibold"}>Info </Text> */}
-      <IoMdInformationCircleOutline/>
+      <IoMdInformationCircleOutline size={"20px"}/>
       {isOpenInfoModal && <NftInfoModal attributes={attributes} tags={tags} isOpenInfoModal={isOpenInfoModal} onCloseInfoModal={onCloseInfoModal}/>}
     </HStack>
   )
@@ -138,17 +142,19 @@ const Attributes = ({attributes, tags, onOpenInfoModal, isOpenInfoModal, onClose
 const Comments = ({attributes, tags, onOpenInfoModal, isOpenInfoModal, onCloseInfoModal}) => {
   return (
     <HStack
-      border={"1px solid"}
+      border={"2px solid"}
       bg={customColors.myCustomColor.lighter}
       borderColor={customColors.myCustomColor.lighter}
       borderRadius={"2xl"}
-      px={1}
-      py={1}
+      p={0.5}
+      m={-0.5}
       onClick={onOpenInfoModal}
       cursor={"pointer"}
+      _hover={{borderColor: "dappTemplate.color2.darker"}}
+      title="Comments"
     >
       {/* <Text fontSize={"xs"} fontWeight={"semibold"}>Info </Text> */}
-      <BiCommentDetail/>
+      <BiCommentDetail size={"20px"}/>
       {isOpenInfoModal && <NftInfoModal attributes={attributes} tags={tags} isOpenInfoModal={isOpenInfoModal} onCloseInfoModal={onCloseInfoModal}/>}
     </HStack>
   )

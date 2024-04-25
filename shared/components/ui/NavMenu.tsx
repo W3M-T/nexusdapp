@@ -8,7 +8,6 @@ import { useRouter } from "next/router";
 const NavMenu = () => {
   const { isLoggedIn } = useGetLoginInfo();
   const router = useRouter();
-  console.log('⚠️ ~ router:', router);
   
   return (
     <Flex
