@@ -94,15 +94,21 @@ const NftMarketplace = () => {
             borderRadius={"2xl"} w={"30vw"} maxW={"220px"}
             backgroundColor={customColors.myCustomColor.base}
           >
-            <Select border={"none"} onChange={(e) => handleSort(e.target.value)} placeholder="Sort by:">
+            <Select
+              borderColor={"transparent"}
+              border={"none"}
+              p={0}
+              m={0}
+              borderRadius={"2xl"}
+              onChange={(e) => handleSort(e.target.value)}
+            >
+              <OptionSelectDark value={null} borderRadius={"2xl"}>Sort by:</OptionSelectDark>
               {sortOptions.map((t) => {
                 if (!t) {
                   return null;
                 }
                 return (
-                  <option key={t} value={t}>
-                    {t}
-                  </option>
+                  <OptionSelectDark key={t} value={t}>{t}</OptionSelectDark>
                 );
               })}
             </Select>
