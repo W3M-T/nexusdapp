@@ -13,17 +13,21 @@ import { ChildLoader } from "../../shared/components/ui/Loader"
 import ProfileModal from "../../shared/components/ui/profilePopup"
 import Swal from "sweetalert2"
 import { useGetLoginInfo } from "@multiversx/sdk-dapp/hooks/account/useGetLoginInfo"
+import { Avatar } from "@chakra-ui/react"
 interface imageProps {
     imageUrl: string,
     walletAddress: string;
     id: string,
     likes: any
+
 }
 interface User {
     username: string,
     dob: string,
     fullName: string,
     walletAddress: string,
+    profileImage?: string
+
 }
 
 export default function User() {
@@ -230,16 +234,18 @@ export default function User() {
         <div className="h-full text-white">
             <div className="flex flex-col justify-start ">
                 <div className="flex flex-row items-center gap-x-10">
-                    <div className="bg-grey-solid px-[30px] py-[30px] rounded-full">
+                    {/* <div className="bg-grey-solid px-[30px] py-[30px] rounded-full">
                         <FaUserLarge className="text-[70px]" />
-                    </div>
+                    </div> */}
+                    {/* <Avatar src={user.} /> */}
+                    <Avatar src={userData?.profileImage} size="2xl" className='!bg-grey-solid !rounded-full' />
                     <div>
                         <h1
                             className='flex  md:flex-row flex-col items-center gap-x-[15px] text-white text-[25px] font-bold'>{userData?.username ?? "User"}
                             <span className='text-title-primary text-[14px]  font-semibold md:text-[20px]'>{userData?.fullName ?? "#USE4002"}</span>
                         </h1>
                         <div className="flex flex-col md:flex-row  gap-x-[10px] mt-[30px]">
-                            <span className="text-white font-semibold text-lg">{following} Following</span>
+                            <span className="text-white font-semibold text-lg">{following.length} Following</span>
                             <span className="text-white font-semibold text-lg">{followers.length} Followers</span>
                             <span className="text-white font-semibold text-lg">0 Likes</span>
                         </div>

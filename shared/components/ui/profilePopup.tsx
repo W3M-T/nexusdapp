@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
-import { Modal, Button, FormControl, FormLabel, Input, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter } from "@chakra-ui/react";
+import React, { MutableRefObject, useRef, useState } from 'react';
+import { Modal, Button, FormControl, FormLabel, Input, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Avatar } from "@chakra-ui/react";
 import { Formik } from 'formik';
 import { collection, query, getDocs, updateDoc, where } from 'firebase/firestore';
-import { db } from '../../utils/firebaseConfig';
+import { db, storage } from '../../utils/firebaseConfig';
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
 import Swal from 'sweetalert2';
+// import { FaUserLarge } from 'react-icons/fa6';
+
 interface User {
     username: string,
     dob: string,
     fullName: string,
     walletAddress: string,
+    profileImage?: string
 }
 interface NftModalProps {
     visible: boolean;
@@ -19,6 +23,7 @@ interface NftModalProps {
 
 const ProfileModal: React.FC<NftModalProps> = ({ visible, onClose, user, getUser }) => {
     const [loading, setLoading] = useState(false);
+    const [image, setImage] = useState(undefined);
 
     const updateUser = async (values: any) => {
         setLoading(true);
@@ -30,7 +35,8 @@ const ProfileModal: React.FC<NftModalProps> = ({ visible, onClose, user, getUser
                 await updateDoc(userDocRef, {
                     dob: values.dob,
                     username: values.username,
-                    fullName: values.fullName
+                    fullName: values.fullName,
+                    profileImage: values.profileImage
                 });
                 setLoading(false);
                 getUser();
@@ -53,17 +59,26 @@ const ProfileModal: React.FC<NftModalProps> = ({ visible, onClose, user, getUser
         return `${year}-${month}-${day}`;
     };
 
+    const imageRef = useRef<HTMLInputElement>()
+    const handleImageChange = e => setImage(e.target.files[0])
     return (
         <Modal isOpen={visible} onClose={onClose} size="2xl">
             <Formik
                 initialValues={{
                     username: user?.username || "",
                     fullName: user?.fullName || "",
-                    dob: user?.dob || getTodayDate()
+                    dob: user?.dob || getTodayDate(),
+                    profileImage: undefined
                 }}
-                onSubmit={(values, { setSubmitting }) => {
-                    updateUser(values);
+                onSubmit={async (values, { setSubmitting }) => {
+
+                    const storageRef = ref(storage, `${user?.walletAddress}/profile.${image?.name?.split('.')[1]}`); //seprate
+                    const snapShot = await uploadBytes(storageRef, image) // uploading
+                    const profileImage = await getDownloadURL(snapShot.ref); // getting 
+                    // console.log({ ...values, profileImage })
+                    updateUser({ ...values, profileImage });
                     setSubmitting(false);
+                    
                 }}
             >
                 {({ values, handleChange, handleSubmit }) => (
@@ -72,6 +87,20 @@ const ProfileModal: React.FC<NftModalProps> = ({ visible, onClose, user, getUser
                             <ModalHeader className="flex justify-center items-center text-center">Edit Profile</ModalHeader>
                             <ModalCloseButton />
                             <ModalBody className="!flex !flex-col !gap-y-[14px]">
+                                <FormControl isRequired id="profileImage">
+                                    <FormLabel>Profile Image</FormLabel>
+                                    <div onClick={() => imageRef.current && imageRef.current?.click()} className='cursor-pointer w-fit'>
+                                        <Avatar src={image ? URL.createObjectURL(image) : user?.profileImage} size="xl" className='!bg-grey-solid !rounded-full' />
+                                    </div>
+                                    <input
+                                        ref={imageRef}
+                                        className='hidden'
+                                        type='file'
+                                        name="profileImage"
+                                        onChange={handleImageChange}
+                                        disabled={loading}
+                                    />
+                                </FormControl>
                                 <FormControl isRequired id="username">
                                     <FormLabel>UserName</FormLabel>
                                     <Input

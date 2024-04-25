@@ -93,6 +93,7 @@ function Chatai() {
                 };
                 setMsg((prev) => [...prev, newQuestion]);
                 const data = await generateResponse(message);
+                console.log(data)
                 const newResponse = {
                     msg: data,
                     user: 'Pensy AI',
