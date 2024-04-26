@@ -3,13 +3,13 @@ import { query } from '../../lib/db';
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {
-      const { text } = req.body;
-      if (!text) {
-        return res.status(400).json({ message: 'Text is required' });
+      const { listing_id, address, username, text } = req.body;
+      if (!listing_id || !address || !text) {
+        return res.status(400).json({ message: 'All fields are required' });
       }
       const result = await query(
-        'INSERT INTO commentss (text) VALUES ($1) RETURNING *',
-        [text]
+        'INSERT INTO comments (listing_id, address, username, text) VALUES ($1, $2, $3, $4) RETURNING *',
+        [listing_id, address, username, text]
       );
       return res.status(201).json(result.rows[0]);
     } catch (error) {

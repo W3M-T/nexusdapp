@@ -13,7 +13,7 @@ import { noShowMedia } from "../../../utils/excludeNft";
 import MyModal from "../MyModal";
 import { customColors } from "../../../../config/chakraTheme";
 
-const UserNftCard = dynamic(() => import("./UserNftCard"));
+const UserNftCard = dynamic(() => import("./UserNftCard/UserNftCard"));
 
 interface IProps {
   onClose: () => void;

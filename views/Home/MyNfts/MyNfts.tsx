@@ -21,7 +21,7 @@ import { noShowMedia } from "../../../shared/utils/excludeNft";
 import { CardWrapper } from "../../../shared/components/ui/CardWrapper";
 import { ActionButton } from "../../../shared/components/tools/ActionButton";
 import { ViewButton } from "../../../shared/components/tools/ViewButton";
-import UserNftCard from "../../../shared/components/ui/NftsUserModal/UserNftCard";
+import UserNftCard from "../../../shared/components/ui/NftsUserModal/UserNftCard/UserNftCard";
 import useGetListedNftsFull from "../../../shared/hooks/tools/useGetListedNftsFull";
 import { useAppSelector } from "../../../shared/hooks/core/useRedux";
 import { selectUserAddress } from "../../../shared/redux/slices/settings";

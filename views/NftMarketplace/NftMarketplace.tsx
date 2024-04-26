@@ -17,7 +17,7 @@ import PoolItem from "../../shared/components/ui/PoolItem";
 import Search from "./Search";
 import { customColors } from "../../config/chakraTheme";
 import useGetListedNfts from "../../shared/hooks/tools/useGetListedNfts";
-import UserNftCard from "../../shared/components/ui/NftsUserModal/UserNftCard";
+import UserNftCard from "../../shared/components/ui/NftsUserModal/UserNftCard/UserNftCard";
 import { BigUIntValue, BytesValue } from "@multiversx/sdk-core/out";
 import BigNumber from "bignumber.js";
 import useGetNfts from "../../shared/hooks/tools/useGetNfts";
@@ -153,91 +153,3 @@ const NftMarketplace = () => {
 };
 
 export default NftMarketplace;
-
-
-
-
-import axios from 'axios';
-
-export const CommentsList = () => {
-  const [comments, setComments] = useState([]);
-
-  useEffect(() => {
-    fetchComments();
-  }, []); // Fetch comments when component mounts
-
-  const fetchComments = async () => {
-    try {
-      const response = await axios.get('/api/getComments');
-      setComments(response.data);
-    } catch (error) {
-      console.error('Error fetching comments:', error);
-    }
-  };
-
-  const handleCreateComment = async (newComment) => {
-    try {
-      // Create the new comment
-      await axios.post('/api/commentss', { text: newComment });
-      // Fetch comments again to update the list
-      fetchComments();
-    } catch (error) {
-      console.error('Error creating comment:', error);
-    }
-  };
-
-  const handleDeleteComment = async (id) => {
-    try {
-      await axios.delete(`/api/deleteComment?id=${id}`);
-      fetchComments(); // Refresh comments after deletion
-    } catch (error) {
-      console.error('Error deleting comment:', error);
-    }
-  };
-
-  return (
-    <div>
-      <h2>Comments:</h2>
-      <ul>
-        {comments.map((comment) => (
-          <li key={comment.id}>
-            {comment.text}
-            <button onClick={() => handleDeleteComment(comment.id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
-      <CommentForm onCreateComment={handleCreateComment} />
-    </div>
-  );
-};
-
-
-export const CommentForm = ({ onCreateComment }) => {
-  const [newComment, setNewComment] = useState('');
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (!newComment.trim()) {
-      return; // Prevent empty comments
-    }
-    try {
-      await onCreateComment(newComment);
-      setNewComment(''); // Clear the input field after submitting
-    } catch (error) {
-      console.error('Error creating comment:', error);
-    }
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <textarea
-        value={newComment}
-        onChange={(e) => setNewComment(e.target.value)}
-        placeholder="Enter your comment..."
-        rows={3}
-      />
-      <button type="submit">Submit</button>
-    </form>
-  );
-};
-

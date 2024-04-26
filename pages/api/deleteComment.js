@@ -6,7 +6,7 @@ export default async function handler(req, res) {
 
   if (req.method === 'DELETE') {
     try {
-      await query('DELETE FROM commentss WHERE id = $1', [id]);
+      await query('DELETE FROM comments WHERE id = $1', [id]);
       return res.status(204).end(); // No content response
     } catch (error) {
       console.error('Error deleting comment:', error);
