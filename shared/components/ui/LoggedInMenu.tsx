@@ -40,7 +40,7 @@ const LoggedInMenu = () => {
             </Link>
           </Flex>
 
-          {!isNftCreator ? 
+          {/* {!isNftCreator ?  */}
           <Flex
             py={1}
             cursor="pointer"
@@ -51,8 +51,9 @@ const LoggedInMenu = () => {
             }}
           >
             <Link href={route.create.route}>Create a Pool</Link>
-          </Flex> :
-          <Flex
+          </Flex>
+
+          {isNftCreator && <Flex
             py={1}
             cursor="pointer"
             px={2}
@@ -65,6 +66,7 @@ const LoggedInMenu = () => {
                 Creator Dashboard
             </Link>
           </Flex>}
+
           {isAdmin && (
             <Flex
               py={1}

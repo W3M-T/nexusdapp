@@ -23,9 +23,10 @@ interface IRoute {
   icon?: IconType;
   hideFromMobile?: boolean;
 }
+
 export const route = {
   home: {
-    route: "/",
+    route: "/home",
     name: "Home",
     public: true,
     icon: AiOutlineHome,
@@ -84,6 +85,8 @@ export const route = {
     icon: AiOutlineUpCircle,
   },
 };
+
+export const actualHomepage = route.nftmarketplace;
 
 const routesFn = (): IRoute[] => {
   const routes: IRoute[] = [];

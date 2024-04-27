@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { MetaHead } from "../shared/components/ui/MetaHead";
 import ProtectPage from "../shared/hoc/ProtectPage";
 import { selectisNftCreator } from "../shared/redux/slices/pools";
-import { route } from "../shared/utils/routes";
+import { actualHomepage, route } from "../shared/utils/routes";
 import NftCollectionOwnerView from "../views/NftCollectionOwner/NftCollectionOwner";
 
 const NftCollectionOwner: NextPage = () => {
@@ -14,7 +14,7 @@ const NftCollectionOwner: NextPage = () => {
 
   useEffect(() => {
     if (!isNftCreator) {
-      router.replace("/");
+      router.replace(actualHomepage.route);
     }
   }, [isNftCreator, router]);
 

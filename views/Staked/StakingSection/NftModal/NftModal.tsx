@@ -41,13 +41,13 @@ const NftModal = ({ isOpen, onClose, nft }: IProps) => {
   const [sessionId, setSessionId] = useState<string>();
   const { token: elrondToken } = useGetElrondToken(nft.nftPool.token);
 
-  const onSuccess = () => {
-    router.push(route.home.route);
-  };
-  useTrackTransactionStatus({
-    transactionId: sessionId,
-    onSuccess: onSuccess,
-  });
+  // const onSuccess = () => {
+  //   router.push(actualHomepage.route);
+  // };
+  // useTrackTransactionStatus({
+  //   transactionId: sessionId,
+  //   onSuccess: onSuccess,
+  // });
 
   const handleUnstake = async () => {
     if (reward > 0) {

@@ -22,6 +22,7 @@ import {
 import { MetaHead } from "../shared/components/ui/MetaHead";
 import "../shared/global.css";
 import { store } from "../shared/redux/store";
+import { route } from "../shared/utils/routes";
 
 export const DappProvider = dynamic(
   async () => {
@@ -69,7 +70,7 @@ const NextJSDappTemplate = ({ Component, pageProps }: AppProps) => {
             ...selectedNetwork,
           }}
           dappConfig={{
-            logoutRoute: "/",
+            // logoutRoute: "/",
             shouldUseWebViewProvider: true,
           }}
         >
