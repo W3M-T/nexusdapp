@@ -101,13 +101,13 @@ const SwapSection = ({titleLeft = false}) => {
     const [swapTokens, setSwapTokens] = useState([]);
     // console.log("⚠️ ~ swapTokens:", swapTokens)
     const [fromToken, setFromToken] = useState<SwapToken>({
-        identifier: tokensID.WEGLD.identifier,
+        identifier: tokensID.NEXUS.identifier,
         decimals: 6,
         value: null,
     });
     // console.log("⚠️ ~ fromToken:", fromToken)
     const [toToken, setToToken] = useState<SwapToken>({
-        identifier: tokensID.NEXUS.identifier,
+        identifier: tokensID.BLOB.identifier,
         decimals: 18,
         value: null,
     });

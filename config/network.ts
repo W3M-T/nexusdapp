@@ -37,6 +37,7 @@ export const networkConfig = {
       WEGLD: { identifier: "WEGLD-a28c59", decimals: 18, faucet: "faucetMermaid"},
       USDC: { identifier: "USDC-350c4e", decimals: 6 },
       NEXUS: { identifier: "NXS-7f88a4", decimals: 18, faucet: "faucetNexus", initialSupply: 100000000000000000000000000},
+      BLOB: { identifier: "BLOB-d0b7e0", decimals: 18}
     },
   },
   mainnet: {
@@ -69,6 +70,7 @@ export const networkConfig = {
       NEXUS: { identifier: "NEXUS-71d1d6", decimals: 18, faucet: "faucetNexus", initialSupply: 100000000000000000000000000},
       WEGLD: { identifier: "WEGLD-bd4d79", decimals: 18},
       USDC: { identifier: "USDC-c76f1f", decimals: 6},
+      BLOB: { identifier: "BLOB-d0b7e0", decimals: 18}
     },
   },
 };
