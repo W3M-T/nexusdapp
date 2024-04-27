@@ -61,7 +61,7 @@ export const networkConfig = {
       faucetNexus: "erd1qqqqqqqqqqqqqpgqjz2ux62ynvyphz6a8cqpmu5k9fw242ef8pgq3x5mvx",
       faucetMermaid: "erd1qqqqqqqqqqqqqpgqkdkjcexnkx3ety05494ylgrhtg9p6d648pgq7pucfa",
       nexusSwap: "erd1qqqqqqqqqqqqqpgqdn6x8qeh73x258pyrusftsu0x0a5jzqpu7zspzpyf2",
-      nftMarketplace: ""
+      nftMarketplace: "erd1qqqqqqqqqqqqqpgq3fmw5n03ktjusyqxgmdq5tzpsyeqme8n8pgqm4tzz6"
     },
     tokens: {
       EGLD: { identifier: "EGLD", decimals: 18 },

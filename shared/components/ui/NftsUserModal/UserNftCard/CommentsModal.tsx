@@ -123,7 +123,7 @@ const CommentsModal = ({ isOpenCommentsModal, onCloseCommentsModal, nftObject }:
                   <HStack w={"full"} justifyContent={"space-between"}>
                       <HStack gap={3}>
                         {comment.username && <Text fontSize={"sm"} fontWeight={"medium"}>
-                          @{shortenHash(comment.username, 5)}
+                          @{shortenHash(comment.username, 4)}
                         </Text>}
 
                         {comment.address && <Text
@@ -131,7 +131,7 @@ const CommentsModal = ({ isOpenCommentsModal, onCloseCommentsModal, nftObject }:
                           cursor="pointer" color={customColors.color2.lighter}
                           onClick={() => handleCopyAddress(comment.address, comment.id)}
                         >
-                          {shortenHash(comment.address, 5)}
+                          {shortenHash(comment.address, 4)}
                         </Text>}
 
                         {copied == comment.id && <Text fontSize="xs" color="green.500">Copied</Text>}

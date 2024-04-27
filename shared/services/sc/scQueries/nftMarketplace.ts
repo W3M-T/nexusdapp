@@ -34,3 +34,18 @@ export const fetchListedNfts = async ([address] : [string]) => {
     return null;
   }
 };
+
+export const fetchNftMarketplaceFee = async () => {
+  try {
+    const res = await scQuery("NftMarketplaceWsp", "getFeePercentage", []);
+
+    const { firstValue } = res;
+    const data = firstValue.valueOf();
+    
+    return data.toNumber() / 100;
+    
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};

@@ -6,6 +6,7 @@ import { EgldLogoIcon } from "../../../icons/ui";
 import { ActionButton } from "../../../tools/ActionButton";
 import MyModal from "../../MyModal";
 import UserNftCard from "./UserNftCard";
+import useGetNftMarketplaceFee from "../../../../hooks/tools/useGetNftMarketplaceFee";
 
 interface SellIProps {
     isOpenSellModal: boolean;
@@ -30,7 +31,9 @@ const NftSellModal = ({isOpenSellModal, onCloseSellModal, nftObject }: SellIProp
       )
     }
   
-    const platformFee = 1;
+    const { fee: platformFeeFromSc, isLoadingFee, errorFee } = useGetNftMarketplaceFee();
+    
+    const platformFee = platformFeeFromSc ? platformFeeFromSc : 1;
     const royalties = nftObject.royalties * sellPrice / 100;
     const fee = platformFee * sellPrice / 100
     const finalEarnings = sellPrice - royalties - fee;
