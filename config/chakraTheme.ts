@@ -26,9 +26,11 @@ export const customColors = {
     darker: "#f9611c",
   },
   myCustomColor: {
+    lightest: "#2d1e50",
     lighter: "#1c0f3a",
     base: "#110a2b",
     darker: "#090225",
+    darkest: "#090225"
   },
 };
 
@@ -51,7 +53,7 @@ export const theme = extendTheme({
         minHeight: "100vh",
         overflowX: "hidden",
         bgGradient:
-          "linear-gradient(180deg, rgba(9,2,38,1) 0%, rgba(5,0,14,1) 100%);",
+          "linear-gradient(180deg, rgba(9,2,38,1) 0%, rgba(9,2,38,1) 100%);",
         bgSize: "700px",
         backgroundPositionX: "150px",
         color: "gray.200",

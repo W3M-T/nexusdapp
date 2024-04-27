@@ -5,7 +5,7 @@ export const shortenHash = (text: string, charsAmount: number = 6) => {
       text.length - charsAmount,
       text.length
     );
-    return `${firstPart} ... ${lastPart}`;
+    return `${firstPart}...${lastPart}`;
   } else {
     return text;
   }

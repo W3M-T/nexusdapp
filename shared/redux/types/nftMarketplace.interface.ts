@@ -1,4 +1,16 @@
-export interface INft {
+import { IElrondToken } from "../../types/network";
+
+export interface IListingsInfo {
+  listingId: number;
+  nft_token: string;
+  nft_nonce: number;
+  nft_amount: number;
+  creator: string;
+  price: number;
+  timestamp: number;
+}
+
+export interface IListedNft {
   identifier: string;
   collection: string;
   attributes: string;
@@ -37,9 +49,9 @@ export interface INft {
     description: string;
     attributes: string[];
   };
-}
 
-export interface ITokenAmount {
-  token: string;
-  amount: number;
+  listingId?: number;
+  listingPrice?: number;
+  listingCreator?: string;
+  listingTimestamp?: number;
 }

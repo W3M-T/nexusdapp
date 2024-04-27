@@ -1,15 +1,15 @@
 import type { NextPage } from "next";
 import { MetaHead } from "../shared/components/ui/MetaHead";
+import Home from "../views/Home/Home";
 import { route } from "../shared/utils/routes";
-import Staked from "../views/Staked/Staked";
 
-const StakedPage: NextPage = () => {
+const Homepage: NextPage = () => {
   return (
     <>
-      <MetaHead metaTitle={route.staked.name} />
-      <Staked />
+      <MetaHead metaTitle={route.home.name} />
+      <Home />
     </>
   );
 };
 
-export default StakedPage;
+export default  Homepage;

@@ -29,13 +29,15 @@ export const networkConfig = {
       nftsStaking: "",
       faucetNexus: "erd1qqqqqqqqqqqqqpgq22l29szm8xgupwvh44fpxhlwjtuhwvw98pgqcwmh48",
       faucetMermaid: "erd1qqqqqqqqqqqqqpgqjxsyl920u5mgn4fpvz0erw78wdpu7vyw8pgqs5ektw",
-      nexusSwap: "erd1qqqqqqqqqqqqqpgqf6zqulgv4328k9ws8yxwqcrxezwm5n9fu7zsu40u8k"
+      nexusSwap: "erd1qqqqqqqqqqqqqpgqf6zqulgv4328k9ws8yxwqcrxezwm5n9fu7zsu40u8k",
+      nftMarketplace: "erd1qqqqqqqqqqqqqpgqpxf0unjcqnqajn589dwfwdtk6ykz5x2t8pgq73qspr"
     },
     tokens: {
       EGLD: { identifier: "EGLD" },
       WEGLD: { identifier: "WEGLD-a28c59", decimals: 18, faucet: "faucetMermaid"},
       USDC: { identifier: "USDC-350c4e", decimals: 6 },
-      NXS: { identifier: "NXS-7f88a4", decimals: 18, faucet: "faucetNexus"},
+      NEXUS: { identifier: "NXS-7f88a4", decimals: 18, faucet: "faucetNexus", initialSupply: 100000000000000000000000000},
+      BLOB: { identifier: "BLOB-d0b7e0", decimals: 18}
     },
   },
   mainnet: {
@@ -58,7 +60,8 @@ export const networkConfig = {
       nftsStaking: "erd1qqqqqqqqqqqqqpgq8tn6u8l2vytjhv6pcv0vu5tug52acutm8pgqnle42n",
       faucetNexus: "erd1qqqqqqqqqqqqqpgqjz2ux62ynvyphz6a8cqpmu5k9fw242ef8pgq3x5mvx",
       faucetMermaid: "erd1qqqqqqqqqqqqqpgqkdkjcexnkx3ety05494ylgrhtg9p6d648pgq7pucfa",
-      nexusSwap: "erd1qqqqqqqqqqqqqpgqdn6x8qeh73x258pyrusftsu0x0a5jzqpu7zspzpyf2"
+      nexusSwap: "erd1qqqqqqqqqqqqqpgqdn6x8qeh73x258pyrusftsu0x0a5jzqpu7zspzpyf2",
+      nftMarketplace: "erd1qqqqqqqqqqqqqpgq3fmw5n03ktjusyqxgmdq5tzpsyeqme8n8pgqm4tzz6"
     },
     tokens: {
       EGLD: { identifier: "EGLD", decimals: 18 },
@@ -67,6 +70,7 @@ export const networkConfig = {
       NEXUS: { identifier: "NEXUS-71d1d6", decimals: 18, faucet: "faucetNexus", initialSupply: 100000000000000000000000000},
       WEGLD: { identifier: "WEGLD-bd4d79", decimals: 18},
       USDC: { identifier: "USDC-c76f1f", decimals: 6},
+      BLOB: { identifier: "BLOB-d0b7e0", decimals: 18}
     },
   },
 };

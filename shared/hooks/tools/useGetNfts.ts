@@ -12,11 +12,12 @@ interface UseGetNftsOptions {
 
 const useGetNfts = (
   options: UseGetNftsOptions = {},
-  transformResponse?: (nfts: INft[]) => any[]
+  transformResponse?: (nfts: INft[]) => any[],
+  sizeLimit?: number
 ): any => {
   const address = useAppSelector(selectUserAddress);
   const { data: nfts } = useSWR<INft[]>(
-    address && `/accounts/${address}/nfts?size=1000`,
+    address && `/accounts/${address}/nfts?size=${sizeLimit ? sizeLimit : 1000}`,
     swrFetcher
   );
 

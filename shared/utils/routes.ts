@@ -23,17 +23,26 @@ interface IRoute {
   icon?: IconType;
   hideFromMobile?: boolean;
 }
+
 export const route = {
   home: {
-    route: "/",
+    route: "/home",
     name: "Home",
     public: true,
     icon: AiOutlineHome,
+  },
+  nftmarketplace: {
+    route: "/nft-marketplace",
+    name: "NFT Marketplace",
+    public: true,
+    icon: RiNftFill,
+    hideFromMobile: false,
   },
   staked: {
     route: "/staked",
     name: "Staked NFTs",
     public: true,
+    outNav: true,
     icon: RiNftFill,
     hideFromMobile: true,
   },
@@ -41,10 +50,11 @@ export const route = {
     route: "/create-pool",
     name: "Create Pool",
     public: false,
+    outNav: true,
     icon: TbPyramid,
   },
   view: {
-    route: "/view-pools",
+    route: "/staking-pools",
     name: "Pools",
     public: true,
     icon: PiStackDuotone,
@@ -75,6 +85,8 @@ export const route = {
     icon: AiOutlineUpCircle,
   },
 };
+
+export const actualHomepage = route.nftmarketplace;
 
 const routesFn = (): IRoute[] => {
   const routes: IRoute[] = [];

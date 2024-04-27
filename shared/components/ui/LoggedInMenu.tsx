@@ -26,7 +26,21 @@ const LoggedInMenu = () => {
     >
       <CardWrapper w={"full"} py={3} px={0} zIndex={99} bgColor={customColors.myCustomColor.darker} border={"2px solid"} borderColor={customColors.myCustomColor.lighter}>
         <VStack gap={2}>
-          {!isNftCreator ? 
+          <Flex
+            py={1}
+            cursor="pointer"
+            px={2}
+            w="full"
+            _hover={{
+              textShadow: "0 0 10px " + customColors.color2.base,
+            }}
+          >
+            <Link href={route.staked.route}>
+                Staked NFTs
+            </Link>
+          </Flex>
+
+          {/* {!isNftCreator ?  */}
           <Flex
             py={1}
             cursor="pointer"
@@ -37,8 +51,9 @@ const LoggedInMenu = () => {
             }}
           >
             <Link href={route.create.route}>Create a Pool</Link>
-          </Flex> :
-          <Flex
+          </Flex>
+
+          {isNftCreator && <Flex
             py={1}
             cursor="pointer"
             px={2}
@@ -51,6 +66,7 @@ const LoggedInMenu = () => {
                 Creator Dashboard
             </Link>
           </Flex>}
+
           {isAdmin && (
             <Flex
               py={1}

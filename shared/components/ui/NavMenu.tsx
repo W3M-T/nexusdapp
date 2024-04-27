@@ -3,10 +3,12 @@ import { useGetLoginInfo } from "@multiversx/sdk-dapp/hooks/account/useGetLoginI
 import Link from "next/link";
 import { customColors } from "../../../config/chakraTheme";
 import { routes } from "../../utils/routes";
+import { useRouter } from "next/router";
 
 const NavMenu = () => {
   const { isLoggedIn } = useGetLoginInfo();
-
+  const router = useRouter();
+  
   return (
     <Flex
       alignItems={"center"}
@@ -20,13 +22,15 @@ const NavMenu = () => {
           return null;
           // }
         }
+        const isActive = router.pathname === route.route;
         return (
           <Link href={route.route} key={route.route}>
             <Box
               fontSize={"md"}
               fontWeight={"bold"}
+              textShadow={isActive ? "0 0 15px " + customColors.color2.base : "none"}
               _hover={{
-                textShadow: "0 0 10px " + customColors.color2.base,
+                textShadow: "0 0 15px " + customColors.color2.base,
               }}
             >
               {route.name}

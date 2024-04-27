@@ -4,7 +4,7 @@ import { Flex, Stack } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { useGetLoginInfo } from "@multiversx/sdk-dapp/hooks/account/useGetLoginInfo";
 import { memo } from "react";
-import { route } from "../../utils/routes";
+import { actualHomepage, route } from "../../utils/routes";
 import dynamic from "next/dynamic";
 // import { WebWalletLoginButtonPropsType } from "@multiversx/sdk-dapp/UI/webWallet/WebWalletLoginButton";
 
@@ -84,7 +84,7 @@ export const LoginComponent = memo(() => {
           <>
             <LoginMethod>
               <WalletConnectLoginButton
-                callbackRoute={route.home.route}
+                // callbackRoute={actualHomepage.route}
                 // shouldRenderDefaultCss={false}
                 loginButtonText={"xPortal Mobile App"}
                 isWalletConnectV2={true}
@@ -93,13 +93,13 @@ export const LoginComponent = memo(() => {
 
             <LoginMethod>
               <ExtensionLoginButton
-                callbackRoute={route.home.route}
+                // callbackRoute={actualHomepage.route}
                 loginButtonText={"DeFi Extension"}
               />
             </LoginMethod>
             <LoginMethod>
               <WebWalletLoginButton
-                callbackRoute={route.home.route}
+                // callbackRoute={actualHomepage.route}
                 // shouldRenderDefaultCss={false}
                 loginButtonText={"MultiversX Web Wallet"}
                 nativeAuth
@@ -107,7 +107,7 @@ export const LoginComponent = memo(() => {
             </LoginMethod>
             <LoginMethod>
               <XaliasLoginButton
-                callbackRoute={route.home.route}
+                // callbackRoute={actualHomepage.route}
                 // shouldRenderDefaultCss={false}
                 loginButtonText={"xAlias Wallet"}
                 nativeAuth
@@ -116,7 +116,7 @@ export const LoginComponent = memo(() => {
             <LoginMethod>
               {" "}
               <LedgerLoginButton
-                callbackRoute={route.home.route}
+                // callbackRoute={actualHomepage.route}
                 // shouldRenderDefaultCss={false}
                 loginButtonText={"Ledger"}
               />

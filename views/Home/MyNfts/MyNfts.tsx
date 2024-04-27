@@ -1,5 +1,6 @@
 import {
   Box,
+  Center,
   Flex,
   HStack,
   Heading,
@@ -20,14 +21,25 @@ import { noShowMedia } from "../../../shared/utils/excludeNft";
 import { CardWrapper } from "../../../shared/components/ui/CardWrapper";
 import { ActionButton } from "../../../shared/components/tools/ActionButton";
 import { ViewButton } from "../../../shared/components/tools/ViewButton";
-import UserNftCard from "../../../shared/components/ui/NftsUserModal/UserNftCard";
+import UserNftCard from "../../../shared/components/ui/NftsUserModal/UserNftCard/UserNftCard";
+import useGetListedNftsFull from "../../../shared/hooks/tools/useGetListedNftsFull";
+import { useAppSelector } from "../../../shared/hooks/core/useRedux";
+import { selectUserAddress } from "../../../shared/redux/slices/settings";
+import { IoIosPricetags } from "react-icons/io";
 
 const NftsUserModal = dynamic(
   () => import("../../../shared/components/ui/NftsUserModal/NftsUserModal")
 );
 
 const MyNfts = () => {
-  const data = useGetNfts();
+  const address = useAppSelector(selectUserAddress);
+
+  let data = useGetNfts();
+  const { listings, isLoadingListings, errorListings } = useGetListedNftsFull({onlyUserListings: true});
+  if (data && listings) {
+    data = [...listings, ...data];
+  };
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isLargerThanLg] = useMediaQuery(`(min-width: ${breakpoints.lg})`);
   let poolItems = 4;
@@ -104,6 +116,7 @@ const MyNfts = () => {
                         alignItems="center"
                         flexDir={"column"}
                         cursor="pointer"
+                        onClick={onOpen}
                       >
                         <Box
                           boxSize={{ sm: "65px", md: "100px" }}
@@ -123,9 +136,13 @@ const MyNfts = () => {
                             />
                           )}
                         </Box>
-                        <Box fontSize={{ sm: "0px", md: "xs" }} px={1}>
-                          {nft.name}
-                        </Box>
+                        <Center fontSize={{ sm: "2xs", md: "xs" }} px={1} gap={1} title={ nft?.listingPrice ? "NFT is for sale" : null }>
+                          {nft?.listingPrice && 
+                            <Box color={"blue.600"}>
+                              <IoIosPricetags/>
+                            </Box>
+                          } {nft.name}
+                        </Center>
                       </Flex>
                     </SwiperSlide>
                   );
@@ -133,7 +150,7 @@ const MyNfts = () => {
             </Fragment>
           )}
         </SwipperS>
-        {isOpen && <NftsUserModal onClose={onClose} isOpen={isOpen} />}
+        {isOpen && <NftsUserModal onClose={onClose} isOpen={isOpen} nfts={data} />}
       </Flex>
     </CardWrapper>
   );

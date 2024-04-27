@@ -30,7 +30,7 @@ export const OptionSelectDark = ({
 }: // eslint-disable-next-line @typescript-eslint/no-explicit-any
 PropsWithChildren<any>) => {
   return (
-    <option style={{ background: "#252943" }} value={value} {...props}>
+    <option style={{ background: "#110a2b" }} value={value} {...props}>
       {children}
     </option>
   );
