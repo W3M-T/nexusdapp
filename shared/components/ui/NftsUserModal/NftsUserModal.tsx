@@ -6,12 +6,14 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
+  useOutsideClick,
 } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 import useGetNfts from "../../../hooks/tools/useGetNfts";
 import { noShowMedia } from "../../../utils/excludeNft";
 import MyModal from "../MyModal";
 import { customColors } from "../../../../config/chakraTheme";
+import { useRef } from "react";
 
 const UserNftCard = dynamic(() => import("./UserNftCard/UserNftCard"));
 
@@ -20,7 +22,9 @@ interface IProps {
   isOpen: boolean;
   nfts: any;
 }
+
 const NftsUserModal = ({ onClose, isOpen, nfts }: IProps) => {
+
   return (
     <MyModal isOpen={isOpen} onClose={onClose} size={"6xl"}>
       <ModalContent background={customColors.myCustomColor.base} borderRadius="20px">

@@ -1,8 +1,8 @@
-import { ModalContent, ModalCloseButton, VStack, HStack, Grid, Center, Text, Box, Button, FormControl, FormLabel, Textarea } from "@chakra-ui/react";
+import { ModalContent, ModalCloseButton, VStack, HStack, Grid, Center, Text, Box, Button, FormControl, FormLabel, Textarea, useOutsideClick } from "@chakra-ui/react";
 import { customColors } from "../../../../../config/chakraTheme";
 import MyModal from "../../MyModal";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useAppSelector } from "../../../../hooks/core/useRedux";
 import { selectUserAddress } from "../../../../redux/slices/settings";
 import LoginModal from "../../LoginModal";
@@ -34,12 +34,17 @@ const CommentsModal = ({ isOpenCommentsModal, onCloseCommentsModal, nftObject }:
 
   const fetchComments = async () => {
     try {
-      const response = await axios.get('/api/getComments');
+      const response = await axios.get('/api/getComments', {
+        params: {
+          listing_id: nftObject.listingId
+        }
+      });
       setComments(response.data);
     } catch (error) {
       console.error('Error fetching comments:', error);
     }
   };
+  
 
   const handleCreateComment = async (listingId, address, username, newComment) => {
     try {
@@ -64,6 +69,20 @@ const CommentsModal = ({ isOpenCommentsModal, onCloseCommentsModal, nftObject }:
     }
   };
 
+  const [copied, setCopied] = useState(0);
+  const handleCopyAddress = (address, commentId) => {
+    navigator.clipboard.writeText(address)
+      .then(() => {
+        setCopied(commentId);
+        setTimeout(() => {
+          setCopied(0);
+        }, 2000); // Reset copied state after 2 seconds
+      })
+      .catch((error) => {
+        console.error('Error copying address to clipboard:', error);
+      });
+  };
+  
   return (
   <MyModal isOpen={isOpenCommentsModal} onClose={onCloseCommentsModal} size="lg">
     {/* <ModalOverlay background={"rgba(0,0,0,0.1)"} /> */}
@@ -89,8 +108,10 @@ const CommentsModal = ({ isOpenCommentsModal, onCloseCommentsModal, nftObject }:
             borderRadius={"2xl"}
             bg={customColors.myCustomColor.base}
             textColor={"whiteAlpha.700"}
+            maxH={"75vh"}
+            overflowY={"auto"}
           >
-            {comments.length ? comments.reverse().filter((c) => c.listing_id == nftObject.listingId).map((comment) => {
+            {comments.length ? comments.map((comment) => {
               return (
                 <VStack
                   p={3}
@@ -100,24 +121,31 @@ const CommentsModal = ({ isOpenCommentsModal, onCloseCommentsModal, nftObject }:
                   w={"full"}
                 >
                   <HStack w={"full"} justifyContent={"space-between"}>
-                      <HStack gap={6}>
-                        {comment.username && <Text fontSize={"md"} fontWeight={"medium"}>
-                          {comment.username}
+                      <HStack gap={3}>
+                        {comment.username && <Text fontSize={"sm"} fontWeight={"medium"}>
+                          @{shortenHash(comment.username, 5)}
                         </Text>}
 
-                        {comment.address && <Text fontSize={"sm"} fontWeight={"light"}>
-                          {shortenHash(comment.address, 4)}
+                        {comment.address && <Text
+                          fontSize={"sm"} fontWeight={"light"}
+                          cursor="pointer" color={customColors.color2.lighter}
+                          onClick={() => handleCopyAddress(comment.address, comment.id)}
+                        >
+                          {shortenHash(comment.address, 5)}
                         </Text>}
 
-                        {comment.created_at && <Text fontSize={"sm"} fontWeight={"light"}>
-                          {comment.created_at}
-                        </Text>}
+                        {copied == comment.id && <Text fontSize="xs" color="green.500">Copied</Text>}
                       </HStack>
 
-                      {/* DELETE BUTTON */}
-                      {comment.address == connectedAddress && <Box onClick={() => handleDeleteComment(comment.id)} title="Delete comment">
-                        <TiDeleteOutline size={"18px"}/>
-                      </Box>}
+                      <HStack>
+                        {comment.created_at && <Text fontSize={"xs"} fontWeight={"light"}>
+                            {formatDateString(comment.created_at)}
+                          </Text>}
+
+                        {comment.address == connectedAddress && <Box onClick={() => handleDeleteComment(comment.id)} title="Delete comment" color={"red.700"} cursor={"pointer"}>
+                          <TiDeleteOutline size={"20px"}/>
+                        </Box>}
+                      </HStack>
                   </HStack>
 
                   <Text w={"full"} justifyContent={"flex-start"} textColor={"white"}>
@@ -125,7 +153,8 @@ const CommentsModal = ({ isOpenCommentsModal, onCloseCommentsModal, nftObject }:
                   </Text>
                 </VStack>
               )
-            }) : <Text>No comments yet.</Text>}
+            }) : <Text py={4}>No comments yet.</Text>}
+
           </VStack>
 
           <Box p={3}>
@@ -152,24 +181,30 @@ export default CommentsModal;
 
 
 
-export const CommentForm = ({ onCreateComment, listingId, address, username }) => {
+const CommentForm = ({ onCreateComment, listingId, address, username }) => {
   const [newComment, setNewComment] = useState('');
+  const [isPosting, setIsPosting] = useState(false); // State to track if a comment is being posted
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!newComment.trim()) {
       return; // Prevent empty comments
     }
+    setIsPosting(true); // Set isPosting to true when starting to post a comment
     try {
       await onCreateComment(listingId, address, username, newComment);
       setNewComment(''); // Clear the input field after submitting
     } catch (error) {
       console.error('Error creating comment:', error);
+    } finally {
+      setTimeout(() => {
+        setIsPosting(false); // Set isPosting to false after a timeout of 3 seconds
+      }, 3000);
     }
   };
 
   return (
-    <HStack as="form" onSubmit={handleSubmit} spacing={4} w={"full"}>
+    <HStack as="form" onSubmit={handleSubmit} gap={3} w={"full"}>
       <FormControl w={"full"}>
         <Textarea
           value={newComment}
@@ -177,9 +212,42 @@ export const CommentForm = ({ onCreateComment, listingId, address, username }) =
           placeholder="Add your comment..."
           rows={2}
           w={"full"}
+          maxLength={250} // Set maximum character limit
         />
+        <Text fontSize="sm" color="gray.500" textAlign="right">
+          {newComment.length}/250 characters
+        </Text>
       </FormControl>
-      <Button px={6} type="submit" colorScheme="blue">Post</Button>
+      <Button
+        px={6}
+        type="submit"
+        colorScheme="blue"
+        isDisabled={newComment.length >= 250 || !newComment.trim() || isPosting} // Disable the button if character count exceeds or equals 250, if the comment is empty, or if a comment is being posted
+      >
+        {isPosting ? 'Posting...' : 'Post'}
+      </Button>
     </HStack>
   );
 };
+
+
+function formatDateString(inputString) {
+  const date = new Date(inputString);
+  
+  // Format the date components
+  const formattedDate = date.toLocaleDateString(undefined, {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  });
+
+  // Format the time components (adjusted to user's timezone)
+  const formattedTime = date.toLocaleTimeString(undefined, {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false, // Use 24-hour format
+    // timeZoneName: 'short', // Include timezone abbreviation
+  });
+
+  return `${formattedDate} ${formattedTime}`;
+}

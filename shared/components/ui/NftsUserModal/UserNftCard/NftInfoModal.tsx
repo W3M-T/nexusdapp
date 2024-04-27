@@ -1,6 +1,7 @@
-import { ModalContent, ModalCloseButton, VStack, HStack, Grid, Center, Text } from "@chakra-ui/react";
+import { ModalContent, ModalCloseButton, VStack, HStack, Grid, Center, Text, useOutsideClick } from "@chakra-ui/react";
 import { customColors } from "../../../../../config/chakraTheme";
 import MyModal from "../../MyModal";
+import { useRef } from "react";
 
 interface InfoIProps {
     attributes: any[],
@@ -12,7 +13,7 @@ interface InfoIProps {
 const NftInfoModal = ({ attributes, tags, isOpenInfoModal, onCloseInfoModal }: InfoIProps) => {
   
     const hasTags = tags?.length > 0 && tags[0] != "";
-  
+    
     return (
     <MyModal isOpen={isOpenInfoModal} onClose={onCloseInfoModal} size="sm">
       {/* <ModalOverlay background={"rgba(0,0,0,0.1)"} /> */}

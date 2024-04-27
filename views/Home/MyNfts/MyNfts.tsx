@@ -136,8 +136,12 @@ const MyNfts = () => {
                             />
                           )}
                         </Box>
-                        <Center fontSize={{ sm: "2xs", md: "xs" }} px={1} gap={1}>
-                          {nft?.listingPrice && <IoIosPricetags/>} {nft.name}
+                        <Center fontSize={{ sm: "2xs", md: "xs" }} px={1} gap={1} title={ nft?.listingPrice ? "NFT is for sale" : null }>
+                          {nft?.listingPrice && 
+                            <Box color={"blue.600"}>
+                              <IoIosPricetags/>
+                            </Box>
+                          } {nft.name}
                         </Center>
                       </Flex>
                     </SwiperSlide>

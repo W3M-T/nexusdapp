@@ -1,4 +1,4 @@
-import { border, Box, Center, Divider, Flex, FlexProps, Grid, HStack, Input, InputProps, ModalCloseButton, ModalContent, ModalOverlay, StepSeparator, Text, Tooltip, useDisclosure, VStack } from "@chakra-ui/react";
+import { border, Box, Center, Divider, Flex, FlexProps, Grid, HStack, Input, InputProps, ModalCloseButton, ModalContent, ModalOverlay, StepSeparator, Text, Tooltip, useDisclosure, useOutsideClick, VStack } from "@chakra-ui/react";
 import Image from "next/image";
 import { ActionButton } from "../../../tools/ActionButton";
 import { TbExternalLink } from "react-icons/tb";
@@ -7,7 +7,7 @@ import { chainType, networkConfig } from "../../../../../config/network";
 import { customColors } from "../../../../../config/chakraTheme";
 import { IoMdInformationCircleOutline } from "react-icons/io";
 import MyModal from "../../MyModal";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { EgldLogoIcon } from "../../../icons/ui";
 import { listNftForSale } from "../../../../services/sc/calls/listNftForSale";
 import { formatBalance, formatNumber } from "../../../../utils/formatBalance";
@@ -20,6 +20,8 @@ import { isMobile } from "../../../../utils/isMobile";
 import NftInfoModal from "./NftInfoModal";
 import NftSellModal from "./NftSellModal";
 import CommentsModal from "./CommentsModal";
+import { useGetActiveTransactionsStatus, useGetSuccessfulTransactions } from "@multiversx/sdk-dapp/hooks/transactions";
+import axios from "axios";
 
 const UserNftCard = (nft) => {
   const connectedAddress = useAppSelector(selectUserAddress);
@@ -36,6 +38,31 @@ const UserNftCard = (nft) => {
   const nftAttributes = nft.nft?.metadata.attributes || null; 
   const explorerLink = networkConfig[chainType].explorerAddress + "/nfts/" + nft.nft?.identifier;
   const nftObject = nft.nft;
+  
+  const handleDeleteAllListingComments = async (listingId) => {
+    try {
+      await axios.delete(`/api/deleteAllListingComments?listingId=${listingId}`);
+    } catch (error) {
+      console.error('Error deleting comments:', error);
+    }
+  };
+
+  const {hasSuccessfulTransactions, successfulTransactionsArray} = useGetSuccessfulTransactions();
+  useEffect(() => {
+    if (hasSuccessfulTransactions) {
+        const { data } = successfulTransactionsArray[0][1].transactions[0];
+        if (typeof data === 'string') {
+          const decodedData = atob(data);
+          const regex = /^(buy|cancelListing)@([a-fA-F0-9]+)$/;
+          const match = decodedData.match(regex);
+          if (match) {
+            const [, , number] = match;
+            const decodedNumber = parseInt(number, 16)
+            handleDeleteAllListingComments(decodedNumber);
+          }
+        }
+    }
+  }, [hasSuccessfulTransactions, successfulTransactionsArray]);
 
   return (
     <Flex flexDir={"column"} bg={"black"} borderRadius="md" w="full" maxW={{sm:"180px", md: "260px"}}>
@@ -107,16 +134,16 @@ const ViewOnExplorer = ({link}) => {
     <Link href={link}>
       <HStack
         border={"2px solid"}
-        bg={customColors.myCustomColor.lighter}
-        borderColor={customColors.myCustomColor.lighter}
+        bg={customColors.myCustomColor.lightest}
+        borderColor={customColors.myCustomColor.lightest}
         borderRadius={"2xl"}
-        p={0.5}
+        p={1}
         m={-0.5}
         _hover={{borderColor: "dappTemplate.color2.darker"}}
         title="View on Explorer"
         >
         {/* <Text fontSize={"xs"} fontWeight={"semibold"}>View </Text> */}
-        <TbExternalLink size={"20px"}/>
+        <TbExternalLink size={"18px"}/>
       </HStack>
     </Link>
   )
@@ -126,10 +153,10 @@ const Attributes = ({attributes, tags, onOpenInfoModal, isOpenInfoModal, onClose
   return (
     <HStack
       border={"2px solid"}
-      bg={customColors.myCustomColor.lighter}
-      borderColor={customColors.myCustomColor.lighter}
+      bg={customColors.myCustomColor.lightest}
+      borderColor={customColors.myCustomColor.lightest}
       borderRadius={"2xl"}
-      p={0.5}
+      p={1}
       m={-0.5}
       onClick={onOpenInfoModal}
       cursor={"pointer"}
@@ -137,7 +164,7 @@ const Attributes = ({attributes, tags, onOpenInfoModal, isOpenInfoModal, onClose
       title="Attributes & Tags"
     >
       {/* <Text fontSize={"xs"} fontWeight={"semibold"}>Info </Text> */}
-      <IoMdInformationCircleOutline size={"20px"}/>
+      <IoMdInformationCircleOutline size={"18px"}/>
       {isOpenInfoModal && <NftInfoModal attributes={attributes} tags={tags} isOpenInfoModal={isOpenInfoModal} onCloseInfoModal={onCloseInfoModal}/>}
     </HStack>
   )
@@ -147,10 +174,10 @@ const Comments = ({onOpenCommentsModal, isOpenCommentsModal, onCloseCommentsModa
   return (
     <HStack
       border={"2px solid"}
-      bg={customColors.myCustomColor.lighter}
-      borderColor={customColors.myCustomColor.lighter}
+      bg={customColors.myCustomColor.lightest}
+      borderColor={customColors.myCustomColor.lightest}
       borderRadius={"2xl"}
-      p={0.5}
+      p={1}
       m={-0.5}
       onClick={onOpenCommentsModal}
       cursor={"pointer"}
@@ -158,7 +185,7 @@ const Comments = ({onOpenCommentsModal, isOpenCommentsModal, onCloseCommentsModa
       title="Comments"
     >
       {/* <Text fontSize={"xs"} fontWeight={"semibold"}>Comments </Text> */}
-      <BiCommentDetail size={"20px"}/>
+      <BiCommentDetail size={"18px"}/>
       {isOpenCommentsModal && <CommentsModal isOpenCommentsModal={isOpenCommentsModal} onCloseCommentsModal={onCloseCommentsModal} nftObject={nftObject}/>}
     </HStack>
   )
@@ -181,9 +208,9 @@ const ListNft = ({onOpenSellModal, isOpenSellModal, onCloseSellModal, nftObject}
   )
 }
 
-const BuyNft = ({nftObject}) => {
+const BuyNft = ({nftObject}) => {  
   const handleBuyListedNft = () => {
-    buyListedNft(
+    let x = buyListedNft(
       nftObject.listingId,
       nftObject.listingPrice
     );

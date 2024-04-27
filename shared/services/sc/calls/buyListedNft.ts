@@ -16,8 +16,6 @@ import { egldFee, selectedNetwork } from "../../../../config/network";
 import { store } from "../../../redux/store";
 
 export const buyListedNft = async (id: number, price: number) => {
-  console.log('⚠️ ~ price:', price);
-  console.log('⚠️ ~ id:', id);
   const sender = store.getState().settings.userAddress;
   const senderAddress = new Address(sender);
   

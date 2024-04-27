@@ -1,5 +1,5 @@
-import { ModalContent, ModalCloseButton, VStack, Flex, Input, HStack, Divider, Text, Box } from "@chakra-ui/react";
-import { useState } from "react";
+import { ModalContent, ModalCloseButton, VStack, Flex, Input, HStack, Divider, Text, Box, useOutsideClick } from "@chakra-ui/react";
+import { useRef, useState } from "react";
 import { customColors } from "../../../../../config/chakraTheme";
 import { listNftForSale } from "../../../../services/sc/calls/listNftForSale";
 import { EgldLogoIcon } from "../../../icons/ui";
@@ -36,7 +36,7 @@ const NftSellModal = ({isOpenSellModal, onCloseSellModal, nftObject }: SellIProp
     const finalEarnings = sellPrice - royalties - fee;
   
     const validSellPrice = Number(sellPrice) == sellPrice && Number(sellPrice) >= 0.001;
-  
+    
     return (
     <MyModal isOpen={isOpenSellModal} onClose={onCloseSellModal} size="sm">
       {/* <ModalOverlay background={"rgba(0,0,0,0.1)"} /> */}
