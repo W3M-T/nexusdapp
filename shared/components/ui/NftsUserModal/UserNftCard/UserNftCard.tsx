@@ -170,26 +170,41 @@ const Attributes = ({attributes, tags, onOpenInfoModal, isOpenInfoModal, onClose
   )
 }
 
-const Comments = ({onOpenCommentsModal, isOpenCommentsModal, onCloseCommentsModal, nftObject}) => {
+const Comments = ({ onOpenCommentsModal, isOpenCommentsModal, onCloseCommentsModal, nftObject }) => {
+  const [hasComments, setHasComments] = useState(false);
+
+  useEffect(() => {
+    const fetchHasComments = async () => {
+      try {
+        const response = await axios.get(`/api/getIfHasComments?listing_id=${nftObject.listingId}`);
+        setHasComments(response.data.exists);
+      } catch (error) {
+        console.error('Error fetching comments:', error);
+      }
+    };
+
+    if (nftObject.listingId) {
+      fetchHasComments();
+    }
+  }, [nftObject.listingId]);
+
   return (
     <HStack
-      border={"2px solid"}
+      border={`2px solid ${customColors.myCustomColor.lightest}`}
       bg={customColors.myCustomColor.lightest}
-      borderColor={customColors.myCustomColor.lightest}
       borderRadius={"2xl"}
       p={1}
       m={-0.5}
       onClick={onOpenCommentsModal}
       cursor={"pointer"}
-      _hover={{borderColor: "dappTemplate.color2.darker"}}
+      _hover={{ borderColor: "dappTemplate.color2.darker" }}
       title="Comments"
     >
-      {/* <Text fontSize={"xs"} fontWeight={"semibold"}>Comments </Text> */}
-      <BiCommentDetail size={"18px"}/>
-      {isOpenCommentsModal && <CommentsModal isOpenCommentsModal={isOpenCommentsModal} onCloseCommentsModal={onCloseCommentsModal} nftObject={nftObject}/>}
+      <BiCommentDetail size={"18px"} color={hasComments ? customColors.color2.lighter : undefined} />
+      {isOpenCommentsModal && <CommentsModal isOpenCommentsModal={isOpenCommentsModal} onCloseCommentsModal={onCloseCommentsModal} nftObject={nftObject} />}
     </HStack>
-  )
-}
+  );
+};
 
 const ListNft = ({onOpenSellModal, isOpenSellModal, onCloseSellModal, nftObject}) => {
   return (

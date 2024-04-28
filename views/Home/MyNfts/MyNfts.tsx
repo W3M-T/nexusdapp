@@ -62,7 +62,7 @@ const MyNfts = () => {
               w="full"
               // color="dappTemplate.color2.base"
               cursor={!isLargerThanLg && "pointer"}
-              onClick={!isLargerThanLg && onOpen}
+              onClick={!isLargerThanLg ? onOpen : undefined}
             >
               My NFTs
             </Heading>
