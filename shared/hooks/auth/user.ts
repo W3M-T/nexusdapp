@@ -7,6 +7,7 @@ interface User {
     dob: string,
     fullName: string,
     walletAddress: string,
+    profileImage: string
 }
 
 export const useAllUsers = () => {

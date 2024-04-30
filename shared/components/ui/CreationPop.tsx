@@ -11,6 +11,7 @@ import { arrayRemove, arrayUnion, collection, doc, getDoc, getDocs, query, setDo
 import { db } from '../../utils/firebaseConfig';
 import { useGetLoginInfo } from '@multiversx/sdk-dapp/hooks/account/useGetLoginInfo';
 import { useAllUsers } from '../../hooks/auth/user';
+import { Avatar } from 'antd';
 
 export interface ItemProps {
     imageUrl: string,
@@ -32,6 +33,7 @@ interface User {
     dob: string,
     fullName: string,
     walletAddress: string,
+    profileImage?: string,
 }
 
 const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setImagesData, getData }) => {
@@ -202,7 +204,11 @@ const ViewImagePopup: React.FC<NftModalProps> = ({ visible, onClose, item, setIm
                         <div className='flex flex-col mt-[10px]'>
                             <div className="flex flex-row items-center gap-x-[20px]">
                                 <div className='flex items-center flex-row gap-x-[20px]'>
+                                    {findUser?.profileImage ? 
+                                    <Avatar src={findUser?.profileImage} size={50} className='!bg-grey-solid !rounded-full' />
+                                    :
                                     <FaUserLarge className="text-[50px] rounded-full bg-gray-700 px-[10px] py-[10px]" />
+                                    }
                                     <h2 className='flex gap-4 text-white text-[18px] font-medium'>
                                         {
                                             loading ? "loading..." : findUser?.username ?? "User"
