@@ -616,168 +616,12 @@ function ImageGenerator() {
                             </Box>
 
                             {/* startimg */}
-                            <Box
-                                marginTop={'16px'}
-                                borderRadius={'16px'}
-                                sx={{
-                                    backgroundColor: isDarkMode ? 'rgb(28, 15, 58)' : '#F2F2F2',
-                                }}
-                            >
-                                {/* Type slector */}
-                                <Box
-                                    display={{ xs: 'flex', md: 'flex' }}
-                                    flexDirection={'column'}
-                                    position={'relative'}
-                                    marginTop={'16px'}
-                                    borderRadius={'8px'}
-                                    alignItems={'start'}
-                                    justifyContent={'center'}
-                                    padding={'8px'}
-                                >
-                                    {open?.randomize && (
-                                        <Box
-                                            ref={popupRef}
-                                            display={'grid'}
-                                            gap={'16px'}
-                                            marginTop={'8px'}
-                                            gridTemplateColumns={'repeat(3, 1fr)'}
-                                            textAlign={'center'}
-                                            position={'relative'}
-                                            backgroundColor={isDarkMode ? 'rgb(28, 15, 58)' : '#FFFFFF'}
-                                            padding={'8px'}
-                                            borderRadius={'16px'}
-                                            width={'100%'}
-                                        >
-                                            {/* map */}
-                                            {choosesty?.map((item, index) => (
-                                                <Box
-                                                    borderRadius={'6px'}
-                                                    key={index}
-                                                    display={'flex'}
-                                                    flexDirection={'column'}
-                                                    alignItems={'center'}
-                                                    style={{ cursor: 'pointer' }}
-                                                    padding={'4px 12px'}
-                                                    onClick={() => {
-                                                        setformValues((prev: any) => ({ ...prev, prompt: item.prompt, title: item.name }));
-                                                        setOpen((prev) => ({ ...prev, randomize: false }));
-                                                    }}
-                                                >
-                                                    <img width={56} height={56} src={item.image} alt="" loading="eager" />
-                                                    <Text style={chosenamesty}>{item.name}</Text>
-                                                </Box>
-                                            ))}
-                                        </Box>
-                                    )}
-                                    <Box
-                                        display={'flex'}
-                                        padding={'10px 16px'}
-                                        alignItems={'center'}
-                                        justifyContent={'space-between'}
-                                        borderRadius={`8px`}
-                                        sx={{
-                                            backgroundColor: isDarkMode ? 'rgb(17, 10, 43)' : '#ffffff',
-                                        }}
-                                        width={'100%'}
-                                    >
-                                        <Text
-                                            sx={{
-                                                color: isDarkMode ? '#FFFFFF80' : '#000000',
-                                                fontSize: '14px',
-                                            }}
-                                        >
-                                            Randomize
-                                        </Text>
-                                        <Box onClick={() => setOpen((prev) => ({ ...prev, randomize: !prev.randomize }))}>
-                                            <BsChevronDown
-                                                size={16}
-                                                style={{
-                                                    rotate: open?.randomize ? '180deg' : '0deg',
-                                                }}
-                                                className={isDarkMode ? "text-[#FFFFFF]" : "text-[#000000] "}
-                                            />
-                                        </Box>
-                                    </Box>
-                                </Box>
-
-                                {checked && (
-                                    <>
-                                        <Box
-                                            display={'flex'}
-                                            borderRadius={`8px`}
-                                            alignItems={'start'}
-                                            justifyContent={'space-between'}
-                                            sx={{
-                                                backgroundColor: isDarkMode ? 'rgb(17, 10, 43)' : '#F2F2F2',
-                                            }}
-                                            className="px-[10px] py-[13px] m-[10px] items-center"
-                                        >
-                                            <Text
-                                                sx={{
-                                                    color: isDarkMode ? '#FFFFFF80' : '#00000080',
-                                                    fontSize: '14px',
-                                                }}
-                                            >
-                                                Negative prompt
-                                            </Text>
-                                            <Box display={'flex'} alignItems={'center'} gap={'4px'}>
-                                                <Box
-                                                    onClick={() => {
-                                                        setNegativePromptRows(negativePromptRows + 1);
-                                                    }}
-                                                    sx={{ cursor: 'pointer' }}
-                                                >
-                                                    <BiPlus className={isDarkMode ? "text-[#FFFFFF]" : "text-[#000000] "} />
-                                                </Box>
-                                                <Box
-                                                    onClick={() => {
-                                                        if (negativePromptRows > 0) {
-                                                            setNegativePromptRows(negativePromptRows - 1);
-                                                        }
-                                                    }}
-                                                    sx={{ cursor: negativePromptRows > 0 ? 'pointer' : 'not-allowed' }}
-                                                >
-                                                    <BiMinus className={isDarkMode ? "text-[#FFFFFF]" : "text-[#000000] "} />
-                                                </Box>
-                                            </Box>
-                                        </Box>
-                                        <Box
-                                            display={'flex'}
-                                            borderRadius={`8px`}
-                                            alignItems={'start'}
-                                            justifyContent={'space-between'}
-                                            sx={{
-                                                backgroundColor: isDarkMode ? 'rgb(28, 15, 58)' : '#F2F2F2',
-                                            }}
-                                            className="px-4 pb-2"
-                                        >
-                                            {negativePromptRows > 0 && (
-                                                <textarea
-                                                    style={{
-                                                        backgroundColor: isDarkMode ? 'rgb(28, 15, 58)' : '',
-                                                        color: isDarkMode ? '#FFFFFF' : '',
-                                                        resize: 'none',
-                                                        border: 'none',
-                                                        borderRadius: '8px',
-                                                        padding: '8px',
-                                                        outline: 'none',
-                                                        width: '100%',
-                                                    }}
-                                                    placeholder="Describe things to remove..."
-                                                    name="negative_prompt"
-                                                    onChange={handleChange}
-                                                    rows={negativePromptRows}
-                                                    value={formValues?.negative_prompt}
-                                                ></textarea>
-                                            )}
-                                        </Box>
-                                    </>
-                                )}
-                            </Box>
+                            
 
                             {/* setting */}
-                            <Box marginTop={'16px'} borderRadius={'8px'} marginBottom={"40px"}>
-                                <Box
+                            <Box marginTop={'16px'} borderRadius={'8px'} marginBottom={"40px"}
+                            >
+                                {/* <Box
                                     display={'flex'}
                                     padding={'16px'}
                                     justifyContent={'space-between'}
@@ -794,18 +638,18 @@ function ImageGenerator() {
                                     >
                                         Settings
                                     </Text>
-                                </Box>
+                                </Box> */}
 
                                 <Box
                                     width={'100%'}
                                     paddingX={'16px'}
                                     paddingBottom={'16px'}
-                                    borderRadius={'0px 0px 16px 16px'}
+                                    borderRadius={'16px 16px 16px 16px'}
                                     sx={{
                                         backgroundColor: isDarkMode ? 'rgb(28, 15, 58)' : '#F2F2F2',
                                     }}
                                 >
-                                    <Box display={'flex'} columnGap={'4px'} alignItems={'center'}>
+                                    {/* <Box display={'flex'} columnGap={'4px'} alignItems={'center'}>
                                         <RiBrush4Line size={14} color={isDarkMode ? '#FFFFFF80' : '#00000080'} />
                                         <Text
                                             sx={{
@@ -815,9 +659,9 @@ function ImageGenerator() {
                                         >
                                             Canvas Size
                                         </Text>
-                                    </Box>
+                                    </Box> */}
 
-                                    <Box
+                                    {/* <Box
                                         display={'flex'}
                                         justifyContent={'space-between'}
                                         marginTop={'8px'}
@@ -843,7 +687,7 @@ function ImageGenerator() {
                                         >
                                             <BsChevronDown size={16} className={isDarkMode ? "text-[#FFFFFF]" : "text-[#000000] "} />
                                         </Box>
-                                    </Box>
+                                    </Box> */}
 
                                     {open.canvasSizeSelect && (
                                         <Box
@@ -908,7 +752,7 @@ function ImageGenerator() {
                                     )}
 
                                     {/* Runtime */}
-                                    <Box marginTop={'20px'}>
+                                    {/* <Box marginTop={'20px'}>
                                         <Box display={'flex'} columnGap={'4px'} alignItems={'center'}>
                                             <AiOutlineClockCircle size={16} className={isDarkMode ? "text-[#FFFFFF]" : "text-[#000000] "} />
                                             <Text
@@ -942,10 +786,10 @@ function ImageGenerator() {
                                             </Text>
                                         </Box>
 
-                                    </Box>
+                                    </Box> */}
 
                                     {/* Guidence Scale */}
-                                    <Box marginTop={'10px'}>
+                                    {/* <Box marginTop={'10px'}>
                                         <Box display={'flex'} columnGap={'4px'} alignItems={'center'}>
                                             <img src={isDarkMode ? "/assets/webp/guidd.webp" : "/assets/webp/guidl.webp"} alt="" />
                                             <Text
@@ -974,11 +818,11 @@ function ImageGenerator() {
                                                 {formValues?.guidance_scale}
                                             </Text>
                                         </Box>
-                                    </Box>
+                                    </Box> */}
 
                                     {/* Steps */}
                                     <Box marginTop={'10px'}>
-                                        <Box display={'flex'} columnGap={'4px'} alignItems={'center'}>
+                                        {/* <Box display={'flex'} columnGap={'4px'} alignItems={'center'}>
                                             <img src={isDarkMode ? "/assets/webp/stepd.webp" : "/assets/webp/stepl.webp"} alt="" />
                                             <Text
                                                 sx={{
@@ -988,11 +832,11 @@ function ImageGenerator() {
                                             >
                                                 Steps
                                             </Text>
-                                        </Box>
+                                        </Box> */}
 
                                         <Box display={'flex'} columnGap={'16px'} alignItems={'center'}>
                                             {/* slider */}
-                                            <SliderThumbWithTooltip
+                                            {/* <SliderThumbWithTooltip
                                                 value={formValues?.steps}
                                                 min={10}
                                                 max={100}
@@ -1006,7 +850,7 @@ function ImageGenerator() {
                                                 className='whitespace-nowrap'
                                             >
                                                 {formValues?.steps}
-                                            </Text>
+                                            </Text> */}
                                         </Box>
                                     </Box>
 
