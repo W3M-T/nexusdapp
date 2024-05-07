@@ -10,7 +10,7 @@ const openAIkey = process.env.NEXT_PUBLIC_OPEN_AI_KEY;
 
 
 let messages: any[] = [];
-const apiUrl = "https://pensyai.com/wp-json/mwai-ui/v1/chats/submit";
+const apiUrl = "https://nexusdapp.pensyai.com/wp-json/mwai-ui/v1/chats/submit";
 
 export const generateResponse = async (prompt: any) => {
     try {
@@ -30,7 +30,7 @@ export const generateResponse = async (prompt: any) => {
         }, {
             headers: {
                 'Content-Type': 'application/json',
-                'X-Wp-Nonce': 'efe7e11f96',
+                'X-Wp-Nonce': '21df4229ef',
             }
         });
 
