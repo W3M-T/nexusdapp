@@ -87,7 +87,7 @@ export const route = {
   },
 };
 
-export const actualHomepage = route.nftmarketplace;
+export const actualHomepage = route.home;
 
 const routesFn = (): IRoute[] => {
   const routes: IRoute[] = [];
