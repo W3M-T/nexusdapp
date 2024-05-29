@@ -133,7 +133,7 @@ const StakedNfts = ({stakedNfts}) => {
               </SwiperSlide>
             </Fragment>
           ) : (
-            <Fragment>
+            <HStack gap={1.5} overflow={"auto"}>
               {orderBy(
                 stakedNfts.data.nfts,
                 [
@@ -147,9 +147,10 @@ const StakedNfts = ({stakedNfts}) => {
                 "asc"
               ).map((nft, i) => {
                 return (
-                  <SwiperSlide key={i}>
-                    <Box width="full" p={1}>
+                  // <SwiperSlide key={i}>
+                    // <Box width="full" key={i}>
                       <NFTCard
+                      key={i}
                         nft={nft}
                         onClick={() => handleViwNft(nft)}
                         wrapperProps={{
@@ -161,11 +162,11 @@ const StakedNfts = ({stakedNfts}) => {
                         }}
                         fromHome
                       />
-                    </Box>
-                  </SwiperSlide>
+                    // </Box>
+                  // </SwiperSlide>
                 );
               })}
-            </Fragment>
+            </HStack>
           )}
         </SwipperS>
       </Flex>
