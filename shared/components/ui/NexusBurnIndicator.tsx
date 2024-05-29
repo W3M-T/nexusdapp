@@ -11,7 +11,7 @@ export const NexusBurnIndicator = ({ children }: PropsWithChildren) => {
   const nexusToken = networkConfig[chainType].tokens.NEXUS;
   const {token, isLoading, isError} = useGetElrondToken(nexusToken.identifier);
   const tokensBurnt = nexusToken.initialSupply - token.circulatingSupply;
-  const burntPercentage = ((tokensBurnt) / nexusToken.initialSupply * 100).toFixed(5);
+  const burntPercentage = ((tokensBurnt) / nexusToken.initialSupply * 100).toFixed(4);
 
   const [isOpen, setIsOpen] = useState(false);
   const [clickedTooltip, setClickedTooltip] = useState(false);
