@@ -129,7 +129,7 @@ const NftMarketplace = () => {
             borderRadius={"3xl"}
             templateColumns={{ sm: "1fr 1fr", md: "1fr 1fr 1fr 1fr" }}
             overflowY={"auto"}
-            maxH={"90vh"}
+            maxH={"85vh"}
           >
             {filteredListings.map((listing, i) => {
               return <UserNftCard key={i} nft={listing} />;
