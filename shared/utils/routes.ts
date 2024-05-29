@@ -14,6 +14,7 @@ import { GiReceiveMoney } from 'react-icons/gi';
 import { PiStackDuotone } from "react-icons/pi";
 import { PiWalletBold } from "react-icons/pi";
 import { LuBadgeHelp } from "react-icons/lu";
+import { TbBrandCashapp } from "react-icons/tb";
 
 interface IRoute {
   route: string;
@@ -67,10 +68,10 @@ export const route = {
     icon: GiReceiveMoney,
   },
   support: {
-    route: "https://nexusdapp.pensyai.com",
-    name: "Support",
+    route: "https://mvxblob.com",
+    name: "Meme",
     public: true,
-    icon: LuBadgeHelp,
+    icon: TbBrandCashapp,
   },
   scOwner: {
     route: "/sc-owner-dashboard",
