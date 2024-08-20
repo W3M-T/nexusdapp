@@ -71,7 +71,7 @@ const NftModal = ({ isOpen, onClose, nft }: IProps) => {
               BytesValue.fromUTF8(nft.token),
               new BigUIntValue(new BigNumber(nft.nonce)),
             ],
-            70000000
+            150000000
           );
 
           setSessionId(res.sessionId);
@@ -86,7 +86,7 @@ const NftModal = ({ isOpen, onClose, nft }: IProps) => {
           BytesValue.fromUTF8(nft.token),
           new BigUIntValue(new BigNumber(nft.nonce)),
         ],
-        70000000
+        150000000
       );
 
       setSessionId(res.sessionId);
