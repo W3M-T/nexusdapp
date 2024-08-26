@@ -21,7 +21,7 @@ const extraGasUsers = [al3sandr0, paul89];
 export const unstakeNfts = async (nfts: { token: string; nonce: number }[]) => {
   const transactions: Transaction[] = [];
 
-  const gasLimit = 150000000;
+  const gasLimit = 250000000;
 
   nfts.forEach((nft) => {
     const sender = store.getState().settings.userAddress;
@@ -41,7 +41,7 @@ export const unstakeNfts = async (nfts: { token: string; nonce: number }[]) => {
     let tx = interaction
       .withSender(senderAddress)
       .useThenIncrementNonceOf(new Account(senderAddress))
-      .withGasLimit(extraGasUsers.includes(sender) ? 3*gasLimit : gasLimit)
+      .withGasLimit(extraGasUsers.includes(sender) ? 2*gasLimit : gasLimit)
       // .withValue(egldFee * Math.pow(10, 18))
       .withChainID(selectedNetwork.shortId)
       .buildTransaction();
