@@ -28,6 +28,8 @@ import { egldFee } from "../../../../config/network";
 import getEgldBalance from "../../../../shared/services/sc/scQueries/getEgldBalance";
 import { useAppSelector } from "../../../../shared/hooks/core/useRedux";
 import { selectUserAddress } from "../../../../shared/redux/slices/settings";
+import { store } from "../../../../shared/redux/store";
+import { extraGasUsers } from "../../../../shared/services/sc/calls/multiTx/unstake";
 
 interface IProps {
   nft: IStaked;
@@ -36,7 +38,6 @@ interface IProps {
 }
 
 const NftModal = ({ isOpen, onClose, nft }: IProps) => {
-  const router = useRouter();
   const { reward } = useGetNftRewards(nft);
   const [sessionId, setSessionId] = useState<string>();
   const { token: elrondToken } = useGetElrondToken(nft.nftPool.token);
@@ -48,6 +49,8 @@ const NftModal = ({ isOpen, onClose, nft }: IProps) => {
   //   transactionId: sessionId,
   //   onSuccess: onSuccess,
   // });
+  const sender = store.getState().settings.userAddress;
+  const gasLimit = extraGasUsers.includes(sender) ? 2*250000000 : 250000000;
 
   const handleUnstake = async () => {
     if (reward > 0) {
@@ -71,7 +74,7 @@ const NftModal = ({ isOpen, onClose, nft }: IProps) => {
               BytesValue.fromUTF8(nft.token),
               new BigUIntValue(new BigNumber(nft.nonce)),
             ],
-            250000000
+            gasLimit
           );
 
           setSessionId(res.sessionId);
@@ -86,7 +89,7 @@ const NftModal = ({ isOpen, onClose, nft }: IProps) => {
           BytesValue.fromUTF8(nft.token),
           new BigUIntValue(new BigNumber(nft.nonce)),
         ],
-        250000000
+        gasLimit
       );
 
       setSessionId(res.sessionId);
