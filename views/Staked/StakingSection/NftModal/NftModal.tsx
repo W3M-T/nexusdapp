@@ -50,7 +50,7 @@ const NftModal = ({ isOpen, onClose, nft }: IProps) => {
   //   onSuccess: onSuccess,
   // });
   const sender = store.getState().settings.userAddress;
-  const gasLimit = extraGasUsers.includes(sender) ? 2*250000000 : 250000000;
+  const gasLimit = extraGasUsers.includes(sender) ? 2*120000000 : 120000000;
 
   const handleUnstake = async () => {
     if (reward > 0) {

@@ -22,7 +22,7 @@ export const extraGasUsers = [al3sandr0, paul89, eminescu];
 export const unstakeNfts = async (nfts: { token: string; nonce: number }[]) => {
   const transactions: Transaction[] = [];
 
-  const gasLimit = 250000000;
+  const gasLimit = 120000000;
 
   nfts.forEach((nft) => {
     const sender = store.getState().settings.userAddress;
