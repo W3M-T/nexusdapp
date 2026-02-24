@@ -15,6 +15,7 @@ import { PiStackDuotone } from "react-icons/pi";
 import { PiWalletBold } from "react-icons/pi";
 import { LuBadgeHelp } from "react-icons/lu";
 import { TbBrandCashapp } from "react-icons/tb";
+import { GiMermaid } from "react-icons/gi";
 
 interface IRoute {
   route: string;
@@ -60,6 +61,12 @@ export const route = {
     public: true,
     icon: PiStackDuotone,
     hideFromMobile: true,
+  },
+  game: {
+    route: "/game",
+    name: "Tribeden",
+    public: true,
+    icon: GiMermaid,
   },
   faucets: {
     route: "/faucets",

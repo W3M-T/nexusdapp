@@ -4,6 +4,7 @@ import poolsReducer from "./slices/pools";
 import settingsReducer from "./slices/settings";
 import tokensReducer from "./slices/tokens";
 import transactionsReducer from "./slices/transactions";
+import gameReducer from "./slices/game";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     transactions: transactionsReducer,
     pools: poolsReducer,
     tokens: tokensReducer,
+    game: gameReducer,
   },
   devTools: false,
 });
