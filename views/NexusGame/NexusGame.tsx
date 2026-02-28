@@ -485,9 +485,9 @@ const NexusGame = () => {
   
     // Check for Explorer NFTs
     useEffect(() => {
-          if (stakedData?.nfts) {
+          if (stakedData?.data?.nfts) {
                   // Check for any staked NFT (in MVP, any staked NFT counts as an Explorer)
-                  const explorers = stakedData.nfts;
+                  const explorers = stakedData.data.nfts;
                   if (explorers.length > 0) {
                             setHasExplorer(true);
                             if (!selectedExplorer) setSelectedExplorer(explorers[0]);
