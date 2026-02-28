@@ -58,17 +58,17 @@ const ButtonNav = () => {
                                                                                                       zIndex={1}
                                                                                                     >
                                                                                                     ALPHA
-                                                                                  </Box>Box>
+                                                                                  </Box>
                                                                 )}
                                                                 <Box>
                                                                                 <Icon as={route.icon} fontSize="25px" />
-                                                                </Box>Box>
-                                                                <Text fontSize="10px">{route.name}</Text>Text>
-                                                  </Flex>Flex>
-                                      </Link>Link>
+                                                                </Box>
+                                                                <Text fontSize="10px">{route.name}</Text>
+                                                  </Flex>
+                                      </Link>
                                     );
                 })}
-          </Flex>Flex>
+          </Flex>
         );
 };
 

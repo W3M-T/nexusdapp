@@ -55,13 +55,13 @@ const NavMenu = () => {
                                                                                                       transform="rotate(12deg)"
                                                                                                     >
                                                                                                     ALPHA
-                                                                                  </Box>Box>
+                                                                                  </Box>
                                                                 )}
-                                                  </Box>Box>
-                                      </Link>Link>
+                                                  </Box>
+                                      </Link>
                                     );
                 })}
-          </Flex>Flex>
+          </Flex>
         );
 };
 

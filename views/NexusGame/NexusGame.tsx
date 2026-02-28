@@ -77,11 +77,11 @@ const PasswordGate = ({ onSuccess }: { onSuccess: () => void }) => {
     return (
           <Flex justify="center" align="center" minH="60vh">
                 <Box maxW="400px" w="100%" p={8} borderRadius="xl" bg="rgba(0,20,40,0.9)" border="1px solid" borderColor="cyan.800" textAlign="center">
-                        <Heading size="md" color="cyan.300" mb={2}>Nexus Game</Heading>Heading>
-                        <Badge colorScheme="orange" mb={4}>ALPHA - Under Development</Badge>Badge>
+                        <Heading size="md" color="cyan.300" mb={2}>Nexus Game</Heading>
+                        <Badge colorScheme="orange" mb={4}>ALPHA - Under Development</Badge>
                         <Text color="whiteAlpha.700" fontSize="sm" mb={6}>
                                   This game is currently in development. Enter the access code to continue.
-                        </Text>Text>
+                        </Text>
                         <Input
                                     placeholder="Access code"
                                     type="password"
@@ -96,10 +96,10 @@ const PasswordGate = ({ onSuccess }: { onSuccess: () => void }) => {
                                     textAlign="center"
                                     _focus={{ borderColor: "cyan.500" }}
                                   />
-                  {error && <Text color="red.400" fontSize="xs" mb={2}>Incorrect access code</Text>Text>}
-                        <Button colorScheme="cyan" w="100%" onClick={handleSubmit}>Enter</Button>Button>
-                </Box>Box>
-          </Flex>Flex>
+                  {error && <Text color="red.400" fontSize="xs" mb={2}>Incorrect access code</Text>}
+                        <Button colorScheme="cyan" w="100%" onClick={handleSubmit}>Enter</Button>
+                </Box>
+          </Flex>
         );
 };
 
@@ -110,9 +110,9 @@ const StakingGate = ({ isConnected, loading }: { isConnected: boolean; loading: 
                   <Flex justify="center" align="center" minH="50vh">
                           <VStack spacing={4}>
                                     <Spinner size="xl" color="cyan.400" thickness="4px" />
-                                    <Text color="whiteAlpha.700">Checking your staked Explorers...</Text>Text>
-                          </VStack>VStack>
-                  </Flex>Flex>
+                                    <Text color="whiteAlpha.700">Checking your staked Explorers...</Text>
+                          </VStack>
+                  </Flex>
                 );
     }
   
@@ -120,35 +120,35 @@ const StakingGate = ({ isConnected, loading }: { isConnected: boolean; loading: 
           <Box maxW="600px" mx="auto" mt={8} p={8} borderRadius="xl" bg="rgba(0,20,40,0.8)" border="1px solid" borderColor="cyan.800" textAlign="center">
                 <Heading size="lg" bgGradient="linear(to-r, cyan.300, blue.400)" bgClip="text" mb={4}>
                         Explorer's Rift
-                </Heading>Heading>
+                </Heading>
                 <Text color="whiteAlpha.800" fontSize="md" mb={6}>
                         Openshore awaits, but first you need a staked Explorer to begin your journey through the Water World.
-                </Text>Text>
+                </Text>
                 <Box p={4} borderRadius="lg" bg="rgba(0,40,80,0.5)" border="1px dashed" borderColor="cyan.600" mb={6}>
-                        <Text color="cyan.200" fontWeight="bold" mb={2}>Requirements:</Text>Text>
-                        <Text color="whiteAlpha.700" fontSize="sm">1. Connect your MultiversX wallet</Text>Text>
-                        <Text color="whiteAlpha.700" fontSize="sm">2. Stake at least one Explorer NFT</Text>Text>
-                        <Text color="whiteAlpha.700" fontSize="sm">3. Choose your faction and set sail</Text>Text>
-                </Box>Box>
+                        <Text color="cyan.200" fontWeight="bold" mb={2}>Requirements:</Text>
+                        <Text color="whiteAlpha.700" fontSize="sm">1. Connect your MultiversX wallet</Text>
+                        <Text color="whiteAlpha.700" fontSize="sm">2. Stake at least one Explorer NFT</Text>
+                        <Text color="whiteAlpha.700" fontSize="sm">3. Choose your faction and set sail</Text>
+                </Box>
             {!isConnected ? (
-                    <Text color="orange.300" fontSize="sm">Connect your wallet using the button above</Text>Text>
+                    <Text color="orange.300" fontSize="sm">Connect your wallet using the button above</Text>
                   ) : (
-                    <Text color="orange.300" fontSize="sm">No staked Explorer NFTs found. Visit the Staking page to stake your Explorer.</Text>Text>
+                    <Text color="orange.300" fontSize="sm">No staked Explorer NFTs found. Visit the Staking page to stake your Explorer.</Text>
                 )}
                 <Box mt={6}>
-                        <Text color="whiteAlpha.500" fontSize="xs">Factions: Wingle - Samu - Ani - Inglo - Searcho - Gamezoo</Text>Text>
-                </Box>Box>
-          </Box>Box>
+                        <Text color="whiteAlpha.500" fontSize="xs">Factions: Wingle - Samu - Ani - Inglo - Searcho - Gamezoo</Text>
+                </Box>
+          </Box>
         );
 };
 
 // ─── FACTION SELECT ────────────────────────────────────────
 const FactionSelect = ({ onSelect }: { onSelect: (id: string) => void }) => (
     <VStack spacing={6} p={4} maxW="800px" mx="auto">
-        <Heading size="md" bgGradient="linear(to-r, cyan.300, blue.400)" bgClip="text">Choose Your Faction</Heading>Heading>
+        <Heading size="md" bgGradient="linear(to-r, cyan.300, blue.400)" bgClip="text">Choose Your Faction</Heading>
         <Text color="whiteAlpha.700" textAlign="center" fontSize="sm">
               Your faction determines your starting abilities, Nester ship, and approach to the Water World.
-        </Text>Text>
+        </Text>
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4} w="100%">
           {FACTIONS.map((f) => (
               <Box
@@ -157,15 +157,15 @@ const FactionSelect = ({ onSelect }: { onSelect: (id: string) => void }) => (
                           cursor="pointer" onClick={() => onSelect(f.id)}
                         >
                         <HStack mb={2}>
-                                    <Heading size="sm" color={f.color}>{f.name}</Heading>Heading>
-                                    <Badge fontSize="xs">{f.archetype}</Badge>Badge>
-                        </HStack>HStack>
-                        <Text color="whiteAlpha.700" fontSize="xs" mb={1}>{f.desc}</Text>Text>
-                        <Text color="whiteAlpha.500" fontSize="xs">Nester: {f.nester} | {f.bonus}</Text>Text>
-              </Box>Box>
+                                    <Heading size="sm" color={f.color}>{f.name}</Heading>
+                                    <Badge fontSize="xs">{f.archetype}</Badge>
+                        </HStack>
+                        <Text color="whiteAlpha.700" fontSize="xs" mb={1}>{f.desc}</Text>
+                        <Text color="whiteAlpha.500" fontSize="xs">Nester: {f.nester} | {f.bonus}</Text>
+              </Box>
             ))}
-        </SimpleGrid>SimpleGrid>
-    </VStack>VStack>
+        </SimpleGrid>
+    </VStack>
   );
 
 // ─── GAME SHELL ────────────────────────────────────────────
@@ -374,36 +374,36 @@ const GameShell = ({ explorer, playerAddress }: { explorer: any; playerAddress: 
                     <Box bg="rgba(0,15,30,0.9)" border="1px solid" borderColor="cyan.900" borderRadius="lg" p={3} mb={3}>
                               <Flex justify="space-between" align="center" flexWrap="wrap" gap={2}>
                                           <HStack spacing={3}>
-                                                        <Text color="cyan.300" fontWeight="bold" fontSize="sm">{gameState.playerName}</Text>Text>
-                                                        <Badge colorScheme="purple" fontSize="xs">{gameState.faction}</Badge>Badge>
-                                                        <Badge colorScheme="yellow" fontSize="xs">Lv.{gameState.level}</Badge>Badge>
-                                          </HStack>HStack>
+                                                        <Text color="cyan.300" fontWeight="bold" fontSize="sm">{gameState.playerName}</Text>
+                                                        <Badge colorScheme="purple" fontSize="xs">{gameState.faction}</Badge>
+                                                        <Badge colorScheme="yellow" fontSize="xs">Lv.{gameState.level}</Badge>
+                                          </HStack>
                                           <HStack spacing={4}>
-                                                        <Box><Text color="whiteAlpha.600" fontSize="xs">HP</Text>Text><Progress value={gameState.health} max={100} size="xs" colorScheme="red" w="60px" borderRadius="full" /></Box>Box>
-                                                        <Box><Text color="whiteAlpha.600" fontSize="xs">XP</Text>Text><Text color="yellow.300" fontSize="xs" fontWeight="bold">{gameState.xp}</Text>Text></Box>Box>
-                                                        <Box><Text color="whiteAlpha.600" fontSize="xs">Tokens</Text>Text><Text color="cyan.300" fontSize="xs" fontWeight="bold">{gameState.mermaidTokens}</Text>Text></Box>Box>
-                                          </HStack>HStack>
-                              </Flex>Flex>
-                    </Box>Box>
+                                                        <Box><Text color="whiteAlpha.600" fontSize="xs">HP</Text><Progress value={gameState.health} max={100} size="xs" colorScheme="red" w="60px" borderRadius="full" /></Box>
+                                                        <Box><Text color="whiteAlpha.600" fontSize="xs">XP</Text><Text color="yellow.300" fontSize="xs" fontWeight="bold">{gameState.xp}</Text></Box>
+                                                        <Box><Text color="whiteAlpha.600" fontSize="xs">Tokens</Text><Text color="cyan.300" fontSize="xs" fontWeight="bold">{gameState.mermaidTokens}</Text></Box>
+                                          </HStack>
+                              </Flex>
+                    </Box>
                 )}
           
             {/* Location Bar */}
             {gameState && (
                     <Box bg="rgba(0,15,30,0.9)" border="1px solid" borderColor="blue.900" borderRadius="lg" p={3} mb={3}>
                               <Flex justify="space-between" align="center" flexWrap="wrap" gap={2}>
-                                          <Text color="cyan.200" fontSize="sm" fontWeight="bold">{currentLoc?.name || gameState.currentLocation}</Text>Text>
+                                          <Text color="cyan.200" fontSize="sm" fontWeight="bold">{currentLoc?.name || gameState.currentLocation}</Text>
                                           <HStack spacing={1} flexWrap="wrap">
                                             {reachable.map((locId) => {
                                       const loc = LOCATIONS.find(l => l.id === locId);
                                       return (
                                                           <Button key={locId} size="xs" variant="outline" colorScheme="blue" onClick={() => handleTravel(locId)} isDisabled={isLoading}>
                                                             {loc?.name || locId}
-                                                          </Button>Button>
+                                                          </Button>
                                                         );
                     })}
-                                          </HStack>HStack>
-                              </Flex>Flex>
-                    </Box>Box>
+                                          </HStack>
+                              </Flex>
+                    </Box>
                 )}
           
             {/* Messages Area */}
@@ -423,15 +423,15 @@ const GameShell = ({ explorer, playerAddress }: { explorer: any; playerAddress: 
                                         {msg.senderName && (
                                                                       <Text fontSize="xs" fontWeight="bold" color={msg.sender === "player" ? "blue.300" : msg.sender === "narrator" ? "cyan.300" : "purple.300"} mb={1}>
                                                                         {msg.senderName}
-                                                                      </Text>Text>
+                                                                      </Text>
                                                     )}
-                                                    <Text color="whiteAlpha.900" fontSize="sm" whiteSpace="pre-wrap">{msg.text}</Text>Text>
-                                      </Box>Box>
+                                                    <Text color="whiteAlpha.900" fontSize="sm" whiteSpace="pre-wrap">{msg.text}</Text>
+                                      </Box>
                                     ))}
-                          {isLoading && <Text color="cyan.400" fontSize="sm" fontStyle="italic">The Sage consults the waters...</Text>Text>}
+                          {isLoading && <Text color="cyan.400" fontSize="sm" fontStyle="italic">The Sage consults the waters...</Text>}
                                   <div ref={messagesEndRef} />
-                        </VStack>VStack>
-                </Box>Box>
+                        </VStack>
+                </Box>
           
             {/* Input */}
                 <HStack spacing={2} mb={2}>
@@ -442,18 +442,18 @@ const GameShell = ({ explorer, playerAddress }: { explorer: any; playerAddress: 
                                     bg="rgba(0,20,40,0.8)" border="1px solid" borderColor="cyan.800" color="white"
                                     _placeholder={{ color: "whiteAlpha.500" }} _focus={{ borderColor: "cyan.500" }} size="md"
                                   />
-                        <Button colorScheme="cyan" onClick={handleSend} isLoading={isLoading} minW="70px">Act</Button>Button>
-                </HStack>HStack>
+                        <Button colorScheme="cyan" onClick={handleSend} isLoading={isLoading} minW="70px">Act</Button>
+                </HStack>
           
             {/* Quick Actions */}
                 <HStack spacing={1} mb={4} flexWrap="wrap">
                   {["look around", "explore", "battle", "talk", "rest", "inventory", "ask sage"].map((cmd) => (
                       <Button key={cmd} size="xs" variant="ghost" color="cyan.300" onClick={() => { setInputText(cmd); }}>
                         {cmd}
-                      </Button>Button>
+                      </Button>
                     ))}
-                </HStack>HStack>
-          </Box>Box>
+                </HStack>
+          </Box>
         );
 };
 
@@ -505,7 +505,7 @@ const NexusGame = () => {
                   ) : (
                     <GameShell explorer={selectedExplorer} playerAddress={address} />
                   )}
-          </MainLayout>MainLayout>
+          </MainLayout>
         );
 };
 
