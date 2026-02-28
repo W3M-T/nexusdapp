@@ -509,4 +509,4 @@ const NexusGame = () => {
         );
 };
 
-export default NexusGame;</Flex>
+export default NexusGame;

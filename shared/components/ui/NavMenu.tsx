@@ -65,4 +65,4 @@ const NavMenu = () => {
         );
 };
 
-export default NavMenu;</Flex>
+export default NavMenu;
